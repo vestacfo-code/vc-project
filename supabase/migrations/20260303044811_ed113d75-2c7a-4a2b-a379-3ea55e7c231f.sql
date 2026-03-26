@@ -1,0 +1,1 @@
+ALTER TABLE public.user_settings ADD COLUMN chat_dark_mode boolean NOT NULL DEFAULT true;

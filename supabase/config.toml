@@ -1,0 +1,112 @@
+project_id = "godnomficzhjaclmvomh"
+
+[functions.stripe-webhook]
+verify_jwt = false
+
+[functions.zoho-oauth]
+verify_jwt = false
+
+[functions.zoho-sync]
+verify_jwt = true
+
+[functions.quickbooks-oauth]
+verify_jwt = false
+
+[functions.quickbooks-sync]
+verify_jwt = true
+
+[functions.openai-file-analysis]
+verify_jwt = true
+
+[functions.ai-chat]
+verify_jwt = true
+
+[functions.create-notification]
+verify_jwt = true
+
+[functions.financial-analysis]
+verify_jwt = true
+
+[functions.process-financial-data]  
+verify_jwt = true
+
+[functions.rename-document]
+verify_jwt = true
+
+[functions.pdf-financial-analysis]
+verify_jwt = true
+
+[functions.groq-financial-analysis]
+verify_jwt = true
+
+[functions.openai-financial-analysis]
+verify_jwt = true
+
+[functions.huggingface-financial-analysis]
+verify_jwt = true
+
+[functions.claude-financial-analysis]
+verify_jwt = true
+
+[functions.enhanced-xlsx-processor]
+verify_jwt = true
+
+[functions.debug-document-analysis]
+verify_jwt = true
+
+[functions.csv-financial-parser]
+verify_jwt = true
+
+[functions.invite-team-member]
+verify_jwt = true
+
+[functions.quickbooks-chat]
+verify_jwt = true
+
+[functions.streaming-chat]
+verify_jwt = true
+
+[functions.create-conversation-share]
+verify_jwt = true
+
+[functions.wave-oauth]
+verify_jwt = false
+
+[functions.wave-sync]
+verify_jwt = true
+
+[functions.quickbooks-analytics]
+verify_jwt = true
+
+[functions.validate-share-token]
+verify_jwt = false
+
+[functions.create-custom-checkout]
+verify_jwt = false
+
+[functions.send-welcome-email]
+verify_jwt = false
+
+[functions.send-notification-email]
+verify_jwt = false
+
+[functions.send-application-confirmation]
+verify_jwt = false
+
+[functions.send-subscription-email]
+verify_jwt = false
+
+[functions.send-test-email]
+verify_jwt = true
+
+[functions.create-support-ticket]
+verify_jwt = true
+
+[functions.pricing-research]
+verify_jwt = true
+
+[functions.ai-pricing-strategy]
+verify_jwt = true
+
+[functions.agent-research]
+verify_jwt = false

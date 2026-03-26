@@ -1,0 +1,576 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Medium Dark Financial Theme - Balanced & Professional */
+
+@layer base {
+  :root {
+    /* Medium dark theme - Balanced tones */
+    --background: 220 25% 12%;
+    --foreground: 220 15% 88%;
+
+    /* Card and surfaces */
+    --card: 220 23% 15%;
+    --card-foreground: 220 15% 88%;
+
+    --popover: 220 23% 15%;
+    --popover-foreground: 220 15% 88%;
+
+    /* Primary - Softer blue for balanced look */
+    --primary: 221 70% 58%;
+    --primary-foreground: 220 25% 12%;
+    --primary-hover: 221 70% 53%;
+
+    /* Secondary - Medium grey surface */
+    --secondary: 220 20% 20%;
+    --secondary-foreground: 220 15% 88%;
+
+    /* Muted - Subtle medium backgrounds */
+    --muted: 220 18% 18%;
+    --muted-foreground: 220 10% 68%;
+
+    /* Accent - Balanced cyan */
+    --accent: 199 75% 52%;
+    --accent-foreground: 220 25% 12%;
+
+    /* Success - Softer green */
+    --success: 142 65% 42%;
+    --success-foreground: 220 15% 88%;
+
+    /* Warning - Balanced amber */
+    --warning: 38 85% 55%;
+    --warning-foreground: 220 25% 12%;
+
+    /* Destructive - Softer red */
+    --destructive: 0 75% 65%;
+    --destructive-foreground: 220 15% 88%;
+
+    /* Borders and inputs */
+    --border: 220 20% 22%;
+    --input: 220 20% 22%;
+    --ring: 221 70% 58%;
+
+    /* Financial specific colors */
+    --revenue: 142 65% 42%;
+    --expense: 0 75% 65%;
+    --profit: 199 75% 52%;
+    --cash-flow: 221 70% 58%;
+
+    /* Gradients - Medium toned */
+    --gradient-primary: linear-gradient(135deg, hsl(221 70% 58%), hsl(262 75% 62%));
+    --gradient-success: linear-gradient(135deg, hsl(142 65% 42%), hsl(199 75% 52%));
+    --gradient-hero: linear-gradient(135deg, hsl(221 70% 58%) 0%, hsl(262 75% 62%) 50%, hsl(199 75% 52%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(220 23% 15%), hsl(220 20% 20%));
+
+    /* Shadows - Softer with subtle glow */
+    --shadow-sm: 0 1px 2px 0 hsl(0 0% 0% / 0.15);
+    --shadow-md: 0 4px 6px -1px hsl(0 0% 0% / 0.2), 0 2px 4px -1px hsl(0 0% 0% / 0.15);
+    --shadow-lg: 0 10px 15px -3px hsl(0 0% 0% / 0.25), 0 4px 6px -2px hsl(0 0% 0% / 0.2);
+    --shadow-card: 0 6px 24px -4px hsl(221 70% 58% / 0.15);
+    --shadow-glow: 0 0 30px hsl(221 70% 58% / 0.25);
+
+    /* Animations */
+    --transition-all: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: all 0.2s ease-in-out;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 220 25% 12%;
+    --sidebar-foreground: 220 15% 88%;
+    --sidebar-primary: 221 70% 58%;
+    --sidebar-primary-foreground: 220 25% 12%;
+    --sidebar-accent: 220 18% 18%;
+    --sidebar-accent-foreground: 220 15% 88%;
+    --sidebar-border: 220 20% 22%;
+    --sidebar-ring: 221 70% 58%;
+  }
+
+  .light {
+    /* Light mode fallback */
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 221 83% 53%;
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 221 83% 48%;
+
+    --secondary: 210 17% 95%;
+    --secondary-foreground: 222 47% 11%;
+
+    --muted: 210 17% 97%;
+    --muted-foreground: 215 25% 45%;
+
+    --accent: 199 89% 48%;
+    --accent-foreground: 0 0% 100%;
+
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 221 83% 53%;
+
+    --revenue: 142 76% 36%;
+    --expense: 0 84% 60%;
+    --profit: 199 89% 48%;
+    --cash-flow: 221 83% 53%;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 222 47% 11%;
+    --sidebar-primary: 221 83% 53%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 17% 95%;
+    --sidebar-accent-foreground: 222 47% 11%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 221 83% 53%;
+
+    /* Chart colors for light mode */
+    --chart-1: 221 83% 53%;
+    --chart-2: 25 95% 53%;
+    --chart-3: 142 76% 36%;
+    --chart-4: 262 83% 58%;
+    --chart-5: 340 82% 52%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  /* Google-like Dashboard Light Theme */
+  .dashboard-light {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 13%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 13%;
+    --border: 220 13% 91%;
+    --primary: 221 70% 58%;
+    --chart-1: 217 91% 60%;
+    --chart-2: 142 76% 36%;
+    --chart-3: 38 92% 50%;
+  }
+}
+
+@layer utilities {
+  /* Apple-style animations */
+  .animate-fade-in {
+    animation: fade-in 0.8s ease-out;
+  }
+  
+  .animate-scale-in {
+    animation: scale-in 0.6s ease-out;
+  }
+  
+  .animate-slide-up {
+    animation: slide-up 0.8s ease-out;
+  }
+
+  /* How It Works Stacking Animation - Remove problematic hover */
+  .how-it-works-card {
+    animation: stack-entrance 0.6s ease-out;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes stack-entrance {
+  0% {
+    transform: translateY(50px) scale(0.95);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(30px, -30px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+}
+
+@keyframes slide-in-from-bottom {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scale-bounce {
+  0% {
+    transform: scale(0.8);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(99, 102, 241, 0.6);
+  }
+}
+
+/* Agent Mode - color-cycling glow */
+
+.agent-glow-border {
+  position: relative;
+  z-index: 1;
+  overflow: visible;
+}
+
+/* Diffused backlight glow behind the bar — Gemini style using box-shadow */
+.agent-glow-border.active {
+  animation: agent-glow-rotate 3s linear infinite;
+}
+
+@keyframes agent-glow-rotate {
+  0% {
+    box-shadow:
+      0 0 20px 4px hsl(221 70% 58% / 0.4),
+      0 0 40px 8px hsl(262 75% 62% / 0.2),
+      0 0 60px 12px hsl(199 75% 52% / 0.1);
+  }
+  25% {
+    box-shadow:
+      0 0 20px 4px hsl(262 75% 62% / 0.4),
+      0 0 40px 8px hsl(199 75% 52% / 0.2),
+      0 0 60px 12px hsl(142 65% 42% / 0.1);
+  }
+  50% {
+    box-shadow:
+      0 0 20px 4px hsl(199 75% 52% / 0.4),
+      0 0 40px 8px hsl(142 65% 42% / 0.2),
+      0 0 60px 12px hsl(221 70% 58% / 0.1);
+  }
+  75% {
+    box-shadow:
+      0 0 20px 4px hsl(142 65% 42% / 0.4),
+      0 0 40px 8px hsl(221 70% 58% / 0.2),
+      0 0 60px 12px hsl(262 75% 62% / 0.1);
+  }
+  100% {
+    box-shadow:
+      0 0 20px 4px hsl(221 70% 58% / 0.4),
+      0 0 40px 8px hsl(262 75% 62% / 0.2),
+      0 0 60px 12px hsl(199 75% 52% / 0.1);
+  }
+}
+
+/* Screen edge glows - visible band around viewport edges */
+.agent-screen-glow::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 50;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  box-shadow:
+    inset 0 0 60px 12px hsl(221 70% 58% / 0.35),
+    inset 0 0 20px 6px hsl(262 75% 62% / 0.25),
+    inset 0 0 8px 2px hsl(199 75% 52% / 0.2);
+}
+
+.agent-screen-glow.active::before {
+  opacity: 1;
+  animation: agent-edge-pulse 4s ease-in-out infinite;
+}
+
+@keyframes agent-edge-pulse {
+  0%, 100% {
+    box-shadow:
+      inset 0 0 60px 12px hsl(221 70% 58% / 0.35),
+      inset 0 0 20px 6px hsl(262 75% 62% / 0.25),
+      inset 0 0 8px 2px hsl(199 75% 52% / 0.2);
+  }
+  33% {
+    box-shadow:
+      inset 0 0 60px 12px hsl(262 75% 62% / 0.35),
+      inset 0 0 20px 6px hsl(199 75% 52% / 0.25),
+      inset 0 0 8px 2px hsl(142 65% 42% / 0.2);
+  }
+  66% {
+    box-shadow:
+      inset 0 0 60px 12px hsl(199 75% 52% / 0.35),
+      inset 0 0 20px 6px hsl(142 65% 42% / 0.25),
+      inset 0 0 8px 2px hsl(221 70% 58% / 0.2);
+  }
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+@keyframes scroll-x {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-scroll-x {
+  animation: scroll-x 20s linear infinite;
+}
+
+.animate-float {
+  animation: float ease-in-out infinite;
+}
+
+.animate-slide-in-from-bottom {
+  animation: slide-in-from-bottom 0.5s ease-out;
+}
+
+.animate-scale-bounce {
+  animation: scale-bounce 0.4s ease-out;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Dark mode card overrides for dashboard views */
+.dark-mode-cards {
+  background: #0a0a0a;
+  color: #e4e4e7;
+}
+
+.dark-mode-cards h1,
+.dark-mode-cards h2,
+.dark-mode-cards h3 {
+  color: #ffffff;
+}
+
+.dark-mode-cards p,
+.dark-mode-cards span,
+.dark-mode-cards td,
+.dark-mode-cards th,
+.dark-mode-cards label {
+  color: #a1a1aa;
+}
+
+.dark-mode-cards [class*="bg-zinc-50"],
+.dark-mode-cards [class*="bg-white"],
+.dark-mode-cards [class*="bg-blue-50"],
+.dark-mode-cards [class*="bg-amber-50"],
+.dark-mode-cards [class*="bg-violet-50"],
+.dark-mode-cards [class*="bg-emerald-50"],
+.dark-mode-cards [class*="bg-red-50"],
+.dark-mode-cards [class*="bg-green-50"],
+.dark-mode-cards [class*="bg-purple-50"],
+.dark-mode-cards [class*="bg-indigo-50"],
+.dark-mode-cards [class*="bg-orange-50"],
+.dark-mode-cards [class*="bg-yellow-50"],
+.dark-mode-cards [class*="bg-cyan-50"],
+.dark-mode-cards [class*="bg-teal-50"],
+.dark-mode-cards [class*="bg-rose-50"],
+.dark-mode-cards [class*="bg-sky-50"],
+.dark-mode-cards [class*="bg-lime-50"],
+.dark-mode-cards [class*="bg-fuchsia-50"],
+.dark-mode-cards [class*="bg-pink-50"] {
+  background: #0a0a0a !important;
+}
+
+/* Mute bright icon/badge colors in dark mode */
+.dark-mode-cards [class*="text-blue-500"],
+.dark-mode-cards [class*="text-violet-500"],
+.dark-mode-cards [class*="text-amber-500"],
+.dark-mode-cards [class*="text-emerald-500"],
+.dark-mode-cards [class*="text-red-500"],
+.dark-mode-cards [class*="text-green-500"],
+.dark-mode-cards [class*="text-purple-500"],
+.dark-mode-cards [class*="text-indigo-500"],
+.dark-mode-cards [class*="text-orange-500"],
+.dark-mode-cards [class*="text-blue-600"],
+.dark-mode-cards [class*="text-violet-600"],
+.dark-mode-cards [class*="text-emerald-600"],
+.dark-mode-cards [class*="text-red-600"],
+.dark-mode-cards [class*="text-green-600"],
+.dark-mode-cards [class*="text-amber-600"] {
+  opacity: 0.8;
+}
+
+/* Mute bright colored borders in dark mode */
+.dark-mode-cards [class*="border-t-blue"],
+.dark-mode-cards [class*="border-t-amber"],
+.dark-mode-cards [class*="border-t-violet"],
+.dark-mode-cards [class*="border-t-emerald"],
+.dark-mode-cards [class*="border-t-red"],
+.dark-mode-cards [class*="border-t-green"] {
+  border-top-color: #2a2a2a !important;
+}
+
+.dark-mode-cards [data-slot="card"],
+.dark-mode-cards .rounded-2xl,
+.dark-mode-cards .rounded-xl,
+.dark-mode-cards .rounded-lg {
+  background: #1a1a1a;
+  border-color: #2a2a2a;
+}
+
+.dark-mode-cards [class*="border-zinc"],
+.dark-mode-cards [class*="border-gray"] {
+  border-color: #2a2a2a;
+}
+
+.dark-mode-cards [class*="text-zinc-900"],
+.dark-mode-cards [class*="text-gray-900"] {
+  color: #ffffff;
+}
+
+.dark-mode-cards [class*="text-zinc-500"],
+.dark-mode-cards [class*="text-zinc-600"],
+.dark-mode-cards [class*="text-zinc-700"],
+.dark-mode-cards [class*="text-gray-500"],
+.dark-mode-cards [class*="text-gray-600"] {
+  color: #a1a1aa;
+}
+
+.dark-mode-cards [class*="bg-zinc-900"] {
+  background: #2a2a2a !important;
+}
+
+.dark-mode-cards .recharts-cartesian-grid line {
+  stroke: #2a2a2a;
+}
+
+.dark-mode-cards .recharts-text {
+  fill: #71717a;
+}
+
+/* Subtle glow on chart containers */
+.dark-mode-cards .recharts-wrapper {
+  filter: drop-shadow(0 -4px 20px rgba(99, 102, 241, 0.12));
+}
+
+.dark-mode-cards button[class*="bg-zinc-900"] {
+  background: #2a2a2a !important;
+  color: #e4e4e7;
+}
+
+.dark-mode-cards button[class*="hover:bg-zinc-800"]:hover {
+  background: #333333 !important;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+}
+
+/* Perplexity-inspired radial gradient for welcome screen */
+.bg-radial-subtle {
+  background: radial-gradient(ellipse at center,
+    hsl(0 0% 100%) 0%,
+    hsl(220 14% 96%) 70%,
+    hsl(220 13% 93%) 100%
+  );
+}
+
+/* Safe area utilities for mobile devices */
+.pb-safe {
+  padding-bottom: max(env(safe-area-inset-bottom, 0px), 0.75rem);
+}
+
+.pt-safe {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+.px-safe {
+  padding-left: env(safe-area-inset-left, 0px);
+  padding-right: env(safe-area-inset-right, 0px);
+}
+
+/* Disable hover effects on touch-only devices to prevent double-tap */
+@media (hover: none) {
+  [data-sidebar] button:hover,
+  [data-sidebar] a:hover {
+    background-color: inherit !important;
+    color: inherit !important;
+  }
+}
