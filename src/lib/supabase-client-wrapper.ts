@@ -5,7 +5,7 @@ import { createClient } from '@supabase/supabase-js';
 import type { Database } from '@/integrations/supabase/types';
 import { isRecoveryMode } from './auth-recovery-interceptor';
 
-const SUPABASE_URL = "https://godnomficzhjaclmvomh.supabase.co";
+const SUPABASE_URL = "https://qjgnbvrxpmspzfqlomjc.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdvZG5vbWZpY3poamFjbG12b21oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE3MDQwMjYsImV4cCI6MjA2NzI4MDAyNn0.zQ2F8TrhkgCtgyApwt0aIuUexXJWyFsRvU8Wx6wRdtU";
 
 // Check if we're in recovery mode BEFORE creating the client

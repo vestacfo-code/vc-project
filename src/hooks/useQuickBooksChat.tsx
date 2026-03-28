@@ -696,7 +696,7 @@ export const useQuickBooksChat = (conversationId?: string) => {
     onDone: () => void;
     onSources?: (sources: MessageSource[]) => void;
   }) => {
-    const CHAT_URL = `https://godnomficzhjaclmvomh.supabase.co/functions/v1/streaming-chat`;
+    const CHAT_URL = `https://qjgnbvrxpmspzfqlomjc.supabase.co/functions/v1/streaming-chat`;
     
     // Get the user's actual session token for server-side auth
     const { data: { session } } = await supabase.auth.getSession();
