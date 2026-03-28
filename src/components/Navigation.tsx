@@ -7,6 +7,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { supabase } from '@/integrations/supabase/client';
 import SettingsModal from '@/components/SettingsModal';
+import { VestaBrand } from '@/components/ui/finlo-brand';
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -75,13 +76,9 @@ const Navigation = () => {
           <div className="flex h-14 sm:h-16 items-center px-3 sm:px-6 lg:px-8">
             {/* Logo */}
             <div className="mr-3 sm:mr-6 flex items-center">
-              <button onClick={() => window.location.href = 'https://joinfinlo.ai'}>
-                <img 
-                  src="/lovable-uploads/3e9db296-f3fb-492f-99b5-b64cc96f0539.png" 
-                  alt="Finlo" 
-                  className="h-7 sm:h-9 w-auto cursor-pointer hover:opacity-80 transition-opacity"
-                />
-              </button>
+              <Link to="/">
+                <VestaBrand size="sm" variant="dark" />
+              </Link>
             </div>
 
             {/* Desktop Navigation - Hide on admin page */}
@@ -134,12 +131,12 @@ const Navigation = () => {
                   Customers
                 </button>
                 <a 
-                  href="https://joinfinlo.ai/foundation"
+                  href="https://vesta.ai/foundation"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-xs xl:text-sm 2xl:text-base font-medium text-slate-300 transition-colors hover:text-white px-2 xl:px-3 2xl:px-4 py-2 whitespace-nowrap"
                 >
-                  Finlo Foundation
+                  Vesta Foundation
                 </a>
               </div>
             )}
@@ -283,13 +280,13 @@ const Navigation = () => {
                       Customers
                     </button>
                     <a 
-                      href="https://joinfinlo.ai/foundation"
+                      href="https://vesta.ai/foundation"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="block px-3 py-2 text-sm font-medium text-slate-300 hover:text-white"
                       onClick={() => setIsMenuOpen(false)}
                     >
-                      Finlo Foundation
+                      Vesta Foundation
                     </a>
                   </>
                 )}

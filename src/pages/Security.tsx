@@ -89,7 +89,7 @@ const Security = () => {
                 If you discover a security vulnerability, please report it to us immediately. We take all reports seriously and will respond promptly.
               </p>
               <a 
-                href="mailto:support@joinfinlo.ai"
+                href="mailto:support@vesta.ai"
                 className="inline-flex items-center bg-gray-900 hover:bg-gray-800 text-white px-6 py-3 rounded-lg font-medium transition-colors"
               >
                 Report Security Issue
@@ -100,7 +100,7 @@ const Security = () => {
             <div className="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl p-6 md:p-8 text-center text-white">
               <h3 className="font-semibold text-xl mb-2">Security First Approach</h3>
               <p className="text-indigo-100">
-                Security is built into every aspect of Finlo. We continuously monitor, 
+                Security is built into every aspect of Vesta. We continuously monitor, 
                 update, and improve our security measures to protect your sensitive financial data.
               </p>
             </div>

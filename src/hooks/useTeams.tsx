@@ -261,7 +261,7 @@ export const useTeams = () => {
         if (emailError.message?.includes('email_exists')) {
           toast({
             title: "User Already Invited",
-            description: "This user has already been invited to Finlo. They may need to check their email or contact support.",
+            description: "This user has already been invited to Vesta. They may need to check their email or contact support.",
             variant: "destructive",
           });
         } else {

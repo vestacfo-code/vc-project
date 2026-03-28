@@ -74,8 +74,8 @@ const JobRole = () => {
     if (navigator.share) {
       try {
         await navigator.share({
-          title: `${jobRole?.title} - Finlo Careers`,
-          text: `Check out this job opportunity: ${jobRole?.title} at Finlo`,
+          title: `${jobRole?.title} - Vesta Careers`,
+          text: `Check out this job opportunity: ${jobRole?.title} at Vesta`,
           url: url,
         });
       } catch (error) {

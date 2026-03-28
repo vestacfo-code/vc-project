@@ -14,7 +14,7 @@ const Webhooks = () => {
         <h2 className="text-2xl font-semibold text-white mb-4">Coming Soon</h2>
         <p className="text-slate-400 max-w-md">
           Webhooks will allow you to receive real-time notifications when important events happen 
-          in your Finlo account, such as new transactions or cash flow alerts.
+          in your Vesta account, such as new transactions or cash flow alerts.
         </p>
       </div>
     </DocsLayout>

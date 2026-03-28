@@ -4,7 +4,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Loader2, Send, Building2, Sparkles, ChevronDown, Mic, Plus, Link, Square, Copy, Check, ThumbsUp, ThumbsDown, CornerDownRight, Download, MoreHorizontal, Globe, ExternalLink } from 'lucide-react';
 import { useQuickBooksIntegration } from '@/hooks/useQuickBooksIntegration';
 import { useQuickBooksChat } from '@/hooks/useQuickBooksChat';
-import { FinloBrand } from '@/components/ui/finlo-brand';
+import { VestaBrand } from '@/components/ui/finlo-brand';
 import ReactMarkdown from 'react-markdown';
 import remarkMath from 'remark-math';
 import remarkGfm from 'remark-gfm';

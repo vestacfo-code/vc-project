@@ -303,7 +303,7 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `finlo-export-${new Date().toISOString()}.${settings.exportFormat}`;
+      a.download = `vesta-export-${new Date().toISOString()}.${settings.exportFormat}`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);

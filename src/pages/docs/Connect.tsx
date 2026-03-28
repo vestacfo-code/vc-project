@@ -49,7 +49,7 @@ const Connect = () => {
     {
       name: "Manual Entry",
       icon: Keyboard,
-      description: "Enter your financial data directly into Finlo",
+      description: "Enter your financial data directly into Vesta",
       link: "/docs/connect/manual",
     },
   ];
@@ -57,14 +57,14 @@ const Connect = () => {
   return (
     <DocsLayout
       title="Integrations"
-      description="Connect your accounting software or import data manually to get started with Finlo."
+      description="Connect your accounting software or import data manually to get started with Vesta."
       tableOfContents={tableOfContents}
       nextPage={{ title: "Connect QuickBooks", href: "/docs/connect/quickbooks" }}
     >
       <section id="accounting-software" className="mb-12">
         <h2 className="text-2xl font-semibold mb-6">Accounting Software</h2>
         <p className="text-muted-foreground mb-6">
-          Connect your existing accounting software to automatically sync your financial data with Finlo.
+          Connect your existing accounting software to automatically sync your financial data with Vesta.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {integrations.map((integration) => (

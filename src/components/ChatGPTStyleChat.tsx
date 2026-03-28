@@ -5,7 +5,7 @@ import { Loader2, Send, Mic, Building2, Sparkles, MessageSquare, ChevronDown } f
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { useQuickBooksIntegration } from '@/hooks/useQuickBooksIntegration';
-import { FinloBrand } from '@/components/ui/finlo-brand';
+import { VestaBrand } from '@/components/ui/finlo-brand';
 import ReactMarkdown from 'react-markdown';
 import ThinkingAnimation from '@/components/ThinkingAnimation';
 import TypingAnimation from '@/components/TypingAnimation';
@@ -177,9 +177,9 @@ User Question: ${userMessage.content}`;
     return <div className="flex-1 flex items-center justify-center p-8">
         <div className="text-center max-w-md">
           <Building2 className="w-12 h-12 text-zinc-400 mx-auto mb-4" />
-          <h3 className="text-lg font-medium mb-2 text-zinc-900">Finlo Not Connected</h3>
+          <h3 className="text-lg font-medium mb-2 text-zinc-900">Vesta Not Connected</h3>
           <p className="text-zinc-600 text-sm leading-relaxed">
-            Connect your QuickBooks account to start using Finlo for financial analysis.
+            Connect your QuickBooks account to start using Vesta for financial analysis.
           </p>
         </div>
       </div>;
@@ -191,14 +191,14 @@ User Question: ${userMessage.content}`;
       <div className="flex flex-col items-center justify-center min-h-screen px-8 pb-32">
             <div className="text-center mb-16">
               <div className="flex items-center justify-center gap-3 mb-6">
-                <FinloBrand size="lg" className="text-zinc-900" />
+                <VestaBrand size="lg" className="text-zinc-900" />
                 <Sparkles className="w-6 h-6 text-zinc-700" />
               </div>
               <h2 className="text-3xl font-medium mb-6 text-zinc-900 min-h-[3rem]">
                 <TypingAnimation messages={cfoQuestions} className="text-zinc-900" />
               </h2>
               <p className="text-zinc-600 text-base max-w-xl mx-auto leading-relaxed">
-                I'm Finlo, your AI financial analyst with access to your complete QuickBooks data for{' '}
+                I'm Vesta, your AI financial analyst with access to your complete QuickBooks data for{' '}
                 <span className="text-zinc-900 font-medium">{integration.company_name}</span>
               </p>
             </div>
@@ -227,7 +227,7 @@ User Question: ${userMessage.content}`;
 
                   {/* Input Field */}
                   <div className="flex-1 relative">
-                    <Textarea ref={textareaRef} value={input} onChange={e => setInput(e.target.value)} onKeyDown={handleKeyPress} placeholder="Message Finlo AI..." disabled={loading} className="min-h-[20px] max-h-[120px] resize-none border-0 bg-transparent text-zinc-900 placeholder:text-zinc-400 focus:ring-0 focus:outline-none focus:border-0 focus:shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 p-0 leading-6 shadow-none" rows={1} />
+                    <Textarea ref={textareaRef} value={input} onChange={e => setInput(e.target.value)} onKeyDown={handleKeyPress} placeholder="Message Vesta..." disabled={loading} className="min-h-[20px] max-h-[120px] resize-none border-0 bg-transparent text-zinc-900 placeholder:text-zinc-400 focus:ring-0 focus:outline-none focus:border-0 focus:shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 p-0 leading-6 shadow-none" rows={1} />
                   </div>
                   
                   {/* Right Side Actions */}
@@ -244,7 +244,7 @@ User Question: ${userMessage.content}`;
               </div>
               
               <div className="text-xs text-zinc-500 mt-3 text-center">
-                Finlo AI can make mistakes. Always verify important information.
+                Vesta can make mistakes. Always verify important information.
               </div>
             </div>
           </div>) : (/* Chat Messages */
@@ -260,10 +260,10 @@ User Question: ${userMessage.content}`;
                     </div>
                   </div> : <div className="flex gap-4">
                     <div className="w-8 h-8 rounded-full bg-zinc-800 flex items-center justify-center flex-shrink-0">
-                      <FinloBrand size="sm" className="text-white" inline />
+                      <VestaBrand size="sm" className="text-white" inline />
                     </div>
                     <div className="flex-1">
-                      <div className="text-sm font-medium mb-2 text-zinc-700">Finlo AI</div>
+                      <div className="text-sm font-medium mb-2 text-zinc-700">Vesta</div>
                       
                       {/* Financial Chart */}
                       {message.chartData && <FinancialChart data={message.chartData.data} chartType={message.chartData.type} title={message.chartData.title} />}
@@ -305,7 +305,7 @@ User Question: ${userMessage.content}`;
 
                 {/* Input Field */}
                 <div className="flex-1 relative">
-                  <Textarea ref={textareaRef} value={input} onChange={e => setInput(e.target.value)} onKeyDown={handleKeyPress} placeholder="Message Finlo AI..." disabled={loading} className="min-h-[20px] max-h-[120px] resize-none border-0 bg-transparent text-zinc-900 placeholder:text-zinc-400 focus:ring-0 focus:outline-none focus:border-0 focus:shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 p-0 leading-6 shadow-none" rows={1} />
+                  <Textarea ref={textareaRef} value={input} onChange={e => setInput(e.target.value)} onKeyDown={handleKeyPress} placeholder="Message Vesta..." disabled={loading} className="min-h-[20px] max-h-[120px] resize-none border-0 bg-transparent text-zinc-900 placeholder:text-zinc-400 focus:ring-0 focus:outline-none focus:border-0 focus:shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 p-0 leading-6 shadow-none" rows={1} />
                 </div>
                 
                 {/* Right Side Actions */}
@@ -322,7 +322,7 @@ User Question: ${userMessage.content}`;
             </div>
             
             <div className="text-xs text-zinc-500 mt-2 text-center">
-              Finlo AI can make mistakes. Always verify important information.
+              Vesta can make mistakes. Always verify important information.
             </div>
           </div>
         </div>}

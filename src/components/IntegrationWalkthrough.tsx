@@ -20,7 +20,7 @@ interface IntegrationWalkthroughProps {
 
 const steps: WalkthroughStep[] = [
   {
-    title: "Welcome to Finlo",
+    title: "Welcome to Vesta",
     description: "Let me guide you through connecting your accounting software so I can help analyze your business.",
     targetElement: "",
     position: "bottom"

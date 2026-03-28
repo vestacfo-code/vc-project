@@ -141,7 +141,7 @@ export const WaveButton = ({ onConnected, refreshIntegration, variant = 'default
       ) : (
         <>
           <img 
-            src="/lovable-uploads/f696a542-4a44-40cb-9d65-77d88fa076ea.png" 
+            src="/assets/f696a542-4a44-40cb-9d65-77d88fa076ea.png" 
             alt="Wave logo"
             className="w-6 h-6 object-contain"
           />

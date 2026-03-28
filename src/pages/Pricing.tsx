@@ -130,7 +130,7 @@ const Pricing = () => {
               <span className="inline-block opacity-0 animate-wordReveal" style={{ animationDelay: '100ms', animationFillMode: 'forwards' }}>Win</span>{' '}
               <span className="inline-block opacity-0 animate-wordReveal" style={{ animationDelay: '160ms', animationFillMode: 'forwards' }}>more</span>{' '}
               <span className="inline-block opacity-0 animate-wordReveal" style={{ animationDelay: '220ms', animationFillMode: 'forwards' }}>with</span>{' '}
-              <span className="inline-block italic text-[#1a237e] opacity-0 animate-wordReveal" style={{ animationDelay: '300ms', animationFillMode: 'forwards' }}>Finlo</span>
+              <span className="inline-block italic text-[#1a237e] opacity-0 animate-wordReveal" style={{ animationDelay: '300ms', animationFillMode: 'forwards' }}>Vesta</span>
             </h1>
             <p className="text-lg sm:text-xl text-gray-600 mb-8 md:mb-10 max-w-2xl mx-auto opacity-0 animate-fadeIn" style={{ animationDelay: '400ms', animationFillMode: 'forwards' }}>
               Plans designed to grow with your business
@@ -189,7 +189,7 @@ const Pricing = () => {
               <CardContent className="space-y-4 flex-1 flex flex-col px-6 pb-8">
                 <p className="text-base font-bold text-gray-900">Perfect for getting started.</p>
                 <div className="pt-4 border-t border-gray-100/50 flex-1">
-                  <p className="text-xs font-semibold text-gray-500 tracking-wide mb-4">Included in all Finlo plans:</p>
+                  <p className="text-xs font-semibold text-gray-500 tracking-wide mb-4">Included in all Vesta plans:</p>
                   <ul className="space-y-3">
                     {founderFeatures.map((feature, index) => (
                       <li key={index} className="flex items-start gap-2.5">
@@ -356,7 +356,7 @@ const Pricing = () => {
                   Is there a free plan?
                 </AccordionTrigger>
                 <AccordionContent>
-                  <p className="text-left text-gray-600">Yes! We offer a free Founder plan that's free forever with 30 AI credits per month, 5 monthly report downloads, basic financial analysis, and email support. It's perfect for getting started and exploring Finlo's capabilities.</p>
+                  <p className="text-left text-gray-600">Yes! We offer a free Founder plan that's free forever with 30 AI credits per month, 5 monthly report downloads, basic financial analysis, and email support. It's perfect for getting started and exploring Vesta's capabilities.</p>
                 </AccordionContent>
               </AccordionItem>
 

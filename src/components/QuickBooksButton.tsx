@@ -65,8 +65,8 @@ const QuickBooksButton = ({ onConnected, refreshIntegration }: QuickBooksButtonP
         // Accept messages from Supabase functions domain and any valid app origin
         const validOrigins = [
           'https://godnomficzhjaclmvomh.supabase.co',
-          'https://joinfinlo.ai',
-          'https://www.joinfinlo.ai'
+          'https://vesta.ai',
+          'https://www.vesta.ai'
         ];
         
         // Accept from valid origins OR lovableproject.com preview URLs

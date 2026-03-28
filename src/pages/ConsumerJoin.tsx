@@ -407,7 +407,7 @@ export default function ConsumerJoin() {
     );
   }
 
-  const logoUrl = invite?.custom_logo_url || '/lovable-uploads/9a766835-c271-49a0-bc54-c0424112a3cc.png';
+  const logoUrl = invite?.custom_logo_url || '/assets/9a766835-c271-49a0-bc54-c0424112a3cc.png';
 
   return (
     <div className="min-h-[100dvh] flex flex-col lg:flex-row overflow-hidden">
@@ -452,7 +452,7 @@ export default function ConsumerJoin() {
           <div>
             <TypingHeadline key={getHeadline()} text={getHeadline()} />
           </div>
-          <p className="text-white/40 text-sm">© 2026 Finlo. All rights reserved.</p>
+          <p className="text-white/40 text-sm">© 2026 Vesta. All rights reserved.</p>
         </div>
       </div>
 

@@ -43,7 +43,7 @@ const AutoplayVideo = ({ videoId, className = "" }: AutoplayVideoProps) => {
         ref={iframeRef}
         className="w-full h-full rounded-xl shadow-2xl"
         src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&controls=0&modestbranding=1&rel=0&showinfo=0&enablejsapi=1&loop=0&playlist=${videoId}`}
-        title="Finlo Demo Video"
+        title="Vesta Demo Video"
         frameBorder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
@@ -66,7 +66,7 @@ const AutoplayVideo = ({ videoId, className = "" }: AutoplayVideoProps) => {
             <div className="w-24 h-24 mx-auto mb-6 bg-primary/10 rounded-full flex items-center justify-center">
               <div className="w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-lg"></div>
             </div>
-            <h3 className="text-2xl font-bold mb-2">Finlo Logo</h3>
+            <h3 className="text-2xl font-bold mb-2">Vesta Logo</h3>
             <p className="text-muted-foreground">AI-Powered Financial Intelligence</p>
           </div>
         </div>

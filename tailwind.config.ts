@@ -29,13 +29,10 @@ export default {
 		},
 		extend: {
 		fontFamily: {
-			'sans': ['Inter', 'system-ui', 'sans-serif'],
-			'kollektif': ['Kollektif', 'sans-serif'],
-			'finlo': ['Neue Montreal', 'system-ui', 'sans-serif'],
-			'marker': ['Permanent Marker', 'cursive'],
-			'playfair': ['Playfair Display', 'serif'],
-			'redhat': ['Red Hat Display', 'sans-serif'],
-			'serif': ['Georgia', 'Times New Roman', 'Times', 'serif'],
+			'sans': ['DM Sans', 'system-ui', 'sans-serif'],
+			'display': ['Cormorant Garamond', 'Georgia', 'serif'],
+			'mono': ['DM Mono', 'monospace'],
+			'serif': ['Cormorant Garamond', 'Georgia', 'serif'],
 		},
 			colors: {
 				border: 'hsl(var(--border))',

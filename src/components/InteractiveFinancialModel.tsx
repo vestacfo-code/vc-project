@@ -206,7 +206,7 @@ const InteractiveFinancialModel = () => {
 
       // Add header
       pdf.setFontSize(20);
-      pdf.text('Finlo Financial Model Report', 20, 20);
+      pdf.text('Vesta Financial Model Report', 20, 20);
       pdf.setFontSize(12);
       pdf.text(`Generated on: ${new Date().toLocaleDateString()}`, 20, 30);
       
@@ -221,7 +221,7 @@ const InteractiveFinancialModel = () => {
         heightLeft -= pageHeight;
       }
 
-      pdf.save(`finlo-financial-model-${new Date().toISOString().split('T')[0]}.pdf`);
+      pdf.save(`vesta-financial-model-${new Date().toISOString().split('T')[0]}.pdf`);
       
       toast({
         title: "Export Successful",

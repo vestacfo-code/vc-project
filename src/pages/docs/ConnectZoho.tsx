@@ -12,7 +12,7 @@ const ConnectZoho = () => {
   return (
     <DocsLayout 
       title="Connect Zoho Books" 
-      description="Integrate your Zoho Books data with Finlo for comprehensive financial analysis."
+      description="Integrate your Zoho Books data with Vesta for comprehensive financial analysis."
       tableOfContents={tableOfContents}
       nextPage={{ href: "/docs/connect/csv", title: "Upload CSV Data" }}
     >
@@ -22,14 +22,14 @@ const ConnectZoho = () => {
         <ul className="list-disc list-inside text-slate-400 space-y-2">
           <li>An active Zoho Books account</li>
           <li>Admin access to your Zoho organization</li>
-          <li>A Finlo account (free or paid)</li>
+          <li>A Vesta account (free or paid)</li>
         </ul>
       </section>
 
       <section id="authorize" className="mb-12">
-        <h2 className="text-2xl font-semibold text-white mb-4">Step 1: Authorize Finlo</h2>
+        <h2 className="text-2xl font-semibold text-white mb-4">Step 1: Authorize Vesta</h2>
         <p className="text-slate-400 mb-4">
-          Click <strong className="text-white">"Connect Zoho"</strong> in your Finlo dashboard. 
+          Click <strong className="text-white">"Connect Zoho"</strong> in your Vesta dashboard. 
           You'll be redirected to Zoho's secure OAuth page.
         </p>
         <div className="bg-[#1a1a1a] border border-white/10 rounded-xl p-4 mb-4">
@@ -49,7 +49,7 @@ const ConnectZoho = () => {
       <section id="sync" className="mb-12">
         <h2 className="text-2xl font-semibold text-white mb-4">Step 3: Sync Data</h2>
         <p className="text-slate-400 mb-4">
-          Finlo will begin importing your Zoho Books data. Initial sync time depends on your data volume.
+          Vesta will begin importing your Zoho Books data. Initial sync time depends on your data volume.
         </p>
         <p className="text-slate-400">
           Data synced includes: chart of accounts, transactions, invoices, expenses, contacts, and reports.

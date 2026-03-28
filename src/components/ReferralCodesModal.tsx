@@ -22,7 +22,7 @@ export const ReferralCodesModal = ({ codes, open, onClose }: ReferralCodesModalP
   };
 
   const handleShareAll = async () => {
-    const message = `Join Finlo with my referral codes!\n\n${codes.map((code, i) => `${i + 1}. ${code}`).join('\n')}\n\nEach code gives you 14 days of full CFO tier access!`;
+    const message = `Join Vesta with my referral codes!\n\n${codes.map((code, i) => `${i + 1}. ${code}`).join('\n')}\n\nEach code gives you 14 days of full CFO tier access!`;
     
     if (navigator.share) {
       try {

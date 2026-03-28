@@ -102,7 +102,7 @@ serve(async (req) => {
           price_data: {
             currency: "usd",
             product_data: { 
-              name: `Finlo ${selectedPrice.name}`,
+              name: `Vesta ${selectedPrice.name}`,
               description: tier === 'scale' 
                 ? "150 credits/month, 25 downloads, 2 collaborators" 
                 : "250 credits/month, unlimited downloads, 6 collaborators"

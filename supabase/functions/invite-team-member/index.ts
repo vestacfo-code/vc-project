@@ -84,9 +84,9 @@ const handler = async (req: Request): Promise<Response> => {
       
       try {
         await resend.emails.send({
-          from: "Finlo Team <support@joinfinlo.ai>",
+          from: "Vesta Team <support@vesta.ai>",
           to: [email],
-          subject: `You've been invited to join ${teamName} on Finlo`,
+          subject: `You've been invited to join ${teamName} on Vesta`,
           html: `
             <!DOCTYPE html>
             <html>
@@ -98,7 +98,7 @@ const handler = async (req: Request): Promise<Response> => {
               <div style="max-width: 600px; margin: 0 auto; padding: 40px 20px;">
                 <div style="background-color: #ffffff; border-radius: 8px; border: 1px solid #e0e0e0; overflow: hidden;">
                   <div style="background-color: #1a1a1a; padding: 24px; text-align: center;">
-                    <h1 style="color: #ffffff; margin: 0; font-size: 20px; font-weight: 600;">Finlo</h1>
+                    <h1 style="color: #ffffff; margin: 0; font-size: 20px; font-weight: 600;">Vesta</h1>
                     <p style="color: #a0a0a0; margin: 6px 0 0 0; font-size: 13px;">Financial Intelligence Platform</p>
                   </div>
                   
@@ -106,15 +106,15 @@ const handler = async (req: Request): Promise<Response> => {
                     <h2 style="color: #1a1a1a; margin-top: 0; font-size: 20px; font-weight: 600;">You've been invited to join ${teamName}</h2>
                     
                     <p style="color: #4a4a4a; line-height: 1.6; font-size: 14px;">
-                      Hi there, ${inviterName} has invited you to join the <strong>${teamName}</strong> team on Finlo.
+                      Hi there, ${inviterName} has invited you to join the <strong>${teamName}</strong> team on Vesta.
                     </p>
                     
                     <p style="color: #4a4a4a; line-height: 1.6; font-size: 14px;">
-                      Since you already have a Finlo account, you can access the team immediately by logging into your dashboard.
+                      Since you already have a Vesta account, you can access the team immediately by logging into your dashboard.
                     </p>
                     
                     <div style="text-align: center; margin: 32px 0;">
-                      <a href="${redirectTo || 'https://joinfinlo.ai/chat'}" 
+                      <a href="${redirectTo || 'https://vesta.ai/chat'}" 
                          style="display: inline-block; background-color: #1a1a1a; color: #ffffff; text-decoration: none; padding: 12px 24px; border-radius: 6px; font-weight: 500; font-size: 14px;">
                         Access Team Dashboard
                       </a>
@@ -127,7 +127,7 @@ const handler = async (req: Request): Promise<Response> => {
                   
                   <div style="background-color: #f9f9f9; padding: 20px 24px; text-align: center; border-top: 1px solid #e8e8e8;">
                     <p style="margin: 0; color: #8a8a8a; font-size: 12px;">
-                      ${new Date().getFullYear()} Finlo. All rights reserved.
+                      ${new Date().getFullYear()} Vesta. All rights reserved.
                     </p>
                   </div>
                 </div>
@@ -166,13 +166,13 @@ const handler = async (req: Request): Promise<Response> => {
       
       // For new users, we'll send a custom email with Resend that directs them to sign up
       const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
-      const signupUrl = `https://joinfinlo.ai/auth?email=${encodeURIComponent(email)}&team=${teamId}&role=${role}`;
+      const signupUrl = `https://vesta.ai/auth?email=${encodeURIComponent(email)}&team=${teamId}&role=${role}`;
       
       try {
         await resend.emails.send({
-          from: "Finlo Team <support@joinfinlo.ai>",
+          from: "Vesta Team <support@vesta.ai>",
           to: [email],
-          subject: `You've been invited to join ${teamName} on Finlo`,
+          subject: `You've been invited to join ${teamName} on Vesta`,
           html: `
             <!DOCTYPE html>
             <html>
@@ -184,7 +184,7 @@ const handler = async (req: Request): Promise<Response> => {
               <div style="max-width: 600px; margin: 0 auto; padding: 40px 20px;">
                 <div style="background-color: #ffffff; border-radius: 8px; border: 1px solid #e0e0e0; overflow: hidden;">
                   <div style="background-color: #1a1a1a; padding: 24px; text-align: center;">
-                    <h1 style="color: #ffffff; margin: 0; font-size: 20px; font-weight: 600;">Finlo</h1>
+                    <h1 style="color: #ffffff; margin: 0; font-size: 20px; font-weight: 600;">Vesta</h1>
                     <p style="color: #a0a0a0; margin: 6px 0 0 0; font-size: 13px;">Financial Intelligence Platform</p>
                   </div>
                   
@@ -192,7 +192,7 @@ const handler = async (req: Request): Promise<Response> => {
                     <h2 style="color: #1a1a1a; margin-top: 0; font-size: 20px; font-weight: 600;">You've been invited to join ${teamName}</h2>
                     
                     <p style="color: #4a4a4a; line-height: 1.6; font-size: 14px;">
-                      Hi there, ${inviterName} has invited you to join the <strong>${teamName}</strong> team on Finlo.
+                      Hi there, ${inviterName} has invited you to join the <strong>${teamName}</strong> team on Vesta.
                     </p>
                     
                     <p style="color: #4a4a4a; line-height: 1.6; font-size: 14px;">
@@ -217,7 +217,7 @@ const handler = async (req: Request): Promise<Response> => {
                   
                   <div style="background-color: #f9f9f9; padding: 20px 24px; text-align: center; border-top: 1px solid #e8e8e8;">
                     <p style="margin: 0; color: #8a8a8a; font-size: 12px;">
-                      ${new Date().getFullYear()} Finlo. All rights reserved.
+                      ${new Date().getFullYear()} Vesta. All rights reserved.
                     </p>
                   </div>
                 </div>

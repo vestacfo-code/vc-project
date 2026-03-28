@@ -11,7 +11,7 @@ const BestPractices = () => {
   return (
     <DocsLayout 
       title="Best Practices" 
-      description="Get the most out of Finlo with these recommended practices."
+      description="Get the most out of Vesta with these recommended practices."
       tableOfContents={tableOfContents}
       nextPage={{ href: "/docs/learn/faq", title: "FAQ" }}
     >

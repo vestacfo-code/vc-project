@@ -1,6 +1,6 @@
 # Supabase Email Setup Instructions
 
-To enable email notifications in your Finlo application, you need to configure SMTP settings in your Supabase dashboard.
+To enable email notifications in your Vesta application, you need to configure SMTP settings in your Supabase dashboard.
 
 ## Setup Steps
 

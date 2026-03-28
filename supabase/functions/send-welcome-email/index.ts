@@ -36,7 +36,7 @@ const getFallbackTemplate = (firstName: string) => `
     <div style="max-width: 600px; margin: 0 auto; padding: 40px 20px;">
       <div style="background-color: #ffffff; border-radius: 8px; padding: 40px; border: 1px solid #e0e0e0;">
         <h1 style="color: #1a1a1a; font-size: 24px; margin: 0 0 16px 0; font-weight: 600;">
-          Welcome to Finlo, ${firstName}
+          Welcome to Vesta, ${firstName}
         </h1>
         <p style="color: #4a4a4a; font-size: 16px; line-height: 1.6; margin: 0 0 24px 0;">
           You've taken the first step toward transforming how you manage your business finances.
@@ -52,18 +52,18 @@ const getFallbackTemplate = (firstName: string) => `
           </ul>
         </div>
         
-        <a href="https://joinfinlo.ai/dashboard" style="display: inline-block; background-color: #1a1a1a; color: #ffffff; text-decoration: none; padding: 14px 32px; border-radius: 6px; font-weight: 600; font-size: 16px; margin-top: 16px;">
+        <a href="https://vesta.ai/dashboard" style="display: inline-block; background-color: #1a1a1a; color: #ffffff; text-decoration: none; padding: 14px 32px; border-radius: 6px; font-weight: 600; font-size: 16px; margin-top: 16px;">
           Go to Dashboard
         </a>
         
         <p style="color: #6a6a6a; font-size: 13px; margin-top: 32px;">
-          Questions? Reply to this email or visit our <a href="https://joinfinlo.ai/support" style="color: #1a1a1a;">support page</a>.
+          Questions? Reply to this email or visit our <a href="https://vesta.ai/support" style="color: #1a1a1a;">support page</a>.
         </p>
       </div>
       
       <p style="text-align: center; color: #8a8a8a; font-size: 12px; margin-top: 24px;">
-        ${new Date().getFullYear()} Finlo. All rights reserved.<br>
-        <a href="https://joinfinlo.ai/privacy" style="color: #8a8a8a;">Privacy Policy</a> | <a href="https://joinfinlo.ai/terms" style="color: #8a8a8a;">Terms of Service</a>
+        ${new Date().getFullYear()} Vesta. All rights reserved.<br>
+        <a href="https://vesta.ai/privacy" style="color: #8a8a8a;">Privacy Policy</a> | <a href="https://vesta.ai/terms" style="color: #8a8a8a;">Terms of Service</a>
       </p>
     </div>
   </body>
@@ -148,9 +148,9 @@ const handler = async (req: Request): Promise<Response> => {
           htmlContent = htmlContent.replace(/\{\{?\s*full_name\s*\}?\}/gi, fullName || firstName);
           
           emailResponse = await resend.emails.send({
-            from: "Finlo <support@joinfinlo.ai>",
+            from: "Vesta <support@vesta.ai>",
             to: [email],
-            subject: templateData.data.subject || "Welcome to Finlo - Your AI CFO Journey Begins",
+            subject: templateData.data.subject || "Welcome to Vesta - Your AI CFO Journey Begins",
             html: htmlContent,
           });
           usedTemplate = true;
@@ -165,9 +165,9 @@ const handler = async (req: Request): Promise<Response> => {
     if (!usedTemplate) {
       console.log("Using fallback HTML template");
       emailResponse = await resend.emails.send({
-        from: "Finlo <support@joinfinlo.ai>",
+        from: "Vesta <support@vesta.ai>",
         to: [email],
-        subject: "Welcome to Finlo - Your AI CFO Journey Begins",
+        subject: "Welcome to Vesta - Your AI CFO Journey Begins",
         html: getFallbackTemplate(firstName),
       });
     }

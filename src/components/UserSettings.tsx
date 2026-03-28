@@ -316,7 +316,7 @@ const handleManageSubscription = async () => {
               <div className="text-sm text-muted-foreground bg-muted/50 rounded-lg p-3">
                 {subscription.subscription_tier === 'The Founder' 
                   ? 'You\'re on the free Founder tier. You can upgrade anytime to unlock more features and credits.'
-                  : 'Click "Manage Billing" to update payment methods, view invoices, or cancel your subscription. Click "Upgrade Plan" to see available upgrades. For support, contact support@joinfinlo.ai'
+                  : 'Click "Manage Billing" to update payment methods, view invoices, or cancel your subscription. Click "Upgrade Plan" to see available upgrades. For support, contact support@vesta.ai'
                 }
               </div>
             </div>

@@ -31,7 +31,7 @@ const Expenses = () => {
         </ul>
         <div className="bg-[#1a1a1a] border border-white/10 rounded-xl p-4 mt-4">
           <p className="text-sm text-slate-400">
-            💡 <strong className="text-white">AI Categorization:</strong> Finlo automatically categorizes transactions. You can edit categories manually if needed.
+            💡 <strong className="text-white">AI Categorization:</strong> Vesta automatically categorizes transactions. You can edit categories manually if needed.
           </p>
         </div>
       </section>

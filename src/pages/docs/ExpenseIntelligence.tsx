@@ -31,7 +31,7 @@ const ExpenseIntelligence = () => {
       <section id="anomalies" className="mb-12">
         <h2 className="text-2xl font-semibold text-white mb-4">Spending Anomalies</h2>
         <p className="text-slate-400 mb-4">
-          Finlo uses AI to detect when expenses deviate significantly from expected patterns:
+          Vesta uses AI to detect when expenses deviate significantly from expected patterns:
         </p>
         <div className="grid gap-4">
           <div className="bg-[#1a1a1a] border border-white/10 rounded-xl p-4">

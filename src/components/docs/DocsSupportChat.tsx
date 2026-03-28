@@ -53,7 +53,7 @@ export const DocsSupportChat = ({ isOpen: externalIsOpen, onOpenChange }: DocsSu
     {
       id: '1',
       type: 'assistant',
-      content: "Hi! I'm Ava from Finlo Support 👋\n\nI'm here to help you navigate Finlo's documentation and answer any questions about our platform. Ask me about features, setup, pricing, or troubleshooting!\n\nNeed human support? Email us at support@joinfinlo.ai",
+      content: "Hi! I'm Ava from Vesta Support 👋\n\nI'm here to help you navigate Vesta's documentation and answer any questions about our platform. Ask me about features, setup, pricing, or troubleshooting!\n\nNeed human support? Email us at support@vesta.ai",
       links: [
         { title: 'Quick Tour', href: '/docs/getting-started/tour' },
         { title: 'FAQ', href: '/docs/learn/faq' }
@@ -109,7 +109,7 @@ export const DocsSupportChat = ({ isOpen: externalIsOpen, onOpenChange }: DocsSu
       const assistantMessage: Message = {
         id: (Date.now() + 1).toString(),
         type: 'assistant',
-        content: data.response || "I'm sorry, I couldn't process that. Please try again or email support@joinfinlo.ai.",
+        content: data.response || "I'm sorry, I couldn't process that. Please try again or email support@vesta.ai.",
         links: data.links || [],
         timestamp: new Date()
       };
@@ -120,7 +120,7 @@ export const DocsSupportChat = ({ isOpen: externalIsOpen, onOpenChange }: DocsSu
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
         type: 'assistant',
-        content: "I'm having trouble connecting right now. Please try again or email support@joinfinlo.ai for assistance.",
+        content: "I'm having trouble connecting right now. Please try again or email support@vesta.ai for assistance.",
         links: [{ title: 'FAQ', href: '/docs/learn/faq' }],
         timestamp: new Date()
       };
@@ -187,8 +187,8 @@ export const DocsSupportChat = ({ isOpen: externalIsOpen, onOpenChange }: DocsSu
               <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
             </div>
             <div>
-              <h3 className="font-semibold text-white text-sm">Ava from Finlo Support</h3>
-              <p className="text-xs text-white/50">Ask anything about Finlo</p>
+              <h3 className="font-semibold text-white text-sm">Ava from Vesta Support</h3>
+              <p className="text-xs text-white/50">Ask anything about Vesta</p>
             </div>
           </div>
           <button 
@@ -251,11 +251,11 @@ export const DocsSupportChat = ({ isOpen: externalIsOpen, onOpenChange }: DocsSu
         {/* Email Support Banner */}
         <div className="px-5 py-2.5 border-t border-white/10 bg-white/[0.02]">
           <a 
-            href="mailto:support@joinfinlo.ai"
+            href="mailto:support@vesta.ai"
             className="flex items-center justify-center gap-2 text-xs text-white/40 hover:text-[#7ba3e8] transition-colors"
           >
             <Mail className="h-3.5 w-3.5" />
-            Need human support? Email support@joinfinlo.ai
+            Need human support? Email support@vesta.ai
           </a>
         </div>
 
@@ -267,7 +267,7 @@ export const DocsSupportChat = ({ isOpen: externalIsOpen, onOpenChange }: DocsSu
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyPress={handleKeyPress}
-                placeholder="Ask about Finlo..."
+                placeholder="Ask about Vesta..."
                 disabled={isTyping}
                 className="border-0 bg-white/10 backdrop-blur-sm text-white placeholder:text-white/40 focus-visible:ring-1 focus-visible:ring-[#7ba3e8]/50 rounded-xl h-11 pr-4"
               />

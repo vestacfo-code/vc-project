@@ -58,7 +58,7 @@ serve(async (req) => {
     logStep("Discount code received", { discountCode });
 
     // Validate discount code
-    if (!discountCode || discountCode.trim().toLowerCase() !== 'founder@joinfinlo.ai') {
+    if (!discountCode || discountCode.trim().toLowerCase() !== 'founder@vesta.ai') {
       logStep("Invalid discount code", { provided: discountCode });
       return new Response(
         JSON.stringify({ error: "Invalid discount code" }), 
@@ -74,7 +74,7 @@ serve(async (req) => {
       .from('discount_codes')
       .select('*')
       .eq('user_id', user.id)
-      .eq('code', 'founder@joinfinlo.ai')
+      .eq('code', 'founder@vesta.ai')
       .single();
 
     if (existingDiscount && !discountError) {

@@ -175,9 +175,9 @@ serve(async (req) => {
                 const firstName = profile.full_name?.split(' ')[0] || 'there';
                 
                 await resend.emails.send({
-                  from: 'Finlo <support@joinfinlo.ai>',
+                  from: 'Vesta <support@vesta.ai>',
                   to: [profile.email],
-                  subject: `Welcome to Finlo ${tierDisplay}! 🚀`,
+                  subject: `Welcome to Vesta ${tierDisplay}! 🚀`,
                   html: `
                     <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 40px 20px;">
                       <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border-radius: 16px; padding: 40px; text-align: center;">
@@ -194,7 +194,7 @@ serve(async (req) => {
                             <li>Priority support</li>
                           </ul>
                         </div>
-                        <a href="https://joinfinlo.ai/dashboard" style="display: inline-block; background: linear-gradient(135deg, #7ba3e8 0%, #6366f1 100%); color: #ffffff; text-decoration: none; padding: 14px 32px; border-radius: 8px; font-weight: 600; font-size: 16px; margin-top: 16px;">
+                        <a href="https://vesta.ai/dashboard" style="display: inline-block; background: linear-gradient(135deg, #7ba3e8 0%, #6366f1 100%); color: #ffffff; text-decoration: none; padding: 14px 32px; border-radius: 8px; font-weight: 600; font-size: 16px; margin-top: 16px;">
                           Go to Dashboard →
                         </a>
                       </div>

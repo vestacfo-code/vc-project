@@ -11,7 +11,6 @@ import { PortalAnimationProvider, usePortalAnimation } from "@/contexts/PortalAn
 import ProtectedRoute from "@/components/ProtectedRoute";
 import { FloatingChatbot } from "@/components/FloatingChatbot";
 import { SignInPortalAnimation } from "@/components/SignInPortalAnimation";
-import Hpt1 from "./pages/Hpt1";
 import Dashboard from "./pages/Dashboard";
 import Landing from "./pages/Landing";
 import Auth from "./pages/Auth";
@@ -85,7 +84,7 @@ const AppContent = () => {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Hpt1 />} />
+        <Route path="/" element={<Landing />} />
         <Route path="/auth" element={<Auth />} />
         <Route path="/demo" element={<DemoRedirect />} />
         <Route path="/pricing" element={<Pricing />} />

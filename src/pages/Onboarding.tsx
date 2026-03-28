@@ -104,7 +104,7 @@ const Onboarding = () => {
       });
       if (error) throw error;
       toast({
-        title: "Welcome to Finlo!",
+        title: "Welcome to Vesta!",
         description: "You're all set with your free Founder plan."
       });
 
@@ -145,7 +145,7 @@ const Onboarding = () => {
       }} className="space-y-8">
             <div className="space-y-6">
               <h1 className="text-6xl md:text-7xl font-bold text-gray-900">
-                Welcome to Finlo!
+                Welcome to Vesta!
               </h1>
               <p className="text-2xl md:text-3xl text-gray-600 max-w-2xl mx-auto font-light">
                 Let's set up your personalized financial intelligence platform
@@ -675,13 +675,13 @@ const Onboarding = () => {
               <div className="prose prose-sm prose-gray max-w-none space-y-4">
                 <h3 className="text-lg font-semibold text-gray-800">1. Acceptance of Terms</h3>
                 <p className="text-gray-600 text-sm">
-                  By accessing or using Finlo ("the Service"), you agree to be bound by these Terms of Service. 
+                  By accessing or using Vesta ("the Service"), you agree to be bound by these Terms of Service. 
                   If you do not agree to these terms, please do not use the Service.
                 </p>
                 
                 <h3 className="text-lg font-semibold text-gray-800">2. Description of Service</h3>
                 <p className="text-gray-600 text-sm">
-                  Finlo provides AI-powered financial intelligence and analytics tools designed to help businesses 
+                  Vesta provides AI-powered financial intelligence and analytics tools designed to help businesses 
                   understand their financial data, generate insights, and make informed decisions.
                 </p>
                 
@@ -700,13 +700,13 @@ const Onboarding = () => {
                 
                 <h3 className="text-lg font-semibold text-gray-800">5. Intellectual Property</h3>
                 <p className="text-gray-600 text-sm">
-                  The Service and its original content, features, and functionality are owned by Finlo and are 
+                  The Service and its original content, features, and functionality are owned by Vesta and are 
                   protected by international copyright, trademark, and other intellectual property laws.
                 </p>
                 
                 <h3 className="text-lg font-semibold text-gray-800">6. Limitation of Liability</h3>
                 <p className="text-gray-600 text-sm">
-                  Finlo provides AI-generated insights for informational purposes only. These insights should not 
+                  Vesta provides AI-generated insights for informational purposes only. These insights should not 
                   be considered professional financial, legal, or tax advice. We recommend consulting with qualified 
                   professionals for important financial decisions.
                 </p>

@@ -487,7 +487,7 @@ const Welcome = () => {
         <div 
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: "url('/lovable-uploads/7a9bbb93-df90-4042-acf9-0148a57b4632.png')"
+            backgroundImage: "url('/assets/7a9bbb93-df90-4042-acf9-0148a57b4632.png')"
           }}
         />
         <div className="absolute inset-0 bg-black/50" />
@@ -543,7 +543,7 @@ const Welcome = () => {
             transition={{ duration: 0.8, delay: 1.2 }}
             className="text-3xl md:text-5xl font-semibold text-white mb-4 drop-shadow-xl"
           >
-            Welcome to the Finlo AI family
+            Welcome to the Vesta family
           </motion.h2>
         </motion.div>
 
@@ -700,7 +700,7 @@ const Welcome = () => {
                             title="View LinkedIn Profile"
                           >
                             <img 
-                              src="/lovable-uploads/e6db85c0-52bc-41d3-8b8e-9bf1e094b86c.png" 
+                              src="/assets/e6db85c0-52bc-41d3-8b8e-9bf1e094b86c.png" 
                               alt="LinkedIn" 
                               className="h-5 w-5"
                             />

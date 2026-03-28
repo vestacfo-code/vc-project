@@ -2,73 +2,73 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Medium Dark Financial Theme - Balanced & Professional */
+/* Vesta — Professional Light Theme */
+/* Brand: Navy #1B3A5C · Gold #C8963E · Cream #F7F4EE · Slate #2E6DA4 */
 
 @layer base {
   :root {
-    /* Medium dark theme - Balanced tones */
-    --background: 220 25% 12%;
-    --foreground: 220 15% 88%;
+    /* Backgrounds — Cream base */
+    --background: 42 33% 95%;
+    --foreground: 0 0% 16%;
 
-    /* Card and surfaces */
-    --card: 220 23% 15%;
-    --card-foreground: 220 15% 88%;
+    /* Cards — White on cream */
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 16%;
 
-    --popover: 220 23% 15%;
-    --popover-foreground: 220 15% 88%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 16%;
 
-    /* Primary - Softer blue for balanced look */
-    --primary: 221 70% 58%;
-    --primary-foreground: 220 25% 12%;
-    --primary-hover: 221 70% 53%;
+    /* Primary — Navy #1B3A5C */
+    --primary: 210 54% 23%;
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 210 54% 18%;
 
-    /* Secondary - Medium grey surface */
-    --secondary: 220 20% 20%;
-    --secondary-foreground: 220 15% 88%;
+    /* Secondary — Light warm grey */
+    --secondary: 40 18% 87%;
+    --secondary-foreground: 0 0% 16%;
 
-    /* Muted - Subtle medium backgrounds */
-    --muted: 220 18% 18%;
-    --muted-foreground: 220 10% 68%;
+    /* Muted — Mist #D6E8F2 */
+    --muted: 204 44% 89%;
+    --muted-foreground: 0 0% 42%;
 
-    /* Accent - Balanced cyan */
-    --accent: 199 75% 52%;
-    --accent-foreground: 220 25% 12%;
+    /* Accent — Gold #C8963E */
+    --accent: 37 54% 51%;
+    --accent-foreground: 0 0% 100%;
 
-    /* Success - Softer green */
-    --success: 142 65% 42%;
-    --success-foreground: 220 15% 88%;
+    /* Success — Green */
+    --success: 142 65% 35%;
+    --success-foreground: 0 0% 100%;
 
-    /* Warning - Balanced amber */
-    --warning: 38 85% 55%;
-    --warning-foreground: 220 25% 12%;
+    /* Warning — Amber */
+    --warning: 38 85% 50%;
+    --warning-foreground: 0 0% 100%;
 
-    /* Destructive - Softer red */
-    --destructive: 0 75% 65%;
-    --destructive-foreground: 220 15% 88%;
+    /* Destructive — Red */
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
 
     /* Borders and inputs */
-    --border: 220 20% 22%;
-    --input: 220 20% 22%;
-    --ring: 221 70% 58%;
+    --border: 40 18% 87%;
+    --input: 40 18% 87%;
+    --ring: 210 54% 23%;
 
-    /* Financial specific colors */
-    --revenue: 142 65% 42%;
-    --expense: 0 75% 65%;
-    --profit: 199 75% 52%;
-    --cash-flow: 221 70% 58%;
+    /* Hotel financial KPI colors */
+    --revenue: 142 65% 35%;
+    --expense: 0 72% 51%;
+    --profit: 210 56% 41%;
+    --cash-flow: 37 54% 51%;
 
-    /* Gradients - Medium toned */
-    --gradient-primary: linear-gradient(135deg, hsl(221 70% 58%), hsl(262 75% 62%));
-    --gradient-success: linear-gradient(135deg, hsl(142 65% 42%), hsl(199 75% 52%));
-    --gradient-hero: linear-gradient(135deg, hsl(221 70% 58%) 0%, hsl(262 75% 62%) 50%, hsl(199 75% 52%) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(220 23% 15%), hsl(220 20% 20%));
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(210 54% 23%), hsl(210 56% 41%));
+    --gradient-hero: linear-gradient(135deg, hsl(210 54% 23%) 0%, hsl(210 56% 41%) 60%, hsl(37 54% 51%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(42 33% 97%));
 
-    /* Shadows - Softer with subtle glow */
-    --shadow-sm: 0 1px 2px 0 hsl(0 0% 0% / 0.15);
-    --shadow-md: 0 4px 6px -1px hsl(0 0% 0% / 0.2), 0 2px 4px -1px hsl(0 0% 0% / 0.15);
-    --shadow-lg: 0 10px 15px -3px hsl(0 0% 0% / 0.25), 0 4px 6px -2px hsl(0 0% 0% / 0.2);
-    --shadow-card: 0 6px 24px -4px hsl(221 70% 58% / 0.15);
-    --shadow-glow: 0 0 30px hsl(221 70% 58% / 0.25);
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 hsl(210 54% 23% / 0.08);
+    --shadow-md: 0 4px 6px -1px hsl(210 54% 23% / 0.1), 0 2px 4px -1px hsl(210 54% 23% / 0.06);
+    --shadow-lg: 0 10px 15px -3px hsl(210 54% 23% / 0.12), 0 4px 6px -2px hsl(210 54% 23% / 0.08);
+    --shadow-card: 0 6px 24px -4px hsl(210 54% 23% / 0.1);
+    --shadow-glow: 0 0 30px hsl(37 54% 51% / 0.2);
 
     /* Animations */
     --transition-all: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -76,73 +76,22 @@
 
     --radius: 0.75rem;
 
-    --sidebar-background: 220 25% 12%;
-    --sidebar-foreground: 220 15% 88%;
-    --sidebar-primary: 221 70% 58%;
-    --sidebar-primary-foreground: 220 25% 12%;
-    --sidebar-accent: 220 18% 18%;
-    --sidebar-accent-foreground: 220 15% 88%;
-    --sidebar-border: 220 20% 22%;
-    --sidebar-ring: 221 70% 58%;
-  }
-
-  .light {
-    /* Light mode fallback */
-    --background: 0 0% 100%;
-    --foreground: 222 47% 11%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
-
-    --primary: 221 83% 53%;
-    --primary-foreground: 0 0% 100%;
-    --primary-hover: 221 83% 48%;
-
-    --secondary: 210 17% 95%;
-    --secondary-foreground: 222 47% 11%;
-
-    --muted: 210 17% 97%;
-    --muted-foreground: 215 25% 45%;
-
-    --accent: 199 89% 48%;
-    --accent-foreground: 0 0% 100%;
-
-    --success: 142 76% 36%;
-    --success-foreground: 0 0% 100%;
-
-    --warning: 38 92% 50%;
-    --warning-foreground: 0 0% 100%;
-
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 221 83% 53%;
-
-    --revenue: 142 76% 36%;
-    --expense: 0 84% 60%;
-    --profit: 199 89% 48%;
-    --cash-flow: 221 83% 53%;
-
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 222 47% 11%;
-    --sidebar-primary: 221 83% 53%;
+    /* Sidebar — Navy dark */
+    --sidebar-background: 210 54% 23%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 37 54% 51%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 210 17% 95%;
-    --sidebar-accent-foreground: 222 47% 11%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 221 83% 53%;
+    --sidebar-accent: 210 50% 28%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 210 45% 30%;
+    --sidebar-ring: 37 54% 51%;
 
-    /* Chart colors for light mode */
-    --chart-1: 221 83% 53%;
-    --chart-2: 25 95% 53%;
-    --chart-3: 142 76% 36%;
-    --chart-4: 262 83% 58%;
-    --chart-5: 340 82% 52%;
+    /* Chart colors */
+    --chart-1: 210 54% 23%;
+    --chart-2: 37 54% 51%;
+    --chart-3: 142 65% 35%;
+    --chart-4: 210 56% 41%;
+    --chart-5: 0 72% 51%;
   }
 }
 
@@ -154,18 +103,6 @@
     @apply bg-background text-foreground;
   }
 
-  /* Google-like Dashboard Light Theme */
-  .dashboard-light {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 13%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 13%;
-    --border: 220 13% 91%;
-    --primary: 221 70% 58%;
-    --chart-1: 217 91% 60%;
-    --chart-2: 142 76% 36%;
-    --chart-3: 38 92% 50%;
-  }
 }
 
 @layer utilities {

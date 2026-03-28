@@ -16,7 +16,7 @@ const Support = () => {
               Support Center
             </h1>
             <p className="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto">
-              We're here to help you get the most out of Finlo.
+              We're here to help you get the most out of Vesta.
             </p>
           </div>
           
@@ -30,13 +30,13 @@ const Support = () => {
                 <h2 className="text-xl font-semibold text-white">Email Support</h2>
               </div>
               <p className="text-slate-400 mb-6">
-                Get help with technical issues or general questions about Finlo. We typically respond within 24 hours.
+                Get help with technical issues or general questions about Vesta. We typically respond within 24 hours.
               </p>
               <a 
-                href="mailto:support@joinfinlo.ai" 
+                href="mailto:support@vesta.ai" 
                 className="inline-flex items-center text-blue-400 hover:text-blue-300 font-medium transition-colors"
               >
-                support@joinfinlo.ai
+                support@vesta.ai
               </a>
             </div>
 
@@ -86,10 +86,10 @@ const Support = () => {
               <div className="bg-slate-900/50 backdrop-blur-sm border border-slate-800 p-6 rounded-xl">
                 <h3 className="font-semibold text-white mb-2 flex items-center">
                   <HelpCircle className="w-5 h-5 mr-2 text-slate-400" />
-                  Is Finlo a financial advisor?
+                  Is Vesta a financial advisor?
                 </h3>
                 <p className="text-slate-400">
-                  No. Finlo is not a registered financial advisor, broker, or investment firm. Our AI provides data analysis and insights for informational purposes only. Always consult with qualified financial professionals before making important business or investment decisions.
+                  No. Vesta is not a registered financial advisor, broker, or investment firm. Our AI provides data analysis and insights for informational purposes only. Always consult with qualified financial professionals before making important business or investment decisions.
                 </p>
               </div>
 
@@ -133,7 +133,7 @@ const Support = () => {
               Our team is happy to help with anything not covered above.
             </p>
             <a 
-              href="mailto:support@joinfinlo.ai"
+              href="mailto:support@vesta.ai"
               className="inline-flex items-center justify-center bg-white hover:bg-gray-100 text-gray-900 rounded-lg px-6 py-3 text-sm font-medium transition-colors"
             >
               Contact Support

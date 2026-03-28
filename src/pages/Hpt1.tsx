@@ -8,8 +8,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import Header from '@/components/shared/Header';
 import Footer from '@/components/shared/Footer';
-import finloLogoBlack from '@/assets/finlo-logo-black-text.png';
-import finloLogoWhite from '@/assets/finlo-logo-white-text.png';
+import { VestaBrand } from '@/components/ui/finlo-brand';
 import quickbooksLogo from '@/assets/quickbooks-logo.png';
 import xeroLogo from '@/assets/xero-logo.png';
 import waveLogo from '@/assets/wave-logo.png';
@@ -49,7 +48,7 @@ const Hpt1 = () => {
   const testimonials = [
     {
       title: "Finally understand where our money goes",
-      quote: "Before Finlo, I spent hours in spreadsheets trying to figure out our cash flow. Now I just ask a question and get instant clarity. It has transformed how I run my business.",
+      quote: "Before Vesta, I spent hours in spreadsheets trying to figure out our cash flow. Now I just ask a question and get instant clarity. It has transformed how I run my business.",
       author: "Jennifer Walsh",
       role: "Founder, Evergreen Design Co.",
       initials: "JW",
@@ -57,7 +56,7 @@ const Hpt1 = () => {
     },
     {
       title: "Like having a CFO in my pocket",
-      quote: "As a solo founder, I could not afford a finance team. Finlo gives me the same insights a CFO would, but at a fraction of the cost. It has been a game-changer for strategic decisions.",
+      quote: "As a solo founder, I could not afford a finance team. Vesta gives me the same insights a CFO would, but at a fraction of the cost. It has been a game-changer for strategic decisions.",
       author: "Michael Torres",
       role: "CEO, Brightpath Tech",
       initials: "MT",
@@ -73,7 +72,7 @@ const Hpt1 = () => {
     },
     {
       title: "The insights are incredibly actionable",
-      quote: "Finlo does not just show me numbers. It tells me what they mean and what to do about them. Last month it flagged a supplier issue that was costing us thousands.",
+      quote: "Vesta does not just show me numbers. It tells me what they mean and what to do about them. Last month it flagged a supplier issue that was costing us thousands.",
       author: "David Okonkwo",
       role: "Owner, Summit Consulting",
       initials: "DO",
@@ -236,7 +235,7 @@ const Hpt1 = () => {
           <span className="italic text-[#1a237e] inline-block animate-wordReveal" style={{ opacity: 0, animationDelay: '480ms', animationFillMode: 'forwards' }}>Startups</span>
         </h1>
         <p className="text-base md:text-lg text-gray-500 max-w-2xl mx-auto mb-6 md:mb-10 leading-relaxed px-2 animate-fadeSlideUp" style={{ opacity: 0, animationDelay: '600ms', animationFillMode: 'forwards' }}>
-          Stop guessing about your business financials. Finlo brings clarity
+          Stop guessing about your business financials. Vesta brings clarity
           to your finances so you can move fast and make decisions before it's too late.
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 animate-scaleIn" style={{ opacity: 0, animationDelay: '750ms', animationFillMode: 'forwards' }}>
@@ -264,7 +263,7 @@ const Hpt1 = () => {
                   {/* Sidebar Header with Logo */}
                   <div className="px-4 py-4">
                     <div className="mb-5">
-                      <img src={finloLogoWhite} alt="Finlo" className="h-5 w-auto" />
+                      <VestaBrand size="sm" variant="dark" />
                     </div>
                     
                     {/* New Chat Button */}
@@ -394,7 +393,7 @@ const Hpt1 = () => {
                 <div>
                   <h4 className="text-base font-semibold text-gray-900 mb-1">Automate the tedious stuff</h4>
                   <p className="text-sm text-gray-600 leading-relaxed">
-                    Don't make humans do what AI can do. Finlo automates reports, forecasts, and analysis — all enhanced with AI to surface what matters.
+                    Don't make humans do what AI can do. Vesta automates reports, forecasts, and analysis — all enhanced with AI to surface what matters.
                   </p>
                 </div>
               </div>
@@ -407,7 +406,7 @@ const Hpt1 = () => {
                 <div>
                   <h4 className="text-base font-semibold text-gray-900 mb-1">Built for decisions (not data entry)</h4>
                   <p className="text-sm text-gray-600 leading-relaxed">
-                    Your finances shouldn't be a glorified spreadsheet. Finlo is built to accelerate your strategy and keep you ahead 24/7.
+                    Your finances shouldn't be a glorified spreadsheet. Vesta is built to accelerate your strategy and keep you ahead 24/7.
                   </p>
                 </div>
               </div>
@@ -671,7 +670,7 @@ const Hpt1 = () => {
                     <h3 className="text-xl font-semibold text-white">Smart Insights</h3>
                   </div>
                   <p className="text-slate-400 text-base leading-relaxed">
-                    Finlo automatically scans your financial data and surfaces the insights that matter most. Get proactive alerts about revenue trends, expense anomalies, and cash flow patterns—before they become problems.
+                    Vesta automatically scans your financial data and surfaces the insights that matter most. Get proactive alerts about revenue trends, expense anomalies, and cash flow patterns—before they become problems.
                   </p>
                 </>
               )}
@@ -699,7 +698,7 @@ const Hpt1 = () => {
                     <h3 className="text-xl font-semibold text-white">Expense Intelligence</h3>
                   </div>
                   <p className="text-slate-400 text-base leading-relaxed">
-                    Finlo automatically detects spending anomalies and tracks your top vendors. Get instant visibility into where your money goes and receive AI-powered recommendations to optimize costs.
+                    Vesta automatically detects spending anomalies and tracks your top vendors. Get instant visibility into where your money goes and receive AI-powered recommendations to optimize costs.
                   </p>
                 </>
               )}
@@ -1081,7 +1080,7 @@ const Hpt1 = () => {
           </h2>
           
           <p className={`text-sm md:text-base lg:text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed mb-8 md:mb-0 ${section4Reveal.isVisible ? 'animate-fadeSlideUp' : 'opacity-0'}`} style={{ animationDelay: '500ms', animationFillMode: 'forwards', opacity: 0 }}>
-            Finlo analyzes your financial data in real-time, delivering insights
+            Vesta analyzes your financial data in real-time, delivering insights
             that would take a traditional CFO hours to uncover.
           </p>
         </div>
@@ -1146,7 +1145,7 @@ const Hpt1 = () => {
           {/* Central Content - Header first on mobile */}
           <div className="flex flex-col items-center justify-start md:pt-12 md:pb-32 py-4 md:py-8 px-4 md:px-8">
             <h2 className={`font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white mb-3 md:mb-6 leading-tight text-center`}>
-              <span className={`inline-block ${section5Reveal.isVisible ? 'animate-wordReveal' : 'opacity-0'}`} style={{ animationDelay: '100ms', animationFillMode: 'forwards', opacity: 0 }}>Finlo</span>{' '}
+              <span className={`inline-block ${section5Reveal.isVisible ? 'animate-wordReveal' : 'opacity-0'}`} style={{ animationDelay: '100ms', animationFillMode: 'forwards', opacity: 0 }}>Vesta</span>{' '}
               <span className={`inline-block ${section5Reveal.isVisible ? 'animate-wordReveal' : 'opacity-0'}`} style={{ animationDelay: '160ms', animationFillMode: 'forwards', opacity: 0 }}>integrates</span>{' '}
               <span className={`inline-block ${section5Reveal.isVisible ? 'animate-wordReveal' : 'opacity-0'}`} style={{ animationDelay: '220ms', animationFillMode: 'forwards', opacity: 0 }}>with</span>
               <br />
@@ -1247,7 +1246,7 @@ const Hpt1 = () => {
               <span className={`inline-block ${testimonialReveal.isVisible ? 'animate-wordReveal' : 'opacity-0'}`} style={{ animationDelay: '220ms', animationFillMode: 'forwards', opacity: 0 }}>and</span>{' '}
               <span className={`inline-block ${testimonialReveal.isVisible ? 'animate-wordReveal' : 'opacity-0'}`} style={{ animationDelay: '280ms', animationFillMode: 'forwards', opacity: 0 }}>SMBs</span>{' '}
               <span className={`inline-block ${testimonialReveal.isVisible ? 'animate-wordReveal' : 'opacity-0'}`} style={{ animationDelay: '340ms', animationFillMode: 'forwards', opacity: 0 }}>love</span>{' '}
-              <span className={`inline-block ${testimonialReveal.isVisible ? 'animate-wordReveal' : 'opacity-0'}`} style={{ animationDelay: '400ms', animationFillMode: 'forwards', opacity: 0 }}>Finlo.</span>
+              <span className={`inline-block ${testimonialReveal.isVisible ? 'animate-wordReveal' : 'opacity-0'}`} style={{ animationDelay: '400ms', animationFillMode: 'forwards', opacity: 0 }}>Vesta.</span>
             </h2>
             <p className={`font-serif text-xl sm:text-2xl md:text-3xl text-[#3b82f6] ${testimonialReveal.isVisible ? 'animate-fadeSlideUp' : 'opacity-0'}`} style={{ animationDelay: '450ms', animationFillMode: 'forwards', opacity: 0 }}>
               Yes, love. (Really.)
@@ -1404,8 +1403,10 @@ const Hpt1 = () => {
       {/* Final CTA Section */}
       <section ref={section6Reveal.ref} className="py-16 md:py-24 lg:py-32 bg-gradient-to-t from-slate-900 to-black">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          {/* Finlo Logo */}
-          <img src={finloLogoWhite} alt="Finlo" className={`h-8 md:h-10 lg:h-12 mx-auto mb-6 md:mb-8 ${section6Reveal.isVisible ? 'animate-scaleIn' : 'opacity-0'}`} style={{ animationDelay: '100ms', animationFillMode: 'forwards', opacity: 0 }} />
+          {/* Vesta Logo */}
+          <div className={`flex justify-center mb-6 md:mb-8 ${section6Reveal.isVisible ? 'animate-scaleIn' : 'opacity-0'}`} style={{ animationDelay: '100ms', animationFillMode: 'forwards', opacity: 0 }}>
+            <VestaBrand size="md" variant="dark" />
+          </div>
           
           {/* Headline */}
           <h2 className={`font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white mb-3 md:mb-4 leading-tight px-2`}>
@@ -1417,7 +1418,7 @@ const Hpt1 = () => {
             <span className={`inline-block ${section6Reveal.isVisible ? 'animate-wordReveal' : 'opacity-0'}`} style={{ animationDelay: '500ms', animationFillMode: 'forwards', opacity: 0 }}>your</span>{' '}
             <span className={`inline-block ${section6Reveal.isVisible ? 'animate-wordReveal' : 'opacity-0'}`} style={{ animationDelay: '560ms', animationFillMode: 'forwards', opacity: 0 }}>finances.</span>{' '}
             <span className={`inline-block text-indigo-400 ${section6Reveal.isVisible ? 'animate-wordReveal' : 'opacity-0'}`} style={{ animationDelay: '620ms', animationFillMode: 'forwards', opacity: 0 }}>Try</span>{' '}
-            <span className={`inline-block text-indigo-400 ${section6Reveal.isVisible ? 'animate-wordReveal' : 'opacity-0'}`} style={{ animationDelay: '680ms', animationFillMode: 'forwards', opacity: 0 }}>Finlo</span>{' '}
+            <span className={`inline-block text-indigo-400 ${section6Reveal.isVisible ? 'animate-wordReveal' : 'opacity-0'}`} style={{ animationDelay: '680ms', animationFillMode: 'forwards', opacity: 0 }}>Vesta</span>{' '}
             <span className={`inline-block text-indigo-400 ${section6Reveal.isVisible ? 'animate-wordReveal' : 'opacity-0'}`} style={{ animationDelay: '740ms', animationFillMode: 'forwards', opacity: 0 }}>for</span>{' '}
             <span className={`inline-block text-indigo-400 ${section6Reveal.isVisible ? 'animate-wordReveal' : 'opacity-0'}`} style={{ animationDelay: '800ms', animationFillMode: 'forwards', opacity: 0 }}>free</span>{' '}
             <span className={`inline-block text-indigo-400 ${section6Reveal.isVisible ? 'animate-wordReveal' : 'opacity-0'}`} style={{ animationDelay: '860ms', animationFillMode: 'forwards', opacity: 0 }}>today.</span>

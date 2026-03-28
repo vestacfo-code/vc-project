@@ -1,272 +1,215 @@
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Play } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
-import { useScrollAnimation } from '@/hooks/useScrollAnimation';
-import { LiveRevenueCounter } from '@/components/LiveRevenueCounter';
-import { FeatureSlideshow } from '@/components/FeatureSlideshow';
-import HowItWorks from '@/components/HowItWorks';
+import { TrendingUp, AlertTriangle, DollarSign, BarChart3, Zap, Shield } from 'lucide-react';
 
 const HeroSection = () => {
   const { user } = useAuth();
-  
-  // Scroll animation hooks for different sections
-  const testimonialsAnimation = useScrollAnimation();
-
-  const scrollToDemo = () => {
-    const demoSection = document.getElementById('demo');
-    if (demoSection) {
-      demoSection.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
 
   return (
     <section className="relative overflow-hidden">
-      {/* Hero Section - Full screen height */}
-      <div className="relative overflow-hidden bg-background min-h-screen flex items-center">
-        <div className="container px-4 sm:px-6 lg:px-8 mx-auto max-w-screen-xl 2xl:max-w-screen-2xl w-full">
-          <div className="text-center max-w-4xl xl:max-w-5xl 2xl:max-w-6xl mx-auto animate-fade-in flex flex-col justify-center min-h-screen py-8 sm:py-12">
-            {/* Main Hero Content */}
-            <div className="flex flex-col justify-center space-y-6 sm:space-y-8 md:space-y-10 lg:space-y-12 animate-fade-in">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-bold tracking-tight leading-tight animate-fade-in px-4 sm:px-2" style={{animationDelay: '0.2s'}}>
-                Understand Your Business Like a{' '}
-                <span className="bg-gradient-to-r from-blue-300 to-blue-500 bg-clip-text text-transparent">
-                  CFO
-                </span>
-                . Instantly.
-              </h1>
-              
-              <p className="text-base sm:text-lg md:text-xl xl:text-2xl text-muted-foreground leading-relaxed max-w-3xl xl:max-w-4xl mx-auto animate-fade-in px-6 sm:px-4" style={{animationDelay: '0.4s'}}>
-                AI-powered insights from your financial data — no spreadsheets, no confusion. 
-                Get plain-language explanations and strategic recommendations to grow your business.
-              </p>
-              
-              {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center animate-fade-in px-6 sm:px-4" style={{animationDelay: '0.6s'}}>
-                {user ? (
-                  <Link to="/dashboard" className="w-full sm:w-auto max-w-xs">
-                    <Button variant="hero" size="xl" className="w-full sm:w-auto text-base sm:text-lg px-8 py-4 hover:scale-105 transition-all duration-300">
-                      Go to Dashboard
-                    </Button>
-                  </Link>
-                ) : (
-                  <Link to="/auth" className="w-full sm:w-auto max-w-xs">
-                    <Button variant="hero" size="xl" className="w-full sm:w-auto text-base sm:text-lg px-8 py-4 hover:scale-105 transition-all duration-300">
-                      Get Started Free
-                    </Button>
-                  </Link>
-                )}
-                <Button 
-                  onClick={scrollToDemo}
-                  variant="outline" 
-                  size="xl" 
-                  className="w-full sm:w-auto max-w-xs text-base sm:text-lg group hover:scale-105 transition-all duration-300"
-                >
-                  <Play className="w-4 sm:w-5 h-4 sm:h-5 mr-2 group-hover:scale-110 transition-transform" />
-                  Watch How It Works
+
+      {/* ── HERO ── */}
+      <div className="relative bg-[#1B3A5C] min-h-screen flex items-center overflow-hidden">
+        {/* Subtle background texture */}
+        <div className="absolute inset-0 opacity-5"
+          style={{ backgroundImage: 'radial-gradient(circle at 30% 40%, #C8963E 0%, transparent 50%), radial-gradient(circle at 80% 80%, #2E6DA4 0%, transparent 40%)' }}
+        />
+
+        <div className="relative container px-6 lg:px-8 mx-auto max-w-screen-xl w-full pt-24 pb-16 lg:pb-24">
+          <div className="max-w-4xl mx-auto text-center">
+
+            {/* Eyebrow */}
+            <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 mb-8">
+              <span className="w-2 h-2 rounded-full bg-[#C8963E] animate-pulse" />
+              <span className="font-mono text-xs tracking-widest uppercase text-white/70">
+                AI Financial Intelligence for Independent Hotels
+              </span>
+            </div>
+
+            {/* Headline */}
+            <h1 className="font-display font-bold text-5xl sm:text-6xl lg:text-7xl xl:text-8xl text-white leading-tight tracking-tight mb-6">
+              Your Hotel's Numbers,{' '}
+              <span style={{ color: '#C8963E' }}>Explained.</span>
+            </h1>
+
+            {/* Sub-headline */}
+            <p className="text-lg sm:text-xl lg:text-2xl text-white/70 leading-relaxed max-w-2xl mx-auto mb-10 font-light">
+              Connect your PMS and get a daily AI briefing — plain English, specific numbers, no accountant required.
+            </p>
+
+            {/* CTAs */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
+              {user ? (
+                <Link to="/dashboard">
+                  <Button size="lg" className="px-8 py-4 text-base font-medium rounded-lg"
+                    style={{ background: '#C8963E', color: '#fff', border: 'none' }}>
+                    Go to Dashboard →
+                  </Button>
+                </Link>
+              ) : (
+                <Link to="/auth">
+                  <Button size="lg" className="px-8 py-4 text-base font-medium rounded-lg"
+                    style={{ background: '#C8963E', color: '#fff', border: 'none' }}>
+                    Start Free Pilot →
+                  </Button>
+                </Link>
+              )}
+              <Link to="/auth">
+                <Button variant="outline" size="lg"
+                  className="px-8 py-4 text-base font-medium rounded-lg border-white/30 text-white hover:bg-white/10">
+                  See How It Works
                 </Button>
-              </div>
+              </Link>
+            </div>
 
-              {/* Company Logos */}
-              <div className="pt-4 sm:pt-6 animate-fade-in px-6 sm:px-4" style={{animationDelay: '0.8s'}}>
-                <p className="text-xs sm:text-sm text-muted-foreground mb-4 sm:mb-6 text-center">
-                  Product developed with insights from career professionals from
+            {/* Mock AI daily briefing card */}
+            <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-2xl overflow-hidden text-left">
+              <div className="bg-[#F7F4EE] border-b border-[#E8E4DC] px-6 py-4 flex items-center justify-between">
+                <div>
+                  <p className="font-mono text-[10px] tracking-widest uppercase text-[#6B6B6B] mb-0.5">Daily AI Briefing</p>
+                  <p className="font-display font-semibold text-[#1B3A5C] text-lg">The Heritage Inn — Tuesday, March 26</p>
+                </div>
+                <span className="text-xs bg-green-100 text-green-700 border border-green-200 rounded-full px-3 py-1 font-mono">On Track</span>
+              </div>
+              <div className="px-6 py-5 space-y-4">
+                <p className="text-[#2A2A2A] text-sm leading-relaxed">
+                  <span className="font-semibold">Strong Tuesday.</span> RevPAR hit <span className="text-[#1B3A5C] font-semibold">$94.80</span> — up 6% vs same day last week. ADR held at <span className="text-[#1B3A5C] font-semibold">$148</span> despite a 3-room group cancellation.
                 </p>
-                <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6 lg:gap-8 opacity-60">
-                  <img src="/lovable-uploads/79981afc-f1b1-4a6a-a934-a0dabc0da486.png" alt="Microsoft" className="h-6 sm:h-8 object-contain grayscale hover:grayscale-0 transition-all duration-300" />
-                  <img src="/lovable-uploads/9de50e5c-99f0-4af0-b8c5-5017e8f55b81.png" alt="Shopify" className="h-6 sm:h-8 object-contain grayscale hover:grayscale-0 transition-all duration-300" />
-                  <img src="/lovable-uploads/e290e908-be67-4cbe-9868-4f80344da464.png" alt="Dell" className="h-6 sm:h-8 object-contain grayscale hover:grayscale-0 transition-all duration-300" />
-                  <img src="/lovable-uploads/ae68ed6f-3531-4fb1-aeb5-9d30f5f4ece1.png" alt="Shopify" className="h-6 sm:h-8 object-contain grayscale hover:grayscale-0 transition-all duration-300" />
-                  <img src="/lovable-uploads/a39e4092-f613-482c-95df-8278d5219deb.png" alt="McKinsey" className="h-6 sm:h-8 object-contain grayscale hover:grayscale-0 transition-all duration-300" />
+                <div className="grid grid-cols-3 gap-3">
+                  {[
+                    { label: 'RevPAR', value: '$94.80', delta: '↑ 6%', good: true },
+                    { label: 'Occupancy', value: '64%', delta: '↑ 4 pts', good: true },
+                    { label: 'Labor Cost %', value: '36.2%', delta: '↑ 2 pts', good: false },
+                  ].map((m) => (
+                    <div key={m.label} className="bg-[#F7F4EE] rounded-lg p-3">
+                      <p className="font-mono text-[9px] tracking-widest uppercase text-[#6B6B6B] mb-1">{m.label}</p>
+                      <p className="font-display font-bold text-xl text-[#1B3A5C]">{m.value}</p>
+                      <p className={`text-xs font-medium ${m.good ? 'text-green-600' : 'text-red-500'}`}>{m.delta}</p>
+                    </div>
+                  ))}
+                </div>
+                <div className="bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 flex gap-3">
+                  <AlertTriangle className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
+                  <p className="text-xs text-amber-800 leading-relaxed">
+                    <span className="font-semibold">Watch labor costs.</span> Housekeeping overtime on Mon–Tue added $640. Consider scheduling adjustments for low-occupancy midweeks.
+                  </p>
                 </div>
               </div>
             </div>
+
           </div>
         </div>
       </div>
 
-      {/* Feature Slideshow - Right after hero */}
-      <div className="relative z-40">
-        <FeatureSlideshow />
-      </div>
-
-      {/* How It Works - Between FeatureSlideshow and Demo */}
-      {/* <HowItWorks /> */}
-
-      {/* Interactive Demo Section - After How It Works */}
-      <div id="demo" className="bg-white py-12 sm:py-16 md:py-20 lg:py-24">
-        <div className="container px-4 sm:px-6 lg:px-8 mx-auto max-w-screen-xl 2xl:max-w-screen-2xl">
-          <div className="text-center mb-8 sm:mb-12 lg:mb-16">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 text-gray-900 px-4">See Finlo in Action</h2>
-            <p className="text-base sm:text-lg lg:text-xl text-gray-600 px-4">Experience how easy it is to get AI-powered financial insights</p>
+      {/* ── HOW IT WORKS ── */}
+      <div className="bg-[#F7F4EE] py-20 lg:py-28" id="features">
+        <div className="container px-6 lg:px-8 mx-auto max-w-screen-xl">
+          <div className="text-center mb-16">
+            <p className="font-mono text-xs tracking-widest uppercase text-[#C8963E] mb-3">How it works</p>
+            <h2 className="font-display font-bold text-4xl lg:text-5xl text-[#1B3A5C]">CFO-level insight in 3 steps</h2>
           </div>
-          
-          <div className="max-w-5xl xl:max-w-6xl 2xl:max-w-7xl mx-auto px-2 sm:px-0">
-            <div className="relative w-full" style={{paddingBottom: '56.25%'}}>
-              <iframe 
-                src="https://app.supademo.com/embed/cmdxmjrs47w659f96uw19trb8?embed_v=2&utm_source=embed" 
-                loading="lazy" 
-                title="joinfinlo.ai" 
-                allow="clipboard-write" 
-                allowFullScreen 
-                className="absolute top-0 left-0 w-full h-full rounded-lg shadow-xl border border-gray-200"
-                style={{border: 'none'}}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Testimonials Wall */}
-      <div id="testimonials" className="bg-white py-12 sm:py-16 md:py-20 lg:py-24" ref={testimonialsAnimation.ref}>
-        <div className="container px-4 sm:px-6 lg:px-8 mx-auto max-w-screen-xl 2xl:max-w-screen-2xl">
-          <div className={`text-center mb-10 sm:mb-16 transition-all duration-700 ${testimonialsAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 text-gray-900 px-4">Built for Scale. Trusted by the Best.</h2>
-            <p className="text-base sm:text-lg lg:text-xl text-gray-600 px-4">Real results from real businesses</p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 max-w-6xl xl:max-w-7xl 2xl:max-w-none mx-auto">
-            {/* Card 1 - Soft Blue */}
-            <div className={`bg-blue-50 border border-blue-100 rounded-2xl p-6 hover:shadow-lg hover:scale-105 transition-all duration-300 ${testimonialsAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{transitionDelay: testimonialsAnimation.isVisible ? '100ms' : '0ms'}}>
-              <div className="flex items-start space-x-4">
-                <div className="bg-blue-500 rounded-xl p-3 min-w-12 h-12 flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">TF</span>
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                step: '01',
+                icon: <Zap className="w-6 h-6" style={{ color: '#C8963E' }} />,
+                title: 'Connect your PMS',
+                body: 'Link Mews, Cloudbeds, or Opera in under 5 minutes. Vesta pulls your revenue, occupancy, and expense data automatically.',
+              },
+              {
+                step: '02',
+                icon: <BarChart3 className="w-6 h-6" style={{ color: '#C8963E' }} />,
+                title: 'Get your daily briefing',
+                body: 'Every morning: a plain-English summary of yesterday\'s performance, what moved, why it moved, and what to do about it.',
+              },
+              {
+                step: '03',
+                icon: <DollarSign className="w-6 h-6" style={{ color: '#C8963E' }} />,
+                title: 'Find hidden savings',
+                body: 'Vesta flags overspending, catches anomalies early, and matches you with vetted vendors who beat your current rates.',
+              },
+            ].map((s) => (
+              <div key={s.step} className="bg-white rounded-2xl p-8 border border-[#E8E4DC]">
+                <div className="flex items-center gap-3 mb-5">
+                  <span className="font-mono text-xs text-[#C8963E] tracking-wider">{s.step}</span>
+                  <div className="p-2 rounded-lg bg-[#F7F4EE]">{s.icon}</div>
                 </div>
-                <div className="text-left flex-1">
-                  <p className="text-gray-700 text-sm leading-relaxed mb-4">"Finlo is incredibly useful for automatically turning our own financial data into powerful sources of business insights. We're really excited to be working with them."</p>
-                  <div className="flex items-center">
-                    <div className="w-8 h-8 bg-gray-300 rounded-full mr-3"></div>
-                    <div>
-                      <p className="font-semibold text-gray-900 text-sm">Sarah Kim</p>
-                      <p className="text-xs text-gray-500">CFO of TechForward</p>
-                    </div>
-                  </div>
-                </div>
+                <h3 className="font-display font-semibold text-xl text-[#1B3A5C] mb-3">{s.title}</h3>
+                <p className="text-[#6B6B6B] text-sm leading-relaxed font-light">{s.body}</p>
               </div>
-            </div>
-
-            {/* Card 2 - Soft Green */}
-            <div className={`bg-emerald-50 border border-emerald-100 rounded-2xl p-6 hover:shadow-lg hover:scale-105 transition-all duration-300 ${testimonialsAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{transitionDelay: testimonialsAnimation.isVisible ? '200ms' : '0ms'}}>
-              <div className="flex items-start space-x-4">
-                <div className="bg-emerald-500 rounded-xl p-3 min-w-12 h-12 flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">RC</span>
-                </div>
-                <div className="text-left flex-1">
-                  <p className="text-gray-700 text-sm leading-relaxed mb-4">"Every time I show a business owner the Finlo dashboard, I get one of 3 responses: a) awesome, b) amazing, or c) love it! It's been years since I've heard executives get this excited about a tool."</p>
-                  <div className="flex items-center">
-                    <div className="w-8 h-8 bg-gray-300 rounded-full mr-3"></div>
-                    <div>
-                      <p className="font-semibold text-gray-900 text-sm">Mike Johnson</p>
-                      <p className="text-xs text-gray-500">Business Advisor, RevCorp</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Card 3 - Soft Purple */}
-            <div className={`bg-purple-50 border border-purple-100 rounded-2xl p-6 hover:shadow-lg hover:scale-105 transition-all duration-300 ${testimonialsAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{transitionDelay: testimonialsAnimation.isVisible ? '300ms' : '0ms'}}>
-              <div className="flex items-start space-x-4">
-                <div className="bg-purple-500 rounded-xl p-3 min-w-12 h-12 flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">GS</span>
-                </div>
-                <div className="text-left flex-1">
-                  <p className="text-gray-700 text-sm leading-relaxed mb-4">"We did a Finlo trial after trying 3-4 other vendors, and our team immediately fell in love with it. They said the insights were the best they'd seen."</p>
-                  <div className="flex items-center">
-                    <div className="w-8 h-8 bg-gray-300 rounded-full mr-3"></div>
-                    <div>
-                      <p className="font-semibold text-gray-900 text-sm">Lisa Chen</p>
-                      <p className="text-xs text-gray-500">Finance Manager, GrowthScale</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Card 4 - Soft Teal */}
-            <div className={`bg-teal-50 border border-teal-100 rounded-2xl p-6 hover:shadow-lg hover:scale-105 transition-all duration-300 ${testimonialsAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{transitionDelay: testimonialsAnimation.isVisible ? '400ms' : '0ms'}}>
-              <div className="flex items-start space-x-4">
-                <div className="bg-teal-500 rounded-xl p-3 min-w-12 h-12 flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">DB</span>
-                </div>
-                <div className="text-left flex-1">
-                  <p className="text-gray-700 text-sm leading-relaxed mb-4">"We use Finlo on a daily and hourly basis. Every financial report is analyzed by Finlo to pull insights that drive our business forward. It summarizes everything without our team having to spend hours interpreting the data."</p>
-                  <div className="flex items-center">
-                    <div className="w-8 h-8 bg-gray-300 rounded-full mr-3"></div>
-                    <div>
-                      <p className="font-semibold text-gray-900 text-sm">David Rodriguez</p>
-                      <p className="text-xs text-gray-500">VP of Finance, DataBridge</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Card 5 - Soft Orange */}
-            <div className={`bg-orange-50 border border-orange-100 rounded-2xl p-6 hover:shadow-lg hover:scale-105 transition-all duration-300 ${testimonialsAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{transitionDelay: testimonialsAnimation.isVisible ? '500ms' : '0ms'}}>
-              <div className="flex items-start space-x-4">
-                <div className="bg-orange-500 rounded-xl p-3 min-w-12 h-12 flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">WR</span>
-                </div>
-                <div className="text-left flex-1">
-                  <p className="text-gray-700 text-sm leading-relaxed mb-4">"We chose Finlo because of their investment in harnessing the power of AI to make financial reporting less repetitive. Saved us countless hours and improved accuracy significantly."</p>
-                  <div className="flex items-center">
-                    <div className="w-8 h-8 bg-gray-300 rounded-full mr-3"></div>
-                    <div>
-                      <p className="font-semibold text-gray-900 text-sm">Emma Martinez</p>
-                      <p className="text-xs text-gray-500">Controller, Wealth & Rivers</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Card 6 - Soft Indigo */}
-            <div className={`bg-indigo-50 border border-indigo-100 rounded-2xl p-6 hover:shadow-lg hover:scale-105 transition-all duration-300 ${testimonialsAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{transitionDelay: testimonialsAnimation.isVisible ? '600ms' : '0ms'}}>
-              <div className="flex items-start space-x-4">
-                <div className="bg-indigo-500 rounded-xl p-3 min-w-12 h-12 flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">QP</span>
-                </div>
-                <div className="text-left flex-1">
-                  <p className="text-gray-700 text-sm leading-relaxed mb-4">"Finlo gives us an order of magnitude better data insights than we've ever had before. We're making financial decisions with clarity and speed that we never thought possible."</p>
-                  <div className="flex items-center">
-                    <div className="w-8 h-8 bg-gray-300 rounded-full mr-3"></div>
-                    <div>
-                      <p className="font-semibold text-gray-900 text-sm">James Wilson</p>
-                      <p className="text-xs text-gray-500">CEO, Quantum Partners</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
 
-      {/* Live Revenue Counter Section */}
-      <LiveRevenueCounter />
+      {/* ── KEY METRICS ── */}
+      <div className="bg-[#1B3A5C] py-20">
+        <div className="container px-6 lg:px-8 mx-auto max-w-screen-xl">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+            {[
+              { value: '$2,400', label: 'Average monthly savings', sub: 'per hotel on platform' },
+              { value: '< 5min', label: 'To connect your PMS', sub: 'no IT required' },
+              { value: '8×', label: 'ROI vs subscription cost', sub: 'in first 90 days' },
+              { value: '24/7', label: 'Anomaly monitoring', sub: 'alerts before they compound' },
+            ].map((m) => (
+              <div key={m.label} className="py-6">
+                <p className="font-display font-bold text-4xl lg:text-5xl text-white mb-2">{m.value}</p>
+                <p className="text-[#C8963E] font-medium text-sm mb-1">{m.label}</p>
+                <p className="text-white/50 font-mono text-xs tracking-wider">{m.sub}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
 
-      {/* Get Started Guide Link */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16 lg:pt-20 pb-8 text-center max-w-screen-xl 2xl:max-w-screen-2xl">
-        <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 sm:p-8 lg:p-10 border border-white/10 max-w-2xl xl:max-w-3xl mx-auto">
-          <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-3 sm:mb-4 px-2">Need Help Getting Started?</h3>
-          <p className="text-sm sm:text-base lg:text-lg text-gray-300 mb-4 sm:mb-6 px-2">
-            Follow our step-by-step guide with screenshots to create your account and start your financial transformation journey.
+      {/* ── FEATURES ── */}
+      <div className="bg-[#F7F4EE] py-20 lg:py-28">
+        <div className="container px-6 lg:px-8 mx-auto max-w-screen-xl">
+          <div className="text-center mb-16">
+            <p className="font-mono text-xs tracking-widest uppercase text-[#C8963E] mb-3">What Vesta does</p>
+            <h2 className="font-display font-bold text-4xl lg:text-5xl text-[#1B3A5C]">Everything your accountant doesn't tell you</h2>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              { icon: <TrendingUp className="w-5 h-5" />, title: 'Daily AI Briefing', body: 'Plain-English summary of RevPAR, GOPPAR, ADR, labor costs, and what drove each number — every morning in your inbox.' },
+              { icon: <AlertTriangle className="w-5 h-5" />, title: 'Anomaly Detection', body: 'Get alerted the moment something looks off — revenue drop, cost spike, OTA commission increase — before it compounds.' },
+              { icon: <DollarSign className="w-5 h-5" />, title: 'Cost Cutter', body: 'We compare your vendor costs to our partner network and flag savings. "Switch linen supplier → save $3,200/yr."' },
+              { icon: <BarChart3 className="w-5 h-5" />, title: 'Revenue Analysis', body: 'Channel-by-channel breakdown. See which OTA is your most profitable and where you\'re leaving money on the table.' },
+              { icon: <Zap className="w-5 h-5" />, title: 'Ask Vesta Anything', body: '"Why did my F&B margins drop in March?" Get an answer backed by your own data, not generic advice.' },
+              { icon: <Shield className="w-5 h-5" />, title: 'PMS Integrations', body: 'Connects to Mews, Cloudbeds, Opera, QuickBooks, and more. Your data stays yours — always.' },
+            ].map((f) => (
+              <div key={f.title} className="bg-white rounded-xl p-6 border border-[#E8E4DC]">
+                <div className="w-9 h-9 rounded-lg flex items-center justify-center mb-4"
+                  style={{ background: '#1B3A5C', color: '#C8963E' }}>
+                  {f.icon}
+                </div>
+                <h3 className="font-display font-semibold text-lg text-[#1B3A5C] mb-2">{f.title}</h3>
+                <p className="text-[#6B6B6B] text-sm leading-relaxed font-light">{f.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── CTA BANNER ── */}
+      <div className="bg-[#C8963E] py-16">
+        <div className="container px-6 mx-auto max-w-screen-xl text-center">
+          <h2 className="font-display font-bold text-3xl lg:text-4xl text-white mb-4">
+            Ready to know your hotel's numbers?
+          </h2>
+          <p className="text-white/80 text-lg mb-8 font-light">
+            Free pilot. No credit card. Connect your PMS in 5 minutes.
           </p>
-          <Button 
-            variant="outline" 
-            size="lg"
-            onClick={() => window.location.href = '/how-to-get-started'}
-            className="border-white/20 text-white hover:bg-white/10 hover:border-white/30 w-full sm:w-auto"
-          >
-            View Step-by-Step Guide
-          </Button>
+          <Link to="/auth">
+            <Button size="lg" className="px-10 py-4 text-base font-medium rounded-lg"
+              style={{ background: '#1B3A5C', color: '#fff', border: 'none' }}>
+              Start Free Pilot →
+            </Button>
+          </Link>
         </div>
       </div>
 
-      {/* Background decorations */}
-      <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl -z-10 animate-pulse" />
-      <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl -z-10 animate-pulse" />
     </section>
   );
 };

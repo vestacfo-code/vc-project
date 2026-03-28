@@ -78,7 +78,7 @@ const Careers = () => {
                 understand their financial performance.
               </p>
               <p className="text-gray-500 text-base md:text-lg">
-                At Finlo, every role matters. Every contribution shapes the future of AI-powered finance.
+                At Vesta, every role matters. Every contribution shapes the future of AI-powered finance.
               </p>
             </div>
 
@@ -95,8 +95,8 @@ const Careers = () => {
                   </p>
                   <p className="text-gray-600">
                     Feel free to reach out to us directly at{' '}
-                    <a href="mailto:careers@finlo.ai" className="text-gray-900 font-medium hover:underline">
-                      careers@finlo.ai
+                    <a href="mailto:careers@vesta.ai" className="text-gray-900 font-medium hover:underline">
+                      careers@vesta.ai
                     </a>
                   </p>
                 </div>

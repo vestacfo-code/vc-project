@@ -266,7 +266,7 @@ export const OnboardingPaywall = ({ open, onOpenChange, onContinueFree }: Onboar
             className="text-center text-sm text-gray-600 space-y-2"
           >
             <p className="font-medium">✓ Cancel anytime • ✓ No long-term commitments • ✓ Secure payment processing</p>
-            <p>Questions? Contact us at <span className="font-semibold text-blue-600">support@joinfinlo.ai</span></p>
+            <p>Questions? Contact us at <span className="font-semibold text-blue-600">support@vesta.ai</span></p>
           </motion.div>
         </div>
       </DialogContent>

@@ -440,7 +440,7 @@ const Auth = () => {
           }
         }
         if (!teamInvite) {
-          toast({ title: "Welcome to Finlo!" });
+          toast({ title: "Welcome to Vesta!" });
         }
         setEmail('');
         setPassword('');
@@ -614,7 +614,7 @@ const Auth = () => {
             <div>
               <TypingHeadline key={getHeadline()} text={getHeadline()} />
             </div>
-            <p className="text-white/40 text-sm">© 2026 Finlo. All rights reserved.</p>
+            <p className="text-white/40 text-sm">© 2026 Vesta. All rights reserved.</p>
           </div>
         </div>
 
@@ -640,8 +640,8 @@ const Auth = () => {
             
             <button onClick={() => navigate('/')} className="hover:opacity-80 transition-opacity">
               <img 
-                src="/lovable-uploads/9a766835-c271-49a0-bc54-c0424112a3cc.png" 
-                alt="Finlo" 
+                src="/assets/9a766835-c271-49a0-bc54-c0424112a3cc.png" 
+                alt="Vesta" 
                 className="h-10"
               />
             </button>

@@ -113,7 +113,7 @@ serve(async (req) => {
       }
     }
 
-    let systemContext = `You are Finlo's AI CFO - a seasoned Chief Financial Officer with 25+ years of corporate finance experience. You provide DIRECT, actionable financial guidance.
+    let systemContext = `You are Vesta's AI CFO - a seasoned Chief Financial Officer with 25+ years of corporate finance experience. You provide DIRECT, actionable financial guidance.
 
 CRITICAL RULES:
 1. SHOW YOUR WORK - include calculations and step-by-step math when relevant

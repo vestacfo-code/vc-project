@@ -10,7 +10,7 @@ const AnimatedHeroImage = () => {
     const processLaptopImage = async () => {
       try {
         // Load the original laptop image
-        const response = await fetch('/lovable-uploads/4e07bce3-4d2f-4695-9764-40d834c85a30.png');
+        const response = await fetch('/assets/4e07bce3-4d2f-4695-9764-40d834c85a30.png');
         const blob = await response.blob();
         
         // Create image element
@@ -30,7 +30,7 @@ const AnimatedHeroImage = () => {
           } catch (error) {
             console.error('Error removing background:', error);
             // Fallback to original image
-            setLaptopImageUrl('/lovable-uploads/4e07bce3-4d2f-4695-9764-40d834c85a30.png');
+            setLaptopImageUrl('/assets/4e07bce3-4d2f-4695-9764-40d834c85a30.png');
             setIsProcessing(false);
             setTimeout(() => {
               setIsAnimated(true);
@@ -41,7 +41,7 @@ const AnimatedHeroImage = () => {
       } catch (error) {
         console.error('Error loading image:', error);
         // Fallback to original image
-        setLaptopImageUrl('/lovable-uploads/4e07bce3-4d2f-4695-9764-40d834c85a30.png');
+        setLaptopImageUrl('/assets/4e07bce3-4d2f-4695-9764-40d834c85a30.png');
         setIsProcessing(false);
         setTimeout(() => {
           setIsAnimated(true);
@@ -83,7 +83,7 @@ const AnimatedHeroImage = () => {
               style={{ transitionDelay: '300ms' }}
             >
               <div className="text-primary text-base font-bold">Dashboard</div>
-              <div className="text-muted-foreground text-xs">Welcome back, Join Finlo</div>
+              <div className="text-muted-foreground text-xs">Welcome back, Join Vesta</div>
             </div>
           
             {/* Health Score Card */}

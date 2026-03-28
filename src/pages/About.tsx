@@ -9,10 +9,10 @@ import teamCollaboration from '@/assets/team-collaboration.jpg';
 
 const About = () => {
   useEffect(() => {
-    document.title = 'Leadership - Finlo AI | Meet Our Executive Team';
+    document.title = 'Leadership - Vesta | Meet Our Executive Team';
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute('content', 'Meet the leadership team at Finlo AI. Our executive leadership and team members are dedicated to helping SMBs grow with AI-powered financial insights.');
+      metaDescription.setAttribute('content', 'Meet the leadership team at Vesta. Our executive leadership and team members are dedicated to helping SMBs grow with AI-powered financial insights.');
     }
   }, []);
 
@@ -20,32 +20,32 @@ const About = () => {
     { 
       name: "Isaiah Sidi", 
       role: "Chief Executive Officer", 
-      email: "isaiah@finlo.ai",
-      image: "/lovable-uploads/isaiah-medium.png" 
+      email: "isaiah@vesta.ai",
+      image: "/assets/isaiah-medium.png" 
     },
     { 
       name: "Evelyn Jimenez", 
       role: "Chief Financial Officer", 
-      email: "evelyn@finlo.ai",
-      image: "/lovable-uploads/evelyn-zoomed.png" 
+      email: "evelyn@vesta.ai",
+      image: "/assets/evelyn-zoomed.png" 
     },
     { 
       name: "Irene Qu", 
       role: "Chief People Officer", 
-      email: "irene@finlo.ai",
-      image: "/lovable-uploads/irene-qu-zoomed.png" 
+      email: "irene@vesta.ai",
+      image: "/assets/irene-qu-zoomed.png" 
     },
     { 
       name: "Eric Rodriguez", 
       role: "Vice President of Product", 
-      email: "eric@finlo.ai",
-      image: "/lovable-uploads/4273048a-e27c-4b30-8f4c-8f7f97aba3ff.png" 
+      email: "eric@vesta.ai",
+      image: "/assets/4273048a-e27c-4b30-8f4c-8f7f97aba3ff.png" 
     },
     { 
       name: "Alice Jiang", 
       role: "Vice President of Growth", 
-      email: "alice@finlo.ai",
-      image: "/lovable-uploads/alice-jiang-final.png" 
+      email: "alice@vesta.ai",
+      image: "/assets/alice-jiang-final.png" 
     }
   ];
 
@@ -53,32 +53,32 @@ const About = () => {
     { 
       name: "Isabella Wen", 
       role: "Director of Marketing", 
-      email: "isabella@finlo.ai",
-      image: "/lovable-uploads/isabella-wen.png" 
+      email: "isabella@vesta.ai",
+      image: "/assets/isabella-wen.png" 
     },
     { 
       name: "Leo Chen", 
       role: "Director of Strategic Development", 
-      email: "leo@finlo.ai",
-      image: "/lovable-uploads/leo-chen-zoomed.png" 
+      email: "leo@vesta.ai",
+      image: "/assets/leo-chen-zoomed.png" 
     },
     { 
       name: "Emily Lourng", 
       role: "Business Development Associate", 
-      email: "emily@finlo.ai",
-      image: "/lovable-uploads/placeholder-avatar.png" 
+      email: "emily@vesta.ai",
+      image: "/assets/placeholder-avatar.png" 
     },
     { 
       name: "TBD", 
       role: "AI Engineer", 
-      email: "ai@finlo.ai",
-      image: "/lovable-uploads/placeholder-avatar.png" 
+      email: "ai@vesta.ai",
+      image: "/assets/placeholder-avatar.png" 
     },
     { 
       name: "Jack Zhang", 
       role: "Web Developer", 
-      email: "jack@finlo.ai",
-      image: "/lovable-uploads/jack-final.png" 
+      email: "jack@vesta.ai",
+      image: "/assets/jack-final.png" 
     }
   ];
 
@@ -182,7 +182,7 @@ const About = () => {
             <div className="animate-fade-in bg-white/70 backdrop-blur-md border border-white/30 rounded-2xl overflow-hidden shadow-lg">
               <div className="grid md:grid-cols-2 gap-0">
                 <div className="relative h-64 md:h-auto">
-                  <img src={teamCollaboration} alt="Team collaboration at Finlo" className="w-full h-full object-cover" />
+                  <img src={teamCollaboration} alt="Team collaboration at Vesta" className="w-full h-full object-cover" />
                 </div>
                 <div className="p-8 md:p-12 flex flex-col justify-center text-center md:text-left">
                   <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
@@ -198,7 +198,7 @@ const About = () => {
                         <ArrowRight className="ml-2 w-4 h-4" />
                       </Button>
                     </Link>
-                    <a href="mailto:support@joinfinlo.ai" className="w-full sm:w-auto">
+                    <a href="mailto:support@vesta.ai" className="w-full sm:w-auto">
                       <Button size="lg" variant="outline" className="w-full sm:w-auto bg-white/50 border-white/30 text-gray-700 hover:bg-white/70 text-base px-8 py-5 rounded-xl font-medium transition-all duration-300">
                         Contact Us
                       </Button>

@@ -12,7 +12,7 @@ const ConnectWave = () => {
   return (
     <DocsLayout 
       title="Connect Wave" 
-      description="Connect your Wave accounting software to Finlo for automated insights."
+      description="Connect your Wave accounting software to Vesta for automated insights."
       tableOfContents={tableOfContents}
       nextPage={{ href: "/docs/connect/zoho", title: "Connect Zoho" }}
     >
@@ -22,14 +22,14 @@ const ConnectWave = () => {
         <ul className="list-disc list-inside text-slate-400 space-y-2">
           <li>An active Wave account</li>
           <li>Owner access to your Wave business</li>
-          <li>A Finlo account (free or paid)</li>
+          <li>A Vesta account (free or paid)</li>
         </ul>
       </section>
 
       <section id="authorize" className="mb-12">
-        <h2 className="text-2xl font-semibold text-white mb-4">Step 1: Authorize Finlo</h2>
+        <h2 className="text-2xl font-semibold text-white mb-4">Step 1: Authorize Vesta</h2>
         <p className="text-slate-400 mb-4">
-          Click <strong className="text-white">"Connect Wave"</strong> from your Finlo dashboard. 
+          Click <strong className="text-white">"Connect Wave"</strong> from your Vesta dashboard. 
           You'll be taken to Wave's authorization page to grant access.
         </p>
         <div className="bg-[#1a1a1a] border border-white/10 rounded-xl p-4 mb-4">

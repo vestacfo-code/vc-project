@@ -95,11 +95,11 @@ serve(async (req: Request) => {
 
     // Send email to support team
     try {
-      console.log('[create-support-ticket] Sending support email to support@joinfinlo.ai...');
+      console.log('[create-support-ticket] Sending support email to support@vesta.ai...');
       const supportEmailResult = await resend.emails.send({
-        from: 'Finlo Support <support@joinfinlo.ai>',
-        replyTo: 'support@joinfinlo.ai',
-        to: ['support@joinfinlo.ai'],
+        from: 'Vesta Support <support@vesta.ai>',
+        replyTo: 'support@vesta.ai',
+        to: ['support@vesta.ai'],
         subject: `[Ticket ${ticket.ticket_number}] New Support Request from ${userName}`,
         html: `
           <!DOCTYPE html>
@@ -137,7 +137,7 @@ serve(async (req: Request) => {
                 <p style="white-space: pre-wrap; background-color: #f9f9f9; padding: 16px; border-radius: 6px; color: #4a4a4a; font-size: 14px; line-height: 1.6; border: 1px solid #e8e8e8; margin: 0;">${description}</p>
                 
                 <p style="margin-top: 24px;">
-                  <a href="https://joinfinlo.ai/admin?tab=support&ticket=${ticket.id}" 
+                  <a href="https://vesta.ai/admin?tab=support&ticket=${ticket.id}" 
                      style="display: inline-block; background-color: #1a1a1a; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: 500; font-size: 14px;">
                     View Ticket in Admin
                   </a>
@@ -158,8 +158,8 @@ serve(async (req: Request) => {
     try {
       console.log('[create-support-ticket] Sending confirmation email to:', userEmail);
       const userEmailResult = await resend.emails.send({
-        from: 'Finlo Support <support@joinfinlo.ai>',
-        replyTo: 'support@joinfinlo.ai',
+        from: 'Vesta Support <support@vesta.ai>',
+        replyTo: 'support@vesta.ai',
         to: [userEmail],
         subject: `Your Support Ticket ${ticket.ticket_number} Has Been Created`,
         html: `
@@ -194,11 +194,11 @@ serve(async (req: Request) => {
                 
                 <p style="color: #4a4a4a; font-size: 14px; line-height: 1.6; margin: 20px 0 0 0;">Our team will review your request and get back to you as soon as possible.</p>
                 
-                <p style="color: #4a4a4a; font-size: 14px; line-height: 1.6; margin: 24px 0 0 0;">Best regards,<br>The Finlo Team</p>
+                <p style="color: #4a4a4a; font-size: 14px; line-height: 1.6; margin: 24px 0 0 0;">Best regards,<br>The Vesta Team</p>
               </div>
               
               <p style="text-align: center; color: #8a8a8a; font-size: 12px; margin-top: 24px;">
-                ${new Date().getFullYear()} Finlo. All rights reserved.
+                ${new Date().getFullYear()} Vesta. All rights reserved.
               </p>
             </div>
           </body>

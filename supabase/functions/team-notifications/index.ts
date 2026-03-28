@@ -78,7 +78,7 @@ serve(async (req: Request): Promise<Response> => {
     if (type === 'member_joined') {
       // Notify owner that someone joined
       await resend.emails.send({
-        from: "Finlo Team <support@joinfinlo.ai>",
+        from: "Vesta Team <support@vesta.ai>",
         to: [ownerEmail],
         subject: `${displayMemberName} has joined ${displayTeamName}`,
         html: `
@@ -92,7 +92,7 @@ serve(async (req: Request): Promise<Response> => {
             <div style="max-width: 600px; margin: 0 auto; padding: 40px 20px;">
               <div style="background-color: #ffffff; border-radius: 8px; border: 1px solid #e0e0e0; overflow: hidden;">
                 <div style="background-color: #1a1a1a; padding: 24px; text-align: center;">
-                  <h1 style="color: #ffffff; margin: 0; font-size: 20px; font-weight: 600;">Finlo</h1>
+                  <h1 style="color: #ffffff; margin: 0; font-size: 20px; font-weight: 600;">Vesta</h1>
                 </div>
                 
                 <div style="padding: 32px 24px;">
@@ -111,7 +111,7 @@ serve(async (req: Request): Promise<Response> => {
                   </p>
                   
                   <div style="text-align: center; margin: 32px 0;">
-                    <a href="https://joinfinlo.ai/chat"
+                    <a href="https://vesta.ai/chat"
                        style="display: inline-block; background-color: #1a1a1a; color: #ffffff; text-decoration: none; padding: 12px 24px; border-radius: 6px; font-weight: 500; font-size: 14px;">
                       View Your Team
                     </a>
@@ -120,7 +120,7 @@ serve(async (req: Request): Promise<Response> => {
                 
                 <div style="background-color: #f9f9f9; padding: 20px 24px; text-align: center; border-top: 1px solid #e8e8e8;">
                   <p style="margin: 0; color: #8a8a8a; font-size: 12px;">
-                    © ${new Date().getFullYear()} Finlo. All rights reserved.
+                    © ${new Date().getFullYear()} Vesta. All rights reserved.
                   </p>
                 </div>
               </div>
@@ -134,7 +134,7 @@ serve(async (req: Request): Promise<Response> => {
     } else if (type === 'member_removed') {
       // Notify the removed member
       await resend.emails.send({
-        from: "Finlo Team <support@joinfinlo.ai>",
+        from: "Vesta Team <support@vesta.ai>",
         to: [memberEmail],
         subject: `You've been removed from ${displayTeamName}`,
         html: `
@@ -148,7 +148,7 @@ serve(async (req: Request): Promise<Response> => {
             <div style="max-width: 600px; margin: 0 auto; padding: 40px 20px;">
               <div style="background-color: #ffffff; border-radius: 8px; border: 1px solid #e0e0e0; overflow: hidden;">
                 <div style="background-color: #1a1a1a; padding: 24px; text-align: center;">
-                  <h1 style="color: #ffffff; margin: 0; font-size: 20px; font-weight: 600;">Finlo</h1>
+                  <h1 style="color: #ffffff; margin: 0; font-size: 20px; font-weight: 600;">Vesta</h1>
                 </div>
                 
                 <div style="padding: 32px 24px;">
@@ -159,24 +159,24 @@ serve(async (req: Request): Promise<Response> => {
                   </p>
                   
                   <p style="color: #4a4a4a; line-height: 1.6; font-size: 14px;">
-                    Your access to <strong>${displayTeamName}</strong> on Finlo has been removed by the team owner.
+                    Your access to <strong>${displayTeamName}</strong> on Vesta has been removed by the team owner.
                   </p>
                   
                   <p style="color: #4a4a4a; line-height: 1.6; font-size: 14px;">
-                    You can still use your Finlo account independently. If you believe this was a mistake, please contact the team owner.
+                    You can still use your Vesta account independently. If you believe this was a mistake, please contact the team owner.
                   </p>
                   
                   <div style="text-align: center; margin: 32px 0;">
-                    <a href="https://joinfinlo.ai/chat" 
+                    <a href="https://vesta.ai/chat" 
                        style="display: inline-block; background-color: #1a1a1a; color: #ffffff; text-decoration: none; padding: 12px 24px; border-radius: 6px; font-weight: 500; font-size: 14px;">
-                      Continue Using Finlo
+                      Continue Using Vesta
                     </a>
                   </div>
                 </div>
                 
                 <div style="background-color: #f9f9f9; padding: 20px 24px; text-align: center; border-top: 1px solid #e8e8e8;">
                   <p style="margin: 0; color: #8a8a8a; font-size: 12px;">
-                    © ${new Date().getFullYear()} Finlo. All rights reserved.
+                    © ${new Date().getFullYear()} Vesta. All rights reserved.
                   </p>
                 </div>
               </div>

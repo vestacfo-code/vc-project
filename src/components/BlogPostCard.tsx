@@ -37,7 +37,7 @@ const BlogPostCard = ({ post }: BlogPostCardProps) => {
         <CardContent className="p-0">
           <div className="w-full h-48 overflow-hidden rounded-t-lg">
             <img 
-              src={post.featured_image_url || "/lovable-uploads/004786ce-ad05-48fe-b1b9-d99efbfe5962.png"} 
+              src={post.featured_image_url || "/assets/004786ce-ad05-48fe-b1b9-d99efbfe5962.png"} 
               alt={post.title}
               className="w-full h-full object-cover transition-transform hover:scale-105"
             />

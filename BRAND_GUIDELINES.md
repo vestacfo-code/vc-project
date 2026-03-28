@@ -1,8 +1,8 @@
-# Finlo Brand Guidelines
+# Vesta Brand Guidelines
 
 ## Brand Overview
 
-Finlo is an AI-powered financial intelligence platform that transforms complex financial data into clear, actionable insights. Our brand reflects **trust, sophistication, and accessibility** — making CFO-level financial analysis available to every business owner.
+Vesta is an AI-powered financial intelligence platform that transforms complex financial data into clear, actionable insights. Our brand reflects **trust, sophistication, and accessibility** — making CFO-level financial analysis available to every business owner.
 
 ### Brand Personality
 - **Professional yet Approachable**: Enterprise-grade insights without enterprise complexity
@@ -108,7 +108,7 @@ Our shadow system creates subtle depth without overwhelming the design:
 
 ### Font System
 
-#### Primary: Neue Montreal (Finlo Brand Font)
+#### Primary: Neue Montreal (Vesta Brand Font)
 ```css
 font-family: 'Neue Montreal', system-ui, sans-serif;
 ```
