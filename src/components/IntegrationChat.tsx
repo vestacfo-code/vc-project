@@ -507,7 +507,7 @@ const IntegrationChat = ({ conversationId }: IntegrationChatProps) => {
 
 
   const generateAiFollowUps = async (userQuestion: string, assistantAnswer: string): Promise<string[]> => {
-    const CHAT_URL = `https://godnomficzhjaclmvomh.supabase.co/functions/v1/streaming-chat`;
+    const CHAT_URL = `https://qjgnbvrxpmspzfqlomjc.supabase.co/functions/v1/streaming-chat`;
 
     const response = await fetch(CHAT_URL, {
       method: 'POST',

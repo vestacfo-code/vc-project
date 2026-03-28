@@ -110,3 +110,6 @@ verify_jwt = true
 
 [functions.agent-research]
 verify_jwt = false
+
+[functions.generate-daily-summary]
+verify_jwt = true

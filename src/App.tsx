@@ -33,6 +33,7 @@ import Privacy from "./pages/Privacy";
 import Support from "./pages/Support";
 import Security from "./pages/Security";
 import Onboarding from "./pages/Onboarding";
+import HotelOnboarding from "./pages/HotelOnboarding";
 import PaymentSelection from "./pages/PaymentSelection";
 import StepByStepGuide from "./pages/StepByStepGuide";
 import TermsOfService from "./pages/TermsOfService";
@@ -114,7 +115,7 @@ const AppContent = () => {
         } />
         <Route path="/onboarding" element={
           <ProtectedRoute>
-            <Onboarding />
+            <HotelOnboarding />
           </ProtectedRoute>
         } />
         <Route path="/payment-selection" element={

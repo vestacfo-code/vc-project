@@ -420,6 +420,28 @@ const Auth = () => {
         }
       }
       
+      // Create organization for new user
+      if (data?.user) {
+        try {
+          const emailDomain = (data.user.email || email).split('@')[1];
+          const orgName = emailDomain ? emailDomain.split('.')[0].charAt(0).toUpperCase() + emailDomain.split('.')[0].slice(1) + ' Hotel Group' : 'My Hotel Group';
+          const { data: orgData, error: orgError } = await supabase
+            .from('organizations')
+            .insert({
+              name: orgName,
+              owner_user_id: data.user.id,
+              plan: 'starter',
+            })
+            .select('id')
+            .single();
+          if (!orgError && orgData) {
+            localStorage.setItem('vesta_onboarding_org_id', orgData.id);
+          }
+        } catch (err) {
+          console.error('[Auth] Org creation error:', err);
+        }
+      }
+
       setTimeout(async () => {
         if (referralCode.trim() && (data?.user || user)) {
           const userId = data?.user?.id || user?.id;
@@ -449,7 +471,7 @@ const Auth = () => {
         setLastName('');
         setReferralCode('');
         setIsLoading(false);
-        navigate('/chat');
+        navigate('/onboarding');
       }, 1000);
     }
   };
@@ -544,15 +566,21 @@ const Auth = () => {
   const handleGoogleSignIn = async () => {
     setIsLoading(true);
     try {
+      // Flag for new Google signups so onboarding org creation runs after OAuth redirect
+      if (showSignUp) {
+        localStorage.setItem('vesta_pending_google_signup', '1');
+      }
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
-        options: { redirectTo: getRedirectUrl('/chat') }
+        options: { redirectTo: getRedirectUrl('/onboarding') }
       });
       if (error) {
+        localStorage.removeItem('vesta_pending_google_signup');
         toast({ title: "Google sign in failed", description: error.message, variant: "destructive" });
         setIsLoading(false);
       }
     } catch (error: any) {
+      localStorage.removeItem('vesta_pending_google_signup');
       toast({ title: "Error", description: error.message, variant: "destructive" });
       setIsLoading(false);
     }
