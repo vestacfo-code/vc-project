@@ -128,7 +128,6 @@ const HotelOnboarding = () => {
           country: form.country.trim(),
           timezone: form.timezone,
           currency: form.currency,
-          pms_provider: form.pmsProvider,
         })
         .select('id')
         .single();
@@ -141,7 +140,6 @@ const HotelOnboarding = () => {
           hotel_id: hotelData.id,
           user_id: user.id,
           role: 'owner',
-          status: 'active',
         });
 
       if (memberError) throw memberError;
