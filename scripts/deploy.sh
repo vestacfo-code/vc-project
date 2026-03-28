@@ -26,7 +26,7 @@ echo "====================="
 # 1. Apply pending migrations
 echo ""
 echo "📦 Applying database migrations..."
-npx supabase db push --project-ref "$PROJECT_REF"
+npx supabase db push --linked
 
 # 2. Deploy edge functions
 echo ""
@@ -34,8 +34,7 @@ echo "⚡ Deploying edge functions..."
 for fn in "${FUNCTIONS[@]}"; do
   if [ -d "supabase/functions/$fn" ]; then
     echo "  → deploying $fn..."
-    npx supabase functions deploy "$fn" --project-ref "$PROJECT_REF" --no-verify-jwt 2>/dev/null || \
-    npx supabase functions deploy "$fn" --project-ref "$PROJECT_REF"
+    npx supabase functions deploy "$fn" --no-verify-jwt
   fi
 done
 
