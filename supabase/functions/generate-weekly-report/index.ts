@@ -195,7 +195,7 @@ const getEmailHtml = (report: any, userName: string) => {
     <div style="background-color: #ffffff; border-radius: 12px; border: 1px solid #e0e0e0; overflow: hidden;">
       <!-- Header -->
       <div style="background-color: #1a1a1a; padding: 32px; text-align: center;">
-        <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: 600;">Finlo</h1>
+        <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: 600;">Vesta</h1>
         <p style="color: #a0a0a0; margin: 8px 0 0 0; font-size: 14px;">Your Weekly Financial Insights</p>
       </div>
       
@@ -282,7 +282,7 @@ const getEmailHtml = (report: any, userName: string) => {
       
       <!-- CTA -->
       <div style="padding: 0 24px 32px 24px; text-align: center;">
-        <a href="https://finlo-ai.lovable.app/dashboard" style="display: inline-block; background-color: #1a1a1a; color: #ffffff; text-decoration: none; padding: 14px 32px; border-radius: 8px; font-weight: 500; font-size: 14px;">
+        <a href="https://app.vesta.ai/dashboard" style="display: inline-block; background-color: #1a1a1a; color: #ffffff; text-decoration: none; padding: 14px 32px; border-radius: 8px; font-weight: 500; font-size: 14px;">
           View Full Dashboard
         </a>
       </div>
@@ -291,10 +291,10 @@ const getEmailHtml = (report: any, userName: string) => {
       <div style="background-color: #f9f9f9; padding: 24px; border-top: 1px solid #e8e8e8;">
         <p style="margin: 0; color: #8a8a8a; font-size: 12px; text-align: center;">
           You're receiving this because you have weekly reports enabled. 
-          <a href="https://finlo-ai.lovable.app/settings" style="color: #6a6a6a;">Manage preferences</a>
+          <a href="https://app.vesta.ai/settings" style="color: #6a6a6a;">Manage preferences</a>
         </p>
         <p style="margin: 12px 0 0 0; color: #a0a0a0; font-size: 12px; text-align: center;">
-          © ${new Date().getFullYear()} Finlo. All rights reserved.
+          © ${new Date().getFullYear()} Vesta. All rights reserved.
         </p>
       </div>
     </div>
@@ -384,7 +384,7 @@ serve(async (req) => {
                 'Content-Type': 'application/json',
               },
               body: JSON.stringify({
-                from: 'Finlo <support@joinfinlo.ai>',
+                from: 'Vesta <support@vesta.ai>',
                 to: [userEmail],
                 subject: `📊 ${report.title}`,
                 html: emailHtml,

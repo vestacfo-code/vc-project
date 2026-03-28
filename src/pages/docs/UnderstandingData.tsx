@@ -11,14 +11,14 @@ const UnderstandingData = () => {
   return (
     <DocsLayout 
       title="Understanding Your Data" 
-      description="Learn how Finlo collects, processes, and protects your financial data."
+      description="Learn how Vesta collects, processes, and protects your financial data."
       tableOfContents={tableOfContents}
       nextPage={{ href: "/docs/learn/practices", title: "Best Practices" }}
     >
       <section id="sources" className="mb-12">
         <h2 className="text-2xl font-semibold text-white mb-4">Data Sources</h2>
         <p className="text-slate-400 mb-4">
-          Finlo can ingest data from multiple sources:
+          Vesta can ingest data from multiple sources:
         </p>
         <ul className="list-disc list-inside text-slate-400 space-y-2">
           <li><strong className="text-white">Integrations:</strong> QuickBooks, Xero, Wave, Zoho</li>
@@ -31,7 +31,7 @@ const UnderstandingData = () => {
       <section id="processing" className="mb-12">
         <h2 className="text-2xl font-semibold text-white mb-4">Data Processing</h2>
         <p className="text-slate-400 mb-4">
-          When your data arrives, Finlo:
+          When your data arrives, Vesta:
         </p>
         <ol className="list-decimal list-inside text-slate-400 space-y-3">
           <li>Validates and cleans the data</li>

@@ -16,7 +16,6 @@ import { computeValuation, ValuationInputs, ValuationResult, BusinessModel } fro
 import { Loader2, Info, Download, Share2, Save, ArrowLeft, Sparkles, Send, X, MessageCircle, Bot, User } from 'lucide-react';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import finloLogo from '@/assets/finlo-logo-large.png';
 
 interface Props {
   isOpen: boolean;
@@ -279,7 +278,7 @@ export default function ValuationEstimatorDialog({ isOpen, onClose }: Props) {
       setResult(res);
       // Build a concise written report
       const lines: string[] = [];
-      lines.push(`Finlo Valuation Estimate for ${businessName}`);
+      lines.push(`Vesta Valuation Estimate for ${businessName}`);
       lines.push(`As of ${new Date().toLocaleDateString()} — Currency: ${i.currency}`);
       lines.push(`Method: ${res.method} — Model: ${i.model}`);
       lines.push(`Range: Low ${currencyFmt(res.low, i.currency)} | Base ${currencyFmt(res.base, i.currency)} | High ${currencyFmt(res.high, i.currency)}`);
@@ -346,7 +345,7 @@ export default function ValuationEstimatorDialog({ isOpen, onClose }: Props) {
     pdf.rect(0, 0, pageWidth, 40, 'F');
     pdf.setTextColor(255, 255, 255);
     pdf.setFontSize(14);
-    pdf.text('Finlo — Valuation Estimator (Beta)', 40, 26);
+    pdf.text('Vesta — Valuation Estimator (Beta)', 40, 26);
     pdf.setTextColor(0, 0, 0);
 
     // Screenshot of results
@@ -380,7 +379,7 @@ export default function ValuationEstimatorDialog({ isOpen, onClose }: Props) {
     }
 
     // Trigger download locally too
-    pdf.save('finlo-valuation.pdf');
+    pdf.save('vesta-valuation.pdf');
   };
 
   const shareLink = async () => {
@@ -650,7 +649,7 @@ export default function ValuationEstimatorDialog({ isOpen, onClose }: Props) {
                   <DialogDescription className="sr-only" id="ve-desc">Answer a few questions and review your document-assisted valuation. Beta, informational only.</DialogDescription>
                 </div>
                 <Button variant="outline" size="sm" onClick={() => setChatOpen(true)} aria-haspopup="dialog">
-                  <MessageCircle className="w-4 h-4 mr-1" /> Ask Finlo
+                  <MessageCircle className="w-4 h-4 mr-1" /> Ask Vesta
                 </Button>
               </div>
             </DialogHeader>
@@ -668,7 +667,7 @@ export default function ValuationEstimatorDialog({ isOpen, onClose }: Props) {
                 <div className="flex items-center justify-between px-3 py-2 border-b">
                   <div className="flex items-center gap-2">
                     <Bot className="w-4 h-4 text-primary" />
-                    <span className="text-sm font-medium">Ask Finlo</span>
+                    <span className="text-sm font-medium">Ask Vesta</span>
                   </div>
                   <Button size="icon" variant="ghost" onClick={() => setChatOpen(false)} aria-label="Close chat">
                     <X className="w-4 h-4" />

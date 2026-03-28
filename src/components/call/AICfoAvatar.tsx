@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 // Use uploaded avatar from public folder
-const avatarImage = '/lovable-uploads/bebc1837-ed57-4a48-b067-8bfd54639a72.png';
+const avatarImage = '/assets/bebc1837-ed57-4a48-b067-8bfd54639a72.png';
 
 interface AICfoAvatarProps {
   isActive: boolean;

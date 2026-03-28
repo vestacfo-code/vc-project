@@ -27,7 +27,7 @@ const slides: Slide[] = [
     description: "Upload your financial data and get instant AI insights in plain language. No more confusing spreadsheets or complicated reports - just clear, actionable intelligence about your business performance.",
     buttonText: "Try it Now",
     buttonLink: "/auth",
-    imageSrc: "/lovable-uploads/0ee5a6bb-a762-409a-af9d-040b99540913.png",
+    imageSrc: "/assets/0ee5a6bb-a762-409a-af9d-040b99540913.png",
     imageAlt: "AI Financial Analysis Dashboard"
   },
   {
@@ -36,7 +36,7 @@ const slides: Slide[] = [
     description: "Get a real-time score from 0-100 that shows exactly how healthy your business is. Our AI analyzes cash flow, profitability, growth trends, and more to give you actionable recommendations for improvement.",
     buttonText: "See Demo",
     buttonLink: "/demo",
-    imageSrc: "/lovable-uploads/f1bf9901-3f93-484b-bc52-4ebf83ba2413.png",
+    imageSrc: "/assets/f1bf9901-3f93-484b-bc52-4ebf83ba2413.png",
     imageAlt: "Business Health Dashboard"
   },
   {
@@ -45,7 +45,7 @@ const slides: Slide[] = [
     description: "Never miss critical business moments. Get intelligent notifications about cash flow issues, profitability changes, and growth opportunities before they become problems.",
     buttonText: "Get Alerts",
     buttonLink: "/auth",
-    imageSrc: "/lovable-uploads/2827fc6a-0ef5-434b-801f-8a11b116f11e.png",
+    imageSrc: "/assets/2827fc6a-0ef5-434b-801f-8a11b116f11e.png",
     imageAlt: "Strategic Alerts Dashboard"
   }
 ];

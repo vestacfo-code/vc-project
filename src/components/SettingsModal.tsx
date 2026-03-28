@@ -148,8 +148,8 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
         // Accept messages from Supabase functions domain and any valid app origin
         const validOrigins = [
           'https://godnomficzhjaclmvomh.supabase.co',
-          'https://joinfinlo.ai',
-          'https://www.joinfinlo.ai'
+          'https://vesta.ai',
+          'https://www.vesta.ai'
         ];
         
         // Accept from valid origins OR lovableproject.com preview URLs
@@ -750,7 +750,7 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
                     Want to explore first?
                   </h3>
                   <p className="text-xs text-slate-400 mb-3">
-                    You can continue without connecting an integration to see how Finlo works. Connect later to access your real financial data.
+                    You can continue without connecting an integration to see how Vesta works. Connect later to access your real financial data.
                   </p>
                   <Button
                     variant="outline"
@@ -761,7 +761,7 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
                       onOpenChange(false);
                       toast({
                         title: "Demo Mode",
-                        description: "You can explore Finlo's features. Connect an integration anytime to access your financial data.",
+                        description: "You can explore Vesta's features. Connect an integration anytime to access your financial data.",
                       });
                     }}
                     className="bg-white/5 text-blue-400 border-blue-500/30 hover:bg-blue-500/10 hover:border-blue-500/50 font-medium"

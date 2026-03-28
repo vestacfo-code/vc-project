@@ -8,7 +8,7 @@ import {
 const categories = [
   {
     title: "Getting Started",
-    description: "New to Finlo? Start here.",
+    description: "New to Vesta? Start here.",
     icon: BookOpen,
     links: [
       { title: "Account Setup", href: "/docs/getting-started/setup" },

@@ -160,7 +160,7 @@ export const CareersAdminSection = ({
       // Use the careers-admin-auth edge function to update status with admin privileges
       const { data, error } = await supabase.functions.invoke('careers-admin-auth', {
         body: {
-          userId: 'finlo.hq@gmail.com',
+          userId: 'admin@vesta.ai',
           password: 'bull.market19',
           action: 'updateStatus',
           applicationId: id,
@@ -603,7 +603,7 @@ export const CareersAdminSection = ({
                       <div className="min-w-0 flex-1">
                         <h3 className="font-semibold text-foreground text-sm sm:text-base truncate">{link.applicant_name}</h3>
                         <p className="text-xs sm:text-sm text-muted-foreground truncate">
-                          joinfinlo.ai/welcome/{link.slug}
+                          vesta.ai/welcome/{link.slug}
                         </p>
                         <p className="text-xs sm:text-sm text-muted-foreground">
                           Start: {link.start_date ? (() => {

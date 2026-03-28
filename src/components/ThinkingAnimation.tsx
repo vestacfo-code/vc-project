@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { TrendingUp, Calculator, DollarSign, BarChart3, PieChart } from 'lucide-react';
-import { FinloBrand } from '@/components/ui/finlo-brand';
+import { VestaBrand } from '@/components/ui/finlo-brand';
 import quickbooksLogo from '@/assets/quickbooks-logo.png';
 
 interface ThinkingAnimationProps {
@@ -128,10 +128,10 @@ const ThinkingAnimation = ({ userQuery }: ThinkingAnimationProps) => {
   return (
     <div className="flex gap-4 mb-8 animate-fade-in">
       <div className="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center flex-shrink-0">
-        <FinloBrand size="sm" className="text-white" inline />
+        <VestaBrand size="sm" className="text-white" inline />
       </div>
       <div className="flex-1">
-        <div className="text-sm font-medium mb-1 font-finlo">Finlo AI</div>
+        <div className="text-sm font-medium mb-1 font-display">Vesta</div>
         
         <div className="space-y-4">
           {/* Main thinking statement */}

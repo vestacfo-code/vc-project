@@ -5,8 +5,7 @@ import { ChevronDown, Sparkles, BarChart3, Zap, FileText, TrendingUp, MessageSqu
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import SettingsModal from '@/components/SettingsModal';
-import finloLogoBlack from '@/assets/finlo-logo-black-text.png';
-import finloLogoWhite from '@/assets/finlo-logo-white-text.png';
+import { VestaBrand } from '@/components/ui/finlo-brand';
 
 interface HeaderProps {
   variant?: 'light' | 'dark';
@@ -26,7 +25,7 @@ const Header = ({ variant = 'light' }: HeaderProps) => {
   const userDropdownTimeout = useRef<NodeJS.Timeout | null>(null);
 
   const isDark = variant === 'dark';
-  const logoSrc = isDark ? finloLogoWhite : finloLogoBlack;
+  const logoVariant = isDark ? 'dark' : 'light';
   const textColor = isDark ? 'text-slate-300 hover:text-white' : 'text-gray-700 hover:text-gray-900';
   const activeTextColor = isDark ? 'text-white' : 'text-gray-900';
 
@@ -115,11 +114,7 @@ const Header = ({ variant = 'light' }: HeaderProps) => {
         {/* Logo - Left aligned */}
         <div className="flex items-center">
           <Link to="/">
-            <img 
-              src={logoSrc} 
-              alt="Finlo" 
-              className="h-7 md:h-9 w-auto cursor-pointer transition-opacity" 
-            />
+            <VestaBrand size="sm" variant={logoVariant} />
           </Link>
         </div>
 
@@ -356,7 +351,7 @@ const Header = ({ variant = 'light' }: HeaderProps) => {
                 className="hidden sm:flex items-center justify-center bg-gray-900 hover:bg-gray-800 text-white rounded-lg px-4 md:px-5 py-2 md:py-2.5 text-[13px] md:text-[15px] font-medium" 
                 onClick={() => navigate('/auth')}
               >
-                Try Finlo
+                Try Vesta
               </Button>
             </>
           )}
@@ -376,7 +371,7 @@ const Header = ({ variant = 'light' }: HeaderProps) => {
         <div className="md:hidden fixed inset-0 z-50 bg-white">
           <div className="flex items-center justify-between px-4 py-4 border-b border-gray-100">
             <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>
-              <img src={finloLogoBlack} alt="Finlo" className="h-7 w-auto" />
+              <VestaBrand size="sm" variant="light" />
             </Link>
             <button 
               className="p-2 text-gray-700 hover:text-gray-900"
@@ -464,7 +459,7 @@ const Header = ({ variant = 'light' }: HeaderProps) => {
                   className="w-full bg-gray-900 hover:bg-gray-800 text-white rounded-lg py-3 text-base font-medium"
                   onClick={() => { navigate('/auth'); setIsMobileMenuOpen(false); }}
                 >
-                  Try Finlo free
+                  Try Vesta free
                 </Button>
                 <Button 
                   variant="outline"

@@ -18,7 +18,7 @@ const UploadCSV = () => {
     >
       <section id="formats" className="mb-12">
         <h2 className="text-2xl font-semibold text-white mb-4">Supported Formats</h2>
-        <p className="text-slate-400 mb-4">Finlo accepts the following file formats:</p>
+        <p className="text-slate-400 mb-4">Vesta accepts the following file formats:</p>
         <ul className="list-disc list-inside text-slate-400 space-y-2">
           <li><strong className="text-white">CSV</strong> - Comma-separated values</li>
           <li><strong className="text-white">XLSX / XLS</strong> - Microsoft Excel files</li>
@@ -72,7 +72,7 @@ const UploadCSV = () => {
       <section id="upload" className="mb-12">
         <h2 className="text-2xl font-semibold text-white mb-4">Upload Process</h2>
         <ol className="list-decimal list-inside text-slate-400 space-y-3">
-          <li>Navigate to your Finlo dashboard</li>
+          <li>Navigate to your Vesta dashboard</li>
           <li>Find the <strong className="text-white">"Upload Financial Data or Enter Manually"</strong> card</li>
           <li>Make sure the <strong className="text-white">"Upload Document"</strong> tab is selected</li>
           <li>Drag and drop your file into the upload area, or click <strong className="text-white">"Choose Files"</strong></li>
@@ -88,7 +88,7 @@ const UploadCSV = () => {
         </p>
         <div className="bg-[#1a1a1a] border border-white/10 rounded-xl p-4 mb-4">
           <p className="text-sm text-slate-400">
-            💡 <strong className="text-white">AI-Powered:</strong> Finlo uses AI to automatically detect and map common column names.
+            💡 <strong className="text-white">AI-Powered:</strong> Vesta uses AI to automatically detect and map common column names.
           </p>
         </div>
       </section>

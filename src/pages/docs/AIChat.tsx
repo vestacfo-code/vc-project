@@ -18,7 +18,7 @@ const AIChat = () => {
       <section id="ask" className="mb-12">
         <h2 className="text-2xl font-semibold text-white mb-4">What You Can Ask</h2>
         <p className="text-slate-400 mb-4">
-          Finlo's AI understands natural language questions about your business:
+          Vesta's AI understands natural language questions about your business:
         </p>
         <ul className="list-disc list-inside text-slate-400 space-y-2">
           <li>Revenue and sales performance</li>
@@ -55,7 +55,7 @@ const AIChat = () => {
         <h2 className="text-2xl font-semibold text-white mb-4">How It Works</h2>
         <ol className="list-decimal list-inside text-slate-400 space-y-3">
           <li>Type your question in the chat interface</li>
-          <li>Finlo's AI analyzes your connected financial data</li>
+          <li>Vesta's AI analyzes your connected financial data</li>
           <li>Receive an instant, conversational response</li>
           <li>Follow up with more questions for deeper insights</li>
         </ol>

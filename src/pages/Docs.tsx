@@ -28,7 +28,6 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import finloLogo from "@/assets/finlo-logo-white-text.png";
 import NextPageLink from "@/components/docs/NextPageLink";
 import DocsSupportChat from "@/components/docs/DocsSupportChat";
 import Header from "@/components/shared/Header";
@@ -208,7 +207,7 @@ const Docs = () => {
               <SheetContent side="left" className="w-72 bg-[#0a0a0a] border-r border-white/10 p-0">
                 <div className="p-4 border-b border-white/10">
                   <Link to="/" className="flex items-center" onClick={() => setMobileMenuOpen(false)}>
-                    <img src={finloLogo} alt="Finlo" className="h-6" />
+                    <img src={finloLogo} alt="Vesta" className="h-6" />
                   </Link>
                 </div>
                 <ScrollArea className="h-[calc(100vh-65px)]">
@@ -270,7 +269,7 @@ const Docs = () => {
             {/* Overview Section */}
             <section id="overview" className="mb-16">
               <p className="text-lg text-slate-400 leading-relaxed mb-8">
-                Finlo is the AI-powered financial intelligence platform that transforms complex 
+                Vesta is the AI-powered financial intelligence platform that transforms complex 
                 financial data into clear, actionable insights. Get CFO-level analysis without 
                 hiring a CFO.
               </p>
@@ -281,7 +280,7 @@ const Docs = () => {
                     <Rocket className="w-5 h-5 text-[#7ba3e8]" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-white mb-1">New to Finlo?</h3>
+                    <h3 className="font-semibold text-white mb-1">New to Vesta?</h3>
                     <p className="text-sm text-slate-400">
                       Start with our{" "}
                       <Link to="/docs/getting-started/setup" className="text-[#7ba3e8] hover:underline">
@@ -411,11 +410,11 @@ const Docs = () => {
                   </div>
                   <div>
                     <h3 className="font-medium text-white">Need help?</h3>
-                    <p className="text-sm text-slate-500">Email us at support@joinfinlo.ai</p>
+                    <p className="text-sm text-slate-500">Email us at support@vesta.ai</p>
                   </div>
                 </div>
                 <a
-                  href="mailto:support@joinfinlo.ai"
+                  href="mailto:support@vesta.ai"
                   className="flex items-center gap-2 px-4 py-2 text-sm text-slate-400 hover:text-white border border-white/10 rounded-lg hover:bg-white/5 transition-all"
                 >
                   Contact Support
@@ -456,8 +455,8 @@ const Docs = () => {
         <div className="max-w-[1600px] mx-auto px-6 md:px-12 py-12">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2">
-              <img src={finloLogo} alt="Finlo" className="h-5" />
-              <span className="text-sm text-slate-500">© 2025 Finlo. All rights reserved.</span>
+              <img src={finloLogo} alt="Vesta" className="h-5" />
+              <span className="text-sm text-slate-500">© 2025 Vesta. All rights reserved.</span>
             </div>
             <div className="flex items-center gap-6 text-sm text-slate-500">
               <Link to="/privacy" className="hover:text-white transition-colors">Privacy</Link>

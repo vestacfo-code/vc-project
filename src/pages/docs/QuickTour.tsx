@@ -11,14 +11,14 @@ const QuickTour = () => {
   return (
     <DocsLayout 
       title="Quick Tour" 
-      description="A walkthrough of Finlo's main features and interface."
+      description="A walkthrough of Vesta's main features and interface."
       tableOfContents={tableOfContents}
       nextPage={{ href: "/docs/connect/quickbooks", title: "Connect QuickBooks" }}
     >
       <section id="dashboard" className="mb-12">
         <h2 className="text-2xl font-semibold text-white mb-4">Dashboard Overview</h2>
         <p className="text-slate-400 mb-4">
-          Your Finlo dashboard is the central hub for all your financial insights:
+          Your Vesta dashboard is the central hub for all your financial insights:
         </p>
         <div className="grid gap-4 md:grid-cols-2">
           <div className="bg-[#1a1a1a] border border-white/10 rounded-xl p-4">
@@ -51,7 +51,7 @@ const QuickTour = () => {
       <section id="navigation" className="mb-12">
         <h2 className="text-2xl font-semibold text-white mb-4">Navigation</h2>
         <p className="text-slate-400 mb-4">
-          Use the sidebar to access different areas of Finlo:
+          Use the sidebar to access different areas of Vesta:
         </p>
         <div className="grid gap-4">
           <div className="bg-[#1a1a1a] border border-white/10 rounded-xl p-4">
@@ -91,7 +91,7 @@ const QuickTour = () => {
         <ul className="list-disc list-inside text-slate-400 space-y-2">
           <li>Click the chat bubble to ask AI for help</li>
           <li>Visit our documentation (you're here!)</li>
-          <li>Email support@joinfinlo.ai for direct assistance</li>
+          <li>Email support@vesta.ai for direct assistance</li>
         </ul>
       </section>
     </DocsLayout>

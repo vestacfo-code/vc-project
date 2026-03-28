@@ -18,7 +18,7 @@ const CashFlow = () => {
       <section id="predictions" className="mb-12">
         <h2 className="text-2xl font-semibold text-white mb-4">How Predictions Work</h2>
         <p className="text-slate-400 mb-4">
-          Finlo uses machine learning to forecast your cash flow:
+          Vesta uses machine learning to forecast your cash flow:
         </p>
         <ol className="list-decimal list-inside text-slate-400 space-y-3">
           <li>Analyzes your historical transaction patterns</li>

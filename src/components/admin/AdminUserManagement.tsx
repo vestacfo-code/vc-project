@@ -175,7 +175,7 @@ export const AdminUserManagement = () => {
 
       // Generate instructions to copy
       const adminUrl = `${window.location.origin}/admin`;
-      const instructions = `🎉 You've been granted ${newUserRole} access to Finlo AI!
+      const instructions = `🎉 You've been granted ${newUserRole} access to Vesta!
 
 📋 Admin Portal Access Instructions:
 

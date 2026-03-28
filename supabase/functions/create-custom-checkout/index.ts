@@ -97,7 +97,7 @@ serve(async (req) => {
           currency: 'usd',
           product_data: {
             name: 'Custom Solution - Monthly',
-            description: 'Monthly subscription for your custom Finlo solution',
+            description: 'Monthly subscription for your custom Vesta solution',
           },
           unit_amount: Math.round(monthlyAmount * 100), // Convert to cents
           recurring: {
@@ -131,7 +131,7 @@ serve(async (req) => {
             currency: 'usd',
             product_data: {
               name: 'Custom Solution - Setup Fee',
-              description: 'One-time setup fee for your custom Finlo solution',
+              description: 'One-time setup fee for your custom Vesta solution',
             },
             unit_amount: Math.round(fixedAmount * 100),
           },

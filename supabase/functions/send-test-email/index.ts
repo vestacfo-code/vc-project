@@ -41,9 +41,9 @@
      console.log('[send-test-email] Sending test email to:', userEmail);
  
      const emailResult = await resend.emails.send({
-       from: 'Finlo Support <support@joinfinlo.ai>',
+       from: 'Vesta Support <support@vesta.ai>',
        to: [userEmail],
-       subject: '✅ Finlo Test Email - It Works!',
+       subject: '✅ Vesta Test Email - It Works!',
        html: `
          <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 40px 20px;">
            <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border-radius: 16px; padding: 40px; text-align: center;">
@@ -60,7 +60,7 @@
                </p>
              </div>
              <p style="color: #64748b; font-size: 13px; margin-top: 24px;">
-               This is a test email from the Finlo Admin Hub.
+               This is a test email from the Vesta Admin Hub.
              </p>
            </div>
          </div>

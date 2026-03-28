@@ -1,6 +1,6 @@
 // Production domain for all external links and redirects
 // This ensures emails, OAuth, and other redirects work correctly when published
-export const PRODUCTION_DOMAIN = "https://joinfinlo.ai";
+export const PRODUCTION_DOMAIN = "https://vesta.ai";
 
 /**
  * Get the appropriate URL for redirects

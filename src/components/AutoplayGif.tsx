@@ -18,7 +18,7 @@ const AutoplayGif = ({ gifSrc, className = "" }: AutoplayGifProps) => {
       {/* GIF that loops continuously */}
       <img
         src={gifSrc}
-        alt="Finlo Demo"
+        alt="Vesta Demo"
         className="w-full h-full object-cover rounded-xl shadow-2xl"
         onLoad={handleLoad}
         style={{ 

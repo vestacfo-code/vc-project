@@ -11,17 +11,17 @@ const AccountSetup = () => {
   return (
     <DocsLayout 
       title="Account Setup" 
-      description="Get started with your Finlo account in minutes."
+      description="Get started with your Vesta account in minutes."
       tableOfContents={tableOfContents}
       nextPage={{ href: "/docs/getting-started/tour", title: "Quick Tour" }}
     >
       <section id="create" className="mb-12">
         <h2 className="text-2xl font-semibold text-white mb-4">Create Your Account</h2>
         <p className="text-slate-400 mb-4">
-          Sign up for Finlo using your email address or Google account:
+          Sign up for Vesta using your email address or Google account:
         </p>
         <ol className="list-decimal list-inside text-slate-400 space-y-3">
-          <li>Visit <a href="https://joinfinlo.ai" target="_blank" rel="noopener noreferrer" className="text-[#7ba3e8] hover:underline font-semibold">joinfinlo.ai</a> and click "Get Started"</li>
+          <li>Visit <a href="https://vesta.ai" target="_blank" rel="noopener noreferrer" className="text-[#7ba3e8] hover:underline font-semibold">vesta.ai</a> and click "Get Started"</li>
           <li>Choose to sign up with email or Google</li>
           <li>If using email, create a secure password</li>
           <li>(Optional) Add a referral code if you have one</li>
@@ -56,7 +56,7 @@ const AccountSetup = () => {
       <section id="plan" className="mb-12">
         <h2 className="text-2xl font-semibold text-white mb-4">Choose Your Plan</h2>
         <p className="text-slate-400 mb-6">
-          Finlo offers four plans designed to grow with your business. Choose the one that fits your needs:
+          Vesta offers four plans designed to grow with your business. Choose the one that fits your needs:
         </p>
         <div className="grid gap-6">
           {/* Founder - Free */}

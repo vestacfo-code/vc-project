@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import finloLogoWhite from '@/assets/finlo-logo-white-text.png';
+import { VestaBrand } from '@/components/ui/finlo-brand';
 
 const Footer = () => {
   return (
@@ -8,7 +8,7 @@ const Footer = () => {
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 md:gap-8 lg:gap-12">
           {/* Logo Column */}
           <div className="col-span-2 sm:col-span-3 md:col-span-1 mb-4 md:mb-0">
-            <img src={finloLogoWhite} alt="Finlo" className="h-7 md:h-8 mb-4" />
+            <VestaBrand size="sm" variant="dark" className="mb-4" />
           </div>
           
           {/* Product */}
@@ -55,15 +55,15 @@ const Footer = () => {
           <div>
             <h3 className="font-semibold text-white mb-4 text-sm">Socials</h3>
             <ul className="space-y-3 text-sm text-slate-400">
-              <li><a href="https://instagram.com/finloai" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Instagram</a></li>
-              <li><a href="https://linkedin.com/company/finloai" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">LinkedIn</a></li>
+              <li><a href="https://instagram.com/vestaai" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Instagram</a></li>
+              <li><a href="https://linkedin.com/company/vesta" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">LinkedIn</a></li>
             </ul>
           </div>
         </div>
         
         {/* Copyright */}
         <div className="mt-12 pt-8 border-t border-white/10 text-center text-slate-500 text-sm">
-          © {new Date().getFullYear()} Finlo. All rights reserved.
+          © {new Date().getFullYear()} Vesta. All rights reserved.
         </div>
       </div>
     </footer>

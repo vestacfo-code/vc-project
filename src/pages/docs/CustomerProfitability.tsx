@@ -31,7 +31,7 @@ const CustomerProfitability = () => {
       <section id="concentration" className="mb-12">
         <h2 className="text-2xl font-semibold text-white mb-4">Revenue Concentration</h2>
         <p className="text-slate-400 mb-4">
-          High revenue concentration can be a business risk. Finlo tracks:
+          High revenue concentration can be a business risk. Vesta tracks:
         </p>
         <div className="grid gap-4">
           <div className="bg-[#1a1a1a] border border-white/10 rounded-xl p-4">

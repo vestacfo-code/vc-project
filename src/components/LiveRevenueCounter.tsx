@@ -88,7 +88,7 @@ export const LiveRevenueCounter = () => {
           Powering Financial Success Globally
         </h2>
         <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-          Join businesses worldwide who trust Finlo to analyze their financial data and drive growth
+          Join businesses worldwide who trust Vesta to analyze their financial data and drive growth
         </p>
       </div>
       
@@ -105,7 +105,7 @@ export const LiveRevenueCounter = () => {
               <h3 className="text-lg font-semibold text-white">Total Revenue Analyzed</h3>
             </div>
             <p className="text-muted-foreground text-sm max-w-48">
-              Cumulative revenue processed through Finlo's AI analysis
+              Cumulative revenue processed through Vesta's AI analysis
             </p>
           </div>
 
@@ -119,7 +119,7 @@ export const LiveRevenueCounter = () => {
               <h3 className="text-lg font-semibold text-white">Active Users</h3>
             </div>
             <p className="text-muted-foreground text-sm max-w-48">
-              Business owners and finance professionals using Finlo
+              Business owners and finance professionals using Vesta
             </p>
           </div>
         </div>

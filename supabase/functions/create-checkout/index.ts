@@ -79,7 +79,7 @@ serve(async (req) => {
         {
           price_data: {
             currency: "usd",
-            product_data: { name: "Finlo Founder Access" },
+            product_data: { name: "Vesta Founder Access" },
             unit_amount: isAnnual ? annualPrice : monthlyPrice,
             recurring: { interval: isAnnual ? "year" : "month" },
           },

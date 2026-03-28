@@ -30,7 +30,7 @@ const getOrCreatePortalConfiguration = async (stripe: any) => {
     // Create new configuration if none exists
     const configuration = await stripe.billingPortal.configurations.create({
       business_profile: {
-        headline: "Manage your Finlo subscription",
+        headline: "Manage your Vesta subscription",
       },
       features: {
         payment_method_update: { enabled: true },
@@ -121,7 +121,7 @@ serve(async (req) => {
     if (userCredits && userCredits.tier === "founder") {
       logStep("Founder tier user - no Stripe customer portal needed");
       return new Response(JSON.stringify({ 
-        error: "Founder Access users have lifetime access and don't need subscription management. Contact support@joinfinlo.ai for assistance." 
+        error: "Founder Access users have lifetime access and don't need subscription management. Contact support@vesta.ai for assistance." 
       }), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
         status: 400,
@@ -133,7 +133,7 @@ serve(async (req) => {
     const customers = await stripe.customers.list({ email: targetEmail, limit: 1 });
     if (customers.data.length === 0) {
       logStep("No Stripe customer found for user; redirecting to pricing");
-      return new Response(JSON.stringify({ url: "https://joinfinlo.ai/pricing" }), {
+      return new Response(JSON.stringify({ url: "https://vesta.ai/pricing" }), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
         status: 200,
       });
@@ -147,7 +147,7 @@ serve(async (req) => {
 
     const portalSession = await stripe.billingPortal.sessions.create({
       customer: customerId,
-      return_url: "https://joinfinlo.ai/dashboard",
+      return_url: "https://vesta.ai/dashboard",
       ...(configId && { configuration: configId }),
     });
     logStep("Customer portal session created", { sessionId: portalSession.id, url: portalSession.url });

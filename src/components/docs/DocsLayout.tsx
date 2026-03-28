@@ -7,7 +7,6 @@ import { useState, useEffect } from "react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import finloLogo from "@/assets/finlo-logo-white-text.png";
 import NextPageLink from "./NextPageLink";
 import DocsSupportChat from "./DocsSupportChat";
 import Header from "@/components/shared/Header";
@@ -167,7 +166,7 @@ const DocsLayout = ({ children, title, description, tableOfContents = [], nextPa
               <SheetContent side="left" className="w-72 bg-[#0a0a0a] border-r border-white/10 p-0">
                 <div className="p-4 border-b border-white/10">
                   <Link to="/" className="flex items-center" onClick={() => setMobileMenuOpen(false)}>
-                    <img src={finloLogo} alt="Finlo" className="h-6" />
+                    <img src={finloLogo} alt="Vesta" className="h-6" />
                   </Link>
                 </div>
                 <ScrollArea className="h-[calc(100vh-65px)]">
@@ -272,11 +271,11 @@ const DocsLayout = ({ children, title, description, tableOfContents = [], nextPa
       {/* Footer */}
       <footer className="lg:ml-60 border-t border-white/10 py-8 px-6">
         <div className="max-w-3xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-500">
-          <p>© 2025 Finlo. All rights reserved.</p>
+          <p>© 2025 Vesta. All rights reserved.</p>
           <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
-            <a href="mailto:support@joinfinlo.ai" className="hover:text-white transition-colors flex items-center gap-1">
+            <a href="mailto:support@vesta.ai" className="hover:text-white transition-colors flex items-center gap-1">
               <Mail className="h-3 w-3" />
-              support@joinfinlo.ai
+              support@vesta.ai
             </a>
             <Link to="/privacy" className="hover:text-white transition-colors">Privacy</Link>
             <Link to="/terms-of-service" className="hover:text-white transition-colors">Terms</Link>

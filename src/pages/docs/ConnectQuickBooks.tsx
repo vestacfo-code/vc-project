@@ -12,7 +12,7 @@ const ConnectQuickBooks = () => {
   return (
     <DocsLayout 
       title="Connect QuickBooks" 
-      description="Sync your QuickBooks Online data with Finlo in just a few clicks."
+      description="Sync your QuickBooks Online data with Vesta in just a few clicks."
       tableOfContents={tableOfContents}
       nextPage={{ href: "/docs/connect/xero", title: "Connect Xero" }}
     >
@@ -22,14 +22,14 @@ const ConnectQuickBooks = () => {
         <ul className="list-disc list-inside text-slate-400 space-y-2">
           <li>An active QuickBooks Online account</li>
           <li>Admin access to your QuickBooks company file</li>
-          <li>A Finlo account (free or paid)</li>
+          <li>A Vesta account (free or paid)</li>
         </ul>
       </section>
 
       <section id="authorize" className="mb-12">
-        <h2 className="text-2xl font-semibold text-white mb-4">Step 1: Authorize Finlo</h2>
+        <h2 className="text-2xl font-semibold text-white mb-4">Step 1: Authorize Vesta</h2>
         <p className="text-slate-400 mb-4">
-          Navigate to your Finlo dashboard and click the <strong className="text-white">"Connect QuickBooks"</strong> button. 
+          Navigate to your Vesta dashboard and click the <strong className="text-white">"Connect QuickBooks"</strong> button. 
           You'll be redirected to Intuit's secure authorization page.
         </p>
         <div className="bg-[#1a1a1a] border border-white/10 rounded-xl p-4 mb-4">
@@ -50,7 +50,7 @@ const ConnectQuickBooks = () => {
       <section id="sync" className="mb-12">
         <h2 className="text-2xl font-semibold text-white mb-4">Step 3: Sync Data</h2>
         <p className="text-slate-400 mb-4">
-          Once authorized, Finlo will automatically sync your financial data. The initial sync may take a few minutes 
+          Once authorized, Vesta will automatically sync your financial data. The initial sync may take a few minutes 
           depending on the size of your data. You'll see a progress indicator on your dashboard.
         </p>
         <p className="text-slate-400">

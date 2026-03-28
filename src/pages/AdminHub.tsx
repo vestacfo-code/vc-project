@@ -19,7 +19,6 @@ import { ConsumerManagementSection } from '@/components/admin/ConsumerManagement
 import { SupportAdminSection } from '@/components/admin/SupportAdminSection';
 import { useAuth } from '@/hooks/useAuth';
 import { usePermissions } from '@/hooks/usePermissions';
-import finloLogo from '@/assets/finlo-logo-white-text.png';
 
 const AdminHub = () => {
   const { toast } = useToast();
@@ -237,10 +236,10 @@ const AdminHub = () => {
         <div className="max-w-[1600px] mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Link to="/">
-              <img src={finloLogo} alt="Finlo" className="h-6" />
+              <img src={finloLogo} alt="Vesta" className="h-6" />
             </Link>
             <span className="text-slate-500">|</span>
-           <h1 className="font-serif text-lg sm:text-xl text-white">MyFinlo Admin Hub</h1>
+           <h1 className="font-serif text-lg sm:text-xl text-white">MyVesta Admin Hub</h1>
             {isSuperAdmin && (
               <Badge className="bg-emerald-500/20 text-emerald-400 border-emerald-500/30 text-xs">Super Admin</Badge>
             )}

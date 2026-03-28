@@ -51,7 +51,7 @@ serve(async (req) => {
       JSON.stringify({ 
         success: true, 
         welcomeLink,
-        url: `https://joinfinlo.ai/welcome/${slug}`
+        url: `https://vesta.ai/welcome/${slug}`
       }),
       { 
         headers: { 

@@ -52,14 +52,14 @@ const getEmailTemplate = (data: NotificationEmailRequest) => {
     <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Finlo Notification</title>
+      <title>Vesta Notification</title>
     </head>
     <body style="margin: 0; padding: 0; background-color: #f5f5f5; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
       <div style="max-width: 600px; margin: 0 auto; padding: 40px 20px;">
         <div style="background-color: #ffffff; border-radius: 8px; border: 1px solid #e0e0e0; overflow: hidden;">
           <!-- Header -->
           <div style="background-color: #1a1a1a; padding: 24px; text-align: center;">
-            <h1 style="color: #ffffff; margin: 0; font-size: 20px; font-weight: 600;">Finlo</h1>
+            <h1 style="color: #ffffff; margin: 0; font-size: 20px; font-weight: 600;">Vesta</h1>
             <p style="color: #a0a0a0; margin: 6px 0 0 0; font-size: 13px;">Financial Intelligence Platform</p>
           </div>
           
@@ -90,17 +90,17 @@ const getEmailTemplate = (data: NotificationEmailRequest) => {
             ` : ''}
             
             <p style="color: #6a6a6a; font-size: 13px; line-height: 1.6; margin-bottom: 0;">
-              Stay informed about your financial insights and business performance with Finlo's AI-powered analysis.
+              Stay informed about your financial insights and business performance with Vesta's AI-powered analysis.
             </p>
           </div>
           
           <!-- Footer -->
           <div style="background-color: #f9f9f9; padding: 20px 24px; border-top: 1px solid #e8e8e8;">
             <p style="margin: 0; color: #8a8a8a; font-size: 12px; text-align: center;">
-              This email was sent by Finlo. You can manage your notification preferences in your dashboard settings.
+              This email was sent by Vesta. You can manage your notification preferences in your dashboard settings.
             </p>
             <p style="margin: 8px 0 0 0; color: #a0a0a0; font-size: 12px; text-align: center;">
-              ${new Date().getFullYear()} Finlo. All rights reserved.
+              ${new Date().getFullYear()} Vesta. All rights reserved.
             </p>
           </div>
         </div>
@@ -140,9 +140,9 @@ const handler = async (req: Request): Promise<Response> => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            from: 'Finlo <support@joinfinlo.ai>',
+            from: 'Vesta <support@vesta.ai>',
             to: [userEmail],
-            subject: `Finlo: ${notificationTitle}`,
+            subject: `Vesta: ${notificationTitle}`,
             html: emailContent,
           }),
         });
@@ -165,7 +165,7 @@ const handler = async (req: Request): Promise<Response> => {
       
       console.log("Email content prepared (SMTP/Resend not configured):", {
         to: userEmail,
-        subject: `Finlo: ${notificationTitle}`,
+        subject: `Vesta: ${notificationTitle}`,
         hasContent: !!emailContent
       });
       

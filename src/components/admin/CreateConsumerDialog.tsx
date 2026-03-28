@@ -434,7 +434,7 @@ export function CreateConsumerDialog({ open, onOpenChange, onSuccess }: CreateCo
                   onChange={(e) => setFormData({ ...formData, customLogoUrl: e.target.value })}
                 />
                 <p className="text-xs text-muted-foreground">
-                  Enter a URL to a logo image that will replace the Finlo logo in their dashboard.
+                  Enter a URL to a logo image that will replace the Vesta logo in their dashboard.
                 </p>
               </div>
             </div>

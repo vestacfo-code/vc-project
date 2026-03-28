@@ -97,14 +97,14 @@ serve(async (req) => {
       
       // Known valid origins (including preview URLs)
       const knownOrigins = [
-        'https://www.joinfinlo.ai',
-        'https://joinfinlo.ai'
+        'https://www.vesta.ai',
+        'https://vesta.ai'
       ];
       
       // Check if it's a lovableproject.com preview URL
       const isPreviewUrl = requestOrigin && requestOrigin.includes('.lovableproject.com');
       
-      let appOrigin = 'https://www.joinfinlo.ai'; // Default to production
+      let appOrigin = 'https://www.vesta.ai'; // Default to production
       
       if (requestOrigin) {
         try {
@@ -131,11 +131,11 @@ serve(async (req) => {
         const validateUrl = new URL(appOrigin);
         if (!validateUrl.host || validateUrl.host.length === 0) {
           console.error('Invalid appOrigin detected, forcing production default:', appOrigin);
-          appOrigin = 'https://www.joinfinlo.ai';
+          appOrigin = 'https://www.vesta.ai';
         }
       } catch (e) {
         console.error('appOrigin validation failed, forcing production default:', appOrigin);
-        appOrigin = 'https://www.joinfinlo.ai';
+        appOrigin = 'https://www.vesta.ai';
       }
       
       console.log('Final appOrigin for OAuth flow:', appOrigin);
@@ -194,7 +194,7 @@ serve(async (req) => {
       if (appOrigin) {
         appOrigin = decodeURIComponent(appOrigin);
       } else {
-        appOrigin = 'https://www.joinfinlo.ai';
+        appOrigin = 'https://www.vesta.ai';
       }
       
       console.log('Extracted from state:', { userId, rawAppOrigin: appOrigin });
@@ -204,13 +204,13 @@ serve(async (req) => {
         const validateUrl = new URL(appOrigin);
         if (!validateUrl.host || validateUrl.host.length === 0 || validateUrl.protocol === '') {
           console.error('Invalid appOrigin from state, using production default:', appOrigin);
-          appOrigin = 'https://www.joinfinlo.ai';
+          appOrigin = 'https://www.vesta.ai';
         } else {
           console.log('Validated appOrigin:', appOrigin);
         }
       } catch (e) {
         console.error('appOrigin validation failed:', e, 'using production default');
-        appOrigin = 'https://www.joinfinlo.ai';
+        appOrigin = 'https://www.vesta.ai';
       }
 
       // Create admin client to bypass RLS for callback processing

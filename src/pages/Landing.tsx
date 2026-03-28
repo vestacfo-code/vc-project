@@ -1,68 +1,67 @@
 import Navigation from '@/components/Navigation';
 import HeroSection from '@/components/HeroSection';
 import { Link } from 'react-router-dom';
+import { VestaBrand } from '@/components/ui/finlo-brand';
 
 const Landing = () => {
   return (
     <div className="min-h-screen">
       <Navigation />
       <HeroSection />
-      
-      {/* Main Footer */}
-      <footer className="bg-white border-t py-12 sm:py-16 lg:py-20">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-screen-xl 2xl:max-w-screen-2xl">
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 sm:gap-8 lg:gap-12">
-            {/* Company */}
-            <div>
-              <h3 className="font-semibold text-gray-900 mb-4">Company</h3>
-              <ul className="space-y-3 text-sm text-gray-600">
-                <li><Link to="/blog" className="hover:text-gray-900">Blog</Link></li>
-                <li><Link to="/careers" className="hover:text-gray-900">Careers</Link></li>
-                <li><Link to="/about" className="hover:text-gray-900">About</Link></li>
-              </ul>
+
+      {/* Footer */}
+      <footer style={{ background: '#1B3A5C' }} className="py-12 lg:py-16">
+        <div className="container mx-auto px-6 lg:px-8 max-w-screen-xl">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+            {/* Brand column */}
+            <div className="col-span-2 md:col-span-1">
+              <VestaBrand size="sm" variant="dark" className="mb-4" />
+              <p className="text-white/50 text-xs leading-relaxed font-light">
+                AI financial intelligence for independent and mid-size hotel operators.
+              </p>
             </div>
 
             {/* Product */}
             <div>
-              <h3 className="font-semibold text-gray-900 mb-4">Product</h3>
-              <ul className="space-y-3 text-sm text-gray-600">
-                <li><Link to="/pricing" className="hover:text-gray-900">Pricing</Link></li>
-                <li><Link to="/demo" className="hover:text-gray-900">Demo</Link></li>
-                <li><Link to="/integrations" className="hover:text-gray-900">Integrations</Link></li>
+              <h4 className="font-mono text-[10px] tracking-widest uppercase text-[#C8963E] mb-4">Product</h4>
+              <ul className="space-y-2.5 text-sm text-white/60">
+                <li><Link to="/pricing" className="hover:text-white transition-colors">Pricing</Link></li>
+                <li><Link to="/auth" className="hover:text-white transition-colors">Get Started</Link></li>
               </ul>
             </div>
 
-            {/* Resources */}
+            {/* Company */}
             <div>
-              <h3 className="font-semibold text-gray-900 mb-4">Resources</h3>
-              <ul className="space-y-3 text-sm text-gray-600">
-                <li><Link to="/support" className="hover:text-gray-900">Support</Link></li>
-                <li><Link to="/press" className="hover:text-gray-900">Press & Media</Link></li>
+              <h4 className="font-mono text-[10px] tracking-widest uppercase text-[#C8963E] mb-4">Company</h4>
+              <ul className="space-y-2.5 text-sm text-white/60">
+                <li><Link to="/about" className="hover:text-white transition-colors">About</Link></li>
+                <li><Link to="/careers" className="hover:text-white transition-colors">Careers</Link></li>
+                <li><Link to="/press" className="hover:text-white transition-colors">Press</Link></li>
               </ul>
             </div>
 
             {/* Legal */}
             <div>
-              <h3 className="font-semibold text-gray-900 mb-4">Legal</h3>
-              <ul className="space-y-3 text-sm text-gray-600">
-                <li><Link to="/privacy" className="hover:text-gray-900">Privacy Policy</Link></li>
-                <li><Link to="/terms" className="hover:text-gray-900">Terms & Conditions</Link></li>
-                <li><Link to="/security" className="hover:text-gray-900">Security</Link></li>
+              <h4 className="font-mono text-[10px] tracking-widest uppercase text-[#C8963E] mb-4">Legal</h4>
+              <ul className="space-y-2.5 text-sm text-white/60">
+                <li><Link to="/privacy" className="hover:text-white transition-colors">Privacy</Link></li>
+                <li><Link to="/terms" className="hover:text-white transition-colors">Terms</Link></li>
+                <li><Link to="/security" className="hover:text-white transition-colors">Security</Link></li>
               </ul>
             </div>
+          </div>
 
-            {/* Socials */}
-            <div>
-              <h3 className="font-semibold text-gray-900 mb-4">Socials</h3>
-              <ul className="space-y-3 text-sm text-gray-600">
-                <li><a href="https://www.instagram.com/joinfinlo.ai" className="hover:text-gray-900">Instagram</a></li>
-                <li><a href="https://www.linkedin.com/company/finlo-ai/posts" className="hover:text-gray-900">LinkedIn</a></li>
-              </ul>
+          <div className="border-t border-white/10 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <p className="font-mono text-[11px] text-white/30 tracking-wide">
+              © 2026 Vesta · AI Financial Intelligence
+            </p>
+            <div className="flex gap-5">
+              <a href="https://www.instagram.com/vestahotelai" className="text-white/30 hover:text-white/60 transition-colors text-xs">Instagram</a>
+              <a href="https://www.linkedin.com/company/vesta-hotel-ai" className="text-white/30 hover:text-white/60 transition-colors text-xs">LinkedIn</a>
             </div>
           </div>
         </div>
       </footer>
-
     </div>
   );
 };

@@ -5,7 +5,7 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
 
 // Production domain for password reset redirects
-const PRODUCTION_DOMAIN = "https://joinfinlo.ai";
+const PRODUCTION_DOMAIN = "https://vesta.ai";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -81,7 +81,7 @@ serve(async (req: Request) => {
 
     // Send email via Resend
     const emailResult = await resend.emails.send({
-      from: 'Finlo <support@joinfinlo.ai>',
+      from: 'Vesta <support@vesta.ai>',
       to: [email],
       subject: 'Reset Your Password',
       html: `
@@ -99,7 +99,7 @@ serve(async (req: Request) => {
               </h1>
               
               <p style="color: #4a4a4a; font-size: 16px; line-height: 1.6; margin: 0 0 24px 0;">
-                We received a request to reset the password for your Finlo account. Click the button below to set a new password:
+                We received a request to reset the password for your Vesta account. Click the button below to set a new password:
               </p>
               
               <div style="text-align: center; margin: 32px 0;">
@@ -126,7 +126,7 @@ serve(async (req: Request) => {
             </div>
             
             <p style="text-align: center; color: #8a8a8a; font-size: 12px; margin-top: 24px;">
-              © ${new Date().getFullYear()} Finlo. All rights reserved.
+              © ${new Date().getFullYear()} Vesta. All rights reserved.
             </p>
           </div>
         </body>

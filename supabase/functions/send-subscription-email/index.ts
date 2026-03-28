@@ -43,12 +43,12 @@ serve(async (req: Request) => {
     switch (type) {
       case 'welcome':
       case 'upgrade':
-        subject = `Welcome to Finlo ${tierDisplay}`;
+        subject = `Welcome to Vesta ${tierDisplay}`;
         headline = `Welcome to ${tierDisplay}, ${firstName}`;
         message = `You now have access to ${tierCredits} AI credits per month and all the powerful features of the ${tierDisplay} plan.`;
         break;
       case 'downgrade':
-        subject = `Your Finlo Plan Has Changed`;
+        subject = `Your Vesta Plan Has Changed`;
         headline = `Plan Update Confirmed`;
         message = `Your plan has been updated to ${tierDisplay}. You now have ${tierCredits} AI credits per month.`;
         break;
@@ -60,7 +60,7 @@ serve(async (req: Request) => {
     }
 
     const emailResult = await resend.emails.send({
-      from: 'Finlo <support@joinfinlo.ai>',
+      from: 'Vesta <support@vesta.ai>',
       to: [email],
       subject,
       html: `
@@ -93,18 +93,18 @@ serve(async (req: Request) => {
               </div>
               ` : ''}
               
-              <a href="https://joinfinlo.ai/dashboard" style="display: inline-block; background-color: #1a1a1a; color: #ffffff; text-decoration: none; padding: 14px 32px; border-radius: 6px; font-weight: 600; font-size: 16px; margin-top: 16px;">
+              <a href="https://vesta.ai/dashboard" style="display: inline-block; background-color: #1a1a1a; color: #ffffff; text-decoration: none; padding: 14px 32px; border-radius: 6px; font-weight: 600; font-size: 16px; margin-top: 16px;">
                 Go to Dashboard
               </a>
               
               <p style="color: #6a6a6a; font-size: 13px; margin-top: 32px;">
-                Questions? Reply to this email or visit our <a href="https://joinfinlo.ai/support" style="color: #1a1a1a;">support page</a>.
+                Questions? Reply to this email or visit our <a href="https://vesta.ai/support" style="color: #1a1a1a;">support page</a>.
               </p>
             </div>
             
             <p style="text-align: center; color: #8a8a8a; font-size: 12px; margin-top: 24px;">
-              ${new Date().getFullYear()} Finlo. All rights reserved.<br>
-              <a href="https://joinfinlo.ai/privacy" style="color: #8a8a8a;">Privacy Policy</a> | <a href="https://joinfinlo.ai/terms" style="color: #8a8a8a;">Terms of Service</a>
+              ${new Date().getFullYear()} Vesta. All rights reserved.<br>
+              <a href="https://vesta.ai/privacy" style="color: #8a8a8a;">Privacy Policy</a> | <a href="https://vesta.ai/terms" style="color: #8a8a8a;">Terms of Service</a>
             </p>
           </div>
         </body>

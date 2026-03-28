@@ -33,7 +33,7 @@ const TermsOfService = () => {
                 <section>
                   <h2 className="text-xl font-semibold text-gray-900 mb-3">1. AI Financial Analysis Disclaimer</h2>
                   <p className="text-gray-600 leading-relaxed">
-                    Finlo provides AI-powered financial analysis and insights for <strong>informational purposes only</strong>. 
+                    Vesta provides AI-powered financial analysis and insights for <strong>informational purposes only</strong>. 
                     These analyses, predictions, and recommendations are not professional financial advice and 
                     should not be considered as such. Our AI systems are designed to help you understand your 
                     business financial data, but they cannot replace the expertise of qualified financial professionals.
@@ -56,7 +56,7 @@ const TermsOfService = () => {
                 <section>
                   <h2 className="text-xl font-semibold text-gray-900 mb-3">3. Professional Consultation Recommended</h2>
                   <p className="text-gray-600 leading-relaxed">
-                    Finlo's analysis is designed to give you clear, data-driven insights. While our reports can 
+                    Vesta's analysis is designed to give you clear, data-driven insights. While our reports can 
                     guide your decision-making, we recommend consulting with a qualified financial advisor, 
                     accountant, or other professional for major financial decisions.
                   </p>
@@ -66,7 +66,7 @@ const TermsOfService = () => {
                   <h2 className="text-xl font-semibold text-gray-900 mb-3">4. User Responsibility</h2>
                   <p className="text-gray-600 leading-relaxed">
                     You are <strong>solely responsible</strong> for all financial decisions made using information 
-                    from Finlo. By using our service, you acknowledge that you understand the limitations of 
+                    from Vesta. By using our service, you acknowledge that you understand the limitations of 
                     AI analysis and accept full responsibility for your business decisions.
                   </p>
                 </section>
@@ -77,7 +77,7 @@ const TermsOfService = () => {
                     Your financial data is processed securely using industry-standard encryption. You are responsible for:
                   </p>
                   <ul className="list-disc pl-6 text-gray-600 space-y-1">
-                    <li>The accuracy of data you provide to Finlo</li>
+                    <li>The accuracy of data you provide to Vesta</li>
                     <li>Maintaining the security of your account credentials</li>
                     <li>Ensuring you have the right to analyze the financial data you provide</li>
                   </ul>
@@ -86,10 +86,10 @@ const TermsOfService = () => {
                 <section>
                   <h2 className="text-xl font-semibold text-gray-900 mb-3">6. Limitation of Liability</h2>
                   <p className="text-gray-600 leading-relaxed">
-                    Finlo shall not be liable for any direct, indirect, incidental, special, or consequential 
+                    Vesta shall not be liable for any direct, indirect, incidental, special, or consequential 
                     damages resulting from the use of our AI analysis, including financial losses, business 
                     interruption, or data loss. Our total liability shall not exceed the amount you paid for 
-                    Finlo services in the 12 months preceding the claim.
+                    Vesta services in the 12 months preceding the claim.
                   </p>
                 </section>
 
@@ -106,7 +106,7 @@ const TermsOfService = () => {
                   <p className="text-gray-600 leading-relaxed mb-3">You agree not to:</p>
                   <ul className="list-disc pl-6 text-gray-600 space-y-1">
                     <li>Upload data you don't have the right to analyze</li>
-                    <li>Use Finlo for illegal activities or regulatory violations</li>
+                    <li>Use Vesta for illegal activities or regulatory violations</li>
                     <li>Attempt to reverse engineer or compromise our AI systems</li>
                     <li>Share your account access with unauthorized parties</li>
                   </ul>
@@ -116,7 +116,7 @@ const TermsOfService = () => {
                   <h2 className="text-xl font-semibold text-gray-900 mb-3">9. Termination</h2>
                   <p className="text-gray-600 leading-relaxed">
                     Either party may terminate this agreement at any time. Upon termination, your access 
-                    to Finlo services will cease, and we will delete your data according to our retention policy.
+                    to Vesta services will cease, and we will delete your data according to our retention policy.
                   </p>
                 </section>
 
@@ -124,7 +124,7 @@ const TermsOfService = () => {
                   <h2 className="text-xl font-semibold text-gray-900 mb-3">10. Changes to Terms</h2>
                   <p className="text-gray-600 leading-relaxed">
                     These terms may be updated periodically. We will notify you of material changes via email. 
-                    Continued use of Finlo after notice constitutes acceptance of the updated terms.
+                    Continued use of Vesta after notice constitutes acceptance of the updated terms.
                   </p>
                 </section>
 
@@ -132,8 +132,8 @@ const TermsOfService = () => {
                   <h2 className="text-xl font-semibold text-gray-900 mb-3">11. Contact Information</h2>
                   <p className="text-gray-600 leading-relaxed">
                     If you have questions about these terms, please contact us at{' '}
-                    <a href="mailto:support@joinfinlo.ai" className="text-gray-900 font-medium hover:underline">
-                      support@joinfinlo.ai
+                    <a href="mailto:support@vesta.ai" className="text-gray-900 font-medium hover:underline">
+                      support@vesta.ai
                     </a>
                   </p>
                 </section>
@@ -143,7 +143,7 @@ const TermsOfService = () => {
             {/* Agreement Note */}
             <div className="mt-8 text-center">
               <p className="text-gray-500 text-sm">
-                By using Finlo's services, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service.
+                By using Vesta's services, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service.
               </p>
             </div>
           </div>

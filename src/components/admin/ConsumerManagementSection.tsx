@@ -152,7 +152,7 @@ export function ConsumerManagementSection() {
         <div>
           <h2 className="text-2xl font-bold">Consumer Management</h2>
           <p className="text-muted-foreground">
-            View and manage all Finlo consumer accounts
+            View and manage all Vesta consumer accounts
           </p>
         </div>
         <div className="flex gap-2">

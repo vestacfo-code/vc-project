@@ -79,8 +79,8 @@ const Privacy = () => {
                   <h2 className="text-2xl font-semibold text-gray-900 mb-4">Contact Us</h2>
                   <p className="text-gray-600 leading-relaxed">
                     If you have any questions about our privacy practices, please contact us at{' '}
-                    <a href="mailto:privacy@joinfinlo.ai" className="text-gray-900 font-medium hover:underline">
-                      privacy@joinfinlo.ai
+                    <a href="mailto:privacy@vesta.ai" className="text-gray-900 font-medium hover:underline">
+                      privacy@vesta.ai
                     </a>
                   </p>
                 </section>

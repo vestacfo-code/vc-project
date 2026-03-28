@@ -852,7 +852,7 @@ const Dashboard = () => {
                 <div
                   className="h-32 sm:h-40 bg-cover bg-center"
                   style={{ backgroundImage: `url(${heroImage})` }}
-                  aria-label="Finlo valuation background"
+                  aria-label="Vesta valuation background"
                 />
                 <div className="absolute inset-0 bg-gradient-to-r from-background/80 to-background/40" />
                 <div className="absolute inset-0 flex items-center justify-center">
@@ -872,7 +872,7 @@ const Dashboard = () => {
                 <div
                   className="h-32 sm:h-40 bg-cover bg-center"
                   style={{ backgroundImage: `url(${heroImage})` }}
-                  aria-label="Finlo valuation background"
+                  aria-label="Vesta valuation background"
                 />
                 <div className="absolute inset-0 bg-gradient-to-r from-background/80 to-background/40" />
                 <div className="absolute inset-0 flex items-center justify-center">

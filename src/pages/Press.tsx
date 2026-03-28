@@ -81,7 +81,7 @@ const Press = () => {
                 Press & Media
               </h1>
               <p className="text-gray-600 text-lg md:text-xl max-w-2xl mx-auto">
-                Latest news and announcements from Finlo AI.
+                Latest news and announcements from Vesta.
               </p>
             </div>
 
@@ -98,7 +98,7 @@ const Press = () => {
                 <div className="bg-white/70 backdrop-blur-xl border border-white/60 rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
                   <h2 className="text-2xl font-semibold mb-4 text-gray-900">No Press Releases Yet</h2>
                   <p className="text-gray-600 mb-6">
-                    Stay tuned for company announcements, product launches, and other important updates from the Finlo team.
+                    Stay tuned for company announcements, product launches, and other important updates from the Vesta team.
                   </p>
                   <Link 
                     to="/"
@@ -124,10 +124,10 @@ const Press = () => {
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">Press Inquiries</h3>
                 <p className="text-gray-600 mb-4">For media inquiries, please contact:</p>
                 <a 
-                  href="mailto:press@joinfinlo.ai" 
+                  href="mailto:press@vesta.ai" 
                   className="text-gray-900 font-medium hover:underline"
                 >
-                  press@joinfinlo.ai
+                  press@vesta.ai
                 </a>
               </div>
             </div>

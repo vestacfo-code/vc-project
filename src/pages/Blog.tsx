@@ -77,7 +77,7 @@ const Blog = () => {
             {/* Hero Section */}
             <div className="text-center mb-12 md:mb-16">
               <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-normal text-gray-900 leading-tight mb-4 md:mb-6 tracking-tight">
-                Finlo Blog
+                Vesta Blog
               </h1>
               <p className="text-gray-600 text-lg md:text-xl max-w-2xl mx-auto">
                 Insights on financial intelligence, AI-powered analysis, and growing your business smarter.
@@ -97,7 +97,7 @@ const Blog = () => {
                 <div className="bg-white/70 backdrop-blur-xl border border-white/60 rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
                   <h2 className="text-2xl font-semibold mb-4 text-gray-900">No Blog Posts Yet</h2>
                   <p className="text-gray-600 mb-6">
-                    Our blog is growing! Check back soon for insights about financial analysis, business intelligence, and the latest updates from the Finlo team.
+                    Our blog is growing! Check back soon for insights about financial analysis, business intelligence, and the latest updates from the Vesta team.
                   </p>
                   <Link 
                     to="/"

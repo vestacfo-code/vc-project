@@ -5,7 +5,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { FinloBrand } from '@/components/ui/finlo-brand';
+import { VestaBrand } from '@/components/ui/finlo-brand';
 import { Check, Loader2, HelpCircle } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
@@ -371,7 +371,7 @@ export const PlanCreditsTab = () => {
       {/* Current Plan Summary */}
       <div className="flex items-center gap-4 mb-8 p-4 bg-white/5 rounded-lg border border-white/10">
         <div className="p-2 bg-white/10 rounded-lg border border-white/10">
-          <FinloBrand size="md" />
+          <VestaBrand size="md" />
         </div>
         <div className="flex-1">
           <p className="font-medium text-white">You're on {getTierDisplayName(currentTier)}</p>
@@ -397,7 +397,7 @@ export const PlanCreditsTab = () => {
             <CardHeader className="pb-2">
               <CardTitle className="text-lg text-white">Custom Solution</CardTitle>
               <CardDescription className="text-sm text-slate-400">
-                Your personalized Finlo configuration
+                Your personalized Vesta configuration
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -444,7 +444,7 @@ export const PlanCreditsTab = () => {
                 <Button 
                   variant="outline"
                   className="w-full bg-transparent text-white border-white/20 hover:bg-white/10"
-                  onClick={() => window.open('mailto:support@joinfinlo.ai?subject=Custom Solution Support', '_blank')}
+                  onClick={() => window.open('mailto:support@vesta.ai?subject=Custom Solution Support', '_blank')}
                 >
                   Contact Support
                 </Button>

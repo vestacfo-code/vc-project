@@ -34,9 +34,9 @@ serve(async (req: Request) => {
     console.log('[send-application-confirmation] Sending to:', email, 'for role:', jobTitle);
 
     const emailResult = await resend.emails.send({
-      from: 'Finlo Careers <support@joinfinlo.ai>',
+      from: 'Vesta Careers <support@vesta.ai>',
       to: [email],
-      subject: `Thank You for Applying to ${jobTitle} at Finlo`,
+      subject: `Thank You for Applying to ${jobTitle} at Vesta`,
       html: `
         <!DOCTYPE html>
         <html>
@@ -65,21 +65,21 @@ serve(async (req: Request) => {
               </div>
               
               <p style="color: #4a4a4a; font-size: 14px; line-height: 1.6; margin: 24px 0;">
-                We appreciate your interest in joining Finlo. We're on a mission to democratize financial intelligence for small businesses, and we're excited that you want to be part of that journey.
+                We appreciate your interest in joining Vesta. We're on a mission to democratize financial intelligence for small businesses, and we're excited that you want to be part of that journey.
               </p>
               
-              <a href="https://joinfinlo.ai/careers" style="display: inline-block; background-color: #1a1a1a; color: #ffffff; text-decoration: none; padding: 14px 32px; border-radius: 6px; font-weight: 600; font-size: 16px; margin-top: 16px;">
+              <a href="https://vesta.ai/careers" style="display: inline-block; background-color: #1a1a1a; color: #ffffff; text-decoration: none; padding: 14px 32px; border-radius: 6px; font-weight: 600; font-size: 16px; margin-top: 16px;">
                 Explore More Opportunities
               </a>
               
               <p style="color: #6a6a6a; font-size: 13px; margin-top: 32px;">
-                Questions? Reply to this email or contact us at <a href="mailto:careers@joinfinlo.ai" style="color: #1a1a1a;">careers@joinfinlo.ai</a>
+                Questions? Reply to this email or contact us at <a href="mailto:careers@vesta.ai" style="color: #1a1a1a;">careers@vesta.ai</a>
               </p>
             </div>
             
             <p style="text-align: center; color: #8a8a8a; font-size: 12px; margin-top: 24px;">
-              ${new Date().getFullYear()} Finlo. All rights reserved.<br>
-              <a href="https://joinfinlo.ai/privacy" style="color: #8a8a8a;">Privacy Policy</a> | <a href="https://joinfinlo.ai/terms" style="color: #8a8a8a;">Terms of Service</a>
+              ${new Date().getFullYear()} Vesta. All rights reserved.<br>
+              <a href="https://vesta.ai/privacy" style="color: #8a8a8a;">Privacy Policy</a> | <a href="https://vesta.ai/terms" style="color: #8a8a8a;">Terms of Service</a>
             </p>
           </div>
         </body>

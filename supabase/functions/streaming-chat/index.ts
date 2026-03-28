@@ -412,7 +412,7 @@ async function buildSystemPrompt(
   // All pricing data is fetched server-side and injected via serverSideContext.
   let pricingSection = '';
 
-  let systemPrompt = pricingSection + `You are Finlo's AI CFO - a seasoned Chief Financial Officer with 25+ years of experience.
+  let systemPrompt = pricingSection + `You are Vesta's AI CFO - a seasoned Chief Financial Officer with 25+ years of experience.
 
 PRICING DATA RULES (only when asked about specific product prices/costs):
 - Use EXACT dollar amounts from the pricing database above when discussing products.

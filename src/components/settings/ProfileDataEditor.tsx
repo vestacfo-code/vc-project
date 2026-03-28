@@ -333,7 +333,7 @@ const TermsReviewModal = ({ open, onOpenChange }: TermsReviewModalProps) => {
             <section>
               <h3 className="font-semibold mb-2">1. AI Financial Analysis Disclaimer</h3>
               <p>
-                Finlo provides AI-powered financial analysis and insights for informational purposes only. 
+                Vesta provides AI-powered financial analysis and insights for informational purposes only. 
                 These analyses, predictions, and recommendations are not professional financial advice and 
                 should not be considered as such.
               </p>
@@ -357,10 +357,10 @@ const TermsReviewModal = ({ open, onOpenChange }: TermsReviewModalProps) => {
             <section>
               <h3 className="font-semibold mb-2">3. Professional Consultation Recommended</h3>
               <p className="mb-2">
-                Finlo's analysis is designed to give you clear, data-driven insights into your business performance. While our reports can guide your decision-making, we recommend consulting with a qualified financial advisor, accountant, or other professional for major financial decisions, such as investments, loans, business expansion, or significant cost adjustments.
+                Vesta's analysis is designed to give you clear, data-driven insights into your business performance. While our reports can guide your decision-making, we recommend consulting with a qualified financial advisor, accountant, or other professional for major financial decisions, such as investments, loans, business expansion, or significant cost adjustments.
               </p>
               <p>
-                Think of Finlo as your always-on financial analyst — providing you with the numbers, trends, and forecasts — so that any further expert advice you seek can be faster, more informed, and more cost-effective.
+                Think of Vesta as your always-on financial analyst — providing you with the numbers, trends, and forecasts — so that any further expert advice you seek can be faster, more informed, and more cost-effective.
               </p>
             </section>
 
@@ -368,7 +368,7 @@ const TermsReviewModal = ({ open, onOpenChange }: TermsReviewModalProps) => {
               <h3 className="font-semibold mb-2">4. User Responsibility</h3>
               <p>
                 You are solely responsible for all financial decisions made using or based on information 
-                from Finlo. By using our service, you acknowledge that you understand the limitations of 
+                from Vesta. By using our service, you acknowledge that you understand the limitations of 
                 AI analysis and accept full responsibility for your business decisions.
               </p>
             </section>
@@ -385,7 +385,7 @@ const TermsReviewModal = ({ open, onOpenChange }: TermsReviewModalProps) => {
             <section>
               <h3 className="font-semibold mb-2">6. Limitation of Liability</h3>
               <p>
-                Finlo and its affiliates shall not be liable for any direct, indirect, incidental, 
+                Vesta and its affiliates shall not be liable for any direct, indirect, incidental, 
                 special, or consequential damages resulting from the use of our AI analysis, including 
                 but not limited to financial losses, business interruption, or missed opportunities.
               </p>
@@ -402,7 +402,7 @@ const TermsReviewModal = ({ open, onOpenChange }: TermsReviewModalProps) => {
             <section>
               <h3 className="font-semibold mb-2">8. Changes to Terms</h3>
               <p>
-                These terms may be updated periodically. Continued use of Finlo's financial features 
+                These terms may be updated periodically. Continued use of Vesta's financial features 
                 constitutes acceptance of any changes.
               </p>
             </section>

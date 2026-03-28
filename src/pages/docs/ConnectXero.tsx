@@ -12,7 +12,7 @@ const ConnectXero = () => {
   return (
     <DocsLayout 
       title="Connect Xero" 
-      description="Import your Xero accounting data into Finlo seamlessly."
+      description="Import your Xero accounting data into Vesta seamlessly."
       tableOfContents={tableOfContents}
       nextPage={{ href: "/docs/connect/wave", title: "Connect Wave" }}
     >
@@ -22,19 +22,19 @@ const ConnectXero = () => {
         <ul className="list-disc list-inside text-slate-400 space-y-2">
           <li>An active Xero account</li>
           <li>Admin or standard user access to your Xero organization</li>
-          <li>A Finlo account (free or paid)</li>
+          <li>A Vesta account (free or paid)</li>
         </ul>
       </section>
 
       <section id="authorize" className="mb-12">
-        <h2 className="text-2xl font-semibold text-white mb-4">Step 1: Authorize Finlo</h2>
+        <h2 className="text-2xl font-semibold text-white mb-4">Step 1: Authorize Vesta</h2>
         <p className="text-slate-400 mb-4">
-          From your Finlo dashboard, click <strong className="text-white">"Connect Xero"</strong>. 
+          From your Vesta dashboard, click <strong className="text-white">"Connect Xero"</strong>. 
           You'll be redirected to Xero's OAuth authorization page.
         </p>
         <div className="bg-[#1a1a1a] border border-white/10 rounded-xl p-4 mb-4">
           <p className="text-sm text-slate-400">
-            💡 <strong className="text-white">Tip:</strong> Review the permissions Finlo requests. We only access read-only financial data.
+            💡 <strong className="text-white">Tip:</strong> Review the permissions Vesta requests. We only access read-only financial data.
           </p>
         </div>
       </section>
@@ -50,7 +50,7 @@ const ConnectXero = () => {
       <section id="sync" className="mb-12">
         <h2 className="text-2xl font-semibold text-white mb-4">Step 3: Sync Data</h2>
         <p className="text-slate-400 mb-4">
-          Finlo will begin syncing your Xero data automatically. The initial sync typically completes within 2-5 minutes.
+          Vesta will begin syncing your Xero data automatically. The initial sync typically completes within 2-5 minutes.
         </p>
         <p className="text-slate-400">
           Data synced includes: bank transactions, invoices, bills, contacts, and chart of accounts.

@@ -22,7 +22,7 @@ const ManualEntry = () => {
           <li>Your accounting software isn't supported yet</li>
           <li>You have cash transactions not in digital records</li>
           <li>You need to add projected or estimated figures</li>
-          <li>You're testing Finlo before connecting accounts</li>
+          <li>You're testing Vesta before connecting accounts</li>
         </ul>
       </section>
 
@@ -51,7 +51,7 @@ const ManualEntry = () => {
       <section id="adding" className="mb-12">
         <h2 className="text-2xl font-semibold text-white mb-4">Adding Entries</h2>
         <ol className="list-decimal list-inside text-slate-400 space-y-3">
-          <li>Go to your Finlo dashboard</li>
+          <li>Go to your Vesta dashboard</li>
           <li>Find the <strong className="text-white">"Upload Financial Data or Enter Manually"</strong> card</li>
           <li>Click the <strong className="text-white">"Manual Entry"</strong> tab</li>
           <li>Fill in your financial data: Revenue, Expenses, Profit, Cash Flow</li>
