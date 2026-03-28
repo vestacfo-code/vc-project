@@ -9,6 +9,7 @@ import MetricCard from '@/components/hotel/MetricCard';
 import DailyBriefingCard from '@/components/hotel/DailyBriefingCard';
 import RevParChart from '@/components/hotel/RevParChart';
 import AnomalyFeed from '@/components/hotel/AnomalyFeed';
+import BudgetVarianceCard from '@/components/hotel/BudgetVarianceCard';
 
 // Fallback mock data shown when no real DB records exist yet
 const MOCK_METRICS = {
@@ -163,14 +164,11 @@ const Dashboard = () => {
           />
         </div>
 
-        {/* Row 2: Daily Briefing + Anomaly Feed */}
+        {/* Row 2: Daily Briefing (wide) */}
         {hotelId ? (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
             <div className="lg:col-span-2">
               <DailyBriefingCard hotelId={hotelId} />
-            </div>
-            <div className="lg:col-span-1">
-              <AnomalyFeed hotelId={hotelId} />
             </div>
           </div>
         ) : !hotelLoading ? (
@@ -183,7 +181,15 @@ const Dashboard = () => {
           </div>
         ) : null}
 
-        {/* Row 3: RevPAR + Occupancy Trend Chart */}
+        {/* Row 3: Anomaly Feed + Budget vs Actual */}
+        {hotelId && (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <AnomalyFeed hotelId={hotelId} />
+            <BudgetVarianceCard hotelId={hotelId} />
+          </div>
+        )}
+
+        {/* Row 4: RevPAR + Occupancy Trend Chart */}
         {hotelId && (
           <RevParChart hotelId={hotelId} />
         )}

@@ -40,6 +40,8 @@ import TermsOfService from "./pages/TermsOfService";
 import Press from "./pages/Press";
 import NotFound from "./pages/NotFound";
 import Integrations from "./pages/Integrations";
+import BudgetPage from "./pages/Budget";
+import AnomaliesPage from "./pages/Anomalies";
 import SharedConversation from "./pages/SharedConversation";
 
 import Docs from "./pages/Docs";
@@ -114,6 +116,8 @@ const AppContent = () => {
             <Integrations />
           </ProtectedRoute>
         } />
+        <Route path="/budget" element={<ProtectedRoute><BudgetPage /></ProtectedRoute>} />
+        <Route path="/anomalies" element={<ProtectedRoute><AnomaliesPage /></ProtectedRoute>} />
         <Route path="/app" element={
           <ProtectedRoute>
             <ChatHub />
