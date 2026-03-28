@@ -8,6 +8,7 @@ import { useHotelDashboard } from '@/hooks/useHotelDashboard';
 import MetricCard from '@/components/hotel/MetricCard';
 import DailyBriefingCard from '@/components/hotel/DailyBriefingCard';
 import RevParChart from '@/components/hotel/RevParChart';
+import RevenueByChannelChart from '@/components/hotel/RevenueByChannelChart';
 import AnomalyFeed from '@/components/hotel/AnomalyFeed';
 import BudgetVarianceCard from '@/components/hotel/BudgetVarianceCard';
 import { Button } from '@/components/ui/button';
@@ -196,6 +197,9 @@ const Dashboard = () => {
         {hotelId && (
           <RevParChart hotelId={hotelId} />
         )}
+
+        {/* Row 5: Revenue by Channel */}
+        {hotelId && <RevenueByChannelChart hotelId={hotelId} />}
 
       </div>
     </div>

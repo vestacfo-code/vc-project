@@ -1,12 +1,19 @@
-import { useQuery } from '@tanstack/react-query'
+import { useState, useRef } from 'react'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { supabase } from '@/integrations/supabase/client'
 import { useHotelDashboard } from '@/hooks/useHotelDashboard'
 import { useSyncIntegration } from '@/hooks/useSyncIntegration'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { RefreshCw, Plug, CheckCircle2, AlertCircle, Clock, Wifi, WifiOff } from 'lucide-react'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { RefreshCw, Plug, CheckCircle2, AlertCircle, Clock, Wifi, WifiOff, Upload, FileSpreadsheet, X } from 'lucide-react'
 import { format, formatDistanceToNow } from 'date-fns'
+import { toast } from 'sonner'
+
+// ---------------------------------------------------------------------------
+// Constants
+// ---------------------------------------------------------------------------
 
 const PROVIDER_LABELS: Record<string, string> = {
   mews: 'Mews',
@@ -34,9 +41,132 @@ const AVAILABLE_PROVIDERS = [
   { provider: 'manual', label: 'Manual Entry', type: 'pms', description: 'Enter daily metrics directly in Vesta' },
 ]
 
+type ImportType = 'daily_metrics' | 'expenses' | 'revenue_by_channel'
+
+const IMPORT_TYPE_LABELS: Record<ImportType, string> = {
+  daily_metrics: 'Daily Metrics',
+  expenses: 'Expenses',
+  revenue_by_channel: 'Revenue by Channel',
+}
+
+const SAMPLE_CSV_PATHS: Record<ImportType, string> = {
+  daily_metrics: '/sample-data/daily_metrics.csv',
+  expenses: '/sample-data/expenses.csv',
+  revenue_by_channel: '/sample-data/revenue_by_channel.csv',
+}
+
+// ---------------------------------------------------------------------------
+// CSV parsing helpers
+// ---------------------------------------------------------------------------
+
+function parseCSV(text: string): { headers: string[]; rows: Record<string, string>[] } {
+  const lines = text.split(/\r?\n/)
+  const nonEmpty = lines.filter((l) => l.trim().length > 0)
+  if (nonEmpty.length < 2) return { headers: [], rows: [] }
+
+  const headers = nonEmpty[0].split(',').map((h) => h.trim())
+  const rows = nonEmpty.slice(1).map((line) => {
+    const values = line.split(',').map((v) => v.trim())
+    const row: Record<string, string> = {}
+    headers.forEach((h, i) => {
+      row[h] = values[i] ?? ''
+    })
+    return row
+  })
+
+  return { headers, rows }
+}
+
+function num(val: string | undefined): number | null {
+  if (val === undefined || val === '') return null
+  const n = parseFloat(val)
+  return isNaN(n) ? null : n
+}
+
+function bool(val: string | undefined): boolean {
+  return val === 'true'
+}
+
+function str(val: string | undefined): string | null {
+  if (val === undefined || val === '') return null
+  return val
+}
+
+// ---------------------------------------------------------------------------
+// Row mappers
+// ---------------------------------------------------------------------------
+
+function mapDailyMetrics(row: Record<string, string>, hotelId: string) {
+  return {
+    hotel_id: hotelId,
+    date: row['date'],
+    rooms_available: num(row['rooms_available']),
+    rooms_out_of_order: num(row['rooms_out_of_order']),
+    rooms_sold: num(row['rooms_sold']),
+    occupancy_rate: num(row['occupancy_rate']),
+    adr: num(row['adr']),
+    revpar: num(row['revpar']),
+    room_revenue: num(row['room_revenue']),
+    fnb_revenue: num(row['fnb_revenue']),
+    spa_revenue: num(row['spa_revenue']),
+    other_revenue: num(row['other_revenue']),
+    total_revenue: num(row['total_revenue']),
+    labor_cost: num(row['labor_cost']),
+    labor_cost_ratio: num(row['labor_cost_ratio']),
+    total_expenses: num(row['total_expenses']),
+    gop: num(row['gop']),
+    gop_margin: num(row['gop_margin']),
+    goppar: num(row['goppar']),
+    data_source: str(row['data_source']),
+  }
+}
+
+function mapExpenses(row: Record<string, string>, hotelId: string) {
+  return {
+    hotel_id: hotelId,
+    date: row['date'],
+    category: str(row['category']),
+    subcategory: str(row['subcategory']),
+    amount: num(row['amount']),
+    vendor: str(row['vendor']),
+    is_recurring: bool(row['is_recurring']),
+    source: str(row['source']),
+  }
+}
+
+function mapRevenueByChannel(row: Record<string, string>, hotelId: string) {
+  return {
+    hotel_id: hotelId,
+    date: row['date'],
+    channel: row['channel'],
+    room_nights: num(row['room_nights']),
+    bookings_count: num(row['bookings_count']),
+    revenue: num(row['revenue']),
+    commission_rate: num(row['commission_rate']),
+    commission_amount: num(row['commission_amount']),
+    net_revenue: num(row['net_revenue']),
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Component
+// ---------------------------------------------------------------------------
+
 export default function Integrations() {
   const { hotelId } = useHotelDashboard()
   const { sync, isSyncing } = useSyncIntegration()
+  const queryClient = useQueryClient()
+
+  // CSV import state
+  const [dragActive, setDragActive] = useState(false)
+  const [selectedFile, setSelectedFile] = useState<File | null>(null)
+  const [importType, setImportType] = useState<ImportType | ''>('')
+  const [isImporting, setIsImporting] = useState(false)
+  const fileInputRef = useRef<HTMLInputElement>(null)
+
+  // ---------------------------------------------------------------------------
+  // Queries
+  // ---------------------------------------------------------------------------
 
   const { data: integrations = [], isLoading } = useQuery({
     queryKey: ['integrations', hotelId],
@@ -70,6 +200,123 @@ export default function Integrations() {
   })
 
   const connectedProviders = new Set(integrations.map((i) => i.provider))
+
+  // ---------------------------------------------------------------------------
+  // Drag-and-drop handlers
+  // ---------------------------------------------------------------------------
+
+  function handleDragOver(e: React.DragEvent<HTMLDivElement>) {
+    e.preventDefault()
+    e.stopPropagation()
+    setDragActive(true)
+  }
+
+  function handleDragLeave(e: React.DragEvent<HTMLDivElement>) {
+    e.preventDefault()
+    e.stopPropagation()
+    setDragActive(false)
+  }
+
+  function handleDrop(e: React.DragEvent<HTMLDivElement>) {
+    e.preventDefault()
+    e.stopPropagation()
+    setDragActive(false)
+    const file = e.dataTransfer.files[0]
+    if (file && file.name.endsWith('.csv')) {
+      setSelectedFile(file)
+    } else {
+      toast.error('Please drop a valid .csv file.')
+    }
+  }
+
+  function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (file) setSelectedFile(file)
+    // Reset so the same file can be re-selected after removal
+    e.target.value = ''
+  }
+
+  function handleRemoveFile() {
+    setSelectedFile(null)
+  }
+
+  // ---------------------------------------------------------------------------
+  // Import handler
+  // ---------------------------------------------------------------------------
+
+  async function handleImport() {
+    if (!selectedFile) {
+      toast.error('Please select a CSV file.')
+      return
+    }
+    if (!importType) {
+      toast.error('Please select a data type to import.')
+      return
+    }
+    if (!hotelId) {
+      toast.error('No hotel found. Please complete onboarding first.')
+      return
+    }
+
+    setIsImporting(true)
+
+    try {
+      const text = await new Promise<string>((resolve, reject) => {
+        const reader = new FileReader()
+        reader.onload = (e) => resolve(e.target?.result as string)
+        reader.onerror = () => reject(new Error('Failed to read file'))
+        reader.readAsText(selectedFile)
+      })
+
+      const { rows } = parseCSV(text)
+      const nonEmptyRows = rows.filter((r) => Object.values(r).some((v) => v !== ''))
+
+      if (nonEmptyRows.length === 0) {
+        toast.error('The CSV file contains no data rows.')
+        setIsImporting(false)
+        return
+      }
+
+      toast.loading(`Importing ${nonEmptyRows.length} rows...`, { id: 'csv-import' })
+
+      if (importType === 'daily_metrics') {
+        const payload = nonEmptyRows.map((r) => mapDailyMetrics(r, hotelId))
+        const { error } = await supabase
+          .from('daily_metrics')
+          .upsert(payload, { onConflict: 'hotel_id,date' })
+        if (error) throw error
+      } else if (importType === 'expenses') {
+        const payload = nonEmptyRows.map((r) => mapExpenses(r, hotelId))
+        const { error } = await supabase.from('expenses').insert(payload)
+        if (error) throw error
+      } else if (importType === 'revenue_by_channel') {
+        const payload = nonEmptyRows.map((r) => mapRevenueByChannel(r, hotelId))
+        const { error } = await supabase
+          .from('revenue_by_channel')
+          .upsert(payload, { onConflict: 'hotel_id,date,channel' })
+        if (error) throw error
+      }
+
+      toast.success(`Imported ${nonEmptyRows.length} rows successfully`, { id: 'csv-import' })
+
+      // Invalidate relevant queries
+      queryClient.invalidateQueries({ queryKey: ['daily_metrics'] })
+      queryClient.invalidateQueries({ queryKey: ['sync_logs'] })
+
+      // Reset form
+      setSelectedFile(null)
+      setImportType('')
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Import failed'
+      toast.error(`Import failed: ${message}`, { id: 'csv-import' })
+    } finally {
+      setIsImporting(false)
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // Render
+  // ---------------------------------------------------------------------------
 
   return (
     <div className="min-h-screen bg-gray-950 text-white p-6 space-y-8">
@@ -214,6 +461,145 @@ export default function Integrations() {
             </Card>
           ))}
         </div>
+      </div>
+
+      {/* ------------------------------------------------------------------ */}
+      {/* Import Data section                                                 */}
+      {/* ------------------------------------------------------------------ */}
+      <div>
+        <h2 className="text-sm font-medium text-slate-400 uppercase tracking-wider mb-4">Import Data</h2>
+
+        <Card className="bg-gray-800/30 border-gray-700">
+          <CardContent className="p-6 space-y-5">
+            {/* Drag-and-drop / file picker */}
+            <div
+              onDragOver={handleDragOver}
+              onDragLeave={handleDragLeave}
+              onDrop={handleDrop}
+              onClick={() => !selectedFile && fileInputRef.current?.click()}
+              className={`
+                relative flex flex-col items-center justify-center gap-3
+                rounded-xl border-2 border-dashed px-6 py-10
+                transition-colors
+                ${selectedFile
+                  ? 'border-amber-500/40 bg-amber-500/5 cursor-default'
+                  : dragActive
+                    ? 'border-amber-400/60 bg-amber-400/10 cursor-copy'
+                    : 'border-gray-600 hover:border-gray-500 hover:bg-gray-800/40 cursor-pointer'
+                }
+              `}
+            >
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept=".csv"
+                className="hidden"
+                onChange={handleFileChange}
+              />
+
+              {selectedFile ? (
+                <div className="flex items-center gap-3">
+                  <FileSpreadsheet className="w-8 h-8 text-amber-400 shrink-0" />
+                  <div className="text-left">
+                    <p className="text-sm font-medium text-white">{selectedFile.name}</p>
+                    <p className="text-xs text-slate-400 mt-0.5">
+                      {(selectedFile.size / 1024).toFixed(1)} KB
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={(e) => { e.stopPropagation(); handleRemoveFile() }}
+                    className="ml-2 p-1 rounded-md text-slate-500 hover:text-white hover:bg-gray-700 transition-colors"
+                    aria-label="Remove file"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
+              ) : (
+                <>
+                  <div className="w-12 h-12 rounded-xl bg-gray-700/60 flex items-center justify-center">
+                    <Upload className="w-6 h-6 text-slate-400" />
+                  </div>
+                  <div className="text-center">
+                    <p className="text-sm font-medium text-white">
+                      Drop a CSV file here, or{' '}
+                      <span className="text-amber-400 hover:text-amber-300 underline underline-offset-2">
+                        browse
+                      </span>
+                    </p>
+                    <p className="text-xs text-slate-500 mt-1">Only .csv files are accepted</p>
+                  </div>
+                </>
+              )}
+            </div>
+
+            {/* Data type selector */}
+            <div className="flex flex-col sm:flex-row gap-3">
+              <div className="flex-1">
+                <label className="block text-xs text-slate-400 mb-1.5">Data type</label>
+                <Select
+                  value={importType}
+                  onValueChange={(val) => setImportType(val as ImportType)}
+                >
+                  <SelectTrigger className="bg-gray-800 border-gray-600 text-white focus:ring-amber-400/30 focus:border-amber-400/50">
+                    <SelectValue placeholder="Select data type..." />
+                  </SelectTrigger>
+                  <SelectContent className="bg-gray-800 border-gray-700 text-white">
+                    {(Object.keys(IMPORT_TYPE_LABELS) as ImportType[]).map((type) => (
+                      <SelectItem
+                        key={type}
+                        value={type}
+                        className="focus:bg-gray-700 focus:text-white"
+                      >
+                        {IMPORT_TYPE_LABELS[type]}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Import button */}
+              <div className="flex items-end">
+                <Button
+                  onClick={handleImport}
+                  disabled={isImporting || !selectedFile || !importType || !hotelId}
+                  className="bg-amber-500 hover:bg-amber-400 text-gray-950 font-semibold disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto"
+                >
+                  {isImporting ? (
+                    <>
+                      <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
+                      Importing...
+                    </>
+                  ) : (
+                    <>
+                      <Upload className="w-4 h-4 mr-2" />
+                      Import
+                    </>
+                  )}
+                </Button>
+              </div>
+            </div>
+
+            {/* Sample CSV links */}
+            <div className="pt-1 border-t border-gray-700/60">
+              <p className="text-xs text-slate-500">
+                Download sample CSVs:{' '}
+                {(Object.keys(SAMPLE_CSV_PATHS) as ImportType[]).map((type, idx, arr) => (
+                  <span key={type}>
+                    <a
+                      href={SAMPLE_CSV_PATHS[type]}
+                      download
+                      className="text-amber-400/80 hover:text-amber-300 underline underline-offset-2 transition-colors"
+                    >
+                      {IMPORT_TYPE_LABELS[type]}
+                    </a>
+                    {idx < arr.length - 1 && <span className="text-slate-600">{' · '}</span>}
+                  </span>
+                ))}
+              </p>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   )
