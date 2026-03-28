@@ -100,12 +100,27 @@ const HotelOnboarding = () => {
     }
     setIsSubmitting(true);
     try {
-      const orgId = localStorage.getItem('vesta_onboarding_org_id');
+      let orgId = localStorage.getItem('vesta_onboarding_org_id');
+
+      // If no org in localStorage (e.g. Google OAuth users), create one now
+      if (!orgId) {
+        const emailDomain = (user.email ?? '').split('@')[1] ?? '';
+        const orgName = emailDomain
+          ? emailDomain.split('.')[0].charAt(0).toUpperCase() + emailDomain.split('.')[0].slice(1) + ' Hotel Group'
+          : 'My Hotel Group';
+        const { data: orgData, error: orgError } = await supabase
+          .from('organizations')
+          .insert({ name: orgName, owner_user_id: user.id, plan: 'starter' })
+          .select('id')
+          .single();
+        if (orgError) throw orgError;
+        orgId = orgData.id;
+      }
 
       const { data: hotelData, error: hotelError } = await supabase
         .from('hotels')
         .insert({
-          organization_id: orgId ?? null,
+          organization_id: orgId,
           name: form.hotelName.trim(),
           property_type: form.propertyType,
           room_count: parseInt(form.roomCount, 10),

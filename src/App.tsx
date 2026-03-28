@@ -43,6 +43,7 @@ import Integrations from "./pages/Integrations";
 import BudgetPage from "./pages/Budget";
 import AnomaliesPage from "./pages/Anomalies";
 import SharedConversation from "./pages/SharedConversation";
+import { HotelLayout } from "@/components/hotel/HotelLayout";
 
 import Docs from "./pages/Docs";
 
@@ -105,19 +106,27 @@ const AppContent = () => {
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/support" element={<Support />} />
         <Route path="/security" element={<Security />} />
-        {/* Dashboard decommissioned - redirects handled in ChatHub */}
+        {/* Hotel app pages — all wrapped with HotelLayout (sidebar + bottom nav) */}
         <Route path="/dashboard" element={
           <ProtectedRoute>
-            <Dashboard />
+            <HotelLayout><Dashboard /></HotelLayout>
           </ProtectedRoute>
         } />
         <Route path="/integrations" element={
           <ProtectedRoute>
-            <Integrations />
+            <HotelLayout><Integrations /></HotelLayout>
           </ProtectedRoute>
         } />
-        <Route path="/budget" element={<ProtectedRoute><BudgetPage /></ProtectedRoute>} />
-        <Route path="/anomalies" element={<ProtectedRoute><AnomaliesPage /></ProtectedRoute>} />
+        <Route path="/budget" element={
+          <ProtectedRoute>
+            <HotelLayout><BudgetPage /></HotelLayout>
+          </ProtectedRoute>
+        } />
+        <Route path="/anomalies" element={
+          <ProtectedRoute>
+            <HotelLayout><AnomaliesPage /></HotelLayout>
+          </ProtectedRoute>
+        } />
         <Route path="/app" element={
           <ProtectedRoute>
             <ChatHub />
