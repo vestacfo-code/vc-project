@@ -42,8 +42,6 @@ serve(async (req) => {
     }
 
     const targetDate = date ?? new Date().toISOString().slice(0, 10);
-
-    // ── Service-role client to bypass RLS ───────────────────────────────────
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
     // ── 1. Fetch hotel info ─────────────────────────────────────────────────
@@ -84,7 +82,7 @@ serve(async (req) => {
     // ── 3. Fetch current month budget ───────────────────────────────────────
     const targetDateObj = new Date(targetDate);
     const year = targetDateObj.getFullYear();
-    const month = targetDateObj.getMonth() + 1; // 1-indexed
+    const month = targetDateObj.getMonth() + 1;
 
     const { data: budget } = await supabase
       .from('budget_targets')
@@ -110,7 +108,7 @@ serve(async (req) => {
 
     const budgetSection =
       budget
-        ? `Budget targets this month: RevPAR $${fmt(budget.revpar_target)}, Occupancy ${fmt((budget.occupancy_target ?? 0) * 100, 1)}%, ADR $${fmt(budget.adr_target)}`
+        ? `Budget targets this month: RevPAR $${fmt(budget.target_revpar)}, Occupancy ${fmt((budget.target_occupancy ?? 0) * 100, 1)}%, ADR $${fmt(budget.target_adr)}`
         : '';
 
     const systemPrompt =
@@ -217,6 +215,39 @@ Rules for status:
 
     if (upsertError) {
       log('ai_summaries upsert error', upsertError.message);
+    }
+
+    // ── 8. Notify all hotel members that briefing is ready ──────────────────
+    try {
+      const { data: members } = await supabase
+        .from('hotel_members')
+        .select('user_id')
+        .eq('hotel_id', hotel_id);
+
+      if (members && members.length > 0) {
+        const notifIcon = status === 'critical' ? '🚨' : status === 'attention_needed' ? '⚠️' : '✅';
+        const notifications = members.map((m) => ({
+          hotel_id,
+          user_id: m.user_id,
+          type: 'daily_briefing',
+          title: `${notifIcon} Daily Briefing Ready — ${targetDate}`,
+          body: headline,
+          link: `/app/insights`,
+          source_id: savedSummary?.id ?? null,
+        }));
+
+        const { error: notifError } = await supabase
+          .from('hotel_notifications')
+          .insert(notifications);
+
+        if (notifError) {
+          log('Notification insert error (non-fatal)', notifError.message);
+        } else {
+          log(`Sent ${notifications.length} briefing notifications`);
+        }
+      }
+    } catch (notifErr) {
+      log('Notification step error (non-fatal)', String(notifErr));
     }
 
     // ── Return result ───────────────────────────────────────────────────────

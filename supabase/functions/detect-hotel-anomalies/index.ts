@@ -251,6 +251,49 @@ serve(async (req) => {
       }
     }
 
+    // ── Create notifications for critical/high anomalies ─────────────────────
+    const notifiableAnomalies = detectedAnomalies.filter(
+      (a) => a.severity === 'critical' || a.severity === 'high',
+    );
+
+    if (notifiableAnomalies.length > 0) {
+      try {
+        const { data: members } = await supabase
+          .from('hotel_members')
+          .select('user_id')
+          .eq('hotel_id', hotel_id);
+
+        if (members && members.length > 0) {
+          const notifications = [];
+          for (const anomaly of notifiableAnomalies) {
+            const icon = anomaly.severity === 'critical' ? '🚨' : '⚠️';
+            for (const member of members) {
+              notifications.push({
+                hotel_id,
+                user_id: member.user_id,
+                type: 'anomaly',
+                title: `${icon} ${anomaly.title}`,
+                body: anomaly.description,
+                link: `/app/alerts`,
+              });
+            }
+          }
+
+          const { error: notifError } = await supabase
+            .from('hotel_notifications')
+            .insert(notifications);
+
+          if (notifError) {
+            log('Notification insert error (non-fatal)', notifError.message);
+          } else {
+            log(`Sent ${notifications.length} anomaly notifications`);
+          }
+        }
+      } catch (notifErr) {
+        log('Notification step error (non-fatal)', String(notifErr));
+      }
+    }
+
     // ── Return result ────────────────────────────────────────────────────────
     return new Response(
       JSON.stringify({
