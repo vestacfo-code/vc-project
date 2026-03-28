@@ -2,7 +2,7 @@
 /**
  * hotel-ai-chat — Vesta AI Chat Edge Function
  *
- * Hotel-context-aware chat powered by Claude. Pulls the hotel's recent metrics,
+ * Hotel-context-aware chat powered by GPT-4o-mini. Pulls the hotel's recent metrics,
  * expenses, revenue by channel, and open anomalies, then answers questions
  * like "Why did RevPAR drop last Tuesday?" or "What's my best channel this month?"
  *
@@ -22,7 +22,7 @@ const corsHeaders = {
 
 const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
 const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
-const anthropicApiKey = Deno.env.get('ANTHROPIC_API_KEY')!;
+const openaiApiKey = Deno.env.get('OPENAI_API_KEY')!;
 
 const log = (step: string, details?: any) => {
   const suffix = details ? ` - ${JSON.stringify(details)}` : '';
@@ -184,7 +184,7 @@ async function getRecentMessages(supabase: any, sessionId: string, limit = 10): 
     .order('created_at', { ascending: false })
     .limit(limit);
 
-  return (data ?? []).reverse(); // oldest first for Claude
+  return (data ?? []).reverse(); // oldest first for GPT
 }
 
 // ── Main handler ────────────────────────────────────────────────────────────
@@ -292,44 +292,45 @@ ${hotelContext}`;
       { role: 'user', content: message.trim() },
     ];
 
-    log('Calling Claude', { sessionId: activeSessionId, messageCount: messages.length });
+    log('Calling GPT', { sessionId: activeSessionId, messageCount: messages.length });
 
-    const claudeResponse = await fetch('https://api.anthropic.com/v1/messages', {
+    const gptResponse = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': anthropicApiKey,
-        'anthropic-version': '2023-06-01',
+        'Authorization': `Bearer ${openaiApiKey}`,
       },
       body: JSON.stringify({
-        model: 'claude-haiku-4-5',
+        model: 'gpt-4o-mini',
         max_tokens: 800,
-        system: systemPrompt,
-        messages,
+        messages: [
+          { role: 'system', content: systemPrompt },
+          ...messages,
+        ],
       }),
     });
 
-    if (!claudeResponse.ok) {
-      const errText = await claudeResponse.text();
-      log('Claude error', { status: claudeResponse.status, body: errText });
-      return new Response(JSON.stringify({ error: `AI API error: ${claudeResponse.status}` }), {
+    if (!gptResponse.ok) {
+      const errText = await gptResponse.text();
+      log('GPT error', { status: gptResponse.status, body: errText });
+      return new Response(JSON.stringify({ error: `AI API error: ${gptResponse.status}` }), {
         status: 502,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       });
     }
 
-    const claudeData = await claudeResponse.json();
-    const reply = claudeData.content?.[0]?.text ?? 'Sorry, I could not generate a response.';
-    const tokensUsed = (claudeData.usage?.input_tokens ?? 0) + (claudeData.usage?.output_tokens ?? 0);
+    const gptData = await gptResponse.json();
+    const reply = gptData.choices?.[0]?.message?.content ?? 'Sorry, I could not generate a response.';
+    const tokensUsed = (gptData.usage?.prompt_tokens ?? 0) + (gptData.usage?.completion_tokens ?? 0);
 
-    log('Claude replied', { tokensUsed, sessionId: activeSessionId });
+    log('GPT replied', { tokensUsed, sessionId: activeSessionId });
 
     // ── Save assistant reply ────────────────────────────────────────────────
     await supabase.from('hotel_chat_messages').insert({
       session_id: activeSessionId,
       role: 'assistant',
       content: reply,
-      metadata: { tokens_used: tokensUsed, model: claudeData.model },
+      metadata: { tokens_used: tokensUsed, model: gptData.model },
     });
 
     // ── Update session title from first message ────────────────────────────
