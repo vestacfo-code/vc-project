@@ -42,6 +42,8 @@ import NotFound from "./pages/NotFound";
 import Integrations from "./pages/Integrations";
 import BudgetPage from "./pages/Budget";
 import AnomaliesPage from "./pages/Anomalies";
+import ReportsPage from "./pages/Reports";
+import TeamPage from "./pages/Team";
 import SharedConversation from "./pages/SharedConversation";
 import { HotelLayout } from "@/components/hotel/HotelLayout";
 
@@ -125,6 +127,16 @@ const AppContent = () => {
         <Route path="/anomalies" element={
           <ProtectedRoute>
             <HotelLayout><AnomaliesPage /></HotelLayout>
+          </ProtectedRoute>
+        } />
+        <Route path="/reports" element={
+          <ProtectedRoute>
+            <HotelLayout><ReportsPage /></HotelLayout>
+          </ProtectedRoute>
+        } />
+        <Route path="/team" element={
+          <ProtectedRoute>
+            <HotelLayout><TeamPage /></HotelLayout>
           </ProtectedRoute>
         } />
         <Route path="/app" element={

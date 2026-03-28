@@ -5,9 +5,8 @@ import {
   Target,
   Plug,
   LogOut,
-  Building2,
-  ChevronDown,
-  Settings,
+  FileText,
+  Users,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { supabase } from '@/integrations/supabase/client';
@@ -20,6 +19,8 @@ const NAV_ITEMS = [
   { to: '/dashboard',    icon: LayoutDashboard, label: 'Dashboard' },
   { to: '/anomalies',    icon: AlertTriangle,    label: 'Anomalies' },
   { to: '/budget',       icon: Target,           label: 'Budget' },
+  { to: '/reports',      icon: FileText,         label: 'Reports' },
+  { to: '/team',         icon: Users,            label: 'Team' },
   { to: '/integrations', icon: Plug,             label: 'Integrations' },
 ];
 
