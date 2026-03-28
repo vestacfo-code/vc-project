@@ -85,7 +85,7 @@ const AppContent = () => {
 
   const handlePortalComplete = () => {
     endAnimation();
-    navigate('/chat');
+    navigate('/dashboard');
   };
 
   return (
