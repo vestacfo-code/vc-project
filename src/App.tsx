@@ -46,6 +46,7 @@ import ReportsPage from "./pages/Reports";
 import TeamPage from "./pages/Team";
 import SharedConversation from "./pages/SharedConversation";
 import { HotelLayout } from "@/components/hotel/HotelLayout";
+import SettingsPage from "./pages/Settings";
 
 import Docs from "./pages/Docs";
 
@@ -137,6 +138,11 @@ const AppContent = () => {
         <Route path="/team" element={
           <ProtectedRoute>
             <HotelLayout><TeamPage /></HotelLayout>
+          </ProtectedRoute>
+        } />
+        <Route path="/settings" element={
+          <ProtectedRoute>
+            <HotelLayout><SettingsPage /></HotelLayout>
           </ProtectedRoute>
         } />
         <Route path="/app" element={
