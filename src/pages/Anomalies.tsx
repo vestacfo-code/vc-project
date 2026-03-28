@@ -6,7 +6,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
-import { CheckCircle2, AlertTriangle, Clock, Filter, ShieldAlert } from 'lucide-react'
+import { CheckCircle2, AlertTriangle, Clock, Filter, ShieldAlert, ScanLine } from 'lucide-react'
 import { format, formatDistanceToNow } from 'date-fns'
 
 type Severity = 'critical' | 'high' | 'medium' | 'low'
@@ -101,6 +101,25 @@ export default function Anomalies() {
 
   const [statusFilter, setStatusFilter] = useState<StatusFilter>('all')
   const [severityFilter, setSeverityFilter] = useState<SeverityFilter>('all')
+  const [isScanning, setIsScanning] = useState(false)
+
+  const handleScan = async () => {
+    if (!hotelId || isScanning) return
+    setIsScanning(true)
+    try {
+      const { data, error } = await supabase.functions.invoke('detect-hotel-anomalies', {
+        body: { hotel_id: hotelId },
+      })
+      if (error) throw error
+      const count: number = data?.anomalies_detected ?? 0
+      toast.success(`Found ${count} anomal${count === 1 ? 'y' : 'ies'}`)
+      queryClient.invalidateQueries({ queryKey: ['anomalies', hotelId] })
+    } catch (err) {
+      toast.error('Failed to scan for anomalies')
+    } finally {
+      setIsScanning(false)
+    }
+  }
 
   const { data: anomalies = [], isLoading } = useQuery<Anomaly[]>({
     queryKey: ['anomalies', hotelId],
@@ -180,18 +199,28 @@ export default function Anomalies() {
             Monitor and resolve unusual patterns detected in your hotel's performance metrics.
           </p>
         </div>
-        {!isLoading && openCount > 0 && (
-          <div className="flex items-center gap-3 shrink-0">
-            <Badge className="bg-gray-800 text-slate-300 border-gray-700 text-sm px-3 py-1">
-              {openCount} open
-            </Badge>
-            {criticalCount > 0 && (
-              <Badge className="bg-red-500/10 text-red-400 border-red-500/20 text-sm px-3 py-1">
-                {criticalCount} critical
+        <div className="flex items-center gap-3 shrink-0">
+          {!isLoading && openCount > 0 && (
+            <>
+              <Badge className="bg-gray-800 text-slate-300 border-gray-700 text-sm px-3 py-1">
+                {openCount} open
               </Badge>
-            )}
-          </div>
-        )}
+              {criticalCount > 0 && (
+                <Badge className="bg-red-500/10 text-red-400 border-red-500/20 text-sm px-3 py-1">
+                  {criticalCount} critical
+                </Badge>
+              )}
+            </>
+          )}
+          <Button
+            onClick={handleScan}
+            disabled={isScanning || !hotelId}
+            className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-medium"
+          >
+            <ScanLine className="w-4 h-4 mr-2" />
+            {isScanning ? 'Scanning…' : 'Scan for Anomalies'}
+          </Button>
+        </div>
       </div>
 
       {/* Filters */}
