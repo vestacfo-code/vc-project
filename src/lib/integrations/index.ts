@@ -1,8 +1,13 @@
-export { BaseIntegration } from './base';
-export type { SyncResult, IntegrationCredentials } from './base';
+import { registerAdapter } from './registry'
+import { mewsAdapter } from './adapters/mews'
+import { cloudbedsAdapter } from './adapters/cloudbeds'
+import { manualAdapter } from './adapters/manual'
 
-// Adapters — implemented in Phase 5/6
-// export { MewsIntegration } from './mews';
-// export { CloudbedsIntegration } from './cloudbeds';
-// export { QuickBooksIntegration } from './quickbooks';
-// export { PlaidIntegration } from './plaid';
+// Register all adapters on import
+registerAdapter(mewsAdapter)
+registerAdapter(cloudbedsAdapter)
+registerAdapter(manualAdapter)
+
+export { syncIntegration } from './syncService'
+export { getAdapter, getRegisteredProviders } from './registry'
+export type { DailyMetricsPayload, RevenueByChannelPayload, IntegrationAdapter, SyncResult } from './types'

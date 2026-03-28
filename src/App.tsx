@@ -39,6 +39,7 @@ import StepByStepGuide from "./pages/StepByStepGuide";
 import TermsOfService from "./pages/TermsOfService";
 import Press from "./pages/Press";
 import NotFound from "./pages/NotFound";
+import Integrations from "./pages/Integrations";
 import SharedConversation from "./pages/SharedConversation";
 
 import Docs from "./pages/Docs";
@@ -105,7 +106,12 @@ const AppContent = () => {
         {/* Dashboard decommissioned - redirects handled in ChatHub */}
         <Route path="/dashboard" element={
           <ProtectedRoute>
-            <ChatHub />
+            <Dashboard />
+          </ProtectedRoute>
+        } />
+        <Route path="/integrations" element={
+          <ProtectedRoute>
+            <Integrations />
           </ProtectedRoute>
         } />
         <Route path="/app" element={

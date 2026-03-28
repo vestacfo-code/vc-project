@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Progress } from '@/components/ui/progress';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Loader2, ArrowRight, ArrowLeft, Hotel, MapPin, Database } from 'lucide-react';
+import { VestaLogo } from '@/components/VestaLogo';
 
 const TOTAL_STEPS = 3;
 
@@ -154,25 +155,30 @@ const HotelOnboarding = () => {
   const stepTitles = ['Property Basics', 'Location', 'PMS Integration'];
 
   return (
-    <div className="min-h-screen bg-gray-950 flex flex-col items-center justify-center p-4">
-      {/* Header */}
-      <div className="w-full max-w-lg mb-8">
-        <div className="flex items-center justify-between mb-3">
-          <span className="text-gray-400 text-sm font-medium">Step {step} of {TOTAL_STEPS}</span>
-          <span className="text-gray-400 text-sm">{stepTitles[step - 1]}</span>
-        </div>
-        <Progress value={progressValue} className="h-1.5 bg-gray-800 [&>div]:bg-white" />
+    <div className="min-h-screen bg-[#0a0f1e] flex flex-col items-center justify-center p-4">
+      {/* Top logo */}
+      <div className="w-full max-w-lg mb-6">
+        <VestaLogo size="sm" />
       </div>
 
-      <Card className="w-full max-w-lg bg-gray-900 border border-gray-800 shadow-2xl">
+      {/* Header */}
+      <div className="w-full max-w-lg mb-6">
+        <div className="flex items-center justify-between mb-3">
+          <span className="text-slate-400 text-sm font-medium">Step {step} of {TOTAL_STEPS}</span>
+          <span className="text-slate-400 text-sm">{stepTitles[step - 1]}</span>
+        </div>
+        <Progress value={progressValue} className="h-1 bg-slate-800 [&>div]:bg-amber-500" />
+      </div>
+
+      <Card className="w-full max-w-lg bg-slate-900 border border-slate-800 shadow-2xl">
         <CardHeader className="pb-4">
           <div className="flex items-center gap-3 mb-1">
-            <div className="w-9 h-9 rounded-lg bg-gray-800 flex items-center justify-center text-white">
+            <div className="w-9 h-9 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400">
               {stepIcons[step - 1]}
             </div>
             <CardTitle className="text-white text-xl">{stepTitles[step - 1]}</CardTitle>
           </div>
-          <CardDescription className="text-gray-400">
+          <CardDescription className="text-slate-400">
             {step === 1 && "Tell us about your property."}
             {step === 2 && "Where is your hotel located?"}
             {step === 3 && "Connect your property management system."}
@@ -183,24 +189,24 @@ const HotelOnboarding = () => {
           {step === 1 && (
             <>
               <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-300">Hotel Name *</label>
+                <label className="text-sm font-medium text-slate-300">Hotel Name *</label>
                 <Input
                   placeholder="e.g. The Grand Meridian"
                   value={form.hotelName}
                   onChange={e => set('hotelName', e.target.value)}
-                  className="bg-gray-800 border-gray-700 text-white placeholder:text-gray-500 focus-visible:ring-gray-600"
+                  className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-500 focus-visible:ring-amber-500/40"
                 />
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-300">Property Type *</label>
+                <label className="text-sm font-medium text-slate-300">Property Type *</label>
                 <Select value={form.propertyType} onValueChange={v => set('propertyType', v)}>
-                  <SelectTrigger className="bg-gray-800 border-gray-700 text-white focus:ring-gray-600">
+                  <SelectTrigger className="bg-slate-800 border-slate-700 text-white focus:ring-amber-500/40">
                     <SelectValue placeholder="Select property type" />
                   </SelectTrigger>
-                  <SelectContent className="bg-gray-800 border-gray-700 text-white">
+                  <SelectContent className="bg-slate-800 border-slate-700 text-white">
                     {PROPERTY_TYPES.map(pt => (
-                      <SelectItem key={pt.value} value={pt.value} className="focus:bg-gray-700 focus:text-white">
+                      <SelectItem key={pt.value} value={pt.value} className="focus:bg-slate-700 focus:text-white">
                         {pt.label}
                       </SelectItem>
                     ))}
@@ -209,14 +215,14 @@ const HotelOnboarding = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-300">Number of Rooms *</label>
+                <label className="text-sm font-medium text-slate-300">Number of Rooms *</label>
                 <Input
                   type="number"
                   min={1}
                   placeholder="e.g. 120"
                   value={form.roomCount}
                   onChange={e => set('roomCount', e.target.value)}
-                  className="bg-gray-800 border-gray-700 text-white placeholder:text-gray-500 focus-visible:ring-gray-600"
+                  className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-500 focus-visible:ring-amber-500/40"
                 />
               </div>
             </>
@@ -225,34 +231,34 @@ const HotelOnboarding = () => {
           {step === 2 && (
             <>
               <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-300">City *</label>
+                <label className="text-sm font-medium text-slate-300">City *</label>
                 <Input
                   placeholder="e.g. Dubai"
                   value={form.city}
                   onChange={e => set('city', e.target.value)}
-                  className="bg-gray-800 border-gray-700 text-white placeholder:text-gray-500 focus-visible:ring-gray-600"
+                  className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-500 focus-visible:ring-amber-500/40"
                 />
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-300">Country *</label>
+                <label className="text-sm font-medium text-slate-300">Country *</label>
                 <Input
                   placeholder="e.g. United Arab Emirates"
                   value={form.country}
                   onChange={e => set('country', e.target.value)}
-                  className="bg-gray-800 border-gray-700 text-white placeholder:text-gray-500 focus-visible:ring-gray-600"
+                  className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-500 focus-visible:ring-amber-500/40"
                 />
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-300">Timezone *</label>
+                <label className="text-sm font-medium text-slate-300">Timezone *</label>
                 <Select value={form.timezone} onValueChange={v => set('timezone', v)}>
-                  <SelectTrigger className="bg-gray-800 border-gray-700 text-white focus:ring-gray-600">
+                  <SelectTrigger className="bg-slate-800 border-slate-700 text-white focus:ring-amber-500/40">
                     <SelectValue placeholder="Select timezone" />
                   </SelectTrigger>
-                  <SelectContent className="bg-gray-800 border-gray-700 text-white">
+                  <SelectContent className="bg-slate-800 border-slate-700 text-white">
                     {TIMEZONES.map(tz => (
-                      <SelectItem key={tz.value} value={tz.value} className="focus:bg-gray-700 focus:text-white">
+                      <SelectItem key={tz.value} value={tz.value} className="focus:bg-slate-700 focus:text-white">
                         {tz.label}
                       </SelectItem>
                     ))}
@@ -261,14 +267,14 @@ const HotelOnboarding = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-300">Currency *</label>
+                <label className="text-sm font-medium text-slate-300">Currency *</label>
                 <Select value={form.currency} onValueChange={v => set('currency', v)}>
-                  <SelectTrigger className="bg-gray-800 border-gray-700 text-white focus:ring-gray-600">
+                  <SelectTrigger className="bg-slate-800 border-slate-700 text-white focus:ring-amber-500/40">
                     <SelectValue placeholder="Select currency" />
                   </SelectTrigger>
-                  <SelectContent className="bg-gray-800 border-gray-700 text-white">
+                  <SelectContent className="bg-slate-800 border-slate-700 text-white">
                     {CURRENCIES.map(c => (
-                      <SelectItem key={c.value} value={c.value} className="focus:bg-gray-700 focus:text-white">
+                      <SelectItem key={c.value} value={c.value} className="focus:bg-slate-700 focus:text-white">
                         {c.label}
                       </SelectItem>
                     ))}
@@ -281,14 +287,14 @@ const HotelOnboarding = () => {
           {step === 3 && (
             <>
               <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-300">Property Management System *</label>
+                <label className="text-sm font-medium text-slate-300">Property Management System *</label>
                 <Select value={form.pmsProvider} onValueChange={v => set('pmsProvider', v)}>
-                  <SelectTrigger className="bg-gray-800 border-gray-700 text-white focus:ring-gray-600">
+                  <SelectTrigger className="bg-slate-800 border-slate-700 text-white focus:ring-amber-500/40">
                     <SelectValue placeholder="Select your PMS" />
                   </SelectTrigger>
-                  <SelectContent className="bg-gray-800 border-gray-700 text-white">
+                  <SelectContent className="bg-slate-800 border-slate-700 text-white">
                     {PMS_PROVIDERS.map(p => (
-                      <SelectItem key={p.value} value={p.value} className="focus:bg-gray-700 focus:text-white">
+                      <SelectItem key={p.value} value={p.value} className="focus:bg-slate-700 focus:text-white">
                         {p.label}
                       </SelectItem>
                     ))}
@@ -296,8 +302,8 @@ const HotelOnboarding = () => {
                 </Select>
               </div>
 
-              <div className="rounded-lg bg-gray-800/60 border border-gray-700 px-4 py-3">
-                <p className="text-gray-400 text-sm">
+              <div className="rounded-lg bg-amber-500/5 border border-amber-500/20 px-4 py-3">
+                <p className="text-slate-400 text-sm">
                   Don't worry — you can connect your PMS later from Settings.
                 </p>
               </div>
@@ -311,7 +317,7 @@ const HotelOnboarding = () => {
                 type="button"
                 variant="ghost"
                 onClick={() => setStep(s => s - 1)}
-                className="text-gray-400 hover:text-white hover:bg-gray-800"
+                className="text-slate-400 hover:text-white hover:bg-slate-800"
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Back
@@ -325,7 +331,7 @@ const HotelOnboarding = () => {
                 type="button"
                 onClick={() => setStep(s => s + 1)}
                 disabled={(step === 1 && !canProceedStep1) || (step === 2 && !canProceedStep2)}
-                className="bg-white text-gray-900 hover:bg-gray-100 font-medium disabled:opacity-40"
+                className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-semibold disabled:opacity-40"
               >
                 Continue
                 <ArrowRight className="w-4 h-4 ml-2" />
@@ -335,7 +341,7 @@ const HotelOnboarding = () => {
                 type="button"
                 onClick={handleComplete}
                 disabled={isSubmitting || form.pmsProvider === ''}
-                className="bg-white text-gray-900 hover:bg-gray-100 font-medium disabled:opacity-40"
+                className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-semibold disabled:opacity-40"
               >
                 {isSubmitting ? (
                   <>
@@ -354,7 +360,7 @@ const HotelOnboarding = () => {
         </CardContent>
       </Card>
 
-      <p className="mt-6 text-gray-600 text-xs">
+      <p className="mt-6 text-slate-600 text-xs">
         Vesta Hotel CFO &mdash; Secure setup
       </p>
     </div>
