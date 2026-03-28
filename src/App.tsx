@@ -17,6 +17,9 @@ import Auth from "./pages/Auth";
 import DemoRedirect from "./pages/DemoRedirect";
 
 import Pricing from "./pages/Pricing";
+import Features from "./pages/Features";
+import Company from "./pages/Company";
+import Contact from "./pages/Contact";
 import About from "./pages/About";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
@@ -96,6 +99,9 @@ const AppContent = () => {
         <Route path="/auth" element={<Auth />} />
         <Route path="/demo" element={<DemoRedirect />} />
         <Route path="/pricing" element={<Pricing />} />
+        <Route path="/features" element={<Features />} />
+        <Route path="/company" element={<Company />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<About />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:slug" element={<BlogPost />} />

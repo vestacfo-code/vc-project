@@ -15,6 +15,7 @@ const Footer = () => {
           <div>
             <h3 className="font-semibold text-white mb-4 text-sm">Product</h3>
             <ul className="space-y-3 text-sm text-slate-400">
+              <li><Link to="/features" className="hover:text-white transition-colors">Features</Link></li>
               <li><Link to="/pricing" className="hover:text-white transition-colors">Pricing</Link></li>
               <li><Link to="/docs/connect" className="hover:text-white transition-colors">Integrations</Link></li>
               <li><a href="https://calendar.app.google/PWqhmizMxqUnRNpP9" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Book Demo</a></li>
@@ -35,9 +36,11 @@ const Footer = () => {
           <div>
             <h3 className="font-semibold text-white mb-4 text-sm">Company</h3>
             <ul className="space-y-3 text-sm text-slate-400">
+              <li><Link to="/company" className="hover:text-white transition-colors">About Vesta</Link></li>
+              <li><Link to="/about" className="hover:text-white transition-colors">Leadership</Link></li>
               <li><Link to="/blog" className="hover:text-white transition-colors">Blog</Link></li>
               <li><Link to="/careers" className="hover:text-white transition-colors">Careers</Link></li>
-              <li><Link to="/about" className="hover:text-white transition-colors">About</Link></li>
+              <li><Link to="/contact" className="hover:text-white transition-colors">Contact</Link></li>
             </ul>
           </div>
           

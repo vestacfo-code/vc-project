@@ -158,6 +158,17 @@ const Header = ({ variant = 'light' }: HeaderProps) => {
                     {/* Right Column - Feature Grid */}
                     <div className="flex-1 grid grid-cols-2 gap-1">
                       <Link 
+                        to="/features"
+                        onClick={() => setIsProductDropdownOpen(false)}
+                        className="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer col-span-2 border-b border-gray-100 mb-1 pb-3"
+                      >
+                        <Sparkles className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                        <div>
+                          <p className="font-medium text-gray-900 text-sm">All features</p>
+                          <p className="text-gray-500 text-xs leading-relaxed">Hotel KPIs, AI briefings, alerts &amp; more</p>
+                        </div>
+                      </Link>
+                      <Link 
                         to="/docs/features/ai-chat"
                         onClick={() => setIsProductDropdownOpen(false)}
                         className="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer"
@@ -235,16 +246,28 @@ const Header = ({ variant = 'light' }: HeaderProps) => {
             )}
           </div>
           <Link 
+            to="/features" 
+            className={`text-[15px] font-medium transition-colors ${isActive('/features') ? activeTextColor : textColor}`}
+          >
+            Features
+          </Link>
+          <Link 
             to="/pricing" 
             className={`text-[15px] font-medium transition-colors ${isActive('/pricing') ? activeTextColor : textColor}`}
           >
             Pricing
           </Link>
           <Link 
+            to="/company" 
+            className={`text-[15px] font-medium transition-colors ${isActive('/company') ? activeTextColor : textColor}`}
+          >
+            Company
+          </Link>
+          <Link 
             to="/about" 
             className={`text-[15px] font-medium transition-colors ${isActive('/about') ? activeTextColor : textColor}`}
           >
-            About
+            Team
           </Link>
           <Link 
             to="/docs/connect" 
@@ -257,6 +280,12 @@ const Header = ({ variant = 'light' }: HeaderProps) => {
             className={`text-[15px] font-medium transition-colors ${isActive('/docs') ? activeTextColor : textColor}`}
           >
             Docs
+          </Link>
+          <Link 
+            to="/contact" 
+            className={`text-[15px] font-medium transition-colors ${isActive('/contact') ? activeTextColor : textColor}`}
+          >
+            Contact
           </Link>
         </div>
 
@@ -382,6 +411,13 @@ const Header = ({ variant = 'light' }: HeaderProps) => {
           </div>
           <div className="px-6 py-6 space-y-4">
             <Link 
+              to="/features" 
+              className="block text-lg font-medium text-gray-900 py-3 border-b border-gray-100"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Features
+            </Link>
+            <Link 
               to="/pricing" 
               className="block text-lg font-medium text-gray-900 py-3 border-b border-gray-100"
               onClick={() => setIsMobileMenuOpen(false)}
@@ -389,11 +425,18 @@ const Header = ({ variant = 'light' }: HeaderProps) => {
               Pricing
             </Link>
             <Link 
+              to="/company" 
+              className="block text-lg font-medium text-gray-900 py-3 border-b border-gray-100"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Company
+            </Link>
+            <Link 
               to="/about" 
               className="block text-lg font-medium text-gray-900 py-3 border-b border-gray-100"
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              About
+              Team
             </Link>
             <Link 
               to="/docs/connect" 
@@ -408,6 +451,13 @@ const Header = ({ variant = 'light' }: HeaderProps) => {
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Docs
+            </Link>
+            <Link 
+              to="/contact" 
+              className="block text-lg font-medium text-gray-900 py-3 border-b border-gray-100"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Contact
             </Link>
             
             {user ? (

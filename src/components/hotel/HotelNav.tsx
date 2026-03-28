@@ -1,4 +1,6 @@
 import { NavLink, useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { morphSpringSoft } from '@/lib/motion';
 import {
   LayoutDashboard,
   AlertTriangle,
@@ -72,19 +74,30 @@ export const HotelNav = () => {
             to={to}
             className={({ isActive }) =>
               cn(
-                'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors relative',
+                'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors relative z-0',
                 isActive
-                  ? 'bg-amber-500/10 text-amber-400'
+                  ? 'text-amber-400'
                   : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800/60'
               )
             }
           >
-            <Icon className="w-4 h-4 shrink-0" />
-            <span>{label}</span>
-            {label === 'Anomalies' && anomalyCount > 0 && (
-              <span className="ml-auto bg-red-500 text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
-                {anomalyCount > 9 ? '9+' : anomalyCount}
-              </span>
+            {({ isActive }) => (
+              <>
+                {isActive && (
+                  <motion.span
+                    layoutId="hotel-sidebar-active-pill"
+                    className="absolute inset-0 rounded-lg bg-amber-500/10 border border-amber-500/15 -z-10 shadow-[0_0_20px_-4px_rgba(245,158,11,0.35)]"
+                    transition={morphSpringSoft}
+                  />
+                )}
+                <Icon className="w-4 h-4 shrink-0 relative z-10" />
+                <span className="relative z-10">{label}</span>
+                {label === 'Anomalies' && anomalyCount > 0 && (
+                  <span className="ml-auto relative z-10 bg-red-500 text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
+                    {anomalyCount > 9 ? '9+' : anomalyCount}
+                  </span>
+                )}
+              </>
             )}
           </NavLink>
         ))}
@@ -143,15 +156,28 @@ export const HotelBottomNav = () => {
             )
           }
         >
-          <div className="relative">
-            <Icon className="w-5 h-5" />
-            {label === 'Anomalies' && anomalyCount > 0 && (
-              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[8px] font-bold rounded-full w-3.5 h-3.5 flex items-center justify-center">
-                {anomalyCount > 9 ? '9+' : anomalyCount}
-              </span>
-            )}
-          </div>
-          <span>{label}</span>
+          {({ isActive }) => (
+            <>
+              <div className="relative flex flex-col items-center gap-1">
+                {isActive && (
+                  <motion.span
+                    layoutId="hotel-bottom-active-pill"
+                    className="absolute -inset-x-1 -inset-y-1 rounded-2xl bg-amber-500/10 border border-amber-500/10 -z-10"
+                    transition={morphSpringSoft}
+                  />
+                )}
+                <div className="relative">
+                  <Icon className="w-5 h-5" />
+                  {label === 'Anomalies' && anomalyCount > 0 && (
+                    <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[8px] font-bold rounded-full w-3.5 h-3.5 flex items-center justify-center">
+                      {anomalyCount > 9 ? '9+' : anomalyCount}
+                    </span>
+                  )}
+                </div>
+                <span>{label}</span>
+              </div>
+            </>
+          )}
         </NavLink>
       ))}
     </nav>

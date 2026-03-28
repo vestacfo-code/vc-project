@@ -1,5 +1,7 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { TrendingUp, TrendingDown } from 'lucide-react';
+import { morphSpringSoft } from '@/lib/motion';
 import { Card, CardContent } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 
@@ -38,7 +40,12 @@ const MetricCard: React.FC<MetricCardProps> = ({
   const isNegative = change !== undefined && change < 0;
 
   return (
-    <Card className="bg-gray-800/50 border border-gray-700">
+    <motion.div
+      whileHover={{ y: -3, scale: 1.015 }}
+      transition={morphSpringSoft}
+      className="h-full"
+    >
+    <Card className="bg-gray-800/50 border border-gray-700 h-full transition-shadow duration-300 hover:shadow-[0_12px_40px_-12px_rgba(245,158,11,0.15)] hover:border-amber-500/20">
       <CardContent className="p-5">
         <div className="flex items-start justify-between mb-2">
           <p className="text-sm text-gray-400 font-medium">{label}</p>
@@ -63,6 +70,7 @@ const MetricCard: React.FC<MetricCardProps> = ({
         )}
       </CardContent>
     </Card>
+    </motion.div>
   );
 };
 

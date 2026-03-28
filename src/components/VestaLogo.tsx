@@ -3,6 +3,8 @@ import { cn } from '@/lib/utils';
 
 interface VestaLogoProps {
   size?: 'sm' | 'md' | 'lg';
+  /** `dark` = amber on dark backgrounds (default). `light` = readable on white/light pages. */
+  tone?: 'dark' | 'light';
   className?: string;
 }
 
@@ -12,14 +14,16 @@ const sizeMap = {
   lg: { icon: 'w-7 h-7', text: 'text-3xl', gap: 'gap-3' },
 };
 
-export const VestaLogo = ({ size = 'md', className }: VestaLogoProps) => {
+export const VestaLogo = ({ size = 'md', tone = 'dark', className }: VestaLogoProps) => {
   const s = sizeMap[size];
+  const iconClass = tone === 'light' ? 'text-amber-600' : 'text-amber-400';
+  const wordClass = tone === 'light' ? 'text-slate-900' : 'text-amber-400';
   return (
     <div className={cn('flex items-center', s.gap, className)}>
       <div className="relative">
-        <Building2 className={cn(s.icon, 'text-amber-400')} strokeWidth={1.5} />
+        <Building2 className={cn(s.icon, iconClass)} strokeWidth={1.5} />
       </div>
-      <span className={cn('font-serif font-normal tracking-wide text-amber-400', s.text)}>
+      <span className={cn('font-serif font-normal tracking-wide', wordClass, s.text)}>
         Vesta
       </span>
     </div>

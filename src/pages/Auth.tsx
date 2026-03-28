@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { morphSpringSoft } from '@/lib/motion';
 import { useAuth } from '@/hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 // Use the wrapper client that respects recovery mode
@@ -599,7 +601,12 @@ const Auth = () => {
     <>
       <div className="min-h-[100dvh] flex flex-col lg:flex-row overflow-hidden">
         {/* Left Panel - Deep Navy - Hidden on mobile */}
-        <div className="hidden lg:flex w-[48%] bg-[#0a0f1e] relative overflow-hidden">
+        <motion.div
+          initial={{ opacity: 0, x: -24 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={morphSpringSoft}
+          className="hidden lg:flex w-[48%] bg-[#0a0f1e] relative overflow-hidden"
+        >
           {/* Subtle radial glow */}
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_50%,rgba(245,158,11,0.06),transparent_70%)] pointer-events-none" />
 
@@ -646,10 +653,13 @@ const Auth = () => {
 
             <p className="text-slate-600 text-xs">© 2026 Vesta. All rights reserved.</p>
           </div>
-        </div>
+        </motion.div>
 
         {/* Right Panel - Dark - Full screen on mobile */}
-        <div
+        <motion.div
+          initial={{ opacity: 0, filter: 'blur(8px)' }}
+          animate={{ opacity: 1, filter: 'blur(0px)' }}
+          transition={{ ...morphSpringSoft, delay: 0.08 }}
           className="flex-1 flex flex-col bg-slate-950 px-4 py-6 sm:px-8 sm:py-8 lg:px-16 xl:px-24 min-h-[100dvh] lg:min-h-0 relative"
         >
           {/* Top bar with back button and logo */}
@@ -677,8 +687,16 @@ const Auth = () => {
           {/* Centered content */}
           <div className="flex-1 flex flex-col items-center justify-center">
             <div className="w-full max-w-md">
-              {showSetNewPassword ? (
-                <div className="space-y-8">
+              <AnimatePresence mode="wait">
+                {showSetNewPassword ? (
+                <motion.div
+                  key="set-password"
+                  initial={{ opacity: 0, x: 28, filter: 'blur(6px)' }}
+                  animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+                  exit={{ opacity: 0, x: -20, filter: 'blur(4px)' }}
+                  transition={morphSpringSoft}
+                  className="space-y-8"
+                >
                   <h1 className="text-3xl lg:text-4xl font-serif text-white">
                     Set New Password
                   </h1>
@@ -710,9 +728,16 @@ const Auth = () => {
                       {isLoading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Updating...</> : 'Update Password'}
                     </Button>
                   </form>
-                </div>
+                </motion.div>
               ) : showForgotPassword ? (
-                <div className="space-y-8">
+                <motion.div
+                  key="forgot"
+                  initial={{ opacity: 0, x: 28, filter: 'blur(6px)' }}
+                  animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+                  exit={{ opacity: 0, x: -20, filter: 'blur(4px)' }}
+                  transition={morphSpringSoft}
+                  className="space-y-8"
+                >
                   <h1 className="text-3xl lg:text-4xl font-serif text-white">
                     Reset Password
                   </h1>
@@ -742,9 +767,16 @@ const Auth = () => {
                       Back to Sign In
                     </button>
                   </form>
-                </div>
+                </motion.div>
               ) : showSignUp ? (
-                <div className="space-y-6">
+                <motion.div
+                  key="signup"
+                  initial={{ opacity: 0, x: 28, filter: 'blur(6px)' }}
+                  animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+                  exit={{ opacity: 0, x: -20, filter: 'blur(4px)' }}
+                  transition={morphSpringSoft}
+                  className="space-y-6"
+                >
                   <div>
                     <h1 className="text-3xl lg:text-4xl font-serif text-white mb-2">
                       {teamInvite ? 'Accept Invitation' : 'Create Account'}
@@ -808,9 +840,16 @@ const Auth = () => {
                     <GoogleLogo className="w-5 h-5" />
                     Sign up with Google
                   </Button>
-                </div>
+                </motion.div>
               ) : (
-                <div className="space-y-6">
+                <motion.div
+                  key="signin"
+                  initial={{ opacity: 0, x: 28, filter: 'blur(6px)' }}
+                  animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+                  exit={{ opacity: 0, x: -20, filter: 'blur(4px)' }}
+                  transition={morphSpringSoft}
+                  className="space-y-6"
+                >
                   <div>
                     <h1 className="text-3xl lg:text-4xl font-serif text-white mb-2">
                       Welcome Back
@@ -847,11 +886,12 @@ const Auth = () => {
                       Forgot password? <span className="underline underline-offset-4">Click here</span>
                     </button>
                   </div>
-                </div>
+                </motion.div>
               )}
+              </AnimatePresence>
             </div>
           </div>
-        </div>
+        </motion.div>
       
         <div className="lg:hidden fixed top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-amber-500 to-amber-300" />
           
