@@ -1,6 +1,6 @@
 import React from 'react';
 import { format, subDays } from 'date-fns';
-import { Building2, BedDouble, TrendingUp, DollarSign } from 'lucide-react';
+import { Building2, BedDouble, TrendingUp, DollarSign, UploadCloud } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
@@ -10,18 +10,8 @@ import DailyBriefingCard from '@/components/hotel/DailyBriefingCard';
 import RevParChart from '@/components/hotel/RevParChart';
 import AnomalyFeed from '@/components/hotel/AnomalyFeed';
 import BudgetVarianceCard from '@/components/hotel/BudgetVarianceCard';
-
-// Fallback mock data shown when no real DB records exist yet
-const MOCK_METRICS = {
-  revpar: 127.50,
-  revpar_change: +5.2,
-  adr: 189.00,
-  adr_change: +2.1,
-  occupancy: 0.674,
-  occupancy_change: +3.1,
-  goppar: 89.30,
-  goppar_change: -1.4,
-};
+import { Button } from '@/components/ui/button';
+import { useNavigate } from 'react-router-dom';
 
 interface DailyMetricRow {
   date: string;
@@ -41,6 +31,31 @@ const getGreeting = (): string => {
   if (hour < 12) return 'Good morning';
   if (hour < 17) return 'Good afternoon';
   return 'Good evening';
+};
+
+const NoDataBanner = () => {
+  const navigate = useNavigate();
+  return (
+    <div className="rounded-xl border border-dashed border-amber-500/30 bg-amber-500/5 p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div className="flex items-start gap-3">
+        <UploadCloud className="h-5 w-5 text-amber-400 mt-0.5 shrink-0" />
+        <div>
+          <p className="text-sm font-medium text-amber-300">No data yet for today</p>
+          <p className="text-xs text-slate-400 mt-0.5">
+            Connect a PMS to sync automatically, or use the sample CSVs to get started.
+          </p>
+        </div>
+      </div>
+      <Button
+        size="sm"
+        variant="outline"
+        onClick={() => navigate('/integrations')}
+        className="border-amber-500/30 text-amber-400 hover:bg-amber-500/10 hover:border-amber-500/50 shrink-0"
+      >
+        Connect Integration
+      </Button>
+    </div>
+  );
 };
 
 const Dashboard = () => {
@@ -69,29 +84,19 @@ const Dashboard = () => {
 
   const todayMetrics = metricsData?.find((r) => r.date === today) ?? null;
   const yesterdayMetrics = metricsData?.find((r) => r.date === yesterday) ?? null;
-
-  // Use real data if available, otherwise fall back to mock
   const hasRealData = todayMetrics !== null;
 
-  const revpar = hasRealData ? (todayMetrics!.revpar ?? 0) : MOCK_METRICS.revpar;
-  const revparChange = hasRealData
-    ? calcChange(todayMetrics!.revpar, yesterdayMetrics?.revpar ?? null)
-    : MOCK_METRICS.revpar_change;
+  const revpar = todayMetrics?.revpar ?? null;
+  const revparChange = calcChange(todayMetrics?.revpar ?? null, yesterdayMetrics?.revpar ?? null);
 
-  const adr = hasRealData ? (todayMetrics!.adr ?? 0) : MOCK_METRICS.adr;
-  const adrChange = hasRealData
-    ? calcChange(todayMetrics!.adr, yesterdayMetrics?.adr ?? null)
-    : MOCK_METRICS.adr_change;
+  const adr = todayMetrics?.adr ?? null;
+  const adrChange = calcChange(todayMetrics?.adr ?? null, yesterdayMetrics?.adr ?? null);
 
-  const occupancy = hasRealData ? (todayMetrics!.occupancy_rate ?? 0) : MOCK_METRICS.occupancy;
-  const occupancyChange = hasRealData
-    ? calcChange(todayMetrics!.occupancy_rate, yesterdayMetrics?.occupancy_rate ?? null)
-    : MOCK_METRICS.occupancy_change;
+  const occupancy = todayMetrics?.occupancy_rate ?? null;
+  const occupancyChange = calcChange(todayMetrics?.occupancy_rate ?? null, yesterdayMetrics?.occupancy_rate ?? null);
 
-  const goppar = hasRealData ? (todayMetrics!.goppar ?? 0) : MOCK_METRICS.goppar;
-  const gopparChange = hasRealData
-    ? calcChange(todayMetrics!.goppar, yesterdayMetrics?.goppar ?? null)
-    : MOCK_METRICS.goppar_change;
+  const goppar = todayMetrics?.goppar ?? null;
+  const gopparChange = calcChange(todayMetrics?.goppar ?? null, yesterdayMetrics?.goppar ?? null);
 
   const isMetricsLoading = hotelLoading || metricsLoading;
 
@@ -101,32 +106,32 @@ const Dashboard = () => {
     ?? 'there';
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    <div className="min-h-screen bg-gray-950 text-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
 
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2">
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <Building2 className="h-5 w-5 text-indigo-400" />
-              <h2 className="text-lg font-semibold text-indigo-400">
+              <Building2 className="h-5 w-5 text-amber-400" />
+              <h2 className="text-lg font-semibold text-amber-400">
                 {hotelLoading ? '...' : (hotel?.name ?? 'Your Hotel')}
               </h2>
               {hotel?.city && (
-                <span className="text-sm text-gray-500">&mdash; {hotel.city}</span>
+                <span className="text-sm text-slate-500">&mdash; {hotel.city}</span>
               )}
             </div>
             <h1 className="text-2xl font-bold text-white">
               {getGreeting()}, {userName}
             </h1>
-            <p className="text-sm text-gray-400 mt-0.5">
+            <p className="text-sm text-slate-400 mt-0.5">
               {format(new Date(), "EEEE, MMMM d, yyyy")}
-              {!hasRealData && !isMetricsLoading && (
-                <span className="ml-2 text-xs text-gray-500 italic">(showing sample data)</span>
-              )}
             </p>
           </div>
         </div>
+
+        {/* No data banner */}
+        {!isMetricsLoading && hotelId && !hasRealData && <NoDataBanner />}
 
         {/* Row 1: KPI Metric Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -148,7 +153,7 @@ const Dashboard = () => {
           />
           <MetricCard
             label="Occupancy"
-            value={`${(occupancy * 100).toFixed(1)}`}
+            value={occupancy !== null ? `${(occupancy * 100).toFixed(1)}` : null}
             change={occupancyChange}
             suffix="%"
             icon={<BedDouble className="h-4 w-4" />}
@@ -164,7 +169,7 @@ const Dashboard = () => {
           />
         </div>
 
-        {/* Row 2: Daily Briefing (wide) */}
+        {/* Row 2: Daily Briefing */}
         {hotelId ? (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
             <div className="lg:col-span-2">
@@ -175,9 +180,7 @@ const Dashboard = () => {
           <div className="rounded-xl border border-gray-700 bg-gray-800/50 p-8 text-center">
             <Building2 className="h-10 w-10 text-gray-600 mx-auto mb-3" />
             <p className="text-gray-400 font-medium">No hotel linked to your account</p>
-            <p className="text-sm text-gray-500 mt-1">
-              Ask your administrator to add you to a hotel.
-            </p>
+            <p className="text-sm text-gray-500 mt-1">Complete onboarding to set up your hotel.</p>
           </div>
         ) : null}
 

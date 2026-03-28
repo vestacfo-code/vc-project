@@ -1,0 +1,196 @@
+date,category,subcategory,amount,vendor,is_recurring,source
+2026-01-04,labor,front_desk,4092.99,Payroll,true,manual
+2026-01-04,labor,housekeeping,4017.54,Payroll,true,manual
+2026-01-04,labor,food_beverage,2865.42,Payroll,true,manual
+2026-01-04,labor,management,5442.04,Payroll,true,manual
+2026-01-04,utilities,electricity,1753.38,City Power Co,true,manual
+2026-01-04,utilities,water,390.36,City Water,true,manual
+2026-01-04,utilities,internet,384.41,FiberNet,true,manual
+2026-01-04,food_bev,food_supplies,2349.21,Metro Foods,false,manual
+2026-01-04,food_bev,beverages,947.11,Premier Drinks,false,manual
+2026-01-04,maintenance,general,699.98,ProMaint LLC,false,manual
+2026-01-04,marketing,online_ads,1243.99,Google Ads,true,manual
+2026-01-04,marketing,ota_fees,1658.6,Booking.com,true,manual
+2026-01-04,supplies,amenities,447.14,HotelSupply Co,false,manual
+2026-01-04,admin,software,401.27,Mews Systems,true,manual
+2026-01-04,admin,insurance,1103.97,HotelGuard Ins,true,manual
+2026-01-11,labor,front_desk,4063.18,Payroll,true,manual
+2026-01-11,labor,housekeeping,3561.41,Payroll,true,manual
+2026-01-11,labor,food_beverage,3099.02,Payroll,true,manual
+2026-01-11,labor,management,5251.5,Payroll,true,manual
+2026-01-11,utilities,electricity,1875.81,City Power Co,true,manual
+2026-01-11,utilities,water,438.04,City Water,true,manual
+2026-01-11,utilities,internet,360.7,FiberNet,true,manual
+2026-01-11,food_bev,food_supplies,2374.07,Metro Foods,false,manual
+2026-01-11,food_bev,beverages,1012.11,Premier Drinks,false,manual
+2026-01-11,maintenance,general,606.23,ProMaint LLC,false,manual
+2026-01-11,marketing,online_ads,1283.21,Google Ads,true,manual
+2026-01-11,marketing,ota_fees,1819.8,Booking.com,true,manual
+2026-01-11,supplies,amenities,477.49,HotelSupply Co,false,manual
+2026-01-11,admin,software,400.22,Mews Systems,true,manual
+2026-01-11,admin,insurance,1156.51,HotelGuard Ins,true,manual
+2026-01-18,labor,front_desk,4252.66,Payroll,true,manual
+2026-01-18,labor,housekeeping,3538.97,Payroll,true,manual
+2026-01-18,labor,food_beverage,3056.49,Payroll,true,manual
+2026-01-18,labor,management,5588.9,Payroll,true,manual
+2026-01-18,utilities,electricity,1893.82,City Power Co,true,manual
+2026-01-18,utilities,water,429.39,City Water,true,manual
+2026-01-18,utilities,internet,370.4,FiberNet,true,manual
+2026-01-18,food_bev,food_supplies,2081.73,Metro Foods,false,manual
+2026-01-18,food_bev,beverages,977.07,Premier Drinks,false,manual
+2026-01-18,maintenance,general,668.14,ProMaint LLC,false,manual
+2026-01-18,marketing,online_ads,1213.45,Google Ads,true,manual
+2026-01-18,marketing,ota_fees,1765.55,Booking.com,true,manual
+2026-01-18,supplies,amenities,490.08,HotelSupply Co,false,manual
+2026-01-18,admin,software,374.44,Mews Systems,true,manual
+2026-01-18,admin,insurance,1017.99,HotelGuard Ins,true,manual
+2026-01-25,labor,front_desk,4304.48,Payroll,true,manual
+2026-01-25,labor,housekeeping,3729.49,Payroll,true,manual
+2026-01-25,labor,food_beverage,3126.45,Payroll,true,manual
+2026-01-25,labor,management,5480.47,Payroll,true,manual
+2026-01-25,utilities,electricity,1667.76,City Power Co,true,manual
+2026-01-25,utilities,water,386.85,City Water,true,manual
+2026-01-25,utilities,internet,385.05,FiberNet,true,manual
+2026-01-25,food_bev,food_supplies,2319.71,Metro Foods,false,manual
+2026-01-25,food_bev,beverages,1056.83,Premier Drinks,false,manual
+2026-01-25,maintenance,general,605.04,ProMaint LLC,false,manual
+2026-01-25,marketing,online_ads,1201.38,Google Ads,true,manual
+2026-01-25,marketing,ota_fees,1869.27,Booking.com,true,manual
+2026-01-25,supplies,amenities,485.81,HotelSupply Co,false,manual
+2026-01-25,admin,software,375.55,Mews Systems,true,manual
+2026-01-25,admin,insurance,1129.22,HotelGuard Ins,true,manual
+2026-02-01,labor,front_desk,4229.15,Payroll,true,manual
+2026-02-01,labor,housekeeping,4054.32,Payroll,true,manual
+2026-02-01,labor,food_beverage,2931.34,Payroll,true,manual
+2026-02-01,labor,management,5796.02,Payroll,true,manual
+2026-02-01,utilities,electricity,1927.1,City Power Co,true,manual
+2026-02-01,utilities,water,407.96,City Water,true,manual
+2026-02-01,utilities,internet,381.25,FiberNet,true,manual
+2026-02-01,food_bev,food_supplies,2042.59,Metro Foods,false,manual
+2026-02-01,food_bev,beverages,905.78,Premier Drinks,false,manual
+2026-02-01,maintenance,general,652.43,ProMaint LLC,false,manual
+2026-02-01,marketing,online_ads,1244.89,Google Ads,true,manual
+2026-02-01,marketing,ota_fees,1703.12,Booking.com,true,manual
+2026-02-01,supplies,amenities,506.68,HotelSupply Co,false,manual
+2026-02-01,admin,software,383.89,Mews Systems,true,manual
+2026-02-01,admin,insurance,1133.63,HotelGuard Ins,true,manual
+2026-02-08,labor,front_desk,3922.5,Payroll,true,manual
+2026-02-08,labor,housekeeping,4087.11,Payroll,true,manual
+2026-02-08,labor,food_beverage,3035.76,Payroll,true,manual
+2026-02-08,labor,management,5657.31,Payroll,true,manual
+2026-02-08,utilities,electricity,1721.66,City Power Co,true,manual
+2026-02-08,utilities,water,422.14,City Water,true,manual
+2026-02-08,utilities,internet,393.53,FiberNet,true,manual
+2026-02-08,food_bev,food_supplies,2209.05,Metro Foods,false,manual
+2026-02-08,food_bev,beverages,1034.44,Premier Drinks,false,manual
+2026-02-08,maintenance,general,698.03,ProMaint LLC,false,manual
+2026-02-08,marketing,online_ads,1234.36,Google Ads,true,manual
+2026-02-08,marketing,ota_fees,1892.59,Booking.com,true,manual
+2026-02-08,supplies,amenities,504.32,HotelSupply Co,false,manual
+2026-02-08,admin,software,367.4,Mews Systems,true,manual
+2026-02-08,admin,insurance,1138.3,HotelGuard Ins,true,manual
+2026-02-15,labor,front_desk,4426.7,Payroll,true,manual
+2026-02-15,labor,housekeeping,3942.37,Payroll,true,manual
+2026-02-15,labor,food_beverage,2781.96,Payroll,true,manual
+2026-02-15,labor,management,5446,Payroll,true,manual
+2026-02-15,utilities,electricity,1780.72,City Power Co,true,manual
+2026-02-15,utilities,water,416.35,City Water,true,manual
+2026-02-15,utilities,internet,383.28,FiberNet,true,manual
+2026-02-15,food_bev,food_supplies,2216.75,Metro Foods,false,manual
+2026-02-15,food_bev,beverages,973.12,Premier Drinks,false,manual
+2026-02-15,maintenance,general,653.32,ProMaint LLC,false,manual
+2026-02-15,marketing,online_ads,1279.69,Google Ads,true,manual
+2026-02-15,marketing,ota_fees,1893.61,Booking.com,true,manual
+2026-02-15,supplies,amenities,509.61,HotelSupply Co,false,manual
+2026-02-15,admin,software,407.32,Mews Systems,true,manual
+2026-02-15,admin,insurance,1031.8,HotelGuard Ins,true,manual
+2026-02-22,labor,front_desk,4433.7,Payroll,true,manual
+2026-02-22,labor,housekeeping,3582.49,Payroll,true,manual
+2026-02-22,labor,food_beverage,2860.93,Payroll,true,manual
+2026-02-22,labor,management,5234.69,Payroll,true,manual
+2026-02-22,utilities,electricity,1731.91,City Power Co,true,manual
+2026-02-22,utilities,water,447.85,City Water,true,manual
+2026-02-22,utilities,internet,391.41,FiberNet,true,manual
+2026-02-22,food_bev,food_supplies,2323.09,Metro Foods,false,manual
+2026-02-22,food_bev,beverages,1048.84,Premier Drinks,false,manual
+2026-02-22,maintenance,general,603.93,ProMaint LLC,false,manual
+2026-02-22,marketing,online_ads,1105.61,Google Ads,true,manual
+2026-02-22,marketing,ota_fees,1855.61,Booking.com,true,manual
+2026-02-22,supplies,amenities,501.1,HotelSupply Co,false,manual
+2026-02-22,admin,software,418.6,Mews Systems,true,manual
+2026-02-22,admin,insurance,1172.72,HotelGuard Ins,true,manual
+2026-03-01,labor,front_desk,4030.02,Payroll,true,manual
+2026-03-01,labor,housekeeping,3804.28,Payroll,true,manual
+2026-03-01,labor,food_beverage,2884.5,Payroll,true,manual
+2026-03-01,labor,management,5142.53,Payroll,true,manual
+2026-03-01,utilities,electricity,1922.31,City Power Co,true,manual
+2026-03-01,utilities,water,403.5,City Water,true,manual
+2026-03-01,utilities,internet,373.44,FiberNet,true,manual
+2026-03-01,food_bev,food_supplies,2281.86,Metro Foods,false,manual
+2026-03-01,food_bev,beverages,955.94,Premier Drinks,false,manual
+2026-03-01,maintenance,general,680.63,ProMaint LLC,false,manual
+2026-03-01,marketing,online_ads,1231.35,Google Ads,true,manual
+2026-03-01,marketing,ota_fees,1804.08,Booking.com,true,manual
+2026-03-01,supplies,amenities,453.64,HotelSupply Co,false,manual
+2026-03-01,admin,software,362.91,Mews Systems,true,manual
+2026-03-01,admin,insurance,1152.94,HotelGuard Ins,true,manual
+2026-03-08,labor,front_desk,4008.86,Payroll,true,manual
+2026-03-08,labor,housekeeping,3636.46,Payroll,true,manual
+2026-03-08,labor,food_beverage,2869.17,Payroll,true,manual
+2026-03-08,labor,management,5430.97,Payroll,true,manual
+2026-03-08,utilities,electricity,1689.95,City Power Co,true,manual
+2026-03-08,utilities,water,391.54,City Water,true,manual
+2026-03-08,utilities,internet,391.98,FiberNet,true,manual
+2026-03-08,food_bev,food_supplies,2052.26,Metro Foods,false,manual
+2026-03-08,food_bev,beverages,1006.13,Premier Drinks,false,manual
+2026-03-08,maintenance,general,675.38,ProMaint LLC,false,manual
+2026-03-08,marketing,online_ads,1201.73,Google Ads,true,manual
+2026-03-08,marketing,ota_fees,1909.84,Booking.com,true,manual
+2026-03-08,supplies,amenities,465.02,HotelSupply Co,false,manual
+2026-03-08,admin,software,407.32,Mews Systems,true,manual
+2026-03-08,admin,insurance,1097.98,HotelGuard Ins,true,manual
+2026-03-14,labor,front_desk,4164.46,Payroll,true,manual
+2026-03-14,labor,housekeeping,3884.55,Payroll,true,manual
+2026-03-14,labor,food_beverage,2830.75,Payroll,true,manual
+2026-03-14,labor,management,5682.22,Payroll,true,manual
+2026-03-14,utilities,electricity,1775.15,City Power Co,true,manual
+2026-03-14,utilities,water,404.93,City Water,true,manual
+2026-03-14,utilities,internet,369.94,FiberNet,true,manual
+2026-03-14,food_bev,food_supplies,2127.62,Metro Foods,false,manual
+2026-03-14,food_bev,beverages,1014.17,Premier Drinks,false,manual
+2026-03-14,maintenance,general,663.16,ProMaint LLC,false,manual
+2026-03-14,marketing,online_ads,1189.23,Google Ads,true,manual
+2026-03-14,marketing,ota_fees,1872.13,Booking.com,true,manual
+2026-03-14,supplies,amenities,453.17,HotelSupply Co,false,manual
+2026-03-14,admin,software,365.3,Mews Systems,true,manual
+2026-03-14,admin,insurance,1185.28,HotelGuard Ins,true,manual
+2026-03-21,labor,front_desk,3919.97,Payroll,true,manual
+2026-03-21,labor,housekeeping,4051.23,Payroll,true,manual
+2026-03-21,labor,food_beverage,2699.86,Payroll,true,manual
+2026-03-21,labor,management,5905.84,Payroll,true,manual
+2026-03-21,utilities,electricity,1860.66,City Power Co,true,manual
+2026-03-21,utilities,water,398.9,City Water,true,manual
+2026-03-21,utilities,internet,385.02,FiberNet,true,manual
+2026-03-21,food_bev,food_supplies,2146.72,Metro Foods,false,manual
+2026-03-21,food_bev,beverages,977.85,Premier Drinks,false,manual
+2026-03-21,maintenance,general,690.11,ProMaint LLC,false,manual
+2026-03-21,marketing,online_ads,1176.24,Google Ads,true,manual
+2026-03-21,marketing,ota_fees,1849.46,Booking.com,true,manual
+2026-03-21,supplies,amenities,514.62,HotelSupply Co,false,manual
+2026-03-21,admin,software,412.69,Mews Systems,true,manual
+2026-03-21,admin,insurance,1102.05,HotelGuard Ins,true,manual
+2026-03-28,labor,front_desk,4123.14,Payroll,true,manual
+2026-03-28,labor,housekeeping,3785.46,Payroll,true,manual
+2026-03-28,labor,food_beverage,3092.86,Payroll,true,manual
+2026-03-28,labor,management,5431.14,Payroll,true,manual
+2026-03-28,utilities,electricity,1753.86,City Power Co,true,manual
+2026-03-28,utilities,water,413.63,City Water,true,manual
+2026-03-28,utilities,internet,371.8,FiberNet,true,manual
+2026-03-28,food_bev,food_supplies,2243.85,Metro Foods,false,manual
+2026-03-28,food_bev,beverages,1056.42,Premier Drinks,false,manual
+2026-03-28,maintenance,general,662.58,ProMaint LLC,false,manual
+2026-03-28,marketing,online_ads,1171.02,Google Ads,true,manual
+2026-03-28,marketing,ota_fees,1697.53,Booking.com,true,manual
+2026-03-28,supplies,amenities,460.38,HotelSupply Co,false,manual
+2026-03-28,admin,software,377.82,Mews Systems,true,manual
+2026-03-28,admin,insurance,1043.51,HotelGuard Ins,true,manual
