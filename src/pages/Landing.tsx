@@ -107,7 +107,7 @@ export default function Landing() {
         const el = containerRef.current;
         if (!el) return;
         const p = Math.min(Math.max(window.scrollY / (el.offsetHeight - window.innerHeight), 0), 1);
-        if (Math.abs(p - lastProgressRef.current) > 0.0005) {
+        if (Math.abs(p - lastProgressRef.current) > 0.0001) {
           lastProgressRef.current = p;
           setProgress(p);
         }
@@ -161,7 +161,7 @@ export default function Landing() {
         <div className="sticky top-0 h-screen w-full overflow-hidden bg-black" style={{ willChange: 'transform', transform: 'translateZ(0)' }}>
           <ScrollyVideo
             src="/hotel.mp4"
-            transitionSpeed={6}
+            transitionSpeed={30}
             frameThreshold={0.01}
             cover
             sticky={false}
