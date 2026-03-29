@@ -170,16 +170,30 @@ export default function Integrations() {
   const [qbCallbackLoading, setQbCallbackLoading] = useState(false)
 
   // ---------------------------------------------------------------------------
-  // OAuth callback detection
+  // OAuth callback detection — handles popup postMessage from QB redirect
   // ---------------------------------------------------------------------------
 
   useEffect(() => {
+    // Case 1: we ARE the popup (window.opener exists + QB params in URL)
     const params = new URLSearchParams(window.location.search)
     const code = params.get('code')
     const realmId = params.get('realmId')
     const state = params.get('state')
 
-    if (code && realmId && state && state.startsWith('hotelId') && hotelId) {
+    if (code && realmId && state && window.opener) {
+      // Tell the parent window to handle the callback, then close
+      window.opener.postMessage({ type: 'QB_CALLBACK', code, realmId, state }, window.location.origin)
+      window.close()
+      return
+    }
+
+    // Case 2: we are the main window, listen for the popup's message
+    const handleMessage = (event: MessageEvent) => {
+      if (event.origin !== window.location.origin) return
+      if (event.data?.type !== 'QB_CALLBACK') return
+      if (!hotelId) return
+
+      const { code, realmId, state } = event.data
       setQbCallbackLoading(true)
       supabase.functions
         .invoke('quickbooks-hotel-oauth', {
@@ -190,13 +204,15 @@ export default function Integrations() {
             toast.error('Failed to connect QuickBooks: ' + error.message)
           } else {
             toast.success('QuickBooks connected!')
-            window.history.replaceState({}, '', '/integrations')
             queryClient.invalidateQueries({ queryKey: ['qb_integration', hotelId] })
             queryClient.invalidateQueries({ queryKey: ['integrations', hotelId] })
           }
         })
         .finally(() => setQbCallbackLoading(false))
     }
+
+    window.addEventListener('message', handleMessage)
+    return () => window.removeEventListener('message', handleMessage)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hotelId])
 
@@ -262,9 +278,15 @@ export default function Integrations() {
         body: { action: 'authorize', hotel_id: hotelId },
       })
       if (error) throw error
-      window.location.href = data.authUrl
+      // Open in a popup so the main page session is never disrupted
+      const popup = window.open(data.authUrl, 'qb_oauth', 'width=600,height=700,left=200,top=100')
+      if (!popup) {
+        // Fallback if popups are blocked
+        window.location.href = data.authUrl
+      }
     } catch (err) {
       toast.error('Failed to start QuickBooks connection')
+    } finally {
       setQbConnecting(false)
     }
   }
