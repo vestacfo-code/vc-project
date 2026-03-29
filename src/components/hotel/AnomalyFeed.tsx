@@ -25,7 +25,7 @@ interface Anomaly {
   deviation_pct: number | null;
   severity: Severity;
   message: string;
-  is_resolved: boolean;
+  resolved: boolean;
 }
 
 const SEVERITY_CONFIG: Record<Severity, { label: string; className: string; icon: React.ReactNode }> = {
@@ -64,7 +64,7 @@ const AnomalyFeed: React.FC<AnomalyFeedProps> = ({ hotelId }) => {
         .from('anomalies')
         .select('*')
         .eq('hotel_id', hotelId)
-        .eq('is_resolved', false)
+        .eq('resolved', false)
         .gte('date', sevenDaysAgo)
         .order('date', { ascending: false });
 
@@ -82,7 +82,7 @@ const AnomalyFeed: React.FC<AnomalyFeedProps> = ({ hotelId }) => {
     mutationFn: async (anomalyId: string) => {
       const { error } = await supabase
         .from('anomalies')
-        .update({ is_resolved: true })
+        .update({ resolved: true })
         .eq('id', anomalyId);
       if (error) throw error;
     },
