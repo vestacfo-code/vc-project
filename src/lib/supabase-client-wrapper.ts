@@ -11,19 +11,28 @@ const SUPABASE_PUBLISHABLE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiO
 // Check if we're in recovery mode BEFORE creating the client
 const inRecoveryMode = isRecoveryMode();
 
+// Also detect third-party OAuth callbacks (e.g. QuickBooks) by looking for
+// realmId in the URL — a QB-specific param that Supabase never uses.
+// Without this check, Supabase sees ?code=...&state=... from the QB redirect
+// and treats it as its own PKCE code, fails to exchange it, and wipes the
+// session — logging the user out.
+const urlParams = new URLSearchParams(window.location.search);
+const isThirdPartyOAuthCallback = urlParams.has('realmId');
+
+const shouldDisableSessionDetection = inRecoveryMode || isThirdPartyOAuthCallback;
+
 if (inRecoveryMode) {
   console.log('[Supabase Client Wrapper] Recovery mode detected - disabling detectSessionInUrl');
 }
+if (isThirdPartyOAuthCallback) {
+  console.log('[Supabase Client Wrapper] QuickBooks callback detected - disabling detectSessionInUrl');
+}
 
-// Create Supabase client with conditional detectSessionInUrl
-// When in recovery mode, we DISABLE automatic session detection to prevent auto-sign-in
 export const supabase = createClient<Database>(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
   auth: {
     storage: localStorage,
     persistSession: true,
     autoRefreshToken: true,
-    // CRITICAL: Disable auto session detection when in recovery mode
-    // This prevents the automatic sign-in that skips password reset
-    detectSessionInUrl: !inRecoveryMode,
+    detectSessionInUrl: !shouldDisableSessionDetection,
   }
 });

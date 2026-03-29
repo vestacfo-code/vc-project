@@ -8,10 +8,17 @@ const SUPABASE_PUBLISHABLE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiO
 // Import the supabase client like this:
 // import { supabase } from "@/integrations/supabase/client";
 
+// Disable detectSessionInUrl when a third-party OAuth callback is detected
+// (QuickBooks uses ?realmId= which is never present in Supabase's own flows).
+// Without this, Supabase mistakes the QB ?code=...&state=... for its own PKCE
+// code, fails to exchange it, and wipes the session — logging the user out.
+const _qbCallback = new URLSearchParams(window.location.search).has('realmId');
+
 export const supabase = createClient<Database>(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
   auth: {
     storage: localStorage,
     persistSession: true,
     autoRefreshToken: true,
+    detectSessionInUrl: !_qbCallback,
   }
 });
