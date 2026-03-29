@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { supabase } from '@/integrations/supabase/client'
 import { useHotelDashboard } from '@/hooks/useHotelDashboard'
@@ -164,6 +164,42 @@ export default function Integrations() {
   const [isImporting, setIsImporting] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
+  // QuickBooks state
+  const [qbConnecting, setQbConnecting] = useState(false)
+  const [qbSyncing, setQbSyncing] = useState(false)
+  const [qbCallbackLoading, setQbCallbackLoading] = useState(false)
+
+  // ---------------------------------------------------------------------------
+  // OAuth callback detection
+  // ---------------------------------------------------------------------------
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const code = params.get('code')
+    const realmId = params.get('realmId')
+    const state = params.get('state')
+
+    if (code && realmId && state && state.startsWith('hotelId') && hotelId) {
+      setQbCallbackLoading(true)
+      supabase.functions
+        .invoke('quickbooks-hotel-oauth', {
+          body: { action: 'callback', hotel_id: hotelId, code, realm_id: realmId, state },
+        })
+        .then(({ error }) => {
+          if (error) {
+            toast.error('Failed to connect QuickBooks: ' + error.message)
+          } else {
+            toast.success('QuickBooks connected!')
+            window.history.replaceState({}, '', '/integrations')
+            queryClient.invalidateQueries({ queryKey: ['qb_integration', hotelId] })
+            queryClient.invalidateQueries({ queryKey: ['integrations', hotelId] })
+          }
+        })
+        .finally(() => setQbCallbackLoading(false))
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hotelId])
+
   // ---------------------------------------------------------------------------
   // Queries
   // ---------------------------------------------------------------------------
@@ -199,7 +235,63 @@ export default function Integrations() {
     enabled: !!hotelId,
   })
 
+  const { data: qbIntegration, isLoading: qbLoading } = useQuery({
+    queryKey: ['qb_integration', hotelId],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from('integrations')
+        .select('*')
+        .eq('hotel_id', hotelId)
+        .eq('provider', 'quickbooks')
+        .maybeSingle()
+      return data
+    },
+    enabled: !!hotelId,
+  })
+
   const connectedProviders = new Set(integrations.map((i) => i.provider))
+
+  // ---------------------------------------------------------------------------
+  // QuickBooks handlers
+  // ---------------------------------------------------------------------------
+
+  const handleQBConnect = async () => {
+    setQbConnecting(true)
+    try {
+      const { data, error } = await supabase.functions.invoke('quickbooks-hotel-oauth', {
+        body: { action: 'authorize', hotel_id: hotelId },
+      })
+      if (error) throw error
+      window.location.href = data.authUrl
+    } catch (err) {
+      toast.error('Failed to start QuickBooks connection')
+      setQbConnecting(false)
+    }
+  }
+
+  const handleQBDisconnect = async () => {
+    await supabase.functions.invoke('quickbooks-hotel-oauth', {
+      body: { action: 'disconnect', hotel_id: hotelId },
+    })
+    queryClient.invalidateQueries({ queryKey: ['qb_integration', hotelId] })
+    toast.success('QuickBooks disconnected')
+  }
+
+  const handleQBSync = async () => {
+    setQbSyncing(true)
+    try {
+      const { data, error } = await supabase.functions.invoke('quickbooks-hotel-sync', {
+        body: { hotel_id: hotelId },
+      })
+      if (error) throw error
+      toast.success(`Synced ${data.synced_count} expenses from QuickBooks`)
+      queryClient.invalidateQueries({ queryKey: ['qb_integration', hotelId] })
+    } catch (err) {
+      toast.error('QuickBooks sync failed')
+    } finally {
+      setQbSyncing(false)
+    }
+  }
 
   // ---------------------------------------------------------------------------
   // Drag-and-drop handlers
@@ -325,6 +417,89 @@ export default function Integrations() {
         <h1 className="text-2xl font-semibold text-white">Integrations</h1>
         <p className="text-slate-400 mt-1">Connect your PMS and accounting systems to sync data automatically.</p>
       </div>
+
+      {/* QuickBooks OAuth card */}
+      {qbCallbackLoading ? (
+        <div className="h-32 bg-gray-800/50 rounded-xl animate-pulse flex items-center justify-center">
+          <RefreshCw className="w-6 h-6 text-slate-400 animate-spin" />
+          <span className="ml-3 text-slate-400">Connecting QuickBooks...</span>
+        </div>
+      ) : (
+        <Card className="bg-gray-800/50 border-gray-700 border-l-4 border-l-green-500">
+          <CardContent className="p-5">
+            <div className="flex items-start justify-between gap-4 flex-wrap">
+              {/* Logo + title area */}
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-lg bg-green-900/40 border border-green-700/40 flex items-center justify-center shrink-0">
+                  <span className="text-green-400 font-bold text-sm">QB</span>
+                </div>
+                <div>
+                  <p className="font-medium text-white">QuickBooks Online</p>
+                  <p className="text-slate-400 text-sm mt-0.5">Sync expenses &amp; P&amp;L data automatically</p>
+                </div>
+              </div>
+
+              {/* Action area */}
+              {qbLoading ? (
+                <div className="flex gap-2">
+                  <div className="h-9 w-28 bg-gray-700 rounded-md animate-pulse" />
+                </div>
+              ) : qbIntegration ? (
+                <div className="flex items-center gap-2 flex-wrap">
+                  <Badge className="bg-green-500/10 text-green-400 border border-green-500/20 text-xs">
+                    <CheckCircle2 className="w-3 h-3 mr-1" />
+                    Connected
+                  </Badge>
+                  <span className="text-slate-500 text-xs">
+                    {qbIntegration.last_sync_at
+                      ? `Synced ${formatDistanceToNow(new Date(qbIntegration.last_sync_at), { addSuffix: true })}`
+                      : 'Never synced'}
+                  </span>
+                  <Button
+                    size="sm"
+                    onClick={handleQBSync}
+                    disabled={qbSyncing}
+                    className="bg-amber-500 hover:bg-amber-400 text-gray-950 font-semibold disabled:opacity-50"
+                  >
+                    <RefreshCw className={`w-3.5 h-3.5 mr-1.5 ${qbSyncing ? 'animate-spin' : ''}`} />
+                    {qbSyncing ? 'Syncing...' : 'Sync Now'}
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={handleQBDisconnect}
+                    className="border-red-500/40 text-red-400 hover:bg-red-500/10 hover:border-red-500/60"
+                  >
+                    Disconnect
+                  </Button>
+                </div>
+              ) : (
+                <div className="flex flex-col items-end gap-1.5">
+                  <Button
+                    size="sm"
+                    onClick={handleQBConnect}
+                    disabled={qbConnecting || !hotelId}
+                    className="bg-green-600 hover:bg-green-500 text-white font-semibold disabled:opacity-50"
+                  >
+                    {qbConnecting ? (
+                      <>
+                        <RefreshCw className="w-3.5 h-3.5 mr-1.5 animate-spin" />
+                        Connecting...
+                      </>
+                    ) : (
+                      <>
+                        <Plug className="w-3.5 h-3.5 mr-1.5" />
+                        Connect QuickBooks
+                      </>
+                    )}
+                  </Button>
+                  <p className="text-slate-500 text-xs">Requires QuickBooks Online subscription</p>
+                </div>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Connected integrations */}
       <div>
