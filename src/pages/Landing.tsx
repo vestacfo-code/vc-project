@@ -96,16 +96,28 @@ export default function Landing() {
   const navigate = useNavigate();
   const containerRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
+  const rafRef = useRef<number | undefined>(undefined);
+  const lastProgressRef = useRef(0);
 
   useEffect(() => {
     const onScroll = () => {
-      const el = containerRef.current;
-      if (!el) return;
-      const p = Math.min(Math.max(window.scrollY / (el.offsetHeight - window.innerHeight), 0), 1);
-      setProgress(p);
+      if (rafRef.current !== undefined) return;
+      rafRef.current = requestAnimationFrame(() => {
+        rafRef.current = undefined;
+        const el = containerRef.current;
+        if (!el) return;
+        const p = Math.min(Math.max(window.scrollY / (el.offsetHeight - window.innerHeight), 0), 1);
+        if (Math.abs(p - lastProgressRef.current) > 0.0005) {
+          lastProgressRef.current = p;
+          setProgress(p);
+        }
+      });
     };
     window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (rafRef.current !== undefined) cancelAnimationFrame(rafRef.current);
+    };
   }, []);
 
   const activeChapter = CHAPTERS.find(c => progress >= c.range[0] && progress <= c.range[1]) ?? null;
@@ -146,11 +158,11 @@ export default function Landing() {
 
       {/* ── Scroll-scrubbed video section ── */}
       <div ref={containerRef} style={{ height: SCROLL_HEIGHT }} className="relative">
-        <div className="sticky top-0 h-screen w-full overflow-hidden bg-black">
+        <div className="sticky top-0 h-screen w-full overflow-hidden bg-black" style={{ willChange: 'transform', transform: 'translateZ(0)' }}>
           <ScrollyVideo
             src="/hotel.mp4"
-            transitionSpeed={8}
-            frameThreshold={0.05}
+            transitionSpeed={6}
+            frameThreshold={0.01}
             cover
             sticky={false}
             trackScroll={false}
