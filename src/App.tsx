@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/react';
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -229,24 +230,26 @@ const AppContent = () => {
 };
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <AuthProvider>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <PortalAnimationProvider>
-            <ScrollToTop />
-            <SettingsProvider>
-              <DashboardReferenceProvider>
-                <AppContent />
-              </DashboardReferenceProvider>
-            </SettingsProvider>
-          </PortalAnimationProvider>
-        </BrowserRouter>
-      </TooltipProvider>
-    </AuthProvider>
-  </QueryClientProvider>
+  <Sentry.ErrorBoundary fallback={<div className="min-h-screen flex items-center justify-center bg-gray-950 text-white text-sm">Something went wrong. Please refresh.</div>}>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <PortalAnimationProvider>
+              <ScrollToTop />
+              <SettingsProvider>
+                <DashboardReferenceProvider>
+                  <AppContent />
+                </DashboardReferenceProvider>
+              </SettingsProvider>
+            </PortalAnimationProvider>
+          </BrowserRouter>
+        </TooltipProvider>
+      </AuthProvider>
+    </QueryClientProvider>
+  </Sentry.ErrorBoundary>
 );
 
 export default App;
