@@ -107,7 +107,7 @@ const Dashboard = () => {
     ?? 'there';
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white">
+    <div className="min-h-screen bg-slate-950 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
 
         {/* Header */}
@@ -178,10 +178,10 @@ const Dashboard = () => {
             </div>
           </div>
         ) : !hotelLoading ? (
-          <div className="rounded-xl border border-gray-700 bg-gray-800/50 p-8 text-center">
-            <Building2 className="h-10 w-10 text-gray-600 mx-auto mb-3" />
-            <p className="text-gray-400 font-medium">No hotel linked to your account</p>
-            <p className="text-sm text-gray-500 mt-1">Complete onboarding to set up your hotel.</p>
+          <div className="rounded-xl border border-slate-700 bg-slate-800/50 p-8 text-center">
+            <Building2 className="h-10 w-10 text-slate-600 mx-auto mb-3" />
+            <p className="text-slate-400 font-medium">No hotel linked to your account</p>
+            <p className="text-sm text-slate-500 mt-1">Complete onboarding to set up your hotel.</p>
           </div>
         ) : null}
 

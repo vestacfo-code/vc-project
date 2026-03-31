@@ -10,6 +10,8 @@ import {
   FileText,
   Users,
   Settings,
+  Handshake,
+  MessageCircle,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { supabase } from '@/integrations/supabase/client';
@@ -25,6 +27,8 @@ const NAV_ITEMS = [
   { to: '/reports',      icon: FileText,         label: 'Reports' },
   { to: '/team',         icon: Users,            label: 'Team' },
   { to: '/integrations', icon: Plug,             label: 'Integrations' },
+  { to: '/marketplace',  icon: Handshake,        label: 'Partners' },
+  { to: '/chat',         icon: MessageCircle,    label: 'Chat' },
   { to: '/settings',    icon: Settings,         label: 'Settings' },
 ];
 
@@ -60,7 +64,7 @@ export const HotelNav = () => {
     ?? 'You';
 
   return (
-    <aside className="hidden lg:flex flex-col w-56 bg-[#0a0f1e] border-r border-slate-800 h-screen sticky top-0 shrink-0">
+    <aside className="hidden lg:flex flex-col w-56 bg-slate-950 border-r border-slate-800/90 h-screen sticky top-0 shrink-0">
       {/* Logo */}
       <div className="px-5 py-5 border-b border-slate-800">
         <VestaLogo size="sm" />
@@ -144,7 +148,7 @@ export const HotelBottomNav = () => {
   });
 
   return (
-    <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-[#0a0f1e] border-t border-slate-800 flex z-50">
+    <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-slate-950 border-t border-slate-800/90 flex z-50">
       {NAV_ITEMS.map(({ to, icon: Icon, label }) => (
         <NavLink
           key={to}

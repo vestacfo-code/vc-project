@@ -12,7 +12,7 @@ export const HotelLayout = ({ children }: HotelLayoutProps) => {
 
   return (
     <LayoutGroup id="hotel-app">
-      <div className="flex min-h-screen bg-gray-950">
+      <div className="flex min-h-screen bg-slate-950">
         <HotelNav />
         <main className="flex-1 min-w-0 pb-16 lg:pb-0 overflow-x-hidden">
           <AnimatePresence mode="wait" initial={false}>

@@ -740,6 +740,7 @@ export type Database = {
           logo_url: string | null
           name: string
           slug: string
+          sort_order: number | null
           tagline: string | null
           updated_at: string
           website_url: string | null
@@ -758,6 +759,7 @@ export type Database = {
           logo_url?: string | null
           name: string
           slug: string
+          sort_order?: number | null
           tagline?: string | null
           updated_at?: string
           website_url?: string | null
@@ -776,11 +778,56 @@ export type Database = {
           logo_url?: string | null
           name?: string
           slug?: string
+          sort_order?: number | null
           tagline?: string | null
           updated_at?: string
           website_url?: string | null
         }
         Relationships: []
+      }
+      partner_products: {
+        Row: {
+          category: string | null
+          created_at: string
+          description: string | null
+          id: string
+          is_active: boolean
+          name: string
+          partner_id: string
+          product_url: string | null
+          sort_order: number
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          name: string
+          partner_id: string
+          product_url?: string | null
+          sort_order?: number
+        }
+        Update: {
+          category?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          name?: string
+          partner_id?: string
+          product_url?: string | null
+          sort_order?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "partner_products_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       recommendations: {
         Row: {

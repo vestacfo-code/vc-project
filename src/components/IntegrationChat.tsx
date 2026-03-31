@@ -845,7 +845,7 @@ const IntegrationChat = ({ conversationId }: IntegrationChatProps) => {
   };
 
   return (
-    <div className={`flex-1 flex flex-col h-full ${settings.chatDarkMode ? 'bg-[#0a0a0a] text-white' : 'bg-white text-zinc-900'} overflow-hidden`}>
+    <div className={`flex-1 flex flex-col h-full ${settings.chatDarkMode ? 'bg-slate-950 text-white' : 'bg-white text-zinc-900'} overflow-hidden`}>
       <IntegrationWalkthrough
         isActive={showWalkthrough}
         onComplete={handleWalkthroughComplete}
@@ -872,19 +872,19 @@ const IntegrationChat = ({ conversationId }: IntegrationChatProps) => {
 
             {/* Input Area - Centered */}
             <div className="w-full max-w-2xl px-2 md:px-0">
-              <div className={`relative rounded-xl transition-all duration-200 ${dark ? 'bg-[#1a1a1a] border border-[#2a2a2a]' : 'bg-white/80 backdrop-blur-sm border border-zinc-200/60 shadow-xl'}`}>
+              <div className={`relative rounded-xl transition-all duration-200 ${dark ? 'bg-slate-900 border border-slate-800' : 'bg-white/80 backdrop-blur-sm border border-zinc-200/60 shadow-xl'}`}>
                 {/* Attached & Pending Documents */}
                 {(attachedDocuments.length > 0 || pendingDocuments.length > 0) && (
                   <div className={`px-6 pt-4 pb-2 flex flex-wrap gap-2`}>
                     {attachedDocuments.map((doc) => (
                       <div 
                         key={doc.id}
-                        className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm ${dark ? 'bg-purple-950/40 border border-purple-800/50' : 'bg-purple-50 border border-purple-200'}`}
+                        className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm ${dark ? 'bg-amber-950/30 border border-amber-900/40' : 'bg-amber-50 border border-amber-200/80'}`}
                       >
-                        <span className={dark ? 'text-purple-300' : 'text-purple-700'}>📎 {doc.fileName}</span>
+                        <span className={dark ? 'text-amber-200' : 'text-amber-900'}>📎 {doc.fileName}</span>
                         <button
                           onClick={() => removeDocument(doc.id)}
-                          className={`transition-colors ${dark ? 'text-purple-500 hover:text-purple-300' : 'text-purple-400 hover:text-purple-600'}`}
+                          className={`transition-colors ${dark ? 'text-amber-500/80 hover:text-amber-300' : 'text-amber-700/70 hover:text-amber-900'}`}
                         >
                           ×
                         </button>
@@ -893,12 +893,12 @@ const IntegrationChat = ({ conversationId }: IntegrationChatProps) => {
                     {pendingDocuments.map((doc) => (
                       <div 
                         key={doc.id}
-                        className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm ${dark ? 'bg-purple-950/40 border border-purple-800/50' : 'bg-purple-50 border border-purple-200'}`}
+                        className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm ${dark ? 'bg-amber-950/30 border border-amber-900/40' : 'bg-amber-50 border border-amber-200/80'}`}
                       >
-                        <span className={dark ? 'text-purple-300' : 'text-purple-700'}>📎 {doc.fileName}</span>
+                        <span className={dark ? 'text-amber-200' : 'text-amber-900'}>📎 {doc.fileName}</span>
                         <button
                           onClick={() => setPendingDocuments(prev => prev.filter(d => d.id !== doc.id))}
-                          className={`transition-colors ${dark ? 'text-purple-500 hover:text-purple-300' : 'text-purple-400 hover:text-purple-600'}`}
+                          className={`transition-colors ${dark ? 'text-amber-500/80 hover:text-amber-300' : 'text-amber-700/70 hover:text-amber-900'}`}
                         >
                           ×
                         </button>
@@ -909,7 +909,7 @@ const IntegrationChat = ({ conversationId }: IntegrationChatProps) => {
                 
                 {/* Reference Tags */}
                 {addedReferences.length > 0 && (
-                  <div className={`px-6 pt-4 pb-2 flex flex-wrap gap-2 border-b ${dark ? 'border-[#2a2a2a]' : 'border-zinc-100'}`}>
+                  <div className={`px-6 pt-4 pb-2 flex flex-wrap gap-2 border-b ${dark ? 'border-slate-800' : 'border-zinc-100'}`}>
                     {addedReferences.map((ref) => (
                       <ReferenceTag 
                         key={ref.id} 
@@ -967,7 +967,7 @@ const IntegrationChat = ({ conversationId }: IntegrationChatProps) => {
                           setIsStreaming(false);
                         }}
                         size="sm" 
-                        className={`h-8 w-8 p-0 rounded-full border-0 ${dark ? 'bg-[#2a2a2a] hover:bg-[#333] text-zinc-400' : 'bg-zinc-900 hover:bg-zinc-800 text-white'}`}
+                        className={`h-8 w-8 p-0 rounded-full border-0 ${dark ? 'bg-slate-800 hover:bg-slate-700 text-slate-300' : 'bg-zinc-900 hover:bg-zinc-800 text-white'}`}
                       >
                         <Square className="w-3.5 h-3.5" />
                       </Button>
@@ -976,7 +976,7 @@ const IntegrationChat = ({ conversationId }: IntegrationChatProps) => {
                         onClick={handleSendMessage}
                         disabled={!input.trim() || loading || agentState.isRunning}
                         size="sm" 
-                        className={`h-8 w-8 p-0 rounded-full disabled:opacity-30 border-0 ${dark ? 'bg-[#2a2a2a] hover:bg-[#333] text-zinc-400' : 'bg-zinc-900 hover:bg-zinc-800 text-white'}`}
+                        className={`h-8 w-8 p-0 rounded-full disabled:opacity-30 border-0 ${dark ? 'bg-amber-600 hover:bg-amber-500 text-white' : 'bg-zinc-900 hover:bg-zinc-800 text-white'}`}
                       >
                         {(loading || agentState.isRunning) ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
                       </Button>
@@ -998,7 +998,7 @@ const IntegrationChat = ({ conversationId }: IntegrationChatProps) => {
                 {message.role === 'user' ? (
                   /* Right-aligned user bubble, no avatar — inline-block so it shrink-wraps */
                   <div className="flex justify-end">
-                    <div data-message-id={message.id} data-message-role="user" className={`inline-block rounded-2xl px-4 py-2 text-sm ${dark ? 'bg-[#2a2a2a] text-white' : 'bg-zinc-100 text-zinc-900'}`}>
+                    <div data-message-id={message.id} data-message-role="user" className={`inline-block rounded-2xl px-4 py-2 text-sm ${dark ? 'bg-slate-800 text-white border border-slate-700/80' : 'bg-zinc-100 text-zinc-900'}`}>
                       {message.content}
                     </div>
                   </div>
@@ -1068,22 +1068,22 @@ const IntegrationChat = ({ conversationId }: IntegrationChatProps) => {
         (() => {
           const dark = settings.chatDarkMode;
           return (
-        <div className={`relative ${dark ? 'bg-[#0a0a0a]' : 'bg-white'}`}>
-          <div className={`px-3 md:px-4 pb-3 md:pb-4 ${dark ? 'bg-[#0a0a0a]' : 'bg-white'}`} style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}>
+        <div className={`relative ${dark ? 'bg-slate-950' : 'bg-white'}`}>
+          <div className={`px-3 md:px-4 pb-3 md:pb-4 ${dark ? 'bg-slate-950' : 'bg-white'}`} style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}>
           <div className="max-w-2xl mx-auto">
-            <div className={`relative rounded-2xl transition-all duration-200 ${dark ? 'bg-[#1a1a1a] border border-[#2a2a2a] shadow-lg' : 'bg-white ring-1 ring-zinc-200 shadow-xl'}`}>
+            <div className={`relative rounded-2xl transition-all duration-200 ${dark ? 'bg-slate-900 border border-slate-800 shadow-lg' : 'bg-white ring-1 ring-zinc-200 shadow-xl'}`}>
               {/* Attached Documents */}
               {attachedDocuments.length > 0 && (
                 <div className={`px-4 pt-3 pb-2 flex flex-wrap gap-2`}>
                   {attachedDocuments.map((doc) => (
                     <div 
                       key={doc.id}
-                      className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm ${dark ? 'bg-purple-950/40 border border-purple-800/50' : 'bg-purple-50 border border-purple-200'}`}
+                      className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm ${dark ? 'bg-amber-950/30 border border-amber-900/40' : 'bg-amber-50 border border-amber-200/80'}`}
                     >
-                      <span className={dark ? 'text-purple-300' : 'text-purple-700'}>📎 {doc.fileName}</span>
+                      <span className={dark ? 'text-amber-200' : 'text-amber-900'}>📎 {doc.fileName}</span>
                       <button
                         onClick={() => removeDocument(doc.id)}
-                        className={`transition-colors ${dark ? 'text-purple-500 hover:text-purple-300' : 'text-purple-400 hover:text-purple-600'}`}
+                        className={`transition-colors ${dark ? 'text-amber-500/80 hover:text-amber-300' : 'text-amber-700/70 hover:text-amber-900'}`}
                       >
                         ×
                       </button>
@@ -1094,7 +1094,7 @@ const IntegrationChat = ({ conversationId }: IntegrationChatProps) => {
               
               {/* Reference Tags */}
               {addedReferences.length > 0 && (
-                <div className={`px-4 pt-3 pb-2 flex flex-wrap gap-2 border-b ${dark ? 'border-[#2a2a2a]' : 'border-gray-100'}`}>
+                <div className={`px-4 pt-3 pb-2 flex flex-wrap gap-2 border-b ${dark ? 'border-slate-800' : 'border-zinc-100'}`}>
                   {addedReferences.map((ref) => (
                     <ReferenceTag 
                       key={ref.id} 
@@ -1147,7 +1147,7 @@ const IntegrationChat = ({ conversationId }: IntegrationChatProps) => {
                     <Button 
                       onClick={() => { setLoading(false); setIsStreaming(false); }}
                       size="sm" 
-                      className={`h-8 w-8 p-0 rounded-full border-0 ${dark ? 'bg-[#2a2a2a] hover:bg-[#333] text-zinc-400' : 'bg-zinc-900 hover:bg-zinc-800 text-white'}`}
+                      className={`h-8 w-8 p-0 rounded-full border-0 ${dark ? 'bg-slate-800 hover:bg-slate-700 text-slate-300' : 'bg-zinc-900 hover:bg-zinc-800 text-white'}`}
                     >
                       <Square className="w-3.5 h-3.5" />
                     </Button>
@@ -1156,7 +1156,7 @@ const IntegrationChat = ({ conversationId }: IntegrationChatProps) => {
                       onClick={handleSendMessage}
                       disabled={!input.trim()}
                       size="sm" 
-                      className={`h-8 w-8 p-0 rounded-full disabled:opacity-30 border-0 ${dark ? 'bg-[#2a2a2a] hover:bg-[#333] text-zinc-400' : 'bg-zinc-900 hover:bg-zinc-800 text-white'}`}
+                      className={`h-8 w-8 p-0 rounded-full disabled:opacity-30 border-0 ${dark ? 'bg-amber-600 hover:bg-amber-500 text-white' : 'bg-zinc-900 hover:bg-zinc-800 text-white'}`}
                     >
                       <Send className="w-4 h-4" />
                     </Button>

@@ -86,7 +86,7 @@ const DailyBriefingCard: React.FC<DailyBriefingCardProps> = ({ hotelId }) => {
   };
 
   return (
-    <Card className="bg-gray-800/50 border border-gray-700 h-full">
+    <Card className="bg-slate-800/50 border border-slate-700 h-full">
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
           <CardTitle className="text-base font-semibold text-white flex items-center gap-2">
@@ -106,37 +106,37 @@ const DailyBriefingCard: React.FC<DailyBriefingCardProps> = ({ hotelId }) => {
                 onClick={handleGenerateBriefing}
                 disabled={isGenerating}
                 aria-label="Refresh briefing"
-                className="text-gray-400 hover:text-gray-200 disabled:opacity-50 transition-colors p-1 rounded"
+                className="text-slate-400 hover:text-slate-200 disabled:opacity-50 transition-colors p-1 rounded"
               >
                 <RefreshCw className={`h-3.5 w-3.5 ${isGenerating ? 'animate-spin' : ''}`} />
               </button>
             )}
           </div>
         </div>
-        <p className="text-xs text-gray-500 mt-1">{format(new Date(), 'EEEE, MMMM d, yyyy')}</p>
+        <p className="text-xs text-slate-500 mt-1">{format(new Date(), 'EEEE, MMMM d, yyyy')}</p>
       </CardHeader>
       <CardContent>
         {isLoading ? (
           <div className="space-y-3">
-            <Skeleton className="h-5 w-3/4 bg-gray-700" />
-            <Skeleton className="h-4 w-full bg-gray-700" />
-            <Skeleton className="h-4 w-5/6 bg-gray-700" />
-            <Skeleton className="h-4 w-4/5 bg-gray-700" />
+            <Skeleton className="h-5 w-3/4 bg-slate-700" />
+            <Skeleton className="h-4 w-full bg-slate-700" />
+            <Skeleton className="h-4 w-5/6 bg-slate-700" />
+            <Skeleton className="h-4 w-4/5 bg-slate-700" />
           </div>
         ) : summary ? (
           <div>
             <h3 className="text-lg font-semibold text-white leading-snug mb-3">
               {summary.headline}
             </h3>
-            <p className="text-sm text-gray-300 leading-relaxed whitespace-pre-line">
+            <p className="text-sm text-slate-300 leading-relaxed whitespace-pre-line">
               {summary.body}
             </p>
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center py-8 text-center">
-            <Moon className="h-8 w-8 text-gray-600 mb-3" />
-            <p className="text-sm text-gray-400 font-medium">No briefing yet today</p>
-            <p className="text-xs text-gray-500 mt-1 mb-4">AI briefing will be generated tonight</p>
+            <Moon className="h-8 w-8 text-slate-600 mb-3" />
+            <p className="text-sm text-slate-400 font-medium">No briefing yet today</p>
+            <p className="text-xs text-slate-500 mt-1 mb-4">AI briefing will be generated tonight</p>
             <Button
               onClick={handleGenerateBriefing}
               disabled={isGenerating}
