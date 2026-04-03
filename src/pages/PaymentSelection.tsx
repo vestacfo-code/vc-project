@@ -35,7 +35,7 @@ const PaymentSelection = () => {
       
       // If already subscribed, redirect to chat
       if (data.subscribed && !window.location.search.includes('manage=true')) {
-        navigate('/chat');
+        navigate('/app');
       }
     } catch (error) {
       console.error('Failed to check subscription:', error);
@@ -103,7 +103,7 @@ const PaymentSelection = () => {
   const handleFounderAccess = () => {
     // Founder tier is free, just navigate to chat
     toast.success('Welcome to The Founder tier! You now have access to free credits.');
-    navigate('/chat');
+    navigate('/app');
   };
 
   const handleDiscountCode = async () => {
@@ -137,7 +137,7 @@ const PaymentSelection = () => {
         toast.success('🎉 Lifetime founder access activated! Welcome to the founder family.');
         // Force navigation to chat
         setTimeout(() => {
-          window.location.href = '/chat';
+          window.location.href = '/app';
         }, 1000);
       } catch (error) {
         console.error('Failed to activate founder access:', error);

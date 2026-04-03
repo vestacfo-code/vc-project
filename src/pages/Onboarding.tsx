@@ -109,7 +109,7 @@ const Onboarding = () => {
       });
 
       // Go directly to chat as a free founder user
-      navigate('/chat');
+      navigate('/app');
     } catch (error) {
       console.error('Error in handleComplete:', error);
       toast({

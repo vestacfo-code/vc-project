@@ -4,7 +4,6 @@ import { Textarea } from '@/components/ui/textarea';
 import { Loader2, Send, Building2, Sparkles, ChevronDown, Mic, Plus, Link, Square, Copy, Check, ThumbsUp, ThumbsDown, CornerDownRight, Download, MoreHorizontal, Globe, ExternalLink } from 'lucide-react';
 import { useQuickBooksIntegration } from '@/hooks/useQuickBooksIntegration';
 import { useQuickBooksChat } from '@/hooks/useQuickBooksChat';
-import { VestaBrand } from '@/components/ui/finlo-brand';
 import ReactMarkdown from 'react-markdown';
 import remarkMath from 'remark-math';
 import remarkGfm from 'remark-gfm';
@@ -32,11 +31,14 @@ import { useCreditGuard } from '@/hooks/useCreditGuard';
 import { useSettings } from '@/contexts/SettingsContext';
 import { useToast } from '@/hooks/use-toast';
 import { usePortalAnimation } from '@/contexts/PortalAnimationContext';
+import { VestaLogo } from '@/components/VestaLogo';
 import { useConsumerFeatures } from '@/hooks/useConsumerFeatures';
 import { useAgentChat } from '@/hooks/useAgentChat';
 
 interface IntegrationChatProps {
   conversationId?: string;
+  /** `hotel` = inside HotelLayout; Vesta CFO chrome, matches dashboard shell. */
+  variant?: 'default' | 'hotel';
 }
 
 /* Strip inline citation brackets like [1](url), 【6†source】, [^1], etc. from AI text */
@@ -230,12 +232,14 @@ const FollowUpSuggestions = ({
   );
 };
 
-const IntegrationChat = ({ conversationId }: IntegrationChatProps) => {
+const IntegrationChat = ({ conversationId, variant = 'default' }: IntegrationChatProps) => {
   const { user } = useAuth();
   const { isActive: portalAnimationActive } = usePortalAnimation();
   const { integration, loading: integrationLoading, refreshAfterOAuth } = useQuickBooksIntegration();
   const { checkAndUseCredits, canUseCredits } = useCreditGuard();
   const { settings } = useSettings();
+  const isHotelShell = variant === 'hotel';
+  const dark = isHotelShell ? true : settings.chatDarkMode;
   const { toast } = useToast();
   const { hasFeature, getEnabledFeatures, isCustomSolution } = useConsumerFeatures();
   const { 
@@ -432,6 +436,16 @@ const IntegrationChat = ({ conversationId }: IntegrationChatProps) => {
 
   // Generate contextual questions based on enabled features
   const cfoQuestions = useMemo(() => {
+    if (isHotelShell) {
+      return [
+        'What moved RevPAR and ADR this week?',
+        'How does occupancy compare to the last few weeks?',
+        'What do our channel mix and GOPPAR suggest?',
+        'Any labor or F&B cost lines worth a closer look?',
+        'Summarize what I should bring to owner stand-up.',
+        'Where might we be leaving rate or upsell on the table?',
+      ];
+    }
     const enabledFeatures = getEnabledFeatures();
     
     // If this is a custom solution user with skip_integration_onboarding, show feature-specific questions
@@ -501,7 +515,7 @@ const IntegrationChat = ({ conversationId }: IntegrationChatProps) => {
       "Are we on track to meet our financial goals?", 
       "What trends do you see in our business performance?"
     ];
-  }, [skipIntegrationOnboarding, isCustomSolution, hasFeature, getEnabledFeatures]);
+  }, [isHotelShell, skipIntegrationOnboarding, isCustomSolution, hasFeature, getEnabledFeatures]);
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
@@ -845,7 +859,22 @@ const IntegrationChat = ({ conversationId }: IntegrationChatProps) => {
   };
 
   return (
-    <div className={`flex-1 flex flex-col h-full ${settings.chatDarkMode ? 'bg-slate-950 text-white' : 'bg-white text-zinc-900'} overflow-hidden`}>
+    <div
+      className={`flex flex-col overflow-hidden ${isHotelShell ? 'flex-1 min-h-0 h-full' : 'flex-1 h-full'} ${dark ? 'bg-slate-950 text-white' : 'bg-white text-zinc-900'}`}
+    >
+      {isHotelShell && (
+        <header className="shrink-0 flex items-center gap-3 px-4 sm:px-6 py-3 border-b border-slate-800 bg-slate-900/90">
+          <span className="w-1 self-stretch min-h-[2.25rem] rounded-full bg-amber-500 shrink-0" aria-hidden />
+          <VestaLogo size="sm" />
+          <div className="min-w-0 flex-1">
+            <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-violet-300/90">Vesta CFO</p>
+            <h1 className="text-sm font-semibold text-white tracking-tight">Assistant</h1>
+          </div>
+          <p className="hidden md:block text-xs text-slate-500 max-w-xs text-right leading-snug">
+            Plain-language answers over your metrics, uploads, and connected data.
+          </p>
+        </header>
+      )}
       <IntegrationWalkthrough
         isActive={showWalkthrough}
         onComplete={handleWalkthroughComplete}
@@ -857,17 +886,28 @@ const IntegrationChat = ({ conversationId }: IntegrationChatProps) => {
       
       <SettingsModal open={settingsOpen} onOpenChange={handleSettingsChange} defaultTab={settingsDefaultTab} />
       {/* Messages Area */}
-      <div ref={scrollContainerRef} className="flex-1 overflow-y-auto scrollbar-hide relative">
+      <div ref={scrollContainerRef} className="flex-1 min-h-0 overflow-y-auto scrollbar-hide relative">
        {showWelcomeScreen ? (
           /* Welcome Screen */
           (() => {
-            const dark = settings.chatDarkMode;
             return (
           <div className="flex flex-col items-center justify-center h-full px-4 md:px-8 pb-16 animate-fade-in">
-            <div className="text-center mb-6 md:mb-10">
-              <h2 className="text-3xl md:text-[2.6rem] font-light min-h-[2.5rem] md:min-h-[3.5rem] tracking-tight leading-tight">
-                <TypingAnimation messages={cfoQuestions} className={dark ? "text-zinc-400" : "text-zinc-500"} />
-              </h2>
+            <div className="text-center mb-6 md:mb-10 max-w-xl">
+              {isHotelShell ? (
+                <>
+                  <p className="text-xs text-slate-500 mb-3 font-medium">Start with a question</p>
+                  <h2 className="font-serif text-2xl sm:text-3xl text-slate-100 leading-snug mb-4">
+                    What should we look at first?
+                  </h2>
+                  <div className="rounded-xl border border-slate-800 bg-slate-900/50 px-4 py-3">
+                    <TypingAnimation messages={cfoQuestions} className="text-slate-400 text-base md:text-lg" />
+                  </div>
+                </>
+              ) : (
+                <h2 className="text-3xl md:text-[2.6rem] font-light min-h-[2.5rem] md:min-h-[3.5rem] tracking-tight leading-tight">
+                  <TypingAnimation messages={cfoQuestions} className={dark ? 'text-zinc-400' : 'text-zinc-500'} />
+                </h2>
+              )}
             </div>
 
             {/* Input Area - Centered */}
@@ -992,7 +1032,6 @@ const IntegrationChat = ({ conversationId }: IntegrationChatProps) => {
           /* Chat Messages */
          <div className="max-w-2xl mx-auto px-3 md:px-4 py-4 md:py-8 animate-fade-in">
             {messages.map((message, index) => {
-              const dark = settings.chatDarkMode;
               return (
               <div key={message.id} className={message.role === 'user' ? 'mb-6' : 'mb-8'}>
                 {message.role === 'user' ? (
@@ -1005,7 +1044,7 @@ const IntegrationChat = ({ conversationId }: IntegrationChatProps) => {
                 ) : (
                   /* AI response — no avatar, full width */
                   <div>
-                    <div className={`prose prose-sm max-w-none leading-relaxed font-serif [&>p]:mb-4 [&>h2]:mt-6 [&>h2]:mb-3 [&>h2]:text-base [&>h2]:font-semibold [&>h3]:mt-4 [&>h3]:mb-2 [&>h3]:text-sm [&>h3]:font-semibold [&_ul]:mb-4 [&_ol]:mb-4 [&_ul]:space-y-2 [&_ol]:space-y-2 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:pl-1 [&>table]:mb-4 [&>table]:mt-2 ${dark ? 'text-zinc-200 prose-headings:text-white prose-strong:text-zinc-100 prose-code:text-zinc-300 prose-a:text-blue-400' : 'text-zinc-900'}`}>
+                    <div className={`prose prose-sm max-w-none leading-relaxed font-serif [&>p]:mb-4 [&>h2]:mt-6 [&>h2]:mb-3 [&>h2]:text-base [&>h2]:font-semibold [&>h3]:mt-4 [&>h3]:mb-2 [&>h3]:text-sm [&>h3]:font-semibold [&_ul]:mb-4 [&_ol]:mb-4 [&_ul]:space-y-2 [&_ol]:space-y-2 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:pl-1 [&>table]:mb-4 [&>table]:mt-2 ${dark ? 'text-slate-200 prose-headings:text-white prose-strong:text-slate-100 prose-code:text-violet-200/90 prose-a:text-violet-400' : 'text-zinc-900'}`}>
                       {message.role === 'assistant' && isStreaming && index === messages.length - 1 ? (
                         <TypewriterText 
                           text={message.sources?.length ? stripInlineCitations(message.content) : message.content} 
@@ -1031,7 +1070,8 @@ const IntegrationChat = ({ conversationId }: IntegrationChatProps) => {
                   </div>
                 )}
                </div>
-            );})}
+            );
+            })}
             
             {/* Thinking / Agent Progress Animation */}
             {(isWaitingForResponse || deepResearchStatus?.isPolling) && (
@@ -1050,7 +1090,7 @@ const IntegrationChat = ({ conversationId }: IntegrationChatProps) => {
                   <DeepResearchProgress
                     elapsedSeconds={deepResearchStatus.elapsedSeconds}
                     statusMessage={deepResearchStatus.statusMessage}
-                    dark={settings.chatDarkMode}
+                    dark={dark}
                   />
                 ) : (
                   <ThinkingIndicator />
@@ -1063,12 +1103,11 @@ const IntegrationChat = ({ conversationId }: IntegrationChatProps) => {
         
       </div>
 
-      {/* Input Area for Chat Mode - Two-row Perplexity style */}
+      {/* Input area (conversation mode) */}
       {!showWelcomeScreen && (
         (() => {
-          const dark = settings.chatDarkMode;
           return (
-        <div className={`relative ${dark ? 'bg-slate-950' : 'bg-white'}`}>
+        <div className={`relative shrink-0 ${dark ? 'bg-slate-950' : 'bg-white'} ${isHotelShell ? 'border-t border-slate-800' : ''}`}>
           <div className={`px-3 md:px-4 pb-3 md:pb-4 ${dark ? 'bg-slate-950' : 'bg-white'}`} style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}>
           <div className="max-w-2xl mx-auto">
             <div className={`relative rounded-2xl transition-all duration-200 ${dark ? 'bg-slate-900 border border-slate-800 shadow-lg' : 'bg-white ring-1 ring-zinc-200 shadow-xl'}`}>

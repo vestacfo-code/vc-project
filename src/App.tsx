@@ -35,6 +35,7 @@ import ConsumerJoin from "./pages/ConsumerJoin";
 import JobRole from "./pages/JobRole";
 import AICfoCall from "./pages/AICfoCall";
 import ChatHub from "./pages/ChatHub";
+import HotelChatPage from "./pages/HotelChatPage";
 import Privacy from "./pages/Privacy";
 import Support from "./pages/Support";
 import Security from "./pages/Security";
@@ -185,7 +186,7 @@ const AppContent = () => {
         } />
         <Route path="/chat" element={
           <ProtectedRoute>
-            <ChatHub />
+            <HotelLayout><HotelChatPage /></HotelLayout>
           </ProtectedRoute>
         } />
         <Route path="/quickbooks" element={

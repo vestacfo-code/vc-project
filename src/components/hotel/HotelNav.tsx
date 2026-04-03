@@ -28,7 +28,7 @@ const NAV_ITEMS = [
   { to: '/team',         icon: Users,            label: 'Team' },
   { to: '/integrations', icon: Plug,             label: 'Integrations' },
   { to: '/marketplace',  icon: Handshake,        label: 'Partners' },
-  { to: '/chat',         icon: MessageCircle,    label: 'Chat' },
+  { to: '/chat',         icon: MessageCircle,    label: 'Assistant' },
   { to: '/settings',    icon: Settings,         label: 'Settings' },
 ];
 

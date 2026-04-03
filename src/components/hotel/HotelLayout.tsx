@@ -22,7 +22,7 @@ export const HotelLayout = ({ children }: HotelLayoutProps) => {
               animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
               exit={{ opacity: 0, scale: 1.012, filter: 'blur(6px)' }}
               transition={pageMorphTransition}
-              className="min-h-full"
+              className="min-h-full flex flex-col"
             >
               {children}
             </motion.div>

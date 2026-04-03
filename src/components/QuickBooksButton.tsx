@@ -265,7 +265,7 @@ const QuickBooksButton = ({ onConnected, refreshIntegration }: QuickBooksButtonP
       <Button
         type="button"
         variant="ghost"
-        onClick={() => navigate('/chat')}
+        onClick={() => navigate('/app')}
         className="w-full h-10 text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100 text-sm flex items-center justify-center gap-2"
       >
         <TestTube className="w-4 h-4" />

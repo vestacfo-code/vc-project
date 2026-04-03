@@ -254,7 +254,7 @@ const Auth = () => {
     }
     
     if (user && !loading && !portalIsActive && !showSetNewPassword) {
-      navigate('/chat');
+      navigate('/dashboard');
     }
   }, [user, loading, navigate, portalIsActive, showSetNewPassword]);
 
@@ -895,7 +895,7 @@ const Auth = () => {
       
         <div className="lg:hidden fixed top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-amber-500 to-amber-300" />
           
-        <ReferralCodesModal codes={generatedCodes} open={showCodesModal} onClose={() => { setShowCodesModal(false); navigate('/chat'); }} />
+        <ReferralCodesModal codes={generatedCodes} open={showCodesModal} onClose={() => { setShowCodesModal(false); navigate('/dashboard'); }} />
       </div>
     </>
   );
