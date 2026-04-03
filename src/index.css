@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Vesta — Professional Light Theme */
+/* Vesta — Professional Light Theme (see BRAND_KIT.md + src/brand/vesta-cfo-brand.ts) */
 /* Brand: Navy #1B3A5C · Gold #C8963E · Cream #F7F4EE · Slate #2E6DA4 */
 
 @layer base {

@@ -41,7 +41,7 @@ export function TellUsMoreSection({ className = '' }: { className?: string }) {
         >
           <div className="relative rounded-[22px] bg-slate-50 overflow-hidden p-8 sm:p-12 md:grid md:grid-cols-2 md:gap-12 md:items-center">
             <div>
-              <div className="inline-flex items-center gap-2 rounded-full bg-violet-100 text-violet-800 text-xs font-semibold uppercase tracking-wide px-3 py-1 mb-4">
+              <div className="inline-flex items-center gap-2 rounded-full bg-vesta-mist text-vesta-navy text-xs font-semibold uppercase tracking-wide px-3 py-1 mb-4 border border-vesta-navy/10">
                 <ClipboardList className="w-3.5 h-3.5" />
                 We don’t know your story yet
               </div>
@@ -54,14 +54,14 @@ export function TellUsMoreSection({ className = '' }: { className?: string }) {
               </p>
               <a
                 href={mailHref}
-                className="inline-flex items-center gap-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-semibold px-6 py-3.5 shadow-md transition-colors"
+                className="inline-flex items-center gap-2 rounded-xl bg-vesta-gold hover:bg-vesta-gold/90 text-vesta-navy font-semibold px-6 py-3.5 shadow-md transition-colors"
               >
                 <Mail className="w-4 h-4" />
                 Email us this info
               </a>
               <p className="mt-4 text-xs text-slate-500">
                 Prefer to talk live? Use the{' '}
-                <Link to="/contact" className="text-violet-600 hover:underline font-medium">
+                <Link to="/contact" className="text-vesta-navy hover:text-vesta-gold hover:underline font-medium">
                   contact page
                 </Link>{' '}
                 or book a demo from there.
@@ -76,7 +76,7 @@ export function TellUsMoreSection({ className = '' }: { className?: string }) {
                   <span
                     className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-bold text-white"
                     style={{
-                      background: ['#f59e0b', '#8b5cf6', '#06b6d4', '#10b981', '#ec4899', '#6366f1'][i % 6],
+                      background: ['#1B3A5C', '#C8963E', '#2E6DA4', '#0d9488', '#1B3A5C', '#C8963E'][i % 6],
                     }}
                   >
                     {i + 1}

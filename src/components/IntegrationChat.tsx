@@ -17,7 +17,6 @@ import { ThinkingIndicator } from '@/components/ThinkingIndicator';
 import { ModelSelector, getModelById } from '@/components/chat/ModelSelector';
 import { AgentProgressIndicator } from '@/components/chat/AgentProgressIndicator';
 import { DeepResearchProgress } from '@/components/chat/DeepResearchProgress';
-import { IntegrationWalkthrough } from '@/components/IntegrationWalkthrough';
 import SettingsModal from '@/components/SettingsModal';
 import { FileUploadButton } from '@/components/chat/FileUploadButton';
 import { VoiceInputButton } from '@/components/chat/VoiceInputButton';
@@ -30,7 +29,6 @@ import { ReferenceTag } from '@/components/chat/ReferenceTag';
 import { useCreditGuard } from '@/hooks/useCreditGuard';
 import { useSettings } from '@/contexts/SettingsContext';
 import { useToast } from '@/hooks/use-toast';
-import { usePortalAnimation } from '@/contexts/PortalAnimationContext';
 import { VestaLogo } from '@/components/VestaLogo';
 import { useConsumerFeatures } from '@/hooks/useConsumerFeatures';
 import { useAgentChat } from '@/hooks/useAgentChat';
@@ -234,8 +232,7 @@ const FollowUpSuggestions = ({
 
 const IntegrationChat = ({ conversationId, variant = 'default' }: IntegrationChatProps) => {
   const { user } = useAuth();
-  const { isActive: portalAnimationActive } = usePortalAnimation();
-  const { integration, loading: integrationLoading, refreshAfterOAuth } = useQuickBooksIntegration();
+  const { refreshAfterOAuth } = useQuickBooksIntegration();
   const { checkAndUseCredits, canUseCredits } = useCreditGuard();
   const { settings } = useSettings();
   const isHotelShell = variant === 'hotel';
@@ -262,8 +259,6 @@ const IntegrationChat = ({ conversationId, variant = 'default' }: IntegrationCha
   } = useQuickBooksChat(conversationId);
   const [input, setInput] = useState('');
   const [selectedModel, setSelectedModel] = useState('auto');
-  const [showWalkthrough, setShowWalkthrough] = useState(false);
-  const [walkthroughReady, setWalkthroughReady] = useState(false); // Prevent flash
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [settingsDefaultTab, setSettingsDefaultTab] = useState<string>('general');
   const [isUploading, setIsUploading] = useState(false);
@@ -274,12 +269,6 @@ const IntegrationChat = ({ conversationId, variant = 'default' }: IntegrationCha
   const [mentionDropdownPosition, setMentionDropdownPosition] = useState({ top: 0, left: 0 });
   const [isTransitioningToChat, setIsTransitioningToChat] = useState(false);
   const [skipIntegrationOnboarding, setSkipIntegrationOnboarding] = useState<boolean | null>(null); // null = not yet loaded
-  const [isDemoMode, setIsDemoMode] = useState(() => 
-    sessionStorage.getItem('walkthrough_dismissed') === 'true'
-  );
-  // Initial loading state - don't show walkthrough until we've checked everything
-  const [initialLoadComplete, setInitialLoadComplete] = useState(false);
-  const initialLoadCompletedRef = useRef(false);
   const [aiFollowUpsByMessageId, setAiFollowUpsByMessageId] = useState<Record<string, string[]>>({});
   const [loadingFollowUpsFor, setLoadingFollowUpsFor] = useState<string | null>(null);
   
@@ -359,7 +348,7 @@ const IntegrationChat = ({ conversationId, variant = 'default' }: IntegrationCha
     };
   }, [user]);
 
-  // Check for skip_integration_onboarding flag - must complete before showing walkthrough
+  // Check for skip_integration_onboarding (custom solutions / admin skip)
   useEffect(() => {
     const checkSkipFlag = async () => {
       if (!user) {
@@ -375,64 +364,6 @@ const IntegrationChat = ({ conversationId, variant = 'default' }: IntegrationCha
     };
     checkSkipFlag();
   }, [user]);
-
-  // Listen for demo mode changes (reactive state sync)
-  useEffect(() => {
-    const handleDemoModeChange = () => {
-      setIsDemoMode(sessionStorage.getItem('walkthrough_dismissed') === 'true');
-    };
-    
-    window.addEventListener('demoModeChanged', handleDemoModeChange);
-    return () => window.removeEventListener('demoModeChanged', handleDemoModeChange);
-  }, []);
-
-  // Mark initial load complete after we've checked all conditions
-  // This prevents the walkthrough from flashing during the initial render
-  useEffect(() => {
-    // Once initial load is complete, never reset it — prevents flashing
-    if (initialLoadCompletedRef.current) return;
-    
-    // Only mark as complete when all async checks are done, including skip flag
-    if (!integrationLoading && user && !portalAnimationActive && skipIntegrationOnboarding !== null) {
-      const timer = setTimeout(() => {
-        initialLoadCompletedRef.current = true;
-        setInitialLoadComplete(true);
-      }, 300);
-      return () => clearTimeout(timer);
-    }
-  }, [integrationLoading, user, portalAnimationActive, skipIntegrationOnboarding]);
-
-  // Show persistent walkthrough when no integration (after loading completes)
-  // IMPORTANT: Wait for portal animation AND initial load to complete before showing walkthrough
-  useEffect(() => {
-    // Don't show walkthrough until initial load is complete (prevents flash)
-    if (!initialLoadComplete) {
-      setShowWalkthrough(false);
-      return;
-    }
-    
-    // Don't show walkthrough while portal animation is playing
-    if (portalAnimationActive) {
-      setShowWalkthrough(false);
-      return;
-    }
-    
-    // Hide walkthrough when settings modal is open
-    if (settingsOpen) {
-      setShowWalkthrough(false);
-      return;
-    }
-    
-    // Show walkthrough only if:
-    // - No integration connected AND
-    // - Not admin-skipped AND
-    // - Not in demo mode
-    if (!integration && !skipIntegrationOnboarding && !isDemoMode) {
-      setShowWalkthrough(true);
-    } else {
-      setShowWalkthrough(false);
-    }
-  }, [integration, integrationLoading, settingsOpen, skipIntegrationOnboarding, portalAnimationActive, isDemoMode, initialLoadComplete]);
 
   // Generate contextual questions based on enabled features
   const cfoQuestions = useMemo(() => {
@@ -818,31 +749,10 @@ const IntegrationChat = ({ conversationId, variant = 'default' }: IntegrationCha
     }
   };
 
-  const handleWalkthroughComplete = () => {
-    // Open settings to connect integration
-    setSettingsOpen(true);
-    setShowWalkthrough(false);
-  };
-
-  const handleWalkthroughSkip = () => {
-    // Only allow skip if user already has dismissed it before
-    // Otherwise, walkthrough will persist until integration is connected
-    setShowWalkthrough(false);
-  };
-
-  const handleConnectClick = () => {
-    setSettingsOpen(true);
-    setSettingsDefaultTab('connectors');
-  };
-
   const handleSettingsChange = async (open: boolean) => {
     setSettingsOpen(open);
     if (!open) {
-      // When settings closes, refresh integration status
       await refreshAfterOAuth();
-      
-      // Check integration status AFTER refresh to determine walkthrough state
-      // The useEffect will handle showing/hiding based on the updated integration state
     }
   };
 
@@ -875,15 +785,6 @@ const IntegrationChat = ({ conversationId, variant = 'default' }: IntegrationCha
           </p>
         </header>
       )}
-      <IntegrationWalkthrough
-        isActive={showWalkthrough}
-        onComplete={handleWalkthroughComplete}
-        onSkip={handleWalkthroughSkip}
-        onConnectClick={handleConnectClick}
-        startFromStep={1}
-        persistent={!integration}
-      />
-      
       <SettingsModal open={settingsOpen} onOpenChange={handleSettingsChange} defaultTab={settingsDefaultTab} />
       {/* Messages Area */}
       <div ref={scrollContainerRef} className="flex-1 min-h-0 overflow-y-auto scrollbar-hide relative">

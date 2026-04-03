@@ -96,7 +96,7 @@ const AnomalyFeed: React.FC<AnomalyFeedProps> = ({ hotelId }) => {
   });
 
   return (
-    <Card className="bg-slate-800/50 border border-slate-700 h-full">
+    <Card className="bg-slate-900/50 border border-slate-700/80 backdrop-blur-sm h-full shadow-lg shadow-black/15">
       <CardHeader className="pb-3">
         <CardTitle className="text-base font-semibold text-white flex items-center gap-2">
           <AlertTriangle className="h-4 w-4 text-yellow-400" />

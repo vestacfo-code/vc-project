@@ -64,9 +64,9 @@ export const HotelNav = () => {
     ?? 'You';
 
   return (
-    <aside className="hidden lg:flex flex-col w-56 bg-slate-950 border-r border-slate-800/90 h-screen sticky top-0 shrink-0">
+    <aside className="hidden lg:flex flex-col w-56 h-screen sticky top-0 shrink-0 border-r border-white/[0.06] bg-gradient-to-b from-[#1B3A5C] to-[#0f172a]">
       {/* Logo */}
-      <div className="px-5 py-5 border-b border-slate-800">
+      <div className="px-5 py-5 border-b border-white/[0.08]">
         <VestaLogo size="sm" />
       </div>
 
@@ -80,8 +80,8 @@ export const HotelNav = () => {
               cn(
                 'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors relative z-0',
                 isActive
-                  ? 'text-amber-400'
-                  : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800/60'
+                  ? 'text-[#C8963E]'
+                  : 'text-white/55 hover:text-white/95 hover:bg-white/[0.06]'
               )
             }
           >
@@ -90,7 +90,7 @@ export const HotelNav = () => {
                 {isActive && (
                   <motion.span
                     layoutId="hotel-sidebar-active-pill"
-                    className="absolute inset-0 rounded-lg bg-amber-500/10 border border-amber-500/15 -z-10 shadow-[0_0_20px_-4px_rgba(245,158,11,0.35)]"
+                    className="absolute inset-0 rounded-lg bg-[#C8963E]/12 border border-[#C8963E]/20 -z-10 shadow-[0_0_24px_-6px_rgba(200,150,62,0.35)]"
                     transition={morphSpringSoft}
                   />
                 )}
@@ -108,21 +108,21 @@ export const HotelNav = () => {
       </nav>
 
       {/* User footer */}
-      <div className="px-3 py-4 border-t border-slate-800 space-y-0.5">
+      <div className="px-3 py-4 border-t border-white/[0.08] space-y-0.5">
         <button
           onClick={handleSignOut}
-          className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-400 hover:text-red-400 hover:bg-red-500/5 transition-colors w-full"
+          className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-white/45 hover:text-red-300 hover:bg-red-500/10 transition-colors w-full"
         >
           <LogOut className="w-4 h-4 shrink-0" />
           <span>Sign Out</span>
         </button>
         <div className="flex items-center gap-2 px-3 py-2 mt-1">
-          <div className="w-7 h-7 rounded-full bg-amber-500/20 flex items-center justify-center shrink-0">
-            <span className="text-amber-400 text-xs font-semibold">
+          <div className="w-7 h-7 rounded-full bg-[#C8963E]/20 flex items-center justify-center shrink-0 ring-1 ring-[#C8963E]/30">
+            <span className="text-[#E8C77B] text-xs font-semibold">
               {userName.charAt(0).toUpperCase()}
             </span>
           </div>
-          <span className="text-slate-500 text-xs truncate">{userName}</span>
+          <span className="text-white/40 text-xs truncate">{userName}</span>
         </div>
       </div>
     </aside>
@@ -148,7 +148,7 @@ export const HotelBottomNav = () => {
   });
 
   return (
-    <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-slate-950 border-t border-slate-800/90 flex z-50">
+    <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-50 flex border-t border-white/[0.08] bg-gradient-to-t from-[#0f172a] to-[#1B3A5C]/95 backdrop-blur-md">
       {NAV_ITEMS.map(({ to, icon: Icon, label }) => (
         <NavLink
           key={to}
@@ -156,7 +156,7 @@ export const HotelBottomNav = () => {
           className={({ isActive }) =>
             cn(
               'flex-1 flex flex-col items-center gap-1 py-3 text-[10px] font-medium transition-colors relative',
-              isActive ? 'text-amber-400' : 'text-slate-500'
+              isActive ? 'text-[#C8963E]' : 'text-white/45'
             )
           }
         >
@@ -166,7 +166,7 @@ export const HotelBottomNav = () => {
                 {isActive && (
                   <motion.span
                     layoutId="hotel-bottom-active-pill"
-                    className="absolute -inset-x-1 -inset-y-1 rounded-2xl bg-amber-500/10 border border-amber-500/10 -z-10"
+                    className="absolute -inset-x-1 -inset-y-1 rounded-2xl bg-[#C8963E]/12 border border-[#C8963E]/15 -z-10"
                     transition={morphSpringSoft}
                   />
                 )}

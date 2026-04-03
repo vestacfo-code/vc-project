@@ -486,6 +486,7 @@ export type Database = {
           id: string
           logo_url: string | null
           name: string
+          onboarding_profile: Json
           organization_id: string
           pms_provider: string | null
           property_type: string
@@ -505,6 +506,7 @@ export type Database = {
           id?: string
           logo_url?: string | null
           name: string
+          onboarding_profile?: Json
           organization_id: string
           pms_provider?: string | null
           property_type?: string
@@ -524,6 +526,7 @@ export type Database = {
           id?: string
           logo_url?: string | null
           name?: string
+          onboarding_profile?: Json
           organization_id?: string
           pms_provider?: string | null
           property_type?: string

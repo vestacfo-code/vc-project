@@ -83,7 +83,7 @@ const RevParChart: React.FC<RevParChartProps> = ({ hotelId }) => {
   }));
 
   return (
-    <Card className="bg-slate-800/50 border border-slate-700">
+    <Card className="bg-slate-900/50 border border-slate-700/80 backdrop-blur-sm shadow-lg shadow-black/15">
       <CardHeader className="pb-2">
         <CardTitle className="text-base font-semibold text-white">
           30-Day RevPAR &amp; Occupancy Trend

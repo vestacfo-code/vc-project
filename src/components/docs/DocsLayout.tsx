@@ -65,11 +65,7 @@ const navigation: NavSection[] = [
     title: "Quickstart",
     defaultOpen: true,
     items: [
-      { title: "Integrations", href: "/docs/connect" },
-      { title: "Connect QuickBooks", href: "/docs/connect/quickbooks" },
-      { title: "Connect Xero", href: "/docs/connect/xero" },
-      { title: "Connect Wave", href: "/docs/connect/wave" },
-      { title: "Connect Zoho", href: "/docs/connect/zoho" },
+      { title: "Data & PMS connections", href: "/docs/connect" },
       { title: "Upload CSV Data", href: "/docs/connect/csv" },
       { title: "Manual Data Entry", href: "/docs/connect/manual" },
     ],

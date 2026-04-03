@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
-import { useQuickBooksIntegration } from '@/hooks/useQuickBooksIntegration';
 import { supabase } from '@/integrations/supabase/client';
 import { useConsumerFeatures } from '@/hooks/useConsumerFeatures';
 
@@ -15,9 +14,6 @@ import IntegrationLayoutSidebar from '@/components/IntegrationLayoutSidebar';
 import IntegrationChat from '@/components/IntegrationChat';
 import IntegrationDashboard from '@/components/IntegrationDashboard';
 import { CompetitivePricingDashboard, VarianceAnalysisDashboard, MarketTrendDashboard } from '@/components/pricing';
-import QuickBooksButton from '@/components/QuickBooksButton';
-import { IntegrationButton } from '@/components/IntegrationButton';
-import { getAvailableIntegrations, getIntegrationConfig } from '@/config/integrations';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from '@/components/ui/dropdown-menu';
 import SettingsModal from '@/components/SettingsModal';
 import { TrialCountdown } from '@/components/TrialCountdown';
@@ -34,7 +30,6 @@ const ChatHub = () => {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [settingsDefaultTab, setSettingsDefaultTab] = useState<string>('general');
   const [showUpgrade, setShowUpgrade] = useState(true);
-  const { integration, loading, refreshAfterOAuth } = useQuickBooksIntegration();
   const { setAvailableReferences, pendingReference } = useDashboardReference();
   const { hasFeature } = useConsumerFeatures();
   
@@ -59,7 +54,7 @@ const ChatHub = () => {
     }
     
     setAvailableReferences(references);
-  }, [integration, setAvailableReferences, hasFeature]);
+  }, [setAvailableReferences, hasFeature]);
 
   // Listen for navigate to chat events (from pricing dashboard)
   useEffect(() => {

@@ -13,7 +13,7 @@ const pillars = [
     title: 'Mission',
     body:
       'Give every independent hotel and boutique chain the same quality of financial intelligence large flags take for granted — without enterprise cost or complexity.',
-    ring: 'bg-violet-100',
+    ring: 'bg-vesta-mist/90',
   },
   {
     icon: Heart,
@@ -45,8 +45,8 @@ const extras = [
     title: 'Partnerships',
     body:
       'We’re open to thoughtful integrations and referral relationships with consultants, brands, and tech vendors who serve independent hotels.',
-    color: 'text-violet-600',
-    bg: 'bg-violet-50',
+    color: 'text-vesta-navy',
+    bg: 'bg-vesta-mist/50',
   },
 ];
 
@@ -74,7 +74,7 @@ export default function Company() {
               className="font-serif text-4xl sm:text-5xl text-slate-900 font-normal leading-tight"
             >
               Built for hoteliers who{' '}
-              <span className="text-violet-700">outgrew spreadsheets.</span>
+              <span className="text-vesta-gold">outgrew spreadsheets.</span>
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 14 }}
@@ -92,7 +92,7 @@ export default function Company() {
               className="mt-4 text-slate-600 leading-relaxed"
             >
               We don’t publish a public headcount or revenue — if you’re evaluating us for procurement or press, email{' '}
-              <a href="mailto:support@vesta.ai" className="text-violet-700 font-medium hover:underline">
+              <a href="mailto:support@vesta.ai" className="text-vesta-navy font-medium hover:underline">
                 support@vesta.ai
               </a>{' '}
               and we’ll route you to the right person.
@@ -104,7 +104,7 @@ export default function Company() {
             transition={{ ...morphSpringSoft, delay: 0.06 }}
             className="order-1 lg:order-2"
           >
-            <div className="rounded-3xl overflow-hidden shadow-2xl border-4 border-white ring-1 ring-amber-100">
+            <div className="rounded-3xl overflow-hidden shadow-2xl border-4 border-white ring-1 ring-vesta-navy/10">
               <img
                 src={marketingImages.team.src}
                 alt={marketingImages.team.alt}
@@ -171,7 +171,7 @@ export default function Company() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 to="/about"
-                className="inline-flex items-center justify-center gap-2 rounded-xl border-2 border-slate-200 hover:border-violet-300 hover:bg-violet-50 px-6 py-3 text-sm font-medium text-slate-800 transition-colors"
+                className="inline-flex items-center justify-center gap-2 rounded-xl border-2 border-slate-200 hover:border-vesta-gold/50 hover:bg-vesta-mist/40 px-6 py-3 text-sm font-medium text-slate-800 transition-colors"
               >
                 Leadership <ArrowRight className="w-4 h-4" />
               </Link>
@@ -184,7 +184,7 @@ export default function Company() {
               <button
                 type="button"
                 onClick={() => navigate('/contact')}
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-violet-700 hover:bg-violet-800 text-white px-6 py-3 text-sm font-semibold shadow-md transition-colors"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-vesta-navy hover:bg-vesta-navy/90 text-white px-6 py-3 text-sm font-semibold shadow-md transition-colors"
               >
                 Contact us
               </button>

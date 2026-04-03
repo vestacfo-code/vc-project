@@ -7,8 +7,11 @@ interface Hotel {
   name: string;
   room_count: number | null;
   city: string | null;
+  country: string | null;
   pms_provider: string | null;
   currency: string | null;
+  timezone: string | null;
+  property_type: string | null;
 }
 
 interface UseHotelDashboardResult {
@@ -53,7 +56,7 @@ export function useHotelDashboard(): UseHotelDashboardResult {
     queryFn: async () => {
       const { data, error } = await supabase
         .from('hotels')
-        .select('id, name, room_count, city, pms_provider, currency')
+        .select('id, name, room_count, city, country, pms_provider, currency, timezone, property_type')
         .eq('id', hotelId!)
         .maybeSingle();
       if (error) throw error;

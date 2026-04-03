@@ -37,7 +37,6 @@ const AVAILABLE_PROVIDERS = [
   { provider: 'mews', label: 'Mews', type: 'pms', description: 'Cloud PMS — sync reservations, revenue & occupancy' },
   { provider: 'cloudbeds', label: 'Cloudbeds', type: 'pms', description: 'All-in-one PMS — sync daily metrics & channel data' },
   { provider: 'opera', label: 'Oracle Opera', type: 'pms', description: 'Enterprise PMS — sync revenue & occupancy' },
-  { provider: 'quickbooks', label: 'QuickBooks', type: 'accounting', description: 'Sync expenses & P&L data' },
   { provider: 'manual', label: 'Manual Entry', type: 'pms', description: 'Enter daily metrics directly in Vesta' },
 ]
 

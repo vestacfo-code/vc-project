@@ -200,7 +200,7 @@ const Header = ({ variant = 'light' }: HeaderProps) => {
                         <Zap className="w-5 h-5 text-[#1a237e] flex-shrink-0 mt-0.5" />
                         <div>
                           <p className="font-medium text-gray-900 text-sm">Integrations</p>
-                          <p className="text-gray-500 text-xs leading-relaxed">Connect QuickBooks, Xero, and more</p>
+                          <p className="text-gray-500 text-xs leading-relaxed">PMS, CSV imports, and hotel metrics</p>
                         </div>
                       </Link>
                       

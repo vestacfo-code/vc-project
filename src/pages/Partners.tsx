@@ -21,7 +21,7 @@ export default function Partners() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={morphSpringSoft}
-            className="text-xs font-mono tracking-widest uppercase text-violet-800 bg-violet-100 border border-violet-200 rounded-full px-3 py-1 inline-block mb-4"
+            className="text-xs font-mono tracking-widest uppercase text-vesta-navy bg-vesta-mist/80 border border-vesta-navy/15 rounded-full px-3 py-1 inline-block mb-4"
           >
             Trusted vendors
           </motion.p>
@@ -45,7 +45,7 @@ export default function Partners() {
               href="https://thelotusgroup.us/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-violet-700 font-semibold hover:underline"
+              className="text-vesta-navy font-semibold hover:underline"
             >
               The Lotus Group
             </a>{' '}

@@ -86,11 +86,11 @@ const DailyBriefingCard: React.FC<DailyBriefingCardProps> = ({ hotelId }) => {
   };
 
   return (
-    <Card className="bg-slate-800/50 border border-slate-700 h-full">
+    <Card className="bg-slate-900/50 border border-slate-700/80 backdrop-blur-sm h-full shadow-lg shadow-black/20">
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
           <CardTitle className="text-base font-semibold text-white flex items-center gap-2">
-            <Sparkles className="h-4 w-4 text-indigo-400" />
+            <Sparkles className="h-4 w-4 text-[#C8963E]" />
             AI Daily Briefing
           </CardTitle>
           <div className="flex items-center gap-2">

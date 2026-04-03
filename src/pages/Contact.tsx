@@ -25,8 +25,8 @@ const channels = [
     action: 'Visit support',
     href: '/support',
     external: false,
-    border: 'border-l-4 border-l-violet-500',
-    iconBg: 'bg-violet-100 text-violet-700',
+    border: 'border-l-4 border-l-vesta-navy',
+    iconBg: 'bg-vesta-mist text-vesta-navy',
   },
   {
     icon: FileText,
@@ -74,7 +74,7 @@ export default function Contact() {
                 height={600}
                 loading="eager"
               />
-              <div className="absolute inset-0 bg-violet-950/55" />
+              <div className="absolute inset-0 bg-vesta-navy/60" />
             </div>
             <div className="py-12 sm:py-16 lg:py-20 flex flex-col justify-center text-center lg:text-left px-2">
               <motion.h1
@@ -84,7 +84,7 @@ export default function Contact() {
                 className="font-serif text-4xl sm:text-5xl text-slate-900 font-normal leading-tight"
               >
                 Let&apos;s{' '}
-                <span className="text-violet-700">talk.</span>
+                <span className="text-vesta-gold">talk.</span>
               </motion.h1>
               <motion.p
                 initial={{ opacity: 0, y: 12 }}
@@ -134,7 +134,7 @@ export default function Contact() {
                   c.external ? (
                     <a
                       href={c.href}
-                      className="inline-flex items-center gap-2 text-violet-700 hover:text-violet-900 text-sm font-semibold"
+                      className="inline-flex items-center gap-2 text-vesta-navy hover:text-vesta-gold text-sm font-semibold"
                     >
                       {c.action}
                       <ArrowRight className="w-4 h-4" />
@@ -142,7 +142,7 @@ export default function Contact() {
                   ) : (
                     <Link
                       to={c.href}
-                      className="inline-flex items-center gap-2 text-violet-700 hover:text-violet-900 text-sm font-semibold"
+                      className="inline-flex items-center gap-2 text-vesta-navy hover:text-vesta-gold text-sm font-semibold"
                     >
                       {c.action}
                       <ArrowRight className="w-4 h-4" />
@@ -159,16 +159,16 @@ export default function Contact() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="mt-10 rounded-2xl border-2 border-dashed border-violet-200 bg-violet-50 p-8 text-center"
+            className="mt-10 rounded-2xl border-2 border-dashed border-vesta-navy/20 bg-vesta-mist/40 p-8 text-center"
           >
-            <Calendar className="w-10 h-10 text-violet-600 mx-auto mb-3" />
+            <Calendar className="w-10 h-10 text-vesta-navy mx-auto mb-3" />
             <p className="text-slate-700 text-sm max-w-lg mx-auto font-medium">
               Prefer a live walkthrough?{' '}
               <a
                 href="https://calendar.app.google/PWqhmizMxqUnRNpP9"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-violet-700 hover:text-violet-900 underline underline-offset-4"
+                className="text-vesta-navy hover:text-vesta-gold underline underline-offset-4"
               >
                 Book time on our calendar
               </a>{' '}

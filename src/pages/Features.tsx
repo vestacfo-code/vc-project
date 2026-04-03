@@ -22,12 +22,12 @@ import { TellUsMoreSection } from '@/components/marketing/TellUsMoreSection';
 import { marketingImages } from '@/lib/marketing-images';
 import { morphSpringSoft } from '@/lib/motion';
 
-const accentRings = ['bg-violet-100', 'bg-amber-100', 'bg-cyan-100', 'bg-emerald-100', 'bg-rose-100', 'bg-pink-100'] as const;
+const accentRings = ['bg-vesta-mist/90', 'bg-vesta-gold/20', 'bg-emerald-100', 'bg-slate-100', 'bg-rose-100', 'bg-cyan-100'] as const;
 
 const capabilityGroups = [
   {
-    title: 'Operational clarity',
-    blurb: 'See performance the way owners and GMs actually think about the business.',
+    title: 'AI financial summary & insights',
+    blurb: 'Domain A on our roadmap: plain-English intelligence from your property data — the “brain” of Vesta CFO.',
     items: [
       {
         icon: BarChart3,
@@ -50,8 +50,8 @@ const capabilityGroups = [
     ],
   },
   {
-    title: 'AI that works for hoteliers',
-    blurb: 'Plain-language insight, not another generic chatbot bolted onto a spreadsheet.',
+    title: 'Ask AI & variance explanations',
+    blurb: 'Natural-language Q&A over your metrics, plus automatic “why” when KPIs move — not generic SMB advice.',
     items: [
       {
         icon: Brain,
@@ -74,8 +74,8 @@ const capabilityGroups = [
     ],
   },
   {
-    title: 'Stay ahead of problems',
-    blurb: 'Catch drift before it shows up in the month-end close.',
+    title: 'Real-time monitoring & alerts',
+    blurb: 'Domain C: revenue, labor, F&B, and OTA commission signals — early warning before month-end.',
     items: [
       {
         icon: AlertTriangle,
@@ -98,8 +98,8 @@ const capabilityGroups = [
     ],
   },
   {
-    title: 'Connect & collaborate',
-    blurb: 'Bring data in once; keep finance, ops, and leadership aligned.',
+    title: 'Integrations & team workspace',
+    blurb: 'Domain E + collaboration: PMS-first connectors, CSV/manual paths, and role-aware access for your staff.',
     items: [
       {
         icon: Plug,
@@ -122,8 +122,8 @@ const capabilityGroups = [
     ],
   },
   {
-    title: 'Planning, reporting & vendors',
-    blurb: 'Close the loop from targets to exports — and discover trusted suppliers without leaving the product.',
+    title: 'Cost Cutter, marketplace & planning',
+    blurb: 'Domain B + D: spend visibility, partner recommendations, budget vs actual, reports, and curated vendors (e.g. Lotus Group).',
     items: [
       {
         icon: PieChart,
@@ -148,17 +148,16 @@ const capabilityGroups = [
 ];
 
 const platformChecklist = [
-  'Live KPI dashboard (RevPAR, ADR, occupancy, GOPPAR, channel mix)',
-  'Daily AI briefing and ask-your-numbers chat over property data',
-  'Anomaly feed with attention flags and resolve workflow',
-  'Budget vs actual cards and monthly variance tracking',
-  'RevPAR trend chart and revenue-by-channel visualization',
-  'Team invites, roles, and property-scoped access',
-  'Integrations hub: PMS where supported, CSV uploads, manual entry paths',
-  'Settings: hotel profile, preferences, and account controls',
-  'Public partner catalog plus in-app marketplace with click tracking',
-  'Documentation, support, and onboarding paths from the same shell',
-  'Savings and ops-style recommendations tied to your metrics (where enabled)',
+  'Daily AI briefing & weekly report-style summaries (roadmap by release)',
+  'Ask AI over your property data + variance “why” explanations',
+  'Core metrics: RevPAR, ADR, occupancy, GOPPAR, TRevPAR, labor ratio, F&B margin, channel mix',
+  'Revenue, labor, F&B, and OTA commission monitoring & alerts',
+  'Spend analysis & cost anomaly detection (Cost Cutter domain)',
+  'Partner marketplace recommendations with tracked outbound links',
+  'PMS integrations (Mews, Cloudbeds, Opera, …) plus CSV / manual paths',
+  'Benchmarking, forecasting, and scenario modeling (Growth+ on roadmap)',
+  'Multi-property portfolio view for operators with several assets',
+  'Budget vs actual, reports workspace, team roles & property-scoped access',
 ];
 
 const highlights = [
@@ -187,7 +186,7 @@ export default function Features() {
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={morphSpringSoft}
-                className="text-xs font-mono tracking-widest uppercase text-violet-800 bg-violet-100 border border-violet-200 rounded-full px-3 py-1 inline-block mb-4"
+                className="text-xs font-mono tracking-widest uppercase text-vesta-navy bg-vesta-mist/80 border border-vesta-navy/15 rounded-full px-3 py-1 inline-block mb-4"
               >
                 Product overview
               </motion.p>
@@ -198,7 +197,7 @@ export default function Features() {
                 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-normal text-slate-900 leading-tight"
               >
                 Run hotel finance with{' '}
-                <span className="text-amber-600">confidence.</span>
+                <span className="text-vesta-gold">confidence.</span>
               </motion.h1>
               <motion.p
                 initial={{ opacity: 0, y: 16 }}
@@ -222,13 +221,13 @@ export default function Features() {
                   whileTap={{ scale: 0.98 }}
                   transition={morphSpringSoft}
                   onClick={() => navigate('/auth')}
-                  className="bg-amber-600 hover:bg-amber-700 text-white font-semibold px-8 py-3.5 rounded-xl text-base shadow-md"
+                  className="bg-vesta-gold hover:bg-vesta-gold/90 text-vesta-navy font-semibold px-8 py-3.5 rounded-xl text-base shadow-md"
                 >
                   Start free
                 </motion.button>
                 <Link
                   to="/pricing"
-                  className="inline-flex items-center justify-center border-2 border-slate-200 hover:border-violet-300 text-slate-800 font-medium px-8 py-3.5 rounded-xl text-base bg-white transition-colors"
+                  className="inline-flex items-center justify-center border-2 border-vesta-navy/15 hover:border-vesta-gold/50 text-vesta-navy font-medium px-8 py-3.5 rounded-xl text-base bg-white transition-colors"
                 >
                   View pricing
                 </Link>
@@ -240,7 +239,7 @@ export default function Features() {
               transition={{ ...morphSpringSoft, delay: 0.1 }}
               className="mt-10 lg:mt-0"
             >
-              <div className="rounded-3xl overflow-hidden shadow-2xl border-4 border-white ring-1 ring-violet-100">
+              <div className="rounded-3xl overflow-hidden shadow-2xl border-4 border-white ring-1 ring-vesta-navy/10">
                 <img
                   src={marketingImages.workspace.src}
                   alt={marketingImages.workspace.alt}
@@ -267,7 +266,7 @@ export default function Features() {
                   transition={{ ...morphSpringSoft, delay: i * 0.06 }}
                   className="rounded-2xl border border-slate-200 bg-slate-50 p-5 text-sm text-slate-600 leading-relaxed shadow-sm"
                 >
-                  <span className="text-violet-600 font-mono text-xs tracking-wider uppercase block mb-2">0{i + 1}</span>
+                  <span className="text-vesta-navy font-mono text-xs tracking-wider uppercase block mb-2">0{i + 1}</span>
                   {text}
                 </motion.li>
               ))}
@@ -325,8 +324,8 @@ export default function Features() {
                       whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                       viewport={{ once: true, margin: '-30px' }}
                       transition={{ ...morphSpringSoft, delay: ii * 0.06 }}
-                      whileHover={{ y: -4, boxShadow: '0 16px 40px -12px rgba(124, 58, 237, 0.15)' }}
-                      className="rounded-2xl border border-slate-200 bg-white p-7 flex flex-col gap-4 shadow-sm hover:border-violet-200"
+                      whileHover={{ y: -4, boxShadow: '0 16px 40px -12px rgba(27, 58, 92, 0.12)' }}
+                      className="rounded-2xl border border-slate-200 bg-white p-7 flex flex-col gap-4 shadow-sm hover:border-vesta-gold/35"
                     >
                       <div className={`w-12 h-12 rounded-xl ${ring} flex items-center justify-center`}>
                         <item.icon className="w-6 h-6 text-slate-800" strokeWidth={1.5} />
@@ -357,7 +356,7 @@ export default function Features() {
                 Send us a short note about your property type, room count, and PMS. We&apos;ll point you to the fastest path in
                 docs — or schedule a walkthrough if you prefer a live tour.
               </p>
-              <Link to="/contact" className="text-violet-700 font-semibold hover:underline">
+              <Link to="/contact" className="text-vesta-navy font-semibold hover:underline">
                 Go to contact →
               </Link>
             </div>
@@ -366,17 +365,17 @@ export default function Features() {
 
         <TellUsMoreSection className="bg-white border-t border-slate-100" />
 
-        <section className="relative py-16 px-6 bg-violet-900">
+        <section className="relative py-16 px-6 bg-vesta-navy">
           <motion.div
             initial={{ opacity: 0, scale: 0.96, y: 20 }}
             whileInView={{ opacity: 1, scale: 1, y: 0 }}
             viewport={{ once: true }}
             transition={morphSpringSoft}
-            className="max-w-4xl mx-auto rounded-3xl p-10 sm:p-14 text-center bg-violet-800 border border-violet-700 text-white"
+            className="max-w-4xl mx-auto rounded-3xl p-10 sm:p-14 text-center bg-vesta-navy-muted/30 border border-white/15 text-white"
           >
             <h2 className="font-serif text-3xl sm:text-4xl font-normal mb-4">See it on your own data</h2>
             <p className="text-white/90 max-w-xl mx-auto mb-8">
-              Connect a source or upload a sample — most teams are viewing live KPIs within a single session.
+              Connect a PMS where supported, or start from CSV — the roadmap targets live KPIs in your first session.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <motion.button
@@ -385,7 +384,7 @@ export default function Features() {
                 whileTap={{ scale: 0.98 }}
                 transition={morphSpringSoft}
                 onClick={() => navigate('/auth')}
-                className="bg-white hover:bg-slate-50 text-violet-700 font-semibold px-8 py-3.5 rounded-xl shadow-lg"
+                className="bg-vesta-gold hover:bg-vesta-gold/90 text-vesta-navy font-semibold px-8 py-3.5 rounded-xl shadow-lg"
               >
                 Create account
               </motion.button>

@@ -152,7 +152,7 @@ const RevenueByChannelChart: React.FC<RevenueByChannelChartProps> = ({ hotelId }
   const isEmpty = !isLoading && chartData.length === 0;
 
   return (
-    <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-5">
+    <div className="bg-slate-900/50 border border-slate-700/80 backdrop-blur-sm rounded-xl p-5 shadow-lg shadow-black/15">
       {/* Header */}
       <div className="flex items-center gap-2 mb-4">
         <BarChart2 className="h-4 w-4 text-amber-400 shrink-0" />
