@@ -1,18 +1,18 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { TrendingUp, TrendingDown } from 'lucide-react';
-import { morphSpringSoft } from '@/lib/motion';
-import { Card, CardContent } from '@/components/ui/card';
+import { TrendingUp, TrendingDown, Minus } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
+import { AreaChart, Area, ResponsiveContainer } from 'recharts';
 
 interface MetricCardProps {
   label: string;
-  value: string | number;
+  value: string | number | null;
   change?: number;
   prefix?: string;
   suffix?: string;
   icon?: React.ReactNode;
   loading?: boolean;
+  sparklineData?: number[];
+  accentColor?: string;
 }
 
 const MetricCard: React.FC<MetricCardProps> = ({
@@ -23,54 +23,106 @@ const MetricCard: React.FC<MetricCardProps> = ({
   suffix = '',
   icon,
   loading = false,
+  sparklineData,
+  accentColor = '#1B3A5C',
 }) => {
   if (loading) {
     return (
-      <Card className="bg-gray-800/50 border border-gray-700">
-        <CardContent className="p-5">
-          <Skeleton className="h-4 w-24 mb-3 bg-gray-700" />
-          <Skeleton className="h-8 w-32 mb-2 bg-gray-700" />
-          <Skeleton className="h-4 w-16 bg-gray-700" />
-        </CardContent>
-      </Card>
+      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+        <Skeleton className="h-4 w-20 mb-4" />
+        <Skeleton className="h-8 w-28 mb-3" />
+        <Skeleton className="h-4 w-16" />
+      </div>
     );
   }
 
-  const isPositive = change !== undefined && change >= 0;
+  const displayValue =
+    value === null || value === undefined
+      ? '—'
+      : typeof value === 'number'
+      ? value.toLocaleString(undefined, { maximumFractionDigits: 2 })
+      : value;
+
+  const isPositive = change !== undefined && change > 0;
   const isNegative = change !== undefined && change < 0;
+  const isNeutral = change !== undefined && change === 0;
+
+  const sparkPoints = sparklineData?.map((v) => ({ v })) ?? [];
 
   return (
-    <motion.div
-      whileHover={{ y: -3, scale: 1.015 }}
-      transition={morphSpringSoft}
-      className="h-full"
-    >
-    <Card className="bg-gray-800/50 border border-gray-700 h-full transition-shadow duration-300 hover:shadow-[0_12px_40px_-12px_rgba(245,158,11,0.15)] hover:border-amber-500/20">
-      <CardContent className="p-5">
-        <div className="flex items-start justify-between mb-2">
-          <p className="text-sm text-gray-400 font-medium">{label}</p>
-          {icon && (
-            <span className="text-gray-500">{icon}</span>
-          )}
-        </div>
-        <p className="text-2xl font-bold text-white tracking-tight">
-          {prefix}{typeof value === 'number' ? value.toLocaleString(undefined, { maximumFractionDigits: 2 }) : value}{suffix}
+    <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex flex-col gap-3 hover:shadow-md transition-shadow duration-200">
+      {/* Top row: label + icon */}
+      <div className="flex items-center justify-between">
+        <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">{label}</p>
+        {icon && (
+          <span
+            className="w-8 h-8 rounded-lg flex items-center justify-center"
+            style={{ backgroundColor: `${accentColor}15`, color: accentColor }}
+          >
+            {icon}
+          </span>
+        )}
+      </div>
+
+      {/* Value */}
+      <div>
+        <p className="text-3xl font-bold tracking-tight" style={{ color: '#1B3A5C' }}>
+          {prefix}{displayValue}{suffix}
         </p>
-        {change !== undefined && (
-          <div className={`flex items-center gap-1 mt-2 text-sm font-medium ${isPositive ? 'text-emerald-400' : 'text-red-400'}`}>
+      </div>
+
+      {/* Bottom row: change badge + sparkline */}
+      <div className="flex items-end justify-between gap-2 mt-auto">
+        {change !== undefined ? (
+          <div
+            className={`flex items-center gap-1 text-xs font-semibold px-2 py-1 rounded-full ${
+              isPositive
+                ? 'bg-emerald-50 text-emerald-600'
+                : isNegative
+                ? 'bg-red-50 text-red-500'
+                : 'bg-gray-100 text-gray-500'
+            }`}
+          >
             {isPositive ? (
-              <TrendingUp className="h-3.5 w-3.5" />
+              <TrendingUp className="h-3 w-3" />
+            ) : isNegative ? (
+              <TrendingDown className="h-3 w-3" />
             ) : (
-              <TrendingDown className="h-3.5 w-3.5" />
+              <Minus className="h-3 w-3" />
             )}
-            <span>
-              {isPositive ? '+' : ''}{change.toFixed(1)}% vs yesterday
-            </span>
+            {isPositive ? '+' : ''}{change.toFixed(1)}%
+            <span className="font-normal text-[10px] ml-0.5">vs yesterday</span>
+          </div>
+        ) : (
+          <span />
+        )}
+
+        {/* Sparkline */}
+        {sparkPoints.length > 1 && (
+          <div className="w-20 h-9 shrink-0">
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={sparkPoints} margin={{ top: 2, right: 0, left: 0, bottom: 0 }}>
+                <defs>
+                  <linearGradient id={`spark-${label}`} x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor={accentColor} stopOpacity={0.3} />
+                    <stop offset="95%" stopColor={accentColor} stopOpacity={0} />
+                  </linearGradient>
+                </defs>
+                <Area
+                  type="monotone"
+                  dataKey="v"
+                  stroke={accentColor}
+                  strokeWidth={1.5}
+                  fill={`url(#spark-${label})`}
+                  dot={false}
+                  isAnimationActive={false}
+                />
+              </AreaChart>
+            </ResponsiveContainer>
           </div>
         )}
-      </CardContent>
-    </Card>
-    </motion.div>
+      </div>
+    </div>
   );
 };
 
