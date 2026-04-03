@@ -42,24 +42,17 @@ const MetricCard: React.FC<MetricCardProps> = ({
   }
 
   const displayValue =
-    value === null || value === undefined
+    value === null || value === undefined || value === ''
       ? '—'
       : typeof value === 'number'
-      ? value.toLocaleString(undefined, { maximumFractionDigits: 2 })
-      : value;
+        ? value.toLocaleString(undefined, { maximumFractionDigits: 2 })
+        : value;
 
   const isPositive = change !== undefined && change > 0;
   const isNegative = change !== undefined && change < 0;
   const isNeutral = change !== undefined && change === 0;
 
   const sparkPoints = sparklineData?.map((v) => ({ v })) ?? [];
-
-  const displayValue =
-    value === null || value === undefined || value === ''
-      ? '—'
-      : typeof value === 'number'
-        ? value.toLocaleString(undefined, { maximumFractionDigits: 2 })
-        : value;
 
   return (
     <motion.div
