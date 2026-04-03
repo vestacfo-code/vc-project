@@ -20,13 +20,14 @@ export interface ModelOption {
   hideCredits?: boolean;
 }
 
+/** IDs are sent to `streaming-chat`; server maps them to OpenAI models (see ALLOWED_MODELS). */
 export const MODEL_OPTIONS: ModelOption[] = [
   {
     id: 'auto',
-    displayName: 'Best',
+    displayName: 'Auto',
     modelId: 'gpt-4o-mini',
     credits: 0,
-    description: 'Picks the best model for you',
+    description: 'GPT-4o mini, or GPT-4o + web when the question looks time-sensitive',
     icon: <Zap className="w-4 h-4" />,
     hideCredits: true,
   },
@@ -35,15 +36,15 @@ export const MODEL_OPTIONS: ModelOption[] = [
     displayName: 'GPT-4o',
     modelId: 'gpt-4o',
     credits: 1,
-    description: 'Stronger reasoning',
+    description: 'Strong general model (no forced web search)',
     icon: <ModelIcon src={iconOpenai} alt="GPT-4o" />,
   },
   {
     id: 'gpt-4o-search',
-    displayName: 'GPT-4o Search',
-    modelId: 'gpt-4o-search-preview',
+    displayName: 'GPT-4o + web',
+    modelId: 'gpt-4o',
     credits: 2,
-    description: 'Real-time internet research',
+    description: 'Same model with live web search and link citations',
     icon: <ModelIcon src={iconWebSearch} alt="Search" />,
   },
   {
@@ -51,16 +52,16 @@ export const MODEL_OPTIONS: ModelOption[] = [
     displayName: 'o3-mini',
     modelId: 'o3-mini',
     credits: 3,
-    description: 'Advanced reasoning',
+    description: 'Reasoning-focused (OpenAI chat completions)',
     icon: <ModelIcon src={iconOpenai} alt="o3-mini" />,
   },
   {
     id: 'deep-research',
-    displayName: 'Deep Research',
+    displayName: 'Deep research',
     modelId: 'o3-deep-research',
     credits: 5,
-    description: 'Multi-step web research with citations',
-    badge: 'New',
+    description: 'Background web research (o3-deep-research + search tool)',
+    badge: 'Slow',
     icon: <ModelIcon src={iconWebSearch} alt="Deep Research" />,
   },
   {
@@ -68,8 +69,8 @@ export const MODEL_OPTIONS: ModelOption[] = [
     displayName: 'GPT-5',
     modelId: 'gpt-5',
     credits: 5,
-    description: 'Most capable model',
-    badge: 'Max',
+    description: 'Flagship model if your OpenAI key has access (errors otherwise)',
+    badge: 'API',
     icon: <Sparkles className="w-4 h-4" />,
   },
 ];
@@ -88,8 +89,7 @@ export const ModelSelector = ({ selectedModel, onModelChange, disabled }: ModelS
   const [open, setOpen] = useState(false);
   const selected = getModelById(selectedModel);
 
-  // Show model name when not "Best", otherwise show "Model"
-  const triggerLabel = selected.id === 'auto' ? 'Model' : selected.displayName;
+  const triggerLabel = selected.id === 'auto' ? 'Auto' : selected.displayName;
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -97,20 +97,20 @@ export const ModelSelector = ({ selectedModel, onModelChange, disabled }: ModelS
         <button
           disabled={disabled}
           className={cn(
-            "flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all duration-200",
-            "text-zinc-400 hover:text-zinc-200 hover:bg-white/10",
-            disabled && "opacity-50 cursor-not-allowed"
+            'flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all duration-200',
+            'text-slate-400 hover:text-slate-100 hover:bg-white/10',
+            disabled && 'opacity-50 cursor-not-allowed'
           )}
         >
-          <span className="text-zinc-400">{triggerLabel}</span>
-          <ChevronDown className="w-3 h-3 text-zinc-500" />
+          <span className="text-slate-400">{triggerLabel}</span>
+          <ChevronDown className="w-3 h-3 text-slate-500" />
         </button>
       </PopoverTrigger>
       <PopoverContent
         side="top"
         align="end"
         sideOffset={8}
-        className="w-64 p-0 bg-[#1a1a1a] border border-[#2a2a2a] rounded-xl shadow-2xl overflow-hidden"
+        className="w-64 p-0 bg-slate-900 border border-slate-700 rounded-xl shadow-2xl overflow-hidden"
       >
         {/* Model list — no header */}
         <div className="py-1">
@@ -135,7 +135,7 @@ export const ModelSelector = ({ selectedModel, onModelChange, disabled }: ModelS
                   {isSelected ? (
                     <Check className="w-3.5 h-3.5 text-green-400" />
                   ) : (
-                    <span className="text-zinc-600">{model.icon}</span>
+                    <span className="text-slate-600">{model.icon}</span>
                   )}
                 </div>
 
@@ -144,30 +144,34 @@ export const ModelSelector = ({ selectedModel, onModelChange, disabled }: ModelS
                   <div className="flex items-center gap-1.5">
                     <span className={cn(
                       "text-[13px] font-medium",
-                      isSelected ? "text-white" : "text-zinc-300"
+                      isSelected ? 'text-white' : 'text-slate-300'
                     )}>
                       {model.displayName}
                     </span>
                     {model.badge && (
-                      <span className={cn(
-                        "px-1.5 py-0.5 text-[10px] font-bold uppercase rounded",
-                        model.badge === 'New'
-                          ? "bg-green-500/20 text-green-400"
-                          : "bg-purple-500/20 text-purple-400"
-                      )}>
+                      <span
+                        className={cn(
+                          'px-1.5 py-0.5 text-[10px] font-bold uppercase rounded',
+                          model.badge === 'Slow'
+                            ? 'bg-amber-500/20 text-amber-400'
+                            : model.badge === 'API'
+                              ? 'bg-slate-600/50 text-slate-300'
+                              : 'bg-violet-500/20 text-violet-300'
+                        )}
+                      >
                         {model.badge}
                       </span>
                     )}
                   </div>
-                  <p className="text-[11px] text-zinc-500 truncate">
+                  <p className="text-[11px] text-slate-500 truncate">
                     {model.description}
                   </p>
                 </div>
 
-                {/* Credit cost — hidden for Best */}
+                {/* Credit cost — hidden for Auto */}
                 {!model.hideCredits && (
                   <div className="flex-shrink-0">
-                    <span className="text-[11px] font-medium text-zinc-500">
+                    <span className="text-[11px] font-medium text-slate-500">
                       {model.credits} cr
                     </span>
                   </div>

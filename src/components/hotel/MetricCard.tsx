@@ -1,6 +1,9 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { TrendingUp, TrendingDown, Minus } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
+import { morphSpringSoft } from '@/lib/motion';
 import { AreaChart, Area, ResponsiveContainer } from 'recharts';
 
 interface MetricCardProps {
@@ -28,11 +31,13 @@ const MetricCard: React.FC<MetricCardProps> = ({
 }) => {
   if (loading) {
     return (
-      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
-        <Skeleton className="h-4 w-20 mb-4" />
-        <Skeleton className="h-8 w-28 mb-3" />
-        <Skeleton className="h-4 w-16" />
-      </div>
+      <Card className="bg-slate-800/50 border border-slate-700">
+        <CardContent className="p-5">
+          <Skeleton className="h-4 w-24 mb-3 bg-slate-700" />
+          <Skeleton className="h-8 w-32 mb-2 bg-slate-700" />
+          <Skeleton className="h-4 w-16 bg-slate-700" />
+        </CardContent>
+      </Card>
     );
   }
 
@@ -50,26 +55,22 @@ const MetricCard: React.FC<MetricCardProps> = ({
   const sparkPoints = sparklineData?.map((v) => ({ v })) ?? [];
 
   return (
-    <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex flex-col gap-3 hover:shadow-md transition-shadow duration-200">
-      {/* Top row: label + icon */}
-      <div className="flex items-center justify-between">
-        <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">{label}</p>
-        {icon && (
-          <span
-            className="w-8 h-8 rounded-lg flex items-center justify-center"
-            style={{ backgroundColor: `${accentColor}15`, color: accentColor }}
-          >
-            {icon}
-          </span>
-        )}
-      </div>
-
-      {/* Value */}
-      <div>
-        <p className="text-3xl font-bold tracking-tight" style={{ color: '#1B3A5C' }}>
-          {prefix}{displayValue}{suffix}
+    <motion.div
+      whileHover={{ y: -3, scale: 1.015 }}
+      transition={morphSpringSoft}
+      className="h-full"
+    >
+    <Card className="bg-slate-800/50 border border-slate-700 h-full transition-shadow duration-300 hover:shadow-[0_12px_40px_-12px_rgba(245,158,11,0.15)] hover:border-amber-500/20">
+      <CardContent className="p-5">
+        <div className="flex items-start justify-between mb-2">
+          <p className="text-sm text-slate-400 font-medium">{label}</p>
+          {icon && (
+            <span className="text-slate-500">{icon}</span>
+          )}
+        </div>
+        <p className="text-2xl font-bold text-white tracking-tight">
+          {prefix}{typeof value === 'number' ? value.toLocaleString(undefined, { maximumFractionDigits: 2 }) : value}{suffix}
         </p>
-      </div>
 
       {/* Bottom row: change badge + sparkline */}
       <div className="flex items-end justify-between gap-2 mt-auto">
@@ -122,7 +123,9 @@ const MetricCard: React.FC<MetricCardProps> = ({
           </div>
         )}
       </div>
-    </div>
+      </CardContent>
+    </Card>
+    </motion.div>
   );
 };
 

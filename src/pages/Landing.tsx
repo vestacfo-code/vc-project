@@ -9,9 +9,9 @@ const CHAPTERS = [
   {
     range: [0, 0.13] as [number, number],
     eyebrow: null,
-    headline: "Your hotel's AI CFO.",
+    headline: 'Vesta CFO',
     align: 'center' as const,
-    sub: 'Real-time financial intelligence built for hoteliers.',
+    sub: 'The AI CFO that gives every hotel owner enterprise-level financial insight — without hiring one at $200k+/yr.',
   },
   {
     range: [0.17, 0.32] as [number, number],
@@ -23,9 +23,9 @@ const CHAPTERS = [
   {
     range: [0.35, 0.5] as [number, number],
     eyebrow: 'The Solution',
-    headline: 'Meet Vesta.',
+    headline: 'One connected picture.',
     align: 'left' as const,
-    sub: 'The AI CFO that gives every hotel owner enterprise-level financial insight — without hiring a CFO at $200k+/yr.',
+    sub: 'PMS, OTAs, payroll, and F&B in a single dashboard — so you are not reconciling ten exports to learn how the month went.',
   },
   {
     range: [0.53, 0.68] as [number, number],
@@ -39,7 +39,7 @@ const CHAPTERS = [
     eyebrow: 'Anomaly Detection',
     headline: "You're leaving $18/room on the table.",
     align: 'right' as const,
-    sub: 'Real-time comparison vs local comps. Vesta flags revenue leakage before it compounds.',
+    sub: 'Real-time comparison vs local comps. Vesta CFO flags revenue leakage before it compounds.',
   },
   {
     range: [0.89, 1.0] as [number, number],
@@ -65,8 +65,8 @@ const METRICS = [
 
 const FEATURES = [
   {
-    title: 'Connect Everything',
-    desc: 'Integrates with Opera, Mews, Cloudbeds. Pulls OTA data, payroll, and F&B POS into one dashboard.',
+    title: 'Connect everything',
+    desc: 'Integrates with Opera, Mews, Cloudbeds, and Oracle Hospitality where available. Pulls OTA, payroll, and F&B POS into one dashboard.',
   },
   {
     title: 'Hotel-Specific AI',
@@ -81,12 +81,20 @@ const FEATURES = [
     desc: "Real-time comparison vs local comps. Know exactly where you're leaving money on the table.",
   },
   {
+    title: 'AI recommendations',
+    desc: 'Actionable suggestions from your own data — staffing when occupancy dips, F&B attach, OTA mix, and cost lines that drift from benchmark.',
+  },
+  {
     title: 'Budget vs Actual',
     desc: 'Set monthly targets for RevPAR, occupancy, and GOP. Track variance in real time.',
   },
   {
     title: 'Team Access',
     desc: 'Role-based access for GMs, revenue managers, and owners. Everyone sees what they need.',
+  },
+  {
+    title: 'Partner marketplace',
+    desc: 'Curated vendors such as The Lotus Group for sustainable F&B packaging — on the site and in-app with tracked outbound links.',
   },
 ];
 
@@ -118,6 +126,10 @@ export default function Landing() {
       window.removeEventListener('scroll', onScroll);
       if (rafRef.current !== undefined) cancelAnimationFrame(rafRef.current);
     };
+  }, []);
+
+  useEffect(() => {
+    document.title = 'Vesta CFO — AI financial intelligence for hotels';
   }, []);
 
   const activeChapter = CHAPTERS.find(c => progress >= c.range[0] && progress <= c.range[1]) ?? null;
@@ -290,7 +302,7 @@ export default function Landing() {
 
         <div className="mt-24 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-white/20 text-xs">
           <VestaLogo size="sm" />
-          <span>© 2026 Vesta. All rights reserved.</span>
+          <span>© 2026 Vesta · Vesta CFO</span>
           <div className="flex gap-6">
             <Link to="/privacy" className="hover:text-white/50 transition-colors">
               Privacy

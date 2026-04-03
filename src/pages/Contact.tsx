@@ -52,7 +52,7 @@ const channels = [
 
 export default function Contact() {
   useEffect(() => {
-    document.title = 'Contact · Vesta';
+    document.title = 'Contact · Vesta CFO';
   }, []);
 
   return (

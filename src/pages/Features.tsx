@@ -13,6 +13,9 @@ import {
   LineChart,
   Bell,
   Sparkles,
+  Handshake,
+  PieChart,
+  ClipboardList,
 } from 'lucide-react';
 import { MarketingPageShell } from '@/components/marketing/MarketingPageShell';
 import { TellUsMoreSection } from '@/components/marketing/TellUsMoreSection';
@@ -118,10 +121,48 @@ const capabilityGroups = [
       },
     ],
   },
+  {
+    title: 'Planning, reporting & vendors',
+    blurb: 'Close the loop from targets to exports — and discover trusted suppliers without leaving the product.',
+    items: [
+      {
+        icon: PieChart,
+        title: 'Budget vs actual',
+        description:
+          'Set monthly targets for RevPAR, occupancy, and GOP. Track variance in real time against what you planned.',
+      },
+      {
+        icon: ClipboardList,
+        title: 'Reports workspace',
+        description:
+          'A dedicated reports area for export-ready summaries — ideal for stand-ups, lenders, and owner updates.',
+      },
+      {
+        icon: Handshake,
+        title: 'Partner marketplace',
+        description:
+          'Curated vendors with product lines and outbound links. Launch partner: The Lotus Group for sustainable F&B packaging — live on the marketing site and inside the hotel app with lead attribution.',
+      },
+    ],
+  },
+];
+
+const platformChecklist = [
+  'Live KPI dashboard (RevPAR, ADR, occupancy, GOPPAR, channel mix)',
+  'Daily AI briefing and ask-your-numbers chat over property data',
+  'Anomaly feed with attention flags and resolve workflow',
+  'Budget vs actual cards and monthly variance tracking',
+  'RevPAR trend chart and revenue-by-channel visualization',
+  'Team invites, roles, and property-scoped access',
+  'Integrations hub: PMS where supported, CSV uploads, manual entry paths',
+  'Settings: hotel profile, preferences, and account controls',
+  'Public partner catalog plus in-app marketplace with click tracking',
+  'Documentation, support, and onboarding paths from the same shell',
+  'Savings and ops-style recommendations tied to your metrics (where enabled)',
 ];
 
 const highlights = [
-  'Built for independent hotels and small chains — not generic SMB accounting templates.',
+  'Vesta CFO is built for independent hotels and small chains — not generic SMB accounting templates.',
   'Hotel-native metrics out of the box: RevPAR, ADR, GOPPAR, channel mix, and more.',
   'Designed for daily use: fast loads, mobile-friendly summaries, and alerts that respect your time.',
   'Optional multi-property rollups as you grow — same product, broader portfolio view.',
@@ -131,7 +172,7 @@ export default function Features() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    document.title = 'Features · Vesta';
+    document.title = 'Features · Vesta CFO';
   }, []);
 
   return (
@@ -229,6 +270,26 @@ export default function Features() {
                   <span className="text-violet-600 font-mono text-xs tracking-wider uppercase block mb-2">0{i + 1}</span>
                   {text}
                 </motion.li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        <section className="relative py-14 sm:py-16 border-t border-slate-100 bg-white">
+          <div className="max-w-6xl mx-auto px-6">
+            <h2 className="font-serif text-2xl sm:text-3xl text-slate-900 text-center mb-4">Everything in one workspace</h2>
+            <p className="text-center text-slate-600 text-sm max-w-2xl mx-auto mb-10">
+              If it ships in the hotel app or on the marketing site today, it is represented below — including the partner
+              marketplace and admin tooling for your team.
+            </p>
+            <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-3 text-sm text-slate-700">
+              {platformChecklist.map((line) => (
+                <li key={line} className="flex gap-2 items-start">
+                  <span className="text-amber-600 font-bold mt-0.5" aria-hidden>
+                    ✓
+                  </span>
+                  <span>{line}</span>
+                </li>
               ))}
             </ul>
           </div>

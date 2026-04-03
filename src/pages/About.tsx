@@ -9,7 +9,7 @@ import teamCollaboration from '@/assets/team-collaboration.jpg';
 
 const About = () => {
   useEffect(() => {
-    document.title = 'Leadership - Vesta | Meet Our Executive Team';
+    document.title = 'Leadership · Vesta CFO';
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       metaDescription.setAttribute('content', 'Meet the leadership team at Vesta. Our executive leadership and team members are dedicated to helping SMBs grow with AI-powered financial insights.');

@@ -68,7 +68,7 @@ interface KpiRowProps {
 function KpiRow({ label, actual, target, variance }: KpiRowProps) {
   const hasVariance = variance !== null
 
-  let badgeClass = 'bg-gray-700/60 text-gray-400 border-gray-600'
+  let badgeClass = 'bg-slate-700/60 text-slate-400 border-slate-600'
   let VarianceIcon = Minus
   let varianceText = '—'
 
@@ -85,13 +85,13 @@ function KpiRow({ label, actual, target, variance }: KpiRowProps) {
   }
 
   return (
-    <div className="flex items-center justify-between py-2.5 border-b border-gray-700/50 last:border-0">
+    <div className="flex items-center justify-between py-2.5 border-b border-slate-700/50 last:border-0">
       <div className="flex-1 min-w-0">
-        <p className="text-xs font-medium text-gray-400">{label}</p>
+        <p className="text-xs font-medium text-slate-400">{label}</p>
         <div className="flex items-baseline gap-1.5 mt-0.5">
           <span className="text-sm font-semibold text-white">{actual}</span>
           {target !== '—' && (
-            <span className="text-xs text-gray-500">/ {target}</span>
+            <span className="text-xs text-slate-500">/ {target}</span>
           )}
         </div>
       </div>
@@ -174,7 +174,7 @@ export default function BudgetVarianceCard({ hotelId }: BudgetVarianceCardProps)
   ]
 
   return (
-    <Card className="bg-gray-800/50 border border-gray-700 h-full">
+    <Card className="bg-slate-800/50 border border-slate-700 h-full">
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
           <CardTitle className="text-base font-semibold text-white flex items-center gap-2">
@@ -189,7 +189,7 @@ export default function BudgetVarianceCard({ hotelId }: BudgetVarianceCardProps)
             <ArrowRight className="h-3 w-3" />
           </Link>
         </div>
-        <p className="text-xs text-gray-500">{format(now, 'MMMM yyyy')} — month to date</p>
+        <p className="text-xs text-slate-500">{format(now, 'MMMM yyyy')} — month to date</p>
       </CardHeader>
       <CardContent className="px-4 pb-4">
         {isLoading ? (
@@ -197,18 +197,18 @@ export default function BudgetVarianceCard({ hotelId }: BudgetVarianceCardProps)
             {[1, 2, 3].map((i) => (
               <div key={i} className="flex items-center justify-between py-2.5">
                 <div className="space-y-1.5">
-                  <Skeleton className="h-3 w-16 bg-gray-700" />
-                  <Skeleton className="h-4 w-20 bg-gray-700" />
+                  <Skeleton className="h-3 w-16 bg-slate-700" />
+                  <Skeleton className="h-4 w-20 bg-slate-700" />
                 </div>
-                <Skeleton className="h-5 w-16 bg-gray-700 rounded-full" />
+                <Skeleton className="h-5 w-16 bg-slate-700 rounded-full" />
               </div>
             ))}
           </div>
         ) : !hasBudget ? (
           <div className="flex flex-col items-center justify-center py-6 text-center">
-            <Target className="h-7 w-7 text-gray-600 mb-2" />
-            <p className="text-sm text-gray-400 font-medium">No budget targets set</p>
-            <p className="text-xs text-gray-500 mt-1 mb-3">
+            <Target className="h-7 w-7 text-slate-600 mb-2" />
+            <p className="text-sm text-slate-400 font-medium">No budget targets set</p>
+            <p className="text-xs text-slate-500 mt-1 mb-3">
               Set monthly targets to track performance
             </p>
             <Link

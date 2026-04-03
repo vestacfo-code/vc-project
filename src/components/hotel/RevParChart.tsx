@@ -35,12 +35,12 @@ interface ChartDataPoint {
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-gray-800 border border-gray-700 rounded-lg p-3 shadow-xl">
-        <p className="text-gray-400 text-xs mb-2">{label}</p>
+      <div className="bg-slate-800 border border-slate-700 rounded-lg p-3 shadow-xl">
+        <p className="text-slate-400 text-xs mb-2">{label}</p>
         {payload.map((entry: any) => (
           <div key={entry.dataKey} className="flex items-center gap-2 text-sm">
             <span className="inline-block w-2.5 h-2.5 rounded-full" style={{ backgroundColor: entry.color }} />
-            <span className="text-gray-300">{entry.name}:</span>
+            <span className="text-slate-300">{entry.name}:</span>
             <span className="text-white font-semibold">
               {entry.dataKey === 'revpar'
                 ? `$${Number(entry.value).toFixed(2)}`
@@ -83,7 +83,7 @@ const RevParChart: React.FC<RevParChartProps> = ({ hotelId }) => {
   }));
 
   return (
-    <Card className="bg-gray-800/50 border border-gray-700">
+    <Card className="bg-slate-800/50 border border-slate-700">
       <CardHeader className="pb-2">
         <CardTitle className="text-base font-semibold text-white">
           30-Day RevPAR &amp; Occupancy Trend
@@ -92,10 +92,10 @@ const RevParChart: React.FC<RevParChartProps> = ({ hotelId }) => {
       <CardContent>
         {isLoading ? (
           <div className="space-y-3">
-            <Skeleton className="h-64 w-full bg-gray-700 rounded-lg" />
+            <Skeleton className="h-64 w-full bg-slate-700 rounded-lg" />
           </div>
         ) : chartData.length === 0 ? (
-          <div className="flex items-center justify-center h-64 text-gray-500">
+          <div className="flex items-center justify-center h-64 text-slate-500">
             <p className="text-sm">No data available for the last 30 days</p>
           </div>
         ) : (

@@ -54,7 +54,7 @@ export default function Company() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    document.title = 'Company · Vesta';
+    document.title = 'Company · Vesta CFO';
   }, []);
 
   return (

@@ -21,6 +21,8 @@ import Pricing from "./pages/Pricing";
 import Features from "./pages/Features";
 import Company from "./pages/Company";
 import Contact from "./pages/Contact";
+import Partners from "./pages/Partners";
+import HotelPartnerMarketplace from "./pages/HotelPartnerMarketplace";
 import About from "./pages/About";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
@@ -33,6 +35,7 @@ import ConsumerJoin from "./pages/ConsumerJoin";
 import JobRole from "./pages/JobRole";
 import AICfoCall from "./pages/AICfoCall";
 import ChatHub from "./pages/ChatHub";
+import HotelChatPage from "./pages/HotelChatPage";
 import Privacy from "./pages/Privacy";
 import Support from "./pages/Support";
 import Security from "./pages/Security";
@@ -103,6 +106,7 @@ const AppContent = () => {
         <Route path="/features" element={<Features />} />
         <Route path="/company" element={<Company />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/partners" element={<Partners />} />
         <Route path="/about" element={<About />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:slug" element={<BlogPost />} />
@@ -152,6 +156,11 @@ const AppContent = () => {
             <HotelLayout><SettingsPage /></HotelLayout>
           </ProtectedRoute>
         } />
+        <Route path="/marketplace" element={
+          <ProtectedRoute>
+            <HotelLayout><HotelPartnerMarketplace /></HotelLayout>
+          </ProtectedRoute>
+        } />
         <Route path="/app" element={
           <ProtectedRoute>
             <ChatHub />
@@ -177,7 +186,7 @@ const AppContent = () => {
         } />
         <Route path="/chat" element={
           <ProtectedRoute>
-            <ChatHub />
+            <HotelLayout><HotelChatPage /></HotelLayout>
           </ProtectedRoute>
         } />
         <Route path="/quickbooks" element={

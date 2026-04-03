@@ -76,8 +76,8 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({ active, payload, label })
   if (!active || !payload || payload.length === 0) return null;
 
   return (
-    <div className="bg-gray-800 border border-gray-700 rounded-lg p-3 shadow-xl min-w-[160px]">
-      <p className="text-gray-400 text-xs mb-2 font-medium">{label}</p>
+    <div className="bg-slate-800 border border-slate-700 rounded-lg p-3 shadow-xl min-w-[160px]">
+      <p className="text-slate-400 text-xs mb-2 font-medium">{label}</p>
       {payload.map((entry) => (
         <div key={entry.dataKey} className="flex items-center justify-between gap-4 text-sm mb-1 last:mb-0">
           <div className="flex items-center gap-1.5">
@@ -85,7 +85,7 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({ active, payload, label })
               className="inline-block w-2.5 h-2.5 rounded-sm shrink-0"
               style={{ backgroundColor: entry.color }}
             />
-            <span className="text-gray-300">{entry.name}</span>
+            <span className="text-slate-300">{entry.name}</span>
           </div>
           <span className="text-white font-semibold">{formatCurrency(entry.value)}</span>
         </div>
@@ -152,7 +152,7 @@ const RevenueByChannelChart: React.FC<RevenueByChannelChartProps> = ({ hotelId }
   const isEmpty = !isLoading && chartData.length === 0;
 
   return (
-    <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-5">
+    <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-5">
       {/* Header */}
       <div className="flex items-center gap-2 mb-4">
         <BarChart2 className="h-4 w-4 text-amber-400 shrink-0" />
@@ -161,13 +161,13 @@ const RevenueByChannelChart: React.FC<RevenueByChannelChartProps> = ({ hotelId }
 
       {/* Loading skeleton */}
       {isLoading && (
-        <div className="h-64 animate-pulse bg-gray-700/50 rounded-lg" />
+        <div className="h-64 animate-pulse bg-slate-700/50 rounded-lg" />
       )}
 
       {/* Empty state */}
       {isEmpty && (
-        <div className="flex flex-col items-center justify-center h-64 gap-3 text-gray-500">
-          <BarChart2 className="h-8 w-8 text-gray-600" />
+        <div className="flex flex-col items-center justify-center h-64 gap-3 text-slate-500">
+          <BarChart2 className="h-8 w-8 text-slate-600" />
           <p className="text-sm">No channel data yet</p>
         </div>
       )}

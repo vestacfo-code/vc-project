@@ -11,8 +11,8 @@ export function MarketingFooter() {
           <div className="col-span-2 sm:col-span-3 md:col-span-1">
             <VestaLogo size="sm" tone="light" />
             <p className="mt-4 text-sm text-slate-600 leading-relaxed max-w-xs">
-              AI-powered financial intelligence for independent hotels and boutique chains — KPIs, briefings, and alerts
-              in one colorful, calm workspace.
+              <span className="font-semibold text-slate-800">Vesta CFO</span> — AI financial intelligence for independent
+              hotels and boutique chains: KPIs, daily briefings, and alerts in one workspace.
             </p>
           </div>
 
@@ -22,6 +22,11 @@ export function MarketingFooter() {
               <li>
                 <Link to="/features" className="hover:text-amber-600 transition-colors">
                   Features
+                </Link>
+              </li>
+              <li>
+                <Link to="/partners" className="hover:text-amber-600 transition-colors">
+                  Partners
                 </Link>
               </li>
               <li>

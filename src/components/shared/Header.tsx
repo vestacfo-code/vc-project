@@ -252,6 +252,12 @@ const Header = ({ variant = 'light' }: HeaderProps) => {
             Features
           </Link>
           <Link 
+            to="/partners" 
+            className={`text-[15px] font-medium transition-colors ${isActive('/partners') ? activeTextColor : textColor}`}
+          >
+            Partners
+          </Link>
+          <Link 
             to="/pricing" 
             className={`text-[15px] font-medium transition-colors ${isActive('/pricing') ? activeTextColor : textColor}`}
           >
@@ -416,6 +422,13 @@ const Header = ({ variant = 'light' }: HeaderProps) => {
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Features
+            </Link>
+            <Link 
+              to="/partners" 
+              className="block text-lg font-medium text-gray-900 py-3 border-b border-gray-100"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Partners
             </Link>
             <Link 
               to="/pricing" 
