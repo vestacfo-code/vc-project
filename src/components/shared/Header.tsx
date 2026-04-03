@@ -5,7 +5,7 @@ import { ChevronDown, Sparkles, BarChart3, Zap, FileText, TrendingUp, MessageSqu
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import SettingsModal from '@/components/SettingsModal';
-import { VestaBrand } from '@/components/ui/finlo-brand';
+import { VestaBrand } from '@/components/ui/vesta-brand';
 
 interface HeaderProps {
   variant?: 'light' | 'dark';

@@ -106,7 +106,7 @@ const JobApplication: React.FC<JobApplicationProps> = ({ jobRole, onClose }) => 
             <SelectTrigger className="mt-1 bg-white/10 border-white/20 text-white">
               <SelectValue placeholder={question.placeholder || 'Select an option'} />
             </SelectTrigger>
-            <SelectContent className="bg-slate-900 border-white/20 text-white">
+            <SelectContent className="border-slate-200 bg-white text-slate-900">
               {(question.options || []).map((option) => (
                 <SelectItem key={option} value={option} className="text-white hover:bg-white/10 focus:bg-white/10">
                   {option}
@@ -488,7 +488,7 @@ const JobApplication: React.FC<JobApplicationProps> = ({ jobRole, onClose }) => 
                 <SelectTrigger className={selectClassName}>
                   <SelectValue placeholder="Select your work authorization status" />
                 </SelectTrigger>
-                <SelectContent className="bg-slate-900 border-white/20 text-white">
+                <SelectContent className="border-slate-200 bg-white text-slate-900">
                   <SelectItem value="us-citizen" className="text-white hover:bg-white/10 focus:bg-white/10">US Citizen</SelectItem>
                   <SelectItem value="us-permanent-resident" className="text-white hover:bg-white/10 focus:bg-white/10">US Permanent Resident</SelectItem>
                   <SelectItem value="canadian-citizen" className="text-white hover:bg-white/10 focus:bg-white/10">Canadian Citizen</SelectItem>

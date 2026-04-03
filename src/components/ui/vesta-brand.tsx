@@ -26,7 +26,6 @@ export const VestaBrand = ({
 
   return (
     <Component className={cn("flex items-center gap-3", className)}>
-      {/* Icon mark */}
       <div
         className="flex items-center justify-center rounded-[10px] shrink-0"
         style={{
@@ -64,7 +63,6 @@ export const VestaBrand = ({
         </svg>
       </div>
 
-      {/* Wordmark */}
       <div className="flex flex-col">
         <span
           className={cn("font-display font-bold leading-none tracking-tight", wordmark)}
@@ -82,6 +80,3 @@ export const VestaBrand = ({
     </Component>
   );
 };
-
-// Legacy export alias for old imports
-export { VestaBrand as FinloBrand };

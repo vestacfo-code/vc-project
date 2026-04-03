@@ -65,8 +65,8 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
 
   if (loading || checkingStatus) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-950">
-        <Loader2 className="h-8 w-8 animate-spin text-amber-400" />
+      <div className="flex min-h-screen items-center justify-center bg-vesta-cream">
+        <Loader2 className="h-8 w-8 animate-spin text-vesta-gold" />
       </div>
     );
   }

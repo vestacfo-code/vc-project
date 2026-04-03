@@ -50,10 +50,10 @@ export function PricingComparisonTable({ products, suppliers, onAskAI }: Pricing
     return (
       <div className="text-center py-16 text-zinc-500 bg-white rounded-xl border border-zinc-200">
         <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-zinc-100 mb-4">
-          <TrendingUp className="w-8 h-8 text-zinc-400" />
+          <TrendingUp className="w-8 h-8 text-slate-500" />
         </div>
         <p className="text-lg font-semibold text-zinc-700 mb-1">No products yet</p>
-        <p className="text-sm text-zinc-400">Upload a price list to get started</p>
+        <p className="text-sm text-slate-500">Upload a price list to get started</p>
       </div>
     );
   }
@@ -75,8 +75,8 @@ export function PricingComparisonTable({ products, suppliers, onAskAI }: Pricing
               className={cn(
                 'h-7 px-4 text-xs font-medium rounded-md transition-all duration-200',
                 selectedSupplierIndex === index
-                  ? 'bg-zinc-900 text-white hover:bg-zinc-800 hover:text-white shadow-sm'
-                  : 'text-zinc-500 hover:text-zinc-700 hover:bg-zinc-50'
+                  ? 'bg-vesta-gold/20 text-vesta-navy shadow-sm ring-1 ring-vesta-gold/35 hover:bg-vesta-gold/25'
+                  : 'text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700'
               )}
             >
               {supplier.name}
@@ -119,7 +119,7 @@ export function PricingComparisonTable({ products, suppliers, onAskAI }: Pricing
                           >
                             {supplier.name}
                             {selectedSupplierIndex === index && (
-                              <span className="ml-auto text-zinc-400">✓</span>
+                              <span className="ml-auto text-slate-500">✓</span>
                             )}
                           </DropdownMenuItem>
                         ))}
@@ -187,7 +187,7 @@ export function PricingComparisonTable({ products, suppliers, onAskAI }: Pricing
                         </span>
                       </div>
                     ) : (
-                      <span className="text-zinc-400">-</span>
+                      <span className="text-slate-500">-</span>
                     )}
                   </TableCell>
                   <TableCell className="text-right text-zinc-600">
@@ -203,7 +203,7 @@ export function PricingComparisonTable({ products, suppliers, onAskAI }: Pricing
       {/* Last updated timestamp */}
       {suppliers.length > 0 && selectedSupplier?.last_updated && (
         <div className="flex justify-end mt-2">
-          <span className="text-[11px] text-zinc-400">
+          <span className="text-[11px] text-slate-500">
             Last updated {new Date(selectedSupplier.last_updated).toLocaleDateString()}
           </span>
         </div>

@@ -1,4 +1,5 @@
-project_id = "godnomficzhjaclmvomh"
+# Must match the project ref in src/integrations/supabase/client.ts (…/project-ref.supabase.co)
+project_id = "qjgnbvrxpmspzfqlomjc"
 
 [functions.stripe-webhook]
 verify_jwt = false

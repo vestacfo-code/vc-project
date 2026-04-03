@@ -1,4 +1,4 @@
-// Stub: Legacy Finlo accounting sidebar — replaced in Phase 2
+// Stub: legacy integrations sidebar layout
 
 interface IntegrationLayoutSidebarProps {
   onNewChat: () => void;

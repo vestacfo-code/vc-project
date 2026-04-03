@@ -54,7 +54,7 @@ export function VarianceRow({
     const allPrices = product.supplier_prices?.map(sp => sp.price).filter(p => p > 0) || [];
     const highest = allPrices.length > 0 ? Math.max(...allPrices) : 0;
     if (price === highest && allPrices.length > 1) return 'text-red-400 font-semibold';
-    return 'text-zinc-400';
+    return 'text-slate-500';
   };
 
   return (
@@ -62,26 +62,26 @@ export function VarianceRow({
       <tr
         className={cn(
           'cursor-pointer transition-colors duration-100 border-l-[3px]',
-          product.status === 'competitive' && 'border-l-emerald-500 hover:bg-emerald-950/20',
-          product.status === 'at-risk' && 'border-l-red-500 hover:bg-red-950/20',
-          product.status === 'neutral' && 'border-l-transparent hover:bg-white/[0.03]'
+          product.status === 'competitive' && 'border-l-emerald-500 hover:bg-emerald-50',
+          product.status === 'at-risk' && 'border-l-red-500 hover:bg-red-50',
+          product.status === 'neutral' && 'border-l-transparent hover:bg-slate-50'
         )}
         onClick={handleRowClick}
       >
         {/* Checkbox in edit mode */}
         {editMode && (
           <td className="px-3 py-2.5" data-checkbox>
-            <Checkbox checked={isSelected} onCheckedChange={() => onToggleSelect?.()} className="border-zinc-500 data-[state=checked]:bg-white data-[state=checked]:text-black data-[state=checked]:border-white" />
+            <Checkbox checked={isSelected} onCheckedChange={() => onToggleSelect?.()} className="border-slate-400 data-[state=checked]:border-slate-900 data-[state=checked]:bg-slate-900 data-[state=checked]:text-white" />
           </td>
         )}
 
         {/* Expand + UPC + Last Updated Flag */}
         <td className="px-3 py-2.5">
           <div className="flex items-center gap-1.5">
-            <button className="p-0.5 hover:bg-white/10 rounded flex-shrink-0">
+            <button className="p-0.5 hover:bg-slate-100 rounded flex-shrink-0">
               {isExpanded ? <ChevronUp className="w-3.5 h-3.5 text-zinc-500" /> : <ChevronDown className="w-3.5 h-3.5 text-zinc-500" />}
             </button>
-            <span className="font-mono text-xs text-zinc-300 truncate" title={product.upc}>
+            <span className="font-mono text-xs text-slate-600 truncate" title={product.upc}>
               {product.upc}
             </span>
             {product.daysSinceReport !== null && product.daysSinceReport !== undefined && (
@@ -91,7 +91,7 @@ export function VarianceRow({
                     <span className={cn(
                       'text-[9px] font-medium px-1 py-0.5 rounded flex-shrink-0',
                       product.daysSinceReport <= 7 && 'text-emerald-400 bg-emerald-500/10',
-                      product.daysSinceReport > 7 && product.daysSinceReport <= 30 && 'text-zinc-500 bg-white/5',
+                      product.daysSinceReport > 7 && product.daysSinceReport <= 30 && 'text-zinc-500 bg-slate-50',
                       product.daysSinceReport > 30 && 'text-amber-400 bg-amber-500/10',
                     )}>
                       {product.daysSinceReport}d
@@ -118,7 +118,7 @@ export function VarianceRow({
                 <TooltipContent><p className="text-xs">{product.isStale ? `Stale: ${product.daysSinceReport}d` : 'Fresh'}</p></TooltipContent>
               </Tooltip>
             </TooltipProvider>
-            <span className="text-xs font-medium text-zinc-300 bg-white/[0.06] px-1.5 py-0.5 rounded truncate max-w-[100px]" title={product.brand || 'Unknown'}>
+            <span className="max-w-[100px] truncate rounded bg-slate-100 px-1.5 py-0.5 text-xs font-medium text-slate-700" title={product.brand || 'Unknown'}>
               {product.brand || '—'}
             </span>
             {product.variance !== 0 && product.base_cost && product.base_cost > 0 && (
@@ -213,15 +213,15 @@ export function VarianceRow({
                 transition={{ duration: 0.25, ease: 'easeInOut' }}
                 className="overflow-hidden"
               >
-                <div className="px-6 py-4 bg-white/[0.02] border-t border-white/[0.05]">
+                <div className="border-t border-slate-100 bg-slate-50 px-6 py-4">
                   <div className="flex items-center justify-between mb-4">
                     <div>
-                      <span className="text-sm font-medium text-zinc-300">Price History</span>
+                      <span className="text-sm font-medium text-slate-600">Price History</span>
                       {product.avg3m !== null && product.avg3m !== undefined && (
                         <span className="ml-3 text-xs text-zinc-500">
-                          3M: <span className="font-medium text-zinc-400">${product.avg3m.toFixed(2)}</span>
+                          3M: <span className="font-medium text-slate-500">${product.avg3m.toFixed(2)}</span>
                           {product.avg6m !== null && product.avg6m !== undefined && (
-                            <> · 6M: <span className="font-medium text-zinc-400">${product.avg6m.toFixed(2)}</span></>
+                            <> · 6M: <span className="font-medium text-slate-500">${product.avg6m.toFixed(2)}</span></>
                           )}
                         </span>
                       )}
@@ -230,7 +230,7 @@ export function VarianceRow({
                       variant="outline"
                       size="sm"
                       onClick={(e) => { e.stopPropagation(); onEditClick?.(); }}
-                      className="sticky right-4 h-7 px-3 text-zinc-300 bg-white/10 border-white/10 hover:bg-white/20 hover:text-white"
+                      className="sticky right-4 h-7 px-3 text-slate-600 bg-slate-100 border-slate-200 hover:bg-slate-200 hover:text-slate-900"
                     >
                       <Pencil className="w-3.5 h-3.5 mr-1" />
                       Edit

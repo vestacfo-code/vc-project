@@ -69,9 +69,12 @@ const QuickBooksButton = ({ onConnected, refreshIntegration }: QuickBooksButtonP
           'https://www.vesta.ai'
         ];
         
-        // Accept from valid origins OR lovableproject.com preview URLs
-        const isValidOrigin = event.origin.includes('.lovableproject.com') || 
-                             validOrigins.includes(event.origin);
+        const origin = event.origin;
+        const isTrustedDevHost =
+          origin.includes('.vercel.app') ||
+          origin.includes('localhost') ||
+          origin.includes('127.0.0.1');
+        const isValidOrigin = isTrustedDevHost || validOrigins.includes(origin);
         
         if (!isValidOrigin) {
           console.log('[QB Button] Ignoring message from invalid origin:', event.origin);

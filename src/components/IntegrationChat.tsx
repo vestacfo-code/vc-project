@@ -27,7 +27,6 @@ import { useDashboardReference } from '@/contexts/DashboardReferenceContext';
 import { MentionDropdown } from '@/components/chat/MentionDropdown';
 import { ReferenceTag } from '@/components/chat/ReferenceTag';
 import { useCreditGuard } from '@/hooks/useCreditGuard';
-import { useSettings } from '@/contexts/SettingsContext';
 import { useToast } from '@/hooks/use-toast';
 import { VestaLogo } from '@/components/VestaLogo';
 import { useConsumerFeatures } from '@/hooks/useConsumerFeatures';
@@ -56,7 +55,7 @@ const stripInlineCitations = (text: string): string => {
 };
 
 /* Sources collapsible for AI messages — compact pill row that expands to card grid */
-const SourcesSection = ({ sources, dark }: { sources: { url: string; title: string }[]; dark: boolean }) => {
+const SourcesSection = ({ sources }: { sources: { url: string; title: string }[] }) => {
   const [expanded, setExpanded] = useState(false);
   if (!sources || sources.length === 0) return null;
 
@@ -86,7 +85,7 @@ const SourcesSection = ({ sources, dark }: { sources: { url: string; title: stri
             href={source.url}
             target="_blank"
             rel="noopener noreferrer"
-            className={`inline-flex items-center gap-1.5 pl-1.5 pr-2.5 py-1 rounded-full text-xs transition-colors ${dark ? 'bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-zinc-200' : 'bg-zinc-100 hover:bg-zinc-200 text-zinc-500 hover:text-zinc-700'}`}
+            className="inline-flex items-center gap-1.5 pl-1.5 pr-2.5 py-1 rounded-full text-xs transition-colors bg-zinc-100 hover:bg-zinc-200 text-zinc-500 hover:text-zinc-700"
             title={source.title}
           >
             <img src={getFavicon(source.url) || ''} alt="" className="w-3.5 h-3.5 rounded-full" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
@@ -96,7 +95,7 @@ const SourcesSection = ({ sources, dark }: { sources: { url: string; title: stri
         {(remaining > 0 || sources.length > 0) && (
           <button
             onClick={() => setExpanded(!expanded)}
-            className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium transition-colors ${dark ? 'bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-zinc-200' : 'bg-zinc-100 hover:bg-zinc-200 text-zinc-500 hover:text-zinc-700'}`}
+            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium transition-colors bg-zinc-100 hover:bg-zinc-200 text-zinc-500 hover:text-zinc-700"
           >
             {expanded ? 'Hide' : remaining > 0 ? `+${remaining} more` : 'View all'}
             <ChevronDown className={`w-3 h-3 transition-transform ${expanded ? 'rotate-180' : ''}`} />
@@ -113,14 +112,14 @@ const SourcesSection = ({ sources, dark }: { sources: { url: string; title: stri
               href={source.url}
               target="_blank"
               rel="noopener noreferrer"
-              className={`flex items-start gap-2.5 p-2.5 rounded-lg text-sm transition-colors group ${dark ? 'bg-zinc-800/60 hover:bg-zinc-800 border border-zinc-700/50' : 'bg-zinc-50 hover:bg-zinc-100 border border-zinc-200/80'}`}
+              className="flex items-start gap-2.5 p-2.5 rounded-lg text-sm transition-colors group bg-zinc-50 hover:bg-zinc-100 border border-zinc-200/80"
             >
               <img src={getFavicon(source.url) || ''} alt="" className="w-4 h-4 rounded mt-0.5 flex-shrink-0" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
               <div className="min-w-0 flex-1">
-                <p className={`text-xs leading-snug line-clamp-2 ${dark ? 'text-zinc-300 group-hover:text-zinc-100' : 'text-zinc-700 group-hover:text-zinc-900'}`}>{source.title}</p>
+                <p className="text-xs leading-snug line-clamp-2 text-zinc-700 group-hover:text-zinc-900">{source.title}</p>
                 <div className="flex items-center gap-1 mt-1">
-                  <span className={`text-[10px] ${dark ? 'text-zinc-500' : 'text-zinc-400'}`}>{getDomain(source.url)}</span>
-                  <ExternalLink className={`w-2.5 h-2.5 ${dark ? 'text-zinc-600' : 'text-zinc-400'}`} />
+                  <span className="text-[10px] text-zinc-400">{getDomain(source.url)}</span>
+                  <ExternalLink className="w-2.5 h-2.5 text-zinc-400" />
                 </div>
               </div>
             </a>
@@ -132,7 +131,7 @@ const SourcesSection = ({ sources, dark }: { sources: { url: string; title: stri
 };
 
 /* Action bar with copy/thumbs below AI responses */
-const MessageActionBar = ({ content, dark, sources }: { content: string; dark: boolean; sources?: { url: string; title: string }[] }) => {
+const MessageActionBar = ({ content, sources }: { content: string; sources?: { url: string; title: string }[] }) => {
   const [copied, setCopied] = useState(false);
   const [liked, setLiked] = useState<'up' | 'down' | null>(null);
   
@@ -162,29 +161,29 @@ const MessageActionBar = ({ content, dark, sources }: { content: string; dark: b
 
   return (
     <>
-      <div className={`flex items-center justify-between mt-3 ${dark ? 'text-zinc-500' : 'text-zinc-400'}`}>
+      <div className="flex items-center justify-between mt-3 text-zinc-400">
         <div className="flex items-center gap-1">
-          <button onClick={handleCopy} className={`p-1.5 rounded-md transition-colors ${dark ? 'hover:text-zinc-300 hover:bg-white/5' : 'hover:text-zinc-600 hover:bg-zinc-100'}`} title="Copy">
+          <button onClick={handleCopy} className="p-1.5 rounded-md transition-colors hover:text-zinc-600 hover:bg-zinc-100" title="Copy">
             {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
           </button>
-          <button onClick={handleDownload} className={`p-1.5 rounded-md transition-colors ${dark ? 'hover:text-zinc-300 hover:bg-white/5' : 'hover:text-zinc-600 hover:bg-zinc-100'}`} title="Download">
+          <button onClick={handleDownload} className="p-1.5 rounded-md transition-colors hover:text-zinc-600 hover:bg-zinc-100" title="Download">
             <Download className="w-3.5 h-3.5" />
           </button>
         </div>
         <div className="flex items-center gap-1">
-          <button onClick={() => setLiked(liked === 'up' ? null : 'up')} className={`p-1.5 rounded-md transition-colors ${liked === 'up' ? (dark ? 'text-zinc-200' : 'text-zinc-700') : ''} ${dark ? 'hover:text-zinc-300 hover:bg-white/5' : 'hover:text-zinc-600 hover:bg-zinc-100'}`} title="Helpful">
+          <button onClick={() => setLiked(liked === 'up' ? null : 'up')} className={`p-1.5 rounded-md transition-colors hover:text-zinc-600 hover:bg-zinc-100 ${liked === 'up' ? 'text-zinc-700' : ''}`} title="Helpful">
             <ThumbsUp className="w-3.5 h-3.5" />
           </button>
-          <button onClick={() => setLiked(liked === 'down' ? null : 'down')} className={`p-1.5 rounded-md transition-colors ${liked === 'down' ? (dark ? 'text-zinc-200' : 'text-zinc-700') : ''} ${dark ? 'hover:text-zinc-300 hover:bg-white/5' : 'hover:text-zinc-600 hover:bg-zinc-100'}`} title="Not helpful">
+          <button onClick={() => setLiked(liked === 'down' ? null : 'down')} className={`p-1.5 rounded-md transition-colors hover:text-zinc-600 hover:bg-zinc-100 ${liked === 'down' ? 'text-zinc-700' : ''}`} title="Not helpful">
             <ThumbsDown className="w-3.5 h-3.5" />
           </button>
-          <button className={`p-1.5 rounded-md transition-colors ${dark ? 'hover:text-zinc-300 hover:bg-white/5' : 'hover:text-zinc-600 hover:bg-zinc-100'}`} title="More">
+          <button className="p-1.5 rounded-md transition-colors hover:text-zinc-600 hover:bg-zinc-100" title="More">
             <MoreHorizontal className="w-3.5 h-3.5" />
           </button>
         </div>
       </div>
       {sources && sources.length > 0 && (
-        <SourcesSection sources={sources} dark={dark} />
+        <SourcesSection sources={sources} />
       )}
     </>
   );
@@ -194,32 +193,30 @@ const MessageActionBar = ({ content, dark, sources }: { content: string; dark: b
 const FollowUpSuggestions = ({
   suggestions,
   loading,
-  dark,
   onSelect,
 }: {
   suggestions: string[];
   loading: boolean;
-  dark: boolean;
   onSelect: (text: string) => void;
 }) => {
   if (loading || suggestions.length === 0) {
     return (
       <div className="mt-4">
-        <span className={`text-xs font-semibold mb-2 block ${dark ? 'text-zinc-500' : 'text-zinc-400'}`}>Follow-ups</span>
-        <div className={`text-sm ${dark ? 'text-zinc-500' : 'text-zinc-400'}`}>Generating suggestions...</div>
+        <span className="text-xs font-semibold mb-2 block text-zinc-400">Follow-ups</span>
+        <div className="text-sm text-zinc-400">Generating suggestions...</div>
       </div>
     );
   }
 
   return (
     <div className="mt-4">
-      <span className={`text-xs font-semibold mb-2 block ${dark ? 'text-zinc-500' : 'text-zinc-400'}`}>Follow-ups</span>
+      <span className="text-xs font-semibold mb-2 block text-zinc-400">Follow-ups</span>
       <div className="space-y-2">
         {suggestions.map((s, i) => (
           <button
             key={i}
             onClick={() => onSelect(s)}
-            className={`flex items-center gap-2 text-sm w-full text-left px-2 py-1.5 rounded-lg transition-colors ${dark ? 'text-zinc-400 hover:text-zinc-200 hover:bg-white/5' : 'text-zinc-500 hover:text-zinc-700 hover:bg-zinc-50'}`}
+            className="flex items-center gap-2 text-sm w-full text-left px-2 py-1.5 rounded-lg transition-colors text-zinc-500 hover:text-zinc-700 hover:bg-zinc-50"
           >
             <CornerDownRight className="w-3.5 h-3.5 flex-shrink-0" />
             <span>{s}</span>
@@ -234,9 +231,7 @@ const IntegrationChat = ({ conversationId, variant = 'default' }: IntegrationCha
   const { user } = useAuth();
   const { refreshAfterOAuth } = useQuickBooksIntegration();
   const { checkAndUseCredits, canUseCredits } = useCreditGuard();
-  const { settings } = useSettings();
   const isHotelShell = variant === 'hotel';
-  const dark = isHotelShell ? true : settings.chatDarkMode;
   const { toast } = useToast();
   const { hasFeature, getEnabledFeatures, isCustomSolution } = useConsumerFeatures();
   const { 
@@ -770,17 +765,17 @@ const IntegrationChat = ({ conversationId, variant = 'default' }: IntegrationCha
 
   return (
     <div
-      className={`flex flex-col overflow-hidden ${isHotelShell ? 'flex-1 min-h-0 h-full' : 'flex-1 h-full'} ${dark ? 'bg-slate-950 text-white' : 'bg-white text-zinc-900'}`}
+      className={`flex flex-col overflow-hidden ${isHotelShell ? 'flex-1 min-h-0 h-full' : 'flex-1 h-full'} bg-white text-zinc-900`}
     >
       {isHotelShell && (
-        <header className="shrink-0 flex items-center gap-3 px-4 sm:px-6 py-3 border-b border-slate-800 bg-slate-900/90">
-          <span className="w-1 self-stretch min-h-[2.25rem] rounded-full bg-amber-500 shrink-0" aria-hidden />
-          <VestaLogo size="sm" />
+        <header className="flex shrink-0 items-center gap-3 border-b border-vesta-navy/10 bg-white px-4 py-3 sm:px-6">
+          <span className="h-9 min-h-[2.25rem] w-1 shrink-0 self-stretch rounded-full bg-vesta-gold" aria-hidden />
+          <VestaLogo size="sm" tone="light" />
           <div className="min-w-0 flex-1">
-            <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-violet-300/90">Vesta CFO</p>
-            <h1 className="text-sm font-semibold text-white tracking-tight">Assistant</h1>
+            <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-vesta-navy-muted">Vesta CFO</p>
+            <h1 className="text-sm font-semibold tracking-tight text-slate-900">Assistant</h1>
           </div>
-          <p className="hidden md:block text-xs text-slate-500 max-w-xs text-right leading-snug">
+          <p className="hidden max-w-xs text-right text-xs leading-snug text-slate-600 md:block">
             Plain-language answers over your metrics, uploads, and connected data.
           </p>
         </header>
@@ -796,36 +791,36 @@ const IntegrationChat = ({ conversationId, variant = 'default' }: IntegrationCha
             <div className="text-center mb-6 md:mb-10 max-w-xl">
               {isHotelShell ? (
                 <>
-                  <p className="text-xs text-slate-500 mb-3 font-medium">Start with a question</p>
-                  <h2 className="font-serif text-2xl sm:text-3xl text-slate-100 leading-snug mb-4">
+                  <p className="mb-3 text-xs font-medium text-slate-600">Start with a question</p>
+                  <h2 className="mb-4 font-serif text-2xl leading-snug text-slate-900 sm:text-3xl">
                     What should we look at first?
                   </h2>
-                  <div className="rounded-xl border border-slate-800 bg-slate-900/50 px-4 py-3">
-                    <TypingAnimation messages={cfoQuestions} className="text-slate-400 text-base md:text-lg" />
+                  <div className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3">
+                    <TypingAnimation messages={cfoQuestions} className="text-base text-slate-600 md:text-lg" />
                   </div>
                 </>
               ) : (
                 <h2 className="text-3xl md:text-[2.6rem] font-light min-h-[2.5rem] md:min-h-[3.5rem] tracking-tight leading-tight">
-                  <TypingAnimation messages={cfoQuestions} className={dark ? 'text-zinc-400' : 'text-zinc-500'} />
+                  <TypingAnimation messages={cfoQuestions} className="text-zinc-500" />
                 </h2>
               )}
             </div>
 
             {/* Input Area - Centered */}
             <div className="w-full max-w-2xl px-2 md:px-0">
-              <div className={`relative rounded-xl transition-all duration-200 ${dark ? 'bg-slate-900 border border-slate-800' : 'bg-white/80 backdrop-blur-sm border border-zinc-200/60 shadow-xl'}`}>
+              <div className="relative rounded-xl transition-all duration-200 bg-white/80 backdrop-blur-sm border border-zinc-200/60 shadow-xl">
                 {/* Attached & Pending Documents */}
                 {(attachedDocuments.length > 0 || pendingDocuments.length > 0) && (
                   <div className={`px-6 pt-4 pb-2 flex flex-wrap gap-2`}>
                     {attachedDocuments.map((doc) => (
                       <div 
                         key={doc.id}
-                        className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm ${dark ? 'bg-amber-950/30 border border-amber-900/40' : 'bg-amber-50 border border-amber-200/80'}`}
+                        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm bg-amber-50 border border-amber-200/80"
                       >
-                        <span className={dark ? 'text-amber-200' : 'text-amber-900'}>📎 {doc.fileName}</span>
+                        <span className="text-amber-900">📎 {doc.fileName}</span>
                         <button
                           onClick={() => removeDocument(doc.id)}
-                          className={`transition-colors ${dark ? 'text-amber-500/80 hover:text-amber-300' : 'text-amber-700/70 hover:text-amber-900'}`}
+                          className="transition-colors text-amber-700/70 hover:text-amber-900"
                         >
                           ×
                         </button>
@@ -834,12 +829,12 @@ const IntegrationChat = ({ conversationId, variant = 'default' }: IntegrationCha
                     {pendingDocuments.map((doc) => (
                       <div 
                         key={doc.id}
-                        className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm ${dark ? 'bg-amber-950/30 border border-amber-900/40' : 'bg-amber-50 border border-amber-200/80'}`}
+                        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm bg-amber-50 border border-amber-200/80"
                       >
-                        <span className={dark ? 'text-amber-200' : 'text-amber-900'}>📎 {doc.fileName}</span>
+                        <span className="text-amber-900">📎 {doc.fileName}</span>
                         <button
                           onClick={() => setPendingDocuments(prev => prev.filter(d => d.id !== doc.id))}
-                          className={`transition-colors ${dark ? 'text-amber-500/80 hover:text-amber-300' : 'text-amber-700/70 hover:text-amber-900'}`}
+                          className="transition-colors text-amber-700/70 hover:text-amber-900"
                         >
                           ×
                         </button>
@@ -850,7 +845,7 @@ const IntegrationChat = ({ conversationId, variant = 'default' }: IntegrationCha
                 
                 {/* Reference Tags */}
                 {addedReferences.length > 0 && (
-                  <div className={`px-6 pt-4 pb-2 flex flex-wrap gap-2 border-b ${dark ? 'border-slate-800' : 'border-zinc-100'}`}>
+                  <div className="px-6 pt-4 pb-2 flex flex-wrap gap-2 border-b border-zinc-100">
                     {addedReferences.map((ref) => (
                       <ReferenceTag 
                         key={ref.id} 
@@ -871,14 +866,14 @@ const IntegrationChat = ({ conversationId, variant = 'default' }: IntegrationCha
                       onKeyDown={handleKeyPress}
                       placeholder={selectedModel === 'deep-research' ? "What would you like me to research?" : selectedModel === 'gpt-4o-search' ? "Search the web..." : "Ask anything..."}
                       disabled={loading || agentState.isRunning}
-                      className={`min-h-[44px] max-h-[120px] resize-none border-0 bg-transparent focus:ring-0 focus:outline-none focus:border-0 focus:shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 p-0 leading-6 shadow-none text-base font-sans disabled:opacity-50 ${dark ? 'text-white placeholder:text-zinc-500' : 'text-zinc-900 placeholder:text-zinc-400'}`}
+                      className="min-h-[44px] max-h-[120px] resize-none border-0 bg-transparent focus:ring-0 focus:outline-none focus:border-0 focus:shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 p-0 leading-6 shadow-none text-base font-sans disabled:opacity-50 text-zinc-900 placeholder:text-zinc-400"
                       rows={1}
                     />
                   </div>
                 </div>
 
                 {/* Bottom toolbar row */}
-                <div className={`flex items-center justify-between px-4 md:px-5 py-3 ${dark ? '' : 'border-t border-zinc-100'}`}>
+                <div className="flex items-center justify-between px-4 md:px-5 py-3 border-t border-zinc-100">
                   {/* Left: file upload */}
                   <div className="flex items-center">
                     <FileUploadButton 
@@ -908,7 +903,7 @@ const IntegrationChat = ({ conversationId, variant = 'default' }: IntegrationCha
                           setIsStreaming(false);
                         }}
                         size="sm" 
-                        className={`h-8 w-8 p-0 rounded-full border-0 ${dark ? 'bg-slate-800 hover:bg-slate-700 text-slate-300' : 'bg-zinc-900 hover:bg-zinc-800 text-white'}`}
+                        className="h-8 w-8 p-0 rounded-full border-0 bg-zinc-900 hover:bg-zinc-800 text-white"
                       >
                         <Square className="w-3.5 h-3.5" />
                       </Button>
@@ -917,7 +912,7 @@ const IntegrationChat = ({ conversationId, variant = 'default' }: IntegrationCha
                         onClick={handleSendMessage}
                         disabled={!input.trim() || loading || agentState.isRunning}
                         size="sm" 
-                        className={`h-8 w-8 p-0 rounded-full disabled:opacity-30 border-0 ${dark ? 'bg-amber-600 hover:bg-amber-500 text-white' : 'bg-zinc-900 hover:bg-zinc-800 text-white'}`}
+                        className="h-8 w-8 p-0 rounded-full disabled:opacity-30 border-0 bg-zinc-900 hover:bg-zinc-800 text-white"
                       >
                         {(loading || agentState.isRunning) ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
                       </Button>
@@ -938,14 +933,14 @@ const IntegrationChat = ({ conversationId, variant = 'default' }: IntegrationCha
                 {message.role === 'user' ? (
                   /* Right-aligned user bubble, no avatar — inline-block so it shrink-wraps */
                   <div className="flex justify-end">
-                    <div data-message-id={message.id} data-message-role="user" className={`inline-block rounded-2xl px-4 py-2 text-sm ${dark ? 'bg-slate-800 text-white border border-slate-700/80' : 'bg-zinc-100 text-zinc-900'}`}>
+                    <div data-message-id={message.id} data-message-role="user" className="inline-block rounded-2xl px-4 py-2 text-sm bg-zinc-100 text-zinc-900">
                       {message.content}
                     </div>
                   </div>
                 ) : (
                   /* AI response — no avatar, full width */
                   <div>
-                    <div className={`prose prose-sm max-w-none leading-relaxed font-serif [&>p]:mb-4 [&>h2]:mt-6 [&>h2]:mb-3 [&>h2]:text-base [&>h2]:font-semibold [&>h3]:mt-4 [&>h3]:mb-2 [&>h3]:text-sm [&>h3]:font-semibold [&_ul]:mb-4 [&_ol]:mb-4 [&_ul]:space-y-2 [&_ol]:space-y-2 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:pl-1 [&>table]:mb-4 [&>table]:mt-2 ${dark ? 'text-slate-200 prose-headings:text-white prose-strong:text-slate-100 prose-code:text-violet-200/90 prose-a:text-violet-400' : 'text-zinc-900'}`}>
+                    <div className="prose prose-sm max-w-none leading-relaxed font-serif text-zinc-900 [&>p]:mb-4 [&>h2]:mt-6 [&>h2]:mb-3 [&>h2]:text-base [&>h2]:font-semibold [&>h3]:mt-4 [&>h3]:mb-2 [&>h3]:text-sm [&>h3]:font-semibold [&_ul]:mb-4 [&_ol]:mb-4 [&_ul]:space-y-2 [&_ol]:space-y-2 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:pl-1 [&>table]:mb-4 [&>table]:mt-2">
                       {message.role === 'assistant' && isStreaming && index === messages.length - 1 ? (
                         <TypewriterText 
                           text={message.sources?.length ? stripInlineCitations(message.content) : message.content} 
@@ -957,14 +952,13 @@ const IntegrationChat = ({ conversationId, variant = 'default' }: IntegrationCha
                     </div>
                     {/* Action bar below AI responses */}
                     {!(isStreaming && index === messages.length - 1) && (
-                      <MessageActionBar content={message.sources?.length ? stripInlineCitations(message.content) : message.content} dark={dark} sources={message.sources} />
+                      <MessageActionBar content={message.sources?.length ? stripInlineCitations(message.content) : message.content} sources={message.sources} />
                     )}
                     {/* Follow-up suggestions - only on last AI message */}
                     {index === messages.length - 1 && !loading && !isStreaming && (
                       <FollowUpSuggestions
                         suggestions={aiFollowUpsByMessageId[message.id] || []}
                         loading={loadingFollowUpsFor === message.id}
-                        dark={dark}
                         onSelect={(text) => { setInput(text); }}
                       />
                     )}
@@ -991,7 +985,6 @@ const IntegrationChat = ({ conversationId, variant = 'default' }: IntegrationCha
                   <DeepResearchProgress
                     elapsedSeconds={deepResearchStatus.elapsedSeconds}
                     statusMessage={deepResearchStatus.statusMessage}
-                    dark={dark}
                   />
                 ) : (
                   <ThinkingIndicator />
@@ -1008,22 +1001,22 @@ const IntegrationChat = ({ conversationId, variant = 'default' }: IntegrationCha
       {!showWelcomeScreen && (
         (() => {
           return (
-        <div className={`relative shrink-0 ${dark ? 'bg-slate-950' : 'bg-white'} ${isHotelShell ? 'border-t border-slate-800' : ''}`}>
-          <div className={`px-3 md:px-4 pb-3 md:pb-4 ${dark ? 'bg-slate-950' : 'bg-white'}`} style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}>
+        <div className={`relative shrink-0 bg-white ${isHotelShell ? 'border-t border-vesta-navy/10' : ''}`}>
+          <div className="px-3 md:px-4 pb-3 md:pb-4 bg-white" style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}>
           <div className="max-w-2xl mx-auto">
-            <div className={`relative rounded-2xl transition-all duration-200 ${dark ? 'bg-slate-900 border border-slate-800 shadow-lg' : 'bg-white ring-1 ring-zinc-200 shadow-xl'}`}>
+            <div className="relative rounded-2xl transition-all duration-200 bg-white ring-1 ring-zinc-200 shadow-xl">
               {/* Attached Documents */}
               {attachedDocuments.length > 0 && (
                 <div className={`px-4 pt-3 pb-2 flex flex-wrap gap-2`}>
                   {attachedDocuments.map((doc) => (
                     <div 
                       key={doc.id}
-                      className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm ${dark ? 'bg-amber-950/30 border border-amber-900/40' : 'bg-amber-50 border border-amber-200/80'}`}
+                      className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm bg-amber-50 border border-amber-200/80"
                     >
-                      <span className={dark ? 'text-amber-200' : 'text-amber-900'}>📎 {doc.fileName}</span>
+                      <span className="text-amber-900">📎 {doc.fileName}</span>
                       <button
                         onClick={() => removeDocument(doc.id)}
-                        className={`transition-colors ${dark ? 'text-amber-500/80 hover:text-amber-300' : 'text-amber-700/70 hover:text-amber-900'}`}
+                        className="transition-colors text-amber-700/70 hover:text-amber-900"
                       >
                         ×
                       </button>
@@ -1034,7 +1027,7 @@ const IntegrationChat = ({ conversationId, variant = 'default' }: IntegrationCha
               
               {/* Reference Tags */}
               {addedReferences.length > 0 && (
-                <div className={`px-4 pt-3 pb-2 flex flex-wrap gap-2 border-b ${dark ? 'border-slate-800' : 'border-zinc-100'}`}>
+                <div className="px-4 pt-3 pb-2 flex flex-wrap gap-2 border-b border-zinc-100">
                   {addedReferences.map((ref) => (
                     <ReferenceTag 
                       key={ref.id} 
@@ -1054,7 +1047,7 @@ const IntegrationChat = ({ conversationId, variant = 'default' }: IntegrationCha
                   onKeyDown={handleKeyPress}
                   placeholder={selectedModel === 'gpt-4o-search' ? "Search the web..." : "Ask a follow-up..."}
                   disabled={false}
-                  className={`min-h-[40px] max-h-[100px] md:max-h-[120px] resize-none border-0 bg-transparent focus:ring-0 focus:outline-none focus:border-0 focus:shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 p-0 leading-6 shadow-none text-base font-sans ${dark ? 'text-white placeholder:text-zinc-500' : 'text-zinc-900 placeholder:text-zinc-400'}`}
+                  className="min-h-[40px] max-h-[100px] md:max-h-[120px] resize-none border-0 bg-transparent focus:ring-0 focus:outline-none focus:border-0 focus:shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 p-0 leading-6 shadow-none text-base font-sans text-zinc-900 placeholder:text-zinc-400"
                   rows={1}
                 />
               </div>
@@ -1087,7 +1080,7 @@ const IntegrationChat = ({ conversationId, variant = 'default' }: IntegrationCha
                     <Button 
                       onClick={() => { setLoading(false); setIsStreaming(false); }}
                       size="sm" 
-                      className={`h-8 w-8 p-0 rounded-full border-0 ${dark ? 'bg-slate-800 hover:bg-slate-700 text-slate-300' : 'bg-zinc-900 hover:bg-zinc-800 text-white'}`}
+                      className="h-8 w-8 p-0 rounded-full border-0 bg-zinc-900 hover:bg-zinc-800 text-white"
                     >
                       <Square className="w-3.5 h-3.5" />
                     </Button>
@@ -1096,7 +1089,7 @@ const IntegrationChat = ({ conversationId, variant = 'default' }: IntegrationCha
                       onClick={handleSendMessage}
                       disabled={!input.trim()}
                       size="sm" 
-                      className={`h-8 w-8 p-0 rounded-full disabled:opacity-30 border-0 ${dark ? 'bg-amber-600 hover:bg-amber-500 text-white' : 'bg-zinc-900 hover:bg-zinc-800 text-white'}`}
+                      className="h-8 w-8 p-0 rounded-full disabled:opacity-30 border-0 bg-zinc-900 hover:bg-zinc-800 text-white"
                     >
                       <Send className="w-4 h-4" />
                     </Button>

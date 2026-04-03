@@ -68,7 +68,7 @@ interface KpiRowProps {
 function KpiRow({ label, actual, target, variance }: KpiRowProps) {
   const hasVariance = variance !== null
 
-  let badgeClass = 'bg-slate-700/60 text-slate-400 border-slate-600'
+  let badgeClass = 'bg-slate-100 text-slate-600 border-slate-200'
   let VarianceIcon = Minus
   let varianceText = '—'
 
@@ -76,20 +76,20 @@ function KpiRow({ label, actual, target, variance }: KpiRowProps) {
     const sign = variance >= 0 ? '+' : ''
     varianceText = `${sign}${variance.toFixed(1)}%`
     if (variance >= 0) {
-      badgeClass = 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30'
+      badgeClass = 'bg-emerald-50 text-emerald-800 border-emerald-200'
       VarianceIcon = TrendingUp
     } else {
-      badgeClass = 'bg-red-500/15 text-red-400 border-red-500/30'
+      badgeClass = 'bg-red-50 text-red-800 border-red-200'
       VarianceIcon = TrendingDown
     }
   }
 
   return (
-    <div className="flex items-center justify-between py-2.5 border-b border-slate-700/50 last:border-0">
-      <div className="flex-1 min-w-0">
-        <p className="text-xs font-medium text-slate-400">{label}</p>
-        <div className="flex items-baseline gap-1.5 mt-0.5">
-          <span className="text-sm font-semibold text-white">{actual}</span>
+    <div className="flex items-center justify-between border-b border-slate-200 py-2.5 last:border-0">
+      <div className="min-w-0 flex-1">
+        <p className="text-xs font-medium text-slate-500">{label}</p>
+        <div className="mt-0.5 flex items-baseline gap-1.5">
+          <span className="text-sm font-semibold text-slate-900">{actual}</span>
           {target !== '—' && (
             <span className="text-xs text-slate-500">/ {target}</span>
           )}
@@ -174,16 +174,16 @@ export default function BudgetVarianceCard({ hotelId }: BudgetVarianceCardProps)
   ]
 
   return (
-    <Card className="bg-slate-900/50 border border-slate-700/80 backdrop-blur-sm h-full shadow-lg shadow-black/15">
+    <Card className="h-full border border-vesta-navy/10 bg-white shadow-sm">
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
-          <CardTitle className="text-base font-semibold text-white flex items-center gap-2">
-            <Target className="h-4 w-4 text-amber-400" />
+          <CardTitle className="flex items-center gap-2 text-base font-semibold text-slate-900">
+            <Target className="h-4 w-4 text-vesta-gold" />
             Budget vs Actual
           </CardTitle>
           <Link
             to="/budget"
-            className="text-xs text-amber-400 hover:text-amber-300 flex items-center gap-1 transition-colors"
+            className="flex items-center gap-1 text-xs text-vesta-navy-muted transition-colors hover:text-vesta-gold"
           >
             Manage
             <ArrowRight className="h-3 w-3" />
@@ -197,23 +197,23 @@ export default function BudgetVarianceCard({ hotelId }: BudgetVarianceCardProps)
             {[1, 2, 3].map((i) => (
               <div key={i} className="flex items-center justify-between py-2.5">
                 <div className="space-y-1.5">
-                  <Skeleton className="h-3 w-16 bg-slate-700" />
-                  <Skeleton className="h-4 w-20 bg-slate-700" />
+                  <Skeleton className="h-3 w-16 bg-slate-200" />
+                  <Skeleton className="h-4 w-20 bg-slate-200" />
                 </div>
-                <Skeleton className="h-5 w-16 bg-slate-700 rounded-full" />
+                <Skeleton className="h-5 w-16 rounded-full bg-slate-200" />
               </div>
             ))}
           </div>
         ) : !hasBudget ? (
           <div className="flex flex-col items-center justify-center py-6 text-center">
             <Target className="h-7 w-7 text-slate-600 mb-2" />
-            <p className="text-sm text-slate-400 font-medium">No budget targets set</p>
+            <p className="text-sm font-medium text-slate-600">No budget targets set</p>
             <p className="text-xs text-slate-500 mt-1 mb-3">
               Set monthly targets to track performance
             </p>
             <Link
               to="/budget"
-              className="text-xs text-amber-400 hover:text-amber-300 flex items-center gap-1 transition-colors font-medium"
+              className="flex items-center gap-1 text-xs font-medium text-vesta-navy-muted transition-colors hover:text-vesta-gold"
             >
               Set budget targets
               <ArrowRight className="h-3 w-3" />

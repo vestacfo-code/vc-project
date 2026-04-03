@@ -72,17 +72,17 @@ export const Paywall = ({
 
           <div className="space-y-6">
             {/* Current Status */}
-            <Card className="border-orange-200 bg-orange-50 dark:border-orange-800 dark:bg-orange-950">
+            <Card className="border-orange-200 bg-orange-50">
               <CardContent className="p-4">
                 <div className="flex items-center gap-3">
-                  <div className="p-2 bg-orange-100 dark:bg-orange-900 rounded-full">
-                    <AlertTriangle className="h-5 w-5 text-orange-600 dark:text-orange-400" />
+                  <div className="p-2 bg-orange-100 rounded-full">
+                    <AlertTriangle className="h-5 w-5 text-orange-600" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-medium text-orange-900 dark:text-orange-100">
+                    <h3 className="font-medium text-orange-900">
                       Insufficient Credits
                     </h3>
-                    <p className="text-sm text-orange-700 dark:text-orange-300">
+                    <p className="text-sm text-orange-700">
                       You need {creditsNeeded} credits to {action}, but only have {credits.current_credits} remaining.
                     </p>
                   </div>
@@ -126,21 +126,21 @@ export const Paywall = ({
 
             {/* Quick Tier Overview */}
             <div className="grid grid-cols-2 gap-3">
-              <Card className="border-blue-200 bg-blue-50 dark:border-blue-800 dark:bg-blue-950">
+              <Card className="border-blue-200 bg-blue-50">
                 <CardContent className="p-4 text-center">
-                  <TrendingUp className="h-6 w-6 text-blue-600 dark:text-blue-400 mx-auto mb-2" />
-                  <div className="font-medium text-blue-900 dark:text-blue-100">Scale</div>
-                  <div className="text-sm text-blue-700 dark:text-blue-300">150 credits/month</div>
-                  <div className="text-xs text-blue-600 dark:text-blue-400">$25.99/month</div>
+                  <TrendingUp className="h-6 w-6 text-blue-600 mx-auto mb-2" />
+                  <div className="font-medium text-blue-900">Scale</div>
+                  <div className="text-sm text-blue-700">150 credits/month</div>
+                  <div className="text-xs text-blue-600">$25.99/month</div>
                 </CardContent>
               </Card>
               
-              <Card className="border-purple-200 bg-purple-50 dark:border-purple-800 dark:bg-purple-950">
+              <Card className="border-purple-200 bg-purple-50">
                 <CardContent className="p-4 text-center">
-                  <Crown className="h-6 w-6 text-purple-600 dark:text-purple-400 mx-auto mb-2" />
-                  <div className="font-medium text-purple-900 dark:text-purple-100">CFO</div>
-                  <div className="text-sm text-purple-700 dark:text-purple-300">250 credits/month</div>
-                  <div className="text-xs text-purple-600 dark:text-purple-400">$39.99/month</div>
+                  <Crown className="h-6 w-6 text-purple-600 mx-auto mb-2" />
+                  <div className="font-medium text-purple-900">CFO</div>
+                  <div className="text-sm text-purple-700">250 credits/month</div>
+                  <div className="text-xs text-purple-600">$39.99/month</div>
                 </CardContent>
               </Card>
             </div>

@@ -208,8 +208,8 @@ export function PartnersAdminSection() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h2 className="text-lg font-semibold text-white">Partner marketplace</h2>
-          <p className="text-sm text-slate-400">Manage featured vendors and product lines shown on /partners and in the hotel app.</p>
+          <h2 className="text-lg font-semibold text-slate-900">Partner marketplace</h2>
+          <p className="text-sm text-slate-600">Manage featured vendors and product lines shown on /partners and in the hotel app.</p>
         </div>
         <div className="flex gap-2">
           <Button type="button" variant="outline" size="sm" onClick={() => load()} disabled={loading}>
@@ -239,38 +239,38 @@ export function PartnersAdminSection() {
       </div>
 
       {loading && !partners.length ? (
-        <div className="flex justify-center py-12 text-slate-400">
+        <div className="flex justify-center py-12 text-slate-500">
           <Loader2 className="h-8 w-8 animate-spin" />
         </div>
       ) : (
-        <Card className="bg-slate-900/50 border-slate-700">
+        <Card className="border-slate-200 bg-white shadow-sm">
           <CardHeader>
-            <CardTitle className="text-white text-base">Partners</CardTitle>
+            <CardTitle className="text-base text-slate-900">Partners</CardTitle>
           </CardHeader>
           <CardContent className="overflow-x-auto">
             <Table>
               <TableHeader>
-                <TableRow className="border-slate-700 hover:bg-transparent">
-                  <TableHead className="text-slate-300">Name</TableHead>
-                  <TableHead className="text-slate-300">Slug</TableHead>
-                  <TableHead className="text-slate-300">Category</TableHead>
-                  <TableHead className="text-slate-300">Active</TableHead>
-                  <TableHead className="text-slate-300 text-right">Products</TableHead>
+                <TableRow className="border-slate-200 hover:bg-transparent">
+                  <TableHead className="text-slate-600">Name</TableHead>
+                  <TableHead className="text-slate-600">Slug</TableHead>
+                  <TableHead className="text-slate-600">Category</TableHead>
+                  <TableHead className="text-slate-600">Active</TableHead>
+                  <TableHead className="text-right text-slate-600">Products</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {partners.map((p) => (
-                  <TableRow key={p.id} className="border-slate-700">
-                    <TableCell className="text-slate-200 font-medium">{p.name}</TableCell>
-                    <TableCell className="text-slate-400 font-mono text-xs">{p.slug}</TableCell>
-                    <TableCell className="text-slate-400">{p.category}</TableCell>
+                  <TableRow key={p.id} className="border-slate-200">
+                    <TableCell className="font-medium text-slate-900">{p.name}</TableCell>
+                    <TableCell className="font-mono text-xs text-slate-600">{p.slug}</TableCell>
+                    <TableCell className="text-slate-600">{p.category}</TableCell>
                     <TableCell>
                       <Switch
                         checked={p.is_active !== false}
                         onCheckedChange={(v) => togglePartnerActive(p, v)}
                       />
                     </TableCell>
-                    <TableCell className="text-right text-slate-400">
+                    <TableCell className="text-right text-slate-600">
                       {products.filter((x) => x.partner_id === p.id).length}
                     </TableCell>
                   </TableRow>
@@ -281,28 +281,28 @@ export function PartnersAdminSection() {
         </Card>
       )}
 
-      <Card className="bg-slate-900/50 border-slate-700">
+      <Card className="border-slate-200 bg-white shadow-sm">
         <CardHeader>
-          <CardTitle className="text-white text-base">Product lines</CardTitle>
+          <CardTitle className="text-base text-slate-900">Product lines</CardTitle>
         </CardHeader>
         <CardContent className="overflow-x-auto">
           <Table>
             <TableHeader>
-              <TableRow className="border-slate-700 hover:bg-transparent">
-                <TableHead className="text-slate-300">Partner</TableHead>
-                <TableHead className="text-slate-300">Name</TableHead>
-                <TableHead className="text-slate-300">URL</TableHead>
-                <TableHead className="text-slate-300 w-24" />
+              <TableRow className="border-slate-200 hover:bg-transparent">
+                <TableHead className="text-slate-600">Partner</TableHead>
+                <TableHead className="text-slate-600">Name</TableHead>
+                <TableHead className="text-slate-600">URL</TableHead>
+                <TableHead className="w-24 text-slate-600" />
               </TableRow>
             </TableHeader>
             <TableBody>
               {products.map((pr) => {
                 const pn = partners.find((x) => x.id === pr.partner_id)?.name ?? pr.partner_id;
                 return (
-                  <TableRow key={pr.id} className="border-slate-700">
-                    <TableCell className="text-slate-400 text-sm">{pn}</TableCell>
-                    <TableCell className="text-slate-200">{pr.name}</TableCell>
-                    <TableCell className="text-slate-500 text-xs max-w-[200px] truncate">
+                  <TableRow key={pr.id} className="border-slate-200">
+                    <TableCell className="text-sm text-slate-600">{pn}</TableCell>
+                    <TableCell className="text-slate-900">{pr.name}</TableCell>
+                    <TableCell className="max-w-[200px] truncate text-xs text-slate-500">
                       {pr.product_url ?? '—'}
                     </TableCell>
                     <TableCell>
@@ -319,7 +319,7 @@ export function PartnersAdminSection() {
       </Card>
 
       <Dialog open={partnerOpen} onOpenChange={setPartnerOpen}>
-        <DialogContent className="bg-slate-900 border-slate-700 text-white max-h-[90vh] overflow-y-auto">
+        <DialogContent className="max-h-[90vh] overflow-y-auto border-slate-200 bg-white text-slate-900">
           <DialogHeader>
             <DialogTitle>Add partner</DialogTitle>
           </DialogHeader>
@@ -330,7 +330,7 @@ export function PartnersAdminSection() {
                 value={partnerForm.slug}
                 onChange={(e) => setPartnerForm((f) => ({ ...f, slug: e.target.value }))}
                 placeholder="acme-supplies"
-                className="bg-slate-800 border-slate-600"
+                className="border-slate-200 bg-white"
               />
             </div>
             <div>
@@ -338,7 +338,7 @@ export function PartnersAdminSection() {
               <Input
                 value={partnerForm.name}
                 onChange={(e) => setPartnerForm((f) => ({ ...f, name: e.target.value }))}
-                className="bg-slate-800 border-slate-600"
+                className="border-slate-200 bg-white"
               />
             </div>
             <div>
@@ -349,7 +349,7 @@ export function PartnersAdminSection() {
                   setPartnerForm((f) => ({ ...f, category: v as (typeof PARTNER_CATEGORIES)[number] }))
                 }
               >
-                <SelectTrigger className="bg-slate-800 border-slate-600">
+                <SelectTrigger className="border-slate-200 bg-white">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -366,7 +366,7 @@ export function PartnersAdminSection() {
               <Input
                 value={partnerForm.tagline}
                 onChange={(e) => setPartnerForm((f) => ({ ...f, tagline: e.target.value }))}
-                className="bg-slate-800 border-slate-600"
+                className="border-slate-200 bg-white"
               />
             </div>
             <div>
@@ -374,7 +374,7 @@ export function PartnersAdminSection() {
               <Textarea
                 value={partnerForm.description}
                 onChange={(e) => setPartnerForm((f) => ({ ...f, description: e.target.value }))}
-                className="bg-slate-800 border-slate-600 min-h-[80px]"
+                className="min-h-[80px] border-slate-200 bg-white"
               />
             </div>
             <div>
@@ -383,7 +383,7 @@ export function PartnersAdminSection() {
                 value={partnerForm.website_url}
                 onChange={(e) => setPartnerForm((f) => ({ ...f, website_url: e.target.value }))}
                 placeholder="https://"
-                className="bg-slate-800 border-slate-600"
+                className="border-slate-200 bg-white"
               />
             </div>
             <div className="flex gap-4 items-center">
@@ -393,7 +393,7 @@ export function PartnersAdminSection() {
                   type="number"
                   value={partnerForm.sort_order}
                   onChange={(e) => setPartnerForm((f) => ({ ...f, sort_order: Number(e.target.value) || 0 }))}
-                  className="bg-slate-800 border-slate-600"
+                  className="border-slate-200 bg-white"
                 />
               </div>
               <div className="flex items-center gap-2 pt-6">
@@ -422,7 +422,7 @@ export function PartnersAdminSection() {
       </Dialog>
 
       <Dialog open={productOpen} onOpenChange={setProductOpen}>
-        <DialogContent className="bg-slate-900 border-slate-700 text-white">
+        <DialogContent className="border-slate-200 bg-white text-slate-900">
           <DialogHeader>
             <DialogTitle>Add product line</DialogTitle>
           </DialogHeader>
@@ -433,7 +433,7 @@ export function PartnersAdminSection() {
                 value={productForm.partner_id}
                 onValueChange={(v) => setProductForm((f) => ({ ...f, partner_id: v }))}
               >
-                <SelectTrigger className="bg-slate-800 border-slate-600">
+                <SelectTrigger className="border-slate-200 bg-white">
                   <SelectValue placeholder="Select partner" />
                 </SelectTrigger>
                 <SelectContent>
@@ -450,7 +450,7 @@ export function PartnersAdminSection() {
               <Input
                 value={productForm.name}
                 onChange={(e) => setProductForm((f) => ({ ...f, name: e.target.value }))}
-                className="bg-slate-800 border-slate-600"
+                className="border-slate-200 bg-white"
               />
             </div>
             <div>
@@ -458,7 +458,7 @@ export function PartnersAdminSection() {
               <Textarea
                 value={productForm.description}
                 onChange={(e) => setProductForm((f) => ({ ...f, description: e.target.value }))}
-                className="bg-slate-800 border-slate-600 min-h-[72px]"
+                className="min-h-[72px] border-slate-200 bg-white"
               />
             </div>
             <div>
@@ -466,7 +466,7 @@ export function PartnersAdminSection() {
               <Input
                 value={productForm.product_url}
                 onChange={(e) => setProductForm((f) => ({ ...f, product_url: e.target.value }))}
-                className="bg-slate-800 border-slate-600"
+                className="border-slate-200 bg-white"
               />
             </div>
             <div>
@@ -474,7 +474,7 @@ export function PartnersAdminSection() {
               <Input
                 value={productForm.category}
                 onChange={(e) => setProductForm((f) => ({ ...f, category: e.target.value }))}
-                className="bg-slate-800 border-slate-600"
+                className="border-slate-200 bg-white"
               />
             </div>
             <div className="flex gap-4 items-center">
@@ -484,7 +484,7 @@ export function PartnersAdminSection() {
                   type="number"
                   value={productForm.sort_order}
                   onChange={(e) => setProductForm((f) => ({ ...f, sort_order: Number(e.target.value) || 0 }))}
-                  className="bg-slate-800 border-slate-600"
+                  className="border-slate-200 bg-white"
                 />
               </div>
               <div className="flex items-center gap-2 pt-6">

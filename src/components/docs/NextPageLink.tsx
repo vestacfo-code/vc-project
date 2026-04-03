@@ -8,7 +8,7 @@ interface NextPageLinkProps {
 
 const NextPageLink = ({ href, title }: NextPageLinkProps) => {
   return (
-    <div className="mt-16 pt-8 border-t border-white/10">
+    <div className="mt-16 border-t border-slate-200 pt-8">
       <Link 
         to={href}
         className="flex items-center justify-end gap-2 text-[#7ba3e8] hover:text-[#9dbcf0] transition-colors group"

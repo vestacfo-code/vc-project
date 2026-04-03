@@ -101,19 +101,21 @@ serve(async (req) => {
         'https://vesta.ai'
       ];
       
-      // Check if it's a lovableproject.com preview URL
-      const isPreviewUrl = requestOrigin && requestOrigin.includes('.lovableproject.com');
-      
       let appOrigin = 'https://www.vesta.ai'; // Default to production
-      
+
       if (requestOrigin) {
         try {
           const originUrl = new URL(requestOrigin);
           const detectedOrigin = `${originUrl.protocol}//${originUrl.host}`;
-          
-          // Validate that we have a complete URL and it's from a known or preview domain
-          if (originUrl.host && originUrl.host.length > 0 && 
-              (knownOrigins.includes(detectedOrigin) || isPreviewUrl)) {
+          const h = originUrl.host;
+          const isTrustedDevHost =
+            !!h &&
+            (h.includes('.vercel.app') ||
+              h.includes('localhost') ||
+              h.includes('127.0.0.1'));
+
+          if (h && h.length > 0 &&
+              (knownOrigins.includes(detectedOrigin) || isTrustedDevHost)) {
             appOrigin = detectedOrigin;
             console.log('Successfully detected app origin from request:', appOrigin);
           } else {

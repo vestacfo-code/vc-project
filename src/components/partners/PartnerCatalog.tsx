@@ -1,6 +1,14 @@
-import { ExternalLink, Loader2 } from 'lucide-react';
+import { useState } from 'react';
+import { ExternalLink, Loader2, Package, Sparkles } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import type { PartnerWithProducts } from '@/lib/partners/fallback-catalog';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 
 type PartnerCatalogProps = {
   partners: PartnerWithProducts[];
@@ -8,13 +16,17 @@ type PartnerCatalogProps = {
   loading: boolean;
   /** When set, called before opening outbound links (in-app marketplace). */
   onOutboundClick?: (partnerId: string, url: string) => void | Promise<void>;
-  /** Marketing = light page; app = hotel shell (dark panel). */
+  /** Marketing = public site; app = hotel shell (same light cards as marketing). */
   tone?: 'marketing' | 'app';
   className?: string;
 };
 
 function openUrl(url: string) {
   window.open(url, '_blank', 'noopener,noreferrer');
+}
+
+function formatCategory(category: string) {
+  return category.replace(/_/g, ' ');
 }
 
 export function PartnerCatalog({
@@ -25,114 +37,184 @@ export function PartnerCatalog({
   tone = 'marketing',
   className,
 }: PartnerCatalogProps) {
-  const isApp = tone === 'app';
+  const [detailPartnerId, setDetailPartnerId] = useState<string | null>(null);
+  const detailPartner = detailPartnerId ? partners.find((p) => p.id === detailPartnerId) ?? null : null;
 
   if (loading) {
     return (
       <div className={cn('flex flex-col items-center justify-center py-24 gap-3', className)}>
-        <Loader2 className={cn('h-8 w-8 animate-spin', isApp ? 'text-amber-400' : 'text-violet-600')} />
-        <p className={cn('text-sm', isApp ? 'text-slate-400' : 'text-slate-500')}>Loading partner catalog…</p>
+        <Loader2 className="h-8 w-8 animate-spin text-vesta-gold" />
+        <p className="text-sm text-slate-500">Loading partner catalog…</p>
       </div>
     );
   }
 
   return (
-    <div className={cn('space-y-12', className)}>
+    <div className={cn('space-y-8', className)}>
       {isFallback && (
-        <p
-          className={cn(
-            'text-sm rounded-xl px-4 py-3 border',
-            isApp
-              ? 'text-amber-200 bg-amber-500/10 border-amber-500/25'
-              : 'text-amber-800 bg-amber-50 border-amber-200'
-          )}
-        >
+        <p className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
           Showing sample catalog (The Lotus Group). Connect Supabase and run migrations to load live partner data.
         </p>
       )}
 
-      {partners.map((partner) => (
-        <article
-          key={partner.id}
-          className={cn(
-            'rounded-2xl border overflow-hidden shadow-sm',
-            isApp ? 'border-slate-600 bg-slate-800/50' : 'border-slate-200 bg-white'
-          )}
-        >
-          <header
-            className={cn(
-              'px-6 py-5 border-b',
-              isApp ? 'border-slate-600 bg-slate-800/80' : 'border-slate-100 bg-slate-50/80'
-            )}
-          >
-            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
-              <div>
-                <p
-                  className={cn(
-                    'text-xs font-mono uppercase tracking-wider mb-1',
-                    isApp ? 'text-amber-400/90' : 'text-violet-700'
-                  )}
-                >
-                  {partner.category.replace(/_/g, ' ')}
-                </p>
-                <h2 className={cn('font-serif text-2xl', isApp ? 'text-white' : 'text-slate-900')}>{partner.name}</h2>
-                {partner.tagline && (
-                  <p className={cn('mt-1', isApp ? 'text-slate-300' : 'text-slate-600')}>{partner.tagline}</p>
-                )}
-              </div>
-              {partner.website_url && (
-                <OutboundControl
-                  href={partner.website_url}
-                  label="Visit site"
-                  onOutboundClick={onOutboundClick}
-                  partnerId={partner.id}
-                  tone={tone}
-                  className="shrink-0"
-                />
+      <ul
+        className={cn(
+          'grid gap-4 sm:gap-5 list-none p-0 m-0',
+          'grid-cols-1 sm:grid-cols-2 xl:grid-cols-3'
+        )}
+      >
+        {partners.map((partner) => (
+          <li key={partner.id} className="min-w-0">
+            <article
+              className={cn(
+                'group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-shadow',
+                'hover:shadow-md focus-within:ring-2 focus-within:ring-violet-500/40 focus-within:ring-offset-2 focus-within:ring-offset-white'
               )}
-            </div>
-            {partner.description && (
-              <p
-                className={cn(
-                  'text-sm mt-4 leading-relaxed max-w-3xl',
-                  isApp ? 'text-slate-300' : 'text-slate-600'
-                )}
-              >
-                {partner.description}
-              </p>
-            )}
-          </header>
-
-          <ul className={cn('divide-y', isApp ? 'divide-slate-600' : 'divide-slate-100')}>
-            {partner.products.length === 0 ? (
-              <li className={cn('px-6 py-8 text-sm', isApp ? 'text-slate-400' : 'text-slate-500')}>
-                No product lines listed yet.
-              </li>
-            ) : (
-              partner.products.map((p) => (
-                <li key={p.id} className="px-6 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-                  <div>
-                    <h3 className={cn('font-medium', isApp ? 'text-slate-100' : 'text-slate-900')}>{p.name}</h3>
-                    {p.description && (
-                      <p className={cn('text-sm mt-1', isApp ? 'text-slate-400' : 'text-slate-600')}>{p.description}</p>
+            >
+              <div className="flex flex-1 flex-col gap-3 bg-slate-50/50 p-5">
+                <div className="flex items-start justify-between gap-2">
+                  <div className="flex flex-wrap items-center gap-2 min-w-0">
+                    <span className="rounded-md bg-violet-100 px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-violet-800">
+                      {formatCategory(partner.category)}
+                    </span>
+                    {partner.is_featured && (
+                      <span className="inline-flex items-center gap-1 rounded-md bg-amber-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-amber-900">
+                        <Sparkles className="h-3 w-3" aria-hidden />
+                        Featured
+                      </span>
                     )}
                   </div>
-                  {p.product_url && (
+                  <Package
+                    className="h-5 w-5 shrink-0 text-slate-500 opacity-40 transition-opacity group-hover:opacity-60"
+                    aria-hidden
+                  />
+                </div>
+
+                <div className="min-w-0">
+                  <h2 className="font-serif text-xl leading-snug sm:text-[1.35rem] text-slate-900">
+                    {partner.name}
+                  </h2>
+                  {partner.tagline && (
+                    <p className="mt-1.5 line-clamp-2 text-sm text-slate-600">
+                      {partner.tagline}
+                    </p>
+                  )}
+                </div>
+
+                <p className="mt-auto text-xs text-slate-500">
+                  {partner.products.length === 0
+                    ? 'Offerings coming soon'
+                    : `${partner.products.length} product line${partner.products.length === 1 ? '' : 's'}`}
+                </p>
+              </div>
+
+              <div className="mt-auto flex flex-wrap gap-2 border-t border-slate-100 bg-white p-4">
+                <button
+                  type="button"
+                  onClick={() => setDetailPartnerId(partner.id)}
+                  className="inline-flex min-w-[8rem] flex-1 items-center justify-center rounded-lg bg-violet-600 px-3 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-violet-700"
+                >
+                  View offerings
+                </button>
+                {partner.website_url && (
+                  <OutboundControl
+                    href={partner.website_url}
+                    label="Visit site"
+                    onOutboundClick={onOutboundClick}
+                    partnerId={partner.id}
+                    variant="cardSecondary"
+                    tone={tone}
+                    className="shrink-0"
+                  />
+                )}
+              </div>
+            </article>
+          </li>
+        ))}
+      </ul>
+
+      <Dialog open={detailPartner !== null} onOpenChange={(open) => !open && setDetailPartnerId(null)}>
+        <DialogContent className="flex max-h-[min(85vh,720px)] max-w-2xl flex-col gap-0 overflow-hidden border-slate-200 bg-white p-0">
+          {detailPartner && (
+            <>
+              <DialogHeader className="shrink-0 space-y-3 border-b border-slate-100 p-6 pb-4 text-left">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="font-mono text-[10px] uppercase tracking-wider text-violet-700">
+                    {formatCategory(detailPartner.category)}
+                  </span>
+                  {detailPartner.is_featured && (
+                    <span className="text-[10px] font-semibold uppercase tracking-wide text-amber-800">
+                      · Featured partner
+                    </span>
+                  )}
+                </div>
+                <DialogTitle className="pr-8 font-serif text-2xl text-slate-900 sm:text-3xl">
+                  {detailPartner.name}
+                </DialogTitle>
+                  <DialogDescription className="!mt-2 text-base text-slate-600">
+                  {detailPartner.tagline ?? "Browse product lines; outbound links open the partner's site in a new tab."}
+                </DialogDescription>
+                {detailPartner.description && (
+                  <p className="!mt-3 text-sm leading-relaxed text-slate-600">
+                    {detailPartner.description}
+                  </p>
+                )}
+                {detailPartner.website_url && (
+                  <div className="pt-2">
                     <OutboundControl
-                      href={p.product_url}
-                      label="View"
+                      href={detailPartner.website_url}
+                      label="Visit partner site"
                       onOutboundClick={onOutboundClick}
-                      partnerId={partner.id}
-                      variant="compact"
+                      partnerId={detailPartner.id}
                       tone={tone}
                     />
+                  </div>
+                )}
+              </DialogHeader>
+
+              <div className="min-h-0 flex-1 overflow-y-auto px-6 py-4">
+                <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-500">
+                  Product lines
+                </h3>
+                <ul className="divide-y divide-slate-100 overflow-hidden rounded-xl border border-slate-200">
+                  {detailPartner.products.length === 0 ? (
+                    <li className="px-4 py-8 text-sm text-slate-500">
+                      No product lines listed yet.
+                    </li>
+                  ) : (
+                    detailPartner.products.map((p) => (
+                      <li
+                        key={p.id}
+                        className="flex flex-col gap-2 bg-slate-50/30 px-4 py-3.5 sm:flex-row sm:items-center sm:justify-between"
+                      >
+                        <div className="min-w-0">
+                          <h4 className="font-medium text-slate-900">{p.name}</h4>
+                          {p.description && (
+                            <p className="mt-1 text-sm text-slate-600">
+                              {p.description}
+                            </p>
+                          )}
+                        </div>
+                        {p.product_url && (
+                          <OutboundControl
+                            href={p.product_url}
+                            label="View"
+                            onOutboundClick={onOutboundClick}
+                            partnerId={detailPartner.id}
+                            variant="compact"
+                            tone={tone}
+                            className="shrink-0"
+                          />
+                        )}
+                      </li>
+                    ))
                   )}
-                </li>
-              ))
-            )}
-          </ul>
-        </article>
-      ))}
+                </ul>
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
@@ -150,25 +232,21 @@ function OutboundControl({
   label: string;
   partnerId: string;
   onOutboundClick?: (partnerId: string, url: string) => void | Promise<void>;
-  variant?: 'default' | 'compact';
+  variant?: 'default' | 'compact' | 'cardSecondary';
   tone?: 'marketing' | 'app';
   className?: string;
 }) {
   const isTracked = Boolean(onOutboundClick);
-  const isApp = tone === 'app';
-
   const base =
     variant === 'compact'
-      ? cn(
-          'inline-flex items-center gap-1.5 text-sm font-medium',
-          isApp ? 'text-amber-400 hover:text-amber-300' : 'text-violet-700 hover:text-violet-900'
-        )
-      : cn(
-          'inline-flex items-center gap-2 rounded-lg border px-4 py-2 text-sm font-semibold transition-colors',
-          isApp
-            ? 'border-amber-500/30 bg-amber-500/10 text-amber-100 hover:bg-amber-500/15'
-            : 'border-violet-200 bg-violet-50 text-violet-900 hover:bg-violet-100'
-        );
+      ? cn('inline-flex items-center gap-1.5 text-sm font-medium text-violet-700 hover:text-violet-900')
+      : variant === 'cardSecondary'
+        ? cn(
+            'inline-flex items-center justify-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-800 transition-colors hover:bg-slate-50'
+          )
+        : cn(
+            'inline-flex items-center gap-2 rounded-lg border border-violet-200 bg-violet-50 px-4 py-2 text-sm font-semibold text-violet-900 transition-colors hover:bg-violet-100'
+          );
 
   if (!isTracked) {
     return (

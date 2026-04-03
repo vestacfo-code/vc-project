@@ -20,6 +20,7 @@ import { SupportAdminSection } from '@/components/admin/SupportAdminSection';
 import { PartnersAdminSection } from '@/components/admin/PartnersAdminSection';
 import { useAuth } from '@/hooks/useAuth';
 import { usePermissions } from '@/hooks/usePermissions';
+import { VestaLogo } from '@/components/VestaLogo';
 
 const AdminHub = () => {
   const { toast } = useToast();
@@ -201,10 +202,10 @@ const AdminHub = () => {
   // Show loading state
   if (authLoading || loading || permissionsLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#0a0a0a]">
+      <div className="flex min-h-screen items-center justify-center bg-vesta-cream">
         <div className="text-center">
-          <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4 text-white" />
-          <p className="text-slate-400">Verifying admin access...</p>
+          <Loader2 className="mx-auto mb-4 h-8 w-8 animate-spin text-vesta-gold" />
+          <p className="text-slate-600">Verifying admin access...</p>
         </div>
       </div>
     );
@@ -218,12 +219,12 @@ const AdminHub = () => {
   // Show access denied if not admin
   if (!isAdmin) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#0a0a0a]">
-        <div className="w-full max-w-md p-8 rounded-xl border border-white/10 bg-[#1a1a1a] text-center">
-          <h2 className="text-2xl font-semibold text-red-400 mb-2">Access Denied</h2>
-          <p className="text-slate-400 mb-6">You don't have permission to access the admin hub</p>
+      <div className="flex min-h-screen items-center justify-center bg-vesta-cream">
+        <div className="w-full max-w-md rounded-xl border border-slate-200 bg-white p-8 text-center shadow-sm">
+          <h2 className="mb-2 text-2xl font-semibold text-red-600">Access Denied</h2>
+          <p className="mb-6 text-slate-600">You don't have permission to access the admin hub</p>
           <Link to="/">
-            <Button variant="outline" className="w-full border-white/20 text-white hover:bg-white/10 bg-transparent">
+            <Button variant="outline" className="w-full border-slate-200 bg-white text-slate-900 hover:bg-slate-50">
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back to Home
             </Button>
@@ -234,32 +235,32 @@ const AdminHub = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white">
+    <div className="min-h-screen bg-vesta-cream text-slate-900">
       {/* Header Bar */}
-      <header className="sticky top-0 z-40 border-b border-white/10 bg-[#0a0a0a]/95 backdrop-blur-xl">
-        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+      <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-[1600px] items-center justify-between px-4 py-3 sm:px-6">
           <div className="flex items-center gap-4">
             <Link to="/">
-              <img src={finloLogo} alt="Vesta" className="h-6" />
+              <VestaLogo size="sm" tone="light" />
             </Link>
-            <span className="text-slate-500">|</span>
-           <h1 className="font-serif text-lg sm:text-xl text-white">MyVesta Admin Hub</h1>
+            <span className="text-slate-400">|</span>
+           <h1 className="font-serif text-lg text-slate-900 sm:text-xl">MyVesta Admin Hub</h1>
             {isSuperAdmin && (
               <Badge className="bg-emerald-500/20 text-emerald-400 border-emerald-500/30 text-xs">Super Admin</Badge>
             )}
           </div>
           
           <div className="flex items-center gap-2">
-            <div className="hidden md:flex items-center gap-2 text-xs px-3 py-1.5 rounded-md bg-white/5 border border-white/10">
-              <UserCircle className="h-3.5 w-3.5 text-slate-400" />
-              <span className="text-slate-400 max-w-[150px] truncate">{user?.email}</span>
+            <div className="hidden items-center gap-2 rounded-md border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs md:flex">
+              <UserCircle className="h-3.5 w-3.5 text-slate-500" />
+              <span className="max-w-[150px] truncate text-slate-600">{user?.email}</span>
             </div>
-            <Button onClick={handleLogout} variant="ghost" size="sm" className="h-8 px-3 text-slate-400 hover:text-white hover:bg-white/10">
+            <Button onClick={handleLogout} variant="ghost" size="sm" className="h-8 px-3 text-slate-600 hover:bg-slate-100 hover:text-slate-900">
               <LogOut className="h-3.5 w-3.5" />
-              <span className="hidden sm:inline text-xs ml-1.5">Logout</span>
+              <span className="ml-1.5 hidden text-xs sm:inline">Logout</span>
             </Button>
             <Link to="/">
-              <Button variant="ghost" size="sm" className="h-8 px-3 text-slate-400 hover:text-white hover:bg-white/10">
+              <Button variant="ghost" size="sm" className="h-8 px-3 text-slate-600 hover:bg-slate-100 hover:text-slate-900">
                 <ArrowLeft className="h-3.5 w-3.5" />
                 <span className="hidden sm:inline text-xs ml-1.5">Home</span>
               </Button>
@@ -280,11 +281,11 @@ const AdminHub = () => {
           hasPartnersAdminAccess() ? 'partners' : 'careers'
          } className="space-y-4">
           {/* Tab Navigation */}
-           <TabsList className="flex w-full sm:w-auto sm:inline-flex sm:mx-auto h-auto items-center rounded-lg bg-white/5 border border-white/10 p-1 gap-0.5 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+           <TabsList className="flex h-auto w-full gap-0.5 overflow-x-auto rounded-lg border border-slate-200 bg-slate-100 p-1 sm:mx-auto sm:inline-flex sm:w-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             {isSuperAdmin && (
               <TabsTrigger 
                 value="consumers" 
-                 className="inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-md px-2.5 py-1.5 text-xs font-medium transition-all text-slate-400 data-[state=active]:bg-white/10 data-[state=active]:text-white shrink-0"
+                 className="inline-flex shrink-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-md px-2.5 py-1.5 text-xs font-medium text-slate-600 transition-all data-[state=active]:bg-white data-[state=active]:text-slate-900 data-[state=active]:shadow-sm"
               >
                 <UsersRound className="h-4 w-4" />
                  <span>Consumers</span>
@@ -293,7 +294,7 @@ const AdminHub = () => {
             {hasCareersAccess() && (
               <TabsTrigger 
                 value="careers" 
-                 className="inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-md px-2.5 py-1.5 text-xs font-medium transition-all text-slate-400 data-[state=active]:bg-white/10 data-[state=active]:text-white shrink-0"
+                 className="inline-flex shrink-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-md px-2.5 py-1.5 text-xs font-medium text-slate-600 transition-all data-[state=active]:bg-white data-[state=active]:text-slate-900 data-[state=active]:shadow-sm"
               >
                 <Users className="h-4 w-4" />
                  <span>Careers</span>
@@ -302,7 +303,7 @@ const AdminHub = () => {
             {hasBlogAccess() && (
               <TabsTrigger 
                 value="blog" 
-                 className="inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-md px-2.5 py-1.5 text-xs font-medium transition-all text-slate-400 data-[state=active]:bg-white/10 data-[state=active]:text-white shrink-0"
+                 className="inline-flex shrink-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-md px-2.5 py-1.5 text-xs font-medium text-slate-600 transition-all data-[state=active]:bg-white data-[state=active]:text-slate-900 data-[state=active]:shadow-sm"
               >
                 <FileText className="h-4 w-4" />
                  <span>Blog</span>
@@ -311,7 +312,7 @@ const AdminHub = () => {
             {hasPressAccess() && (
               <TabsTrigger 
                 value="press" 
-                 className="inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-md px-2.5 py-1.5 text-xs font-medium transition-all text-slate-400 data-[state=active]:bg-white/10 data-[state=active]:text-white shrink-0"
+                 className="inline-flex shrink-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-md px-2.5 py-1.5 text-xs font-medium text-slate-600 transition-all data-[state=active]:bg-white data-[state=active]:text-slate-900 data-[state=active]:shadow-sm"
               >
                 <Megaphone className="h-4 w-4" />
                  <span>Press</span>
@@ -320,7 +321,7 @@ const AdminHub = () => {
             {hasContentCalendarAccess() && (
               <TabsTrigger 
                 value="content" 
-                 className="inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-md px-2.5 py-1.5 text-xs font-medium transition-all text-slate-400 data-[state=active]:bg-white/10 data-[state=active]:text-white shrink-0"
+                 className="inline-flex shrink-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-md px-2.5 py-1.5 text-xs font-medium text-slate-600 transition-all data-[state=active]:bg-white data-[state=active]:text-slate-900 data-[state=active]:shadow-sm"
               >
                 <Calendar className="h-4 w-4" />
                  <span>Content</span>
@@ -329,7 +330,7 @@ const AdminHub = () => {
             {hasTrainingAccess() && (
               <TabsTrigger 
                 value="training" 
-                 className="inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-md px-2.5 py-1.5 text-xs font-medium transition-all text-slate-400 data-[state=active]:bg-white/10 data-[state=active]:text-white shrink-0"
+                 className="inline-flex shrink-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-md px-2.5 py-1.5 text-xs font-medium text-slate-600 transition-all data-[state=active]:bg-white data-[state=active]:text-slate-900 data-[state=active]:shadow-sm"
               >
                 <GraduationCap className="h-4 w-4" />
                  <span>Training</span>
@@ -338,7 +339,7 @@ const AdminHub = () => {
             {hasCRMAccess() && (
               <TabsTrigger 
                 value="crm" 
-                 className="inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-md px-2.5 py-1.5 text-xs font-medium transition-all text-slate-400 data-[state=active]:bg-white/10 data-[state=active]:text-white shrink-0"
+                 className="inline-flex shrink-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-md px-2.5 py-1.5 text-xs font-medium text-slate-600 transition-all data-[state=active]:bg-white data-[state=active]:text-slate-900 data-[state=active]:shadow-sm"
               >
                 <PhoneCall className="h-4 w-4" />
                  <span>CRM</span>
@@ -347,7 +348,7 @@ const AdminHub = () => {
             {hasPartnersAdminAccess() && (
               <TabsTrigger
                 value="partners"
-                className="inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-md px-2.5 py-1.5 text-xs font-medium transition-all text-slate-400 data-[state=active]:bg-white/10 data-[state=active]:text-white shrink-0"
+                className="inline-flex shrink-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-md px-2.5 py-1.5 text-xs font-medium text-slate-600 transition-all data-[state=active]:bg-white data-[state=active]:text-slate-900 data-[state=active]:shadow-sm"
               >
                 <Handshake className="h-4 w-4" />
                 <span>Partners</span>
@@ -356,7 +357,7 @@ const AdminHub = () => {
             {isSuperAdmin && (
               <TabsTrigger 
                 value="users" 
-                 className="inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-md px-2.5 py-1.5 text-xs font-medium transition-all text-slate-400 data-[state=active]:bg-white/10 data-[state=active]:text-white shrink-0"
+                 className="inline-flex shrink-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-md px-2.5 py-1.5 text-xs font-medium text-slate-600 transition-all data-[state=active]:bg-white data-[state=active]:text-slate-900 data-[state=active]:shadow-sm"
               >
                 <Shield className="h-4 w-4" />
                  <span>Users</span>
@@ -365,7 +366,7 @@ const AdminHub = () => {
             {hasSupportAccess() && (
               <TabsTrigger 
                 value="support" 
-                 className="inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-md px-2.5 py-1.5 text-xs font-medium transition-all text-slate-400 data-[state=active]:bg-white/10 data-[state=active]:text-white shrink-0"
+                 className="inline-flex shrink-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-md px-2.5 py-1.5 text-xs font-medium text-slate-600 transition-all data-[state=active]:bg-white data-[state=active]:text-slate-900 data-[state=active]:shadow-sm"
               >
                 <LifeBuoy className="h-4 w-4" />
                  <span>Support</span>

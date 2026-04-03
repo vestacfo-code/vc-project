@@ -45,7 +45,7 @@ export const CreditTab = () => {
           <Button 
             variant="ghost" 
             size="sm"
-            className="flex items-center space-x-1 px-3 py-2 bg-orange-50 hover:bg-orange-100 border border-orange-200 rounded-md text-xs text-orange-700 dark:bg-orange-950/20 dark:border-orange-800 dark:text-orange-300 dark:hover:bg-orange-900/30"
+            className="flex items-center space-x-1 px-3 py-2 bg-orange-50 hover:bg-orange-100 border border-orange-200 rounded-md text-xs text-orange-700"
           >
             <Coins className="h-3 w-3" />
             <span>Credits</span>
@@ -55,12 +55,12 @@ export const CreditTab = () => {
         <PopoverContent className="w-80 p-4" align="end">
           <div className="space-y-3">
             <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-orange-100 dark:bg-orange-900/50">
-                <Coins className="h-4 w-4 text-orange-600 dark:text-orange-400" />
+              <div className="p-2 rounded-lg bg-orange-100">
+                <Coins className="h-4 w-4 text-orange-600" />
               </div>
               <div>
-                <h3 className="font-semibold text-orange-800 dark:text-orange-200">Credit System</h3>
-                <p className="text-sm text-orange-600 dark:text-orange-300">
+                <h3 className="font-semibold text-orange-800">Credit System</h3>
+                <p className="text-sm text-orange-600">
                   Unable to load credit information
                 </p>
               </div>

@@ -92,8 +92,8 @@ const QUICK_ACTIONS = [
 function SectionHeading({ kicker, title }: { kicker: string; title: string }) {
   return (
     <div className="mb-4">
-      <p className="text-[11px] uppercase tracking-[0.2em] text-[#C8963E]/85 font-semibold">{kicker}</p>
-      <h2 className="text-lg font-semibold text-white mt-1 tracking-tight">{title}</h2>
+      <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-vesta-gold">{kicker}</p>
+      <h2 className="mt-1 text-lg font-semibold tracking-tight text-slate-900">{title}</h2>
     </div>
   );
 }
@@ -119,7 +119,7 @@ function PropertySnapshot({
 
   if (loading) {
     return (
-      <Card className="bg-slate-900/50 border border-slate-700/80 h-full min-h-[200px] animate-pulse">
+      <Card className="h-full min-h-[200px] animate-pulse border border-vesta-navy/10 bg-white">
         <CardContent className="p-5 h-full" />
       </Card>
     );
@@ -127,22 +127,22 @@ function PropertySnapshot({
 
   const rows: { icon: React.ReactNode; label: string; value: string }[] = [
     {
-      icon: <BedDouble className="h-4 w-4 text-[#C8963E]/90" />,
+      icon: <BedDouble className="h-4 w-4 text-vesta-gold" />,
       label: 'Keys / rooms',
       value: hotel?.room_count != null ? String(hotel.room_count) : '—',
     },
     {
-      icon: <DollarSign className="h-4 w-4 text-[#C8963E]/90" />,
+      icon: <DollarSign className="h-4 w-4 text-vesta-gold" />,
       label: 'Currency',
       value: hotel?.currency ?? '—',
     },
     {
-      icon: <Clock3 className="h-4 w-4 text-[#C8963E]/90" />,
+      icon: <Clock3 className="h-4 w-4 text-vesta-gold" />,
       label: 'Timezone',
       value: hotel?.timezone?.replace(/_/g, ' ') ?? '—',
     },
     {
-      icon: <Plug className="h-4 w-4 text-[#C8963E]/90" />,
+      icon: <Plug className="h-4 w-4 text-vesta-gold" />,
       label: 'PMS',
       value: pmsLabel ?? 'Not connected',
     },
@@ -150,30 +150,30 @@ function PropertySnapshot({
 
   if (propType) {
     rows.push({
-      icon: <Building2 className="h-4 w-4 text-[#C8963E]/90" />,
+      icon: <Building2 className="h-4 w-4 text-vesta-gold" />,
       label: 'Type',
       value: propType,
     });
   }
 
   return (
-    <Card className="bg-slate-900/50 border border-slate-700/80 backdrop-blur-sm h-full shadow-lg shadow-black/20">
+    <Card className="h-full border border-vesta-navy/10 bg-white shadow-sm">
       <CardContent className="p-5">
-        <p className="text-[11px] uppercase tracking-[0.2em] text-[#C8963E]/85 font-semibold mb-4">Property</p>
+        <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.2em] text-vesta-gold">Property</p>
         <ul className="space-y-3.5">
           {rows.map((r) => (
             <li key={r.label} className="flex items-start gap-3">
               <span className="mt-0.5 shrink-0">{r.icon}</span>
               <div className="min-w-0">
                 <p className="text-xs text-slate-500">{r.label}</p>
-                <p className="text-sm font-medium text-slate-100 truncate">{r.value}</p>
+                <p className="truncate text-sm font-medium text-slate-900">{r.value}</p>
               </div>
             </li>
           ))}
         </ul>
         <Link
           to="/settings"
-          className="mt-5 flex items-center justify-center gap-1 text-xs font-medium text-[#C8963E] hover:text-[#E8C77B] transition-colors"
+          className="mt-5 flex items-center justify-center gap-1 text-xs font-medium text-vesta-navy-muted transition-colors hover:text-vesta-gold"
         >
           Edit in settings
           <ChevronRight className="h-3.5 w-3.5" />
@@ -186,14 +186,14 @@ function PropertySnapshot({
 const NoDataBanner = () => {
   const navigate = useNavigate();
   return (
-    <div className="rounded-2xl border border-dashed border-[#C8963E]/35 bg-gradient-to-r from-[#C8963E]/[0.07] to-transparent px-5 py-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+    <div className="flex flex-col items-start justify-between gap-4 rounded-2xl border border-dashed border-vesta-gold/40 bg-gradient-to-r from-vesta-gold/10 to-transparent px-5 py-5 sm:flex-row sm:items-center">
       <div className="flex items-start gap-3">
-        <div className="rounded-lg bg-[#C8963E]/15 p-2 ring-1 ring-[#C8963E]/25">
-          <UploadCloud className="h-5 w-5 text-[#E8C77B]" />
+        <div className="rounded-lg bg-vesta-gold/15 p-2 ring-1 ring-vesta-gold/30">
+          <UploadCloud className="h-5 w-5 text-vesta-gold" />
         </div>
         <div>
-          <p className="text-sm font-semibold text-[#E8C77B]">No KPI data for today yet</p>
-          <p className="text-xs text-slate-400 mt-1 max-w-md">
+          <p className="text-sm font-semibold text-vesta-navy">No KPI data for today yet</p>
+          <p className="mt-1 max-w-md text-xs text-slate-600">
             Connect a PMS or upload sample CSVs so RevPAR, ADR, and occupancy populate automatically.
           </p>
         </div>
@@ -202,7 +202,7 @@ const NoDataBanner = () => {
         size="sm"
         variant="outline"
         onClick={() => navigate('/integrations')}
-        className="border-[#C8963E]/40 text-[#E8C77B] hover:bg-[#C8963E]/10 hover:border-[#C8963E]/55 shrink-0"
+        className="shrink-0 border-vesta-navy/25 text-vesta-navy hover:border-vesta-gold/50 hover:bg-vesta-gold/10"
       >
         Open integrations
       </Button>
@@ -259,41 +259,41 @@ const Dashboard = () => {
   const locationLine = [hotel?.city, hotel?.country].filter(Boolean).join(', ');
 
   return (
-    <div className="min-h-full text-white relative">
+    <div className="relative min-h-full text-slate-900">
       {/* Brand-aligned backdrop */}
       <div
-        className="pointer-events-none fixed inset-0 opacity-40"
+        className="pointer-events-none fixed inset-0 opacity-50"
         aria-hidden
         style={{
           background:
-            'radial-gradient(ellipse 80% 50% at 50% -20%, rgba(27, 58, 92, 0.45), transparent), radial-gradient(ellipse 60% 40% at 100% 0%, rgba(200, 150, 62, 0.08), transparent)',
+            'radial-gradient(ellipse 80% 50% at 50% -20%, rgba(27, 58, 92, 0.12), transparent), radial-gradient(ellipse 60% 40% at 100% 0%, rgba(200, 150, 62, 0.06), transparent)',
         }}
       />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-8 pb-24 lg:pb-10">
+      <div className="relative mx-auto max-w-7xl space-y-8 px-4 py-6 sm:px-6 sm:py-8 lg:px-8 pb-24 lg:pb-10">
         {/* Hero */}
-        <section className="relative overflow-hidden rounded-2xl border border-slate-700/70 bg-gradient-to-br from-[#1B3A5C]/35 via-slate-900/75 to-slate-950/90 p-6 sm:p-8 shadow-xl shadow-black/30">
+        <section className="relative overflow-hidden rounded-2xl border border-vesta-navy/15 bg-gradient-to-br from-white via-vesta-cream to-vesta-mist/40 p-6 shadow-md sm:p-8">
           <div
-            className="pointer-events-none absolute -top-24 right-0 h-56 w-56 rounded-full bg-[#C8963E]/10 blur-3xl"
+            className="pointer-events-none absolute -top-24 right-0 h-56 w-56 rounded-full bg-vesta-gold/15 blur-3xl"
             aria-hidden
           />
-          <div className="relative flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
+          <div className="relative flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+              <h1 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
                 {getGreeting()}, {userName}
               </h1>
-              <p className="text-sm text-slate-400 mt-1.5">{format(new Date(), 'EEEE, MMMM d, yyyy')}</p>
+              <p className="mt-1.5 text-sm text-slate-600">{format(new Date(), 'EEEE, MMMM d, yyyy')}</p>
             </div>
-            <div className="flex flex-col items-start lg:items-end gap-2">
-              <div className="flex items-center gap-2 flex-wrap">
-                <Building2 className="h-5 w-5 text-[#C8963E] shrink-0" />
-                <span className="text-lg font-semibold text-white">
+            <div className="flex flex-col items-start gap-2 lg:items-end">
+              <div className="flex flex-wrap items-center gap-2">
+                <Building2 className="h-5 w-5 shrink-0 text-vesta-gold" />
+                <span className="text-lg font-semibold text-vesta-navy">
                   {hotelLoading ? 'Loading property…' : (hotel?.name ?? 'Your hotel')}
                 </span>
               </div>
               {locationLine ? (
-                <p className="text-sm text-slate-400 flex items-center gap-1.5">
-                  <Globe2 className="h-3.5 w-3.5 text-slate-500" />
+                <p className="flex items-center gap-1.5 text-sm text-slate-600">
+                  <Globe2 className="h-3.5 w-3.5 text-slate-400" />
                   {locationLine}
                 </p>
               ) : null}
@@ -310,17 +310,17 @@ const Dashboard = () => {
                 key={to}
                 to={to}
                 className={cn(
-                  'group relative flex flex-col rounded-xl border border-slate-700/70 bg-slate-900/45 p-4 transition-all duration-200',
-                  'hover:border-[#C8963E]/35 hover:bg-slate-900/75 hover:shadow-[0_12px_40px_-12px_rgba(0,0,0,0.5)]'
+                  'group relative flex flex-col rounded-xl border border-vesta-navy/10 bg-white p-4 shadow-sm transition-all duration-200',
+                  'hover:border-vesta-gold/40 hover:bg-white hover:shadow-md'
                 )}
               >
-                <div className="flex items-start justify-between gap-2 mb-2">
-                  <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#C8963E]/12 ring-1 ring-[#C8963E]/20 text-[#E8C77B]">
+                <div className="mb-2 flex items-start justify-between gap-2">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-vesta-gold/15 text-vesta-gold ring-1 ring-vesta-gold/25">
                     <Icon className="h-4 w-4" />
                   </span>
-                  <ChevronRight className="h-4 w-4 text-slate-600 group-hover:text-[#C8963E] transition-colors shrink-0 mt-1" />
+                  <ChevronRight className="mt-1 h-4 w-4 shrink-0 text-slate-400 transition-colors group-hover:text-vesta-gold" />
                 </div>
-                <span className="text-sm font-semibold text-white">{label}</span>
+                <span className="text-sm font-semibold text-slate-900">{label}</span>
                 <span className="text-xs text-slate-500 mt-0.5 leading-snug">{hint}</span>
               </Link>
             ))}
@@ -382,15 +382,15 @@ const Dashboard = () => {
             </div>
           </section>
         ) : !hotelLoading ? (
-          <div className="rounded-2xl border border-slate-700/80 bg-slate-900/40 p-10 text-center">
-            <Building2 className="h-12 w-12 text-slate-600 mx-auto mb-4" />
-            <p className="text-slate-200 font-semibold text-lg">No hotel linked yet</p>
-            <p className="text-sm text-slate-500 mt-2 max-w-sm mx-auto">
+          <div className="rounded-2xl border border-vesta-navy/10 bg-white p-10 text-center shadow-sm">
+            <Building2 className="mx-auto mb-4 h-12 w-12 text-slate-400" />
+            <p className="text-lg font-semibold text-slate-900">No hotel linked yet</p>
+            <p className="mx-auto mt-2 max-w-sm text-sm text-slate-600">
               Finish onboarding to attach a property. You will then see KPIs, briefings, and charts here.
             </p>
             <Button
               asChild
-              className="mt-6 bg-[#C8963E] hover:bg-[#b88735] text-slate-950 font-semibold"
+              className="mt-6 bg-vesta-gold font-semibold text-slate-950 hover:bg-vesta-gold/90"
             >
               <Link to="/onboarding">Start onboarding</Link>
             </Button>

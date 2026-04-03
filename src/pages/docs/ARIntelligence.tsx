@@ -16,7 +16,7 @@ const ARIntelligence = () => {
       nextPage={{ href: "/docs/features/expense-intelligence", title: "Expense Intelligence" }}
     >
       <section id="overview" className="mb-12">
-        <h2 className="text-2xl font-semibold text-white mb-4">Overview</h2>
+        <h2 className="text-2xl font-semibold text-slate-900 mb-4">Overview</h2>
         <p className="text-slate-400 mb-4">
           AR Intelligence provides real-time monitoring of your accounts receivable to help you:
         </p>
@@ -26,36 +26,36 @@ const ARIntelligence = () => {
           <li>Prioritize collection efforts effectively</li>
           <li>Forecast potential cash flow impacts</li>
         </ul>
-        <div className="bg-[#1a1a1a] border border-white/10 rounded-xl p-4 mt-4">
+        <div className="border border-slate-200 bg-white rounded-xl p-4 mt-4">
           <p className="text-sm text-slate-400">
-            💡 <strong className="text-white">Pro tip:</strong> Connect your accounting software for automatic invoice tracking and real-time AR updates.
+            💡 <strong className="text-slate-900">Pro tip:</strong> Connect your accounting software for automatic invoice tracking and real-time AR updates.
           </p>
         </div>
       </section>
 
       <section id="at-risk" className="mb-12">
-        <h2 className="text-2xl font-semibold text-white mb-4">At-Risk Amounts</h2>
+        <h2 className="text-2xl font-semibold text-slate-900 mb-4">At-Risk Amounts</h2>
         <p className="text-slate-400 mb-4">
           The AR Intelligence dashboard highlights amounts that may be difficult to collect:
         </p>
         <div className="grid gap-4">
-          <div className="bg-[#1a1a1a] border border-white/10 rounded-xl p-4">
-            <h4 className="text-white font-medium mb-2">Total At Risk</h4>
+          <div className="border border-slate-200 bg-white rounded-xl p-4">
+            <h4 className="text-slate-900 font-medium mb-2">Total At Risk</h4>
             <p className="text-sm text-slate-400">Sum of invoices past due or with high-risk customers</p>
           </div>
-          <div className="bg-[#1a1a1a] border border-white/10 rounded-xl p-4">
-            <h4 className="text-white font-medium mb-2">Average Days Late</h4>
+          <div className="border border-slate-200 bg-white rounded-xl p-4">
+            <h4 className="text-slate-900 font-medium mb-2">Average Days Late</h4>
             <p className="text-sm text-slate-400">Mean number of days invoices are overdue</p>
           </div>
-          <div className="bg-[#1a1a1a] border border-white/10 rounded-xl p-4">
-            <h4 className="text-white font-medium mb-2">Total Outstanding</h4>
+          <div className="border border-slate-200 bg-white rounded-xl p-4">
+            <h4 className="text-slate-900 font-medium mb-2">Total Outstanding</h4>
             <p className="text-sm text-slate-400">All unpaid invoices across your customer base</p>
           </div>
         </div>
       </section>
 
       <section id="payment-risk" className="mb-12">
-        <h2 className="text-2xl font-semibold text-white mb-4">Customer Payment Risk</h2>
+        <h2 className="text-2xl font-semibold text-slate-900 mb-4">Customer Payment Risk</h2>
         <p className="text-slate-400 mb-4">
           Each customer is assigned a risk profile based on their payment history:
         </p>
@@ -70,7 +70,7 @@ const ARIntelligence = () => {
       </section>
 
       <section id="collection" className="mb-12">
-        <h2 className="text-2xl font-semibold text-white mb-4">Collection Insights</h2>
+        <h2 className="text-2xl font-semibold text-slate-900 mb-4">Collection Insights</h2>
         <p className="text-slate-400 mb-4">
           AI-generated recommendations to improve collections:
         </p>

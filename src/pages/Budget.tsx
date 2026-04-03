@@ -112,30 +112,30 @@ interface VarianceRowProps {
 function VarianceRow({ label, actual, target, variancePct: vPct }: VarianceRowProps) {
   const hasData = vPct !== null
 
-  let badgeClass = 'bg-gray-700/60 text-gray-400 border-gray-600'
+  let badgeClass = 'border border-slate-200 bg-slate-100 text-slate-600'
   let Icon = Minus
 
   if (hasData) {
     if (vPct >= 0) {
-      badgeClass = 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30'
+      badgeClass = 'border border-emerald-200 bg-emerald-50 text-emerald-800'
       Icon = TrendingUp
     } else {
-      badgeClass = 'bg-red-500/15 text-red-400 border-red-500/30'
+      badgeClass = 'border border-red-200 bg-red-50 text-red-800'
       Icon = TrendingDown
     }
   }
 
   return (
-    <div className="flex items-center justify-between py-3 border-b border-gray-700/60 last:border-0">
-      <span className="text-sm text-gray-300 w-36 shrink-0">{label}</span>
-      <div className="flex items-center gap-4 flex-1 justify-end">
+    <div className="flex items-center justify-between border-b border-slate-200 py-3 last:border-0">
+      <span className="w-36 shrink-0 text-sm text-slate-600">{label}</span>
+      <div className="flex flex-1 items-center justify-end gap-4">
         <div className="text-right">
-          <p className="text-xs text-gray-500 mb-0.5">Actual</p>
-          <p className="text-sm font-medium text-white">{actual}</p>
+          <p className="mb-0.5 text-xs text-slate-500">Actual</p>
+          <p className="text-sm font-medium text-slate-900">{actual}</p>
         </div>
         <div className="text-right">
-          <p className="text-xs text-gray-500 mb-0.5">Target</p>
-          <p className="text-sm font-medium text-gray-300">{target}</p>
+          <p className="mb-0.5 text-xs text-slate-500">Target</p>
+          <p className="text-sm font-medium text-slate-700">{target}</p>
         </div>
         <Badge className={`text-xs border flex items-center gap-1 min-w-[68px] justify-center ${badgeClass}`}>
           <Icon className="h-3 w-3" />
@@ -326,13 +326,13 @@ export default function Budget() {
 
   // ── Render ─────────────────────────────────────────────────────────────────
   return (
-    <div className="min-h-screen bg-gray-950 text-white p-6 space-y-8">
+    <div className="min-h-full space-y-8 p-6 text-slate-900">
 
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h1 className="text-2xl font-semibold text-white">Budget Targets</h1>
-          <p className="text-slate-400 mt-1">
+          <h1 className="text-2xl font-semibold text-slate-900">Budget Targets</h1>
+          <p className="mt-1 text-slate-600">
             Set monthly KPI targets and track actuals vs budget
             {hotel?.name ? ` for ${hotel.name}` : ''}.
           </p>
@@ -343,20 +343,20 @@ export default function Budget() {
           <Button
             variant="outline"
             size="icon"
-            className="h-9 w-9 border-gray-700 bg-gray-800/60 text-gray-300 hover:bg-gray-700 hover:text-white"
+            className="h-9 w-9 border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
             onClick={prevMonth}
           >
             <ChevronLeft className="h-4 w-4" />
           </Button>
           <div className="min-w-[130px] text-center">
-            <p className="text-sm font-semibold text-white">
+            <p className="text-sm font-semibold text-slate-900">
               {format(selectedDate, 'MMMM yyyy')}
             </p>
           </div>
           <Button
             variant="outline"
             size="icon"
-            className="h-9 w-9 border-gray-700 bg-gray-800/60 text-gray-300 hover:bg-gray-700 hover:text-white"
+            className="h-9 w-9 border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
             onClick={nextMonth}
           >
             <ChevronRight className="h-4 w-4" />
@@ -365,10 +365,10 @@ export default function Budget() {
       </div>
 
       {!hotelId && !hotelLoading && (
-        <Card className="bg-gray-800/30 border-gray-700">
+        <Card className="border border-vesta-navy/10 bg-white shadow-sm">
           <CardContent className="py-10 text-center">
-            <Target className="w-8 h-8 text-slate-600 mx-auto mb-3" />
-            <p className="text-slate-400">No hotel linked to your account.</p>
+            <Target className="mx-auto mb-3 h-8 w-8 text-slate-400" />
+            <p className="text-slate-600">No hotel linked to your account.</p>
             <p className="text-slate-500 text-sm mt-1">Ask your administrator to add you to a hotel.</p>
           </CardContent>
         </Card>
@@ -378,13 +378,13 @@ export default function Budget() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
           {/* ── Target Form ───────────────────────────────────────────────── */}
-          <Card className="bg-gray-800/50 border-gray-700">
+          <Card className="border border-vesta-navy/10 bg-white shadow-sm">
             <CardHeader className="pb-4">
-              <CardTitle className="text-base font-semibold text-white flex items-center gap-2">
-                <Target className="h-4 w-4 text-amber-400" />
+              <CardTitle className="flex items-center gap-2 text-base font-semibold text-slate-900">
+                <Target className="h-4 w-4 text-vesta-gold" />
                 Set Targets — {format(selectedDate, 'MMMM yyyy')}
               </CardTitle>
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-slate-500">
                 {budgetTarget ? 'Update existing targets for this month.' : 'No targets set yet for this month.'}
               </p>
             </CardHeader>
@@ -392,14 +392,14 @@ export default function Budget() {
               {isLoading ? (
                 <div className="space-y-3">
                   {[1, 2, 3, 4, 5, 6].map((i) => (
-                    <div key={i} className="h-10 bg-gray-700/50 rounded-md animate-pulse" />
+                    <div key={i} className="h-10 rounded-md bg-slate-200 animate-pulse" />
                   ))}
                 </div>
               ) : (
                 <>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-1.5">
-                      <label className="text-xs font-medium text-gray-400">RevPAR Target ($)</label>
+                      <label className="text-xs font-medium text-slate-600">RevPAR Target ($)</label>
                       <Input
                         type="number"
                         min="0"
@@ -407,11 +407,11 @@ export default function Budget() {
                         placeholder="e.g. 120.00"
                         value={form.target_revpar}
                         onChange={(e) => handleChange('target_revpar', e.target.value)}
-                        className="bg-gray-900/60 border-gray-600 text-white placeholder:text-gray-600 focus:border-amber-500/60 focus:ring-amber-500/20"
+                        className="border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus:border-vesta-gold/50 focus:ring-vesta-gold/20"
                       />
                     </div>
                     <div className="space-y-1.5">
-                      <label className="text-xs font-medium text-gray-400">ADR Target ($)</label>
+                      <label className="text-xs font-medium text-slate-600">ADR Target ($)</label>
                       <Input
                         type="number"
                         min="0"
@@ -419,11 +419,11 @@ export default function Budget() {
                         placeholder="e.g. 185.00"
                         value={form.target_adr}
                         onChange={(e) => handleChange('target_adr', e.target.value)}
-                        className="bg-gray-900/60 border-gray-600 text-white placeholder:text-gray-600 focus:border-amber-500/60 focus:ring-amber-500/20"
+                        className="border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus:border-vesta-gold/50 focus:ring-vesta-gold/20"
                       />
                     </div>
                     <div className="space-y-1.5">
-                      <label className="text-xs font-medium text-gray-400">Occupancy Target (%)</label>
+                      <label className="text-xs font-medium text-slate-600">Occupancy Target (%)</label>
                       <Input
                         type="number"
                         min="0"
@@ -432,11 +432,11 @@ export default function Budget() {
                         placeholder="e.g. 72.5"
                         value={form.target_occupancy}
                         onChange={(e) => handleChange('target_occupancy', e.target.value)}
-                        className="bg-gray-900/60 border-gray-600 text-white placeholder:text-gray-600 focus:border-amber-500/60 focus:ring-amber-500/20"
+                        className="border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus:border-vesta-gold/50 focus:ring-vesta-gold/20"
                       />
                     </div>
                     <div className="space-y-1.5">
-                      <label className="text-xs font-medium text-gray-400">Revenue Target ($)</label>
+                      <label className="text-xs font-medium text-slate-600">Revenue Target ($)</label>
                       <Input
                         type="number"
                         min="0"
@@ -444,11 +444,11 @@ export default function Budget() {
                         placeholder="e.g. 250000"
                         value={form.target_revenue}
                         onChange={(e) => handleChange('target_revenue', e.target.value)}
-                        className="bg-gray-900/60 border-gray-600 text-white placeholder:text-gray-600 focus:border-amber-500/60 focus:ring-amber-500/20"
+                        className="border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus:border-vesta-gold/50 focus:ring-vesta-gold/20"
                       />
                     </div>
                     <div className="space-y-1.5">
-                      <label className="text-xs font-medium text-gray-400">GOP Target ($)</label>
+                      <label className="text-xs font-medium text-slate-600">GOP Target ($)</label>
                       <Input
                         type="number"
                         min="0"
@@ -456,11 +456,11 @@ export default function Budget() {
                         placeholder="e.g. 90000"
                         value={form.target_gop}
                         onChange={(e) => handleChange('target_gop', e.target.value)}
-                        className="bg-gray-900/60 border-gray-600 text-white placeholder:text-gray-600 focus:border-amber-500/60 focus:ring-amber-500/20"
+                        className="border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus:border-vesta-gold/50 focus:ring-vesta-gold/20"
                       />
                     </div>
                     <div className="space-y-1.5">
-                      <label className="text-xs font-medium text-gray-400">Labor Cost Ratio Target (%)</label>
+                      <label className="text-xs font-medium text-slate-600">Labor Cost Ratio Target (%)</label>
                       <Input
                         type="number"
                         min="0"
@@ -469,13 +469,13 @@ export default function Budget() {
                         placeholder="e.g. 28.0"
                         value={form.target_labor_ratio}
                         onChange={(e) => handleChange('target_labor_ratio', e.target.value)}
-                        className="bg-gray-900/60 border-gray-600 text-white placeholder:text-gray-600 focus:border-amber-500/60 focus:ring-amber-500/20"
+                        className="border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus:border-vesta-gold/50 focus:ring-vesta-gold/20"
                       />
                     </div>
                   </div>
 
                   <Button
-                    className="w-full bg-amber-500 hover:bg-amber-400 text-gray-950 font-semibold"
+                    className="w-full bg-vesta-gold font-semibold text-slate-950 hover:bg-vesta-gold/90"
                     onClick={() => saveMutation.mutate()}
                     disabled={saveMutation.isPending || !hotelId}
                   >
@@ -491,13 +491,13 @@ export default function Budget() {
           </Card>
 
           {/* ── Actuals vs Budget ─────────────────────────────────────────── */}
-          <Card className="bg-gray-800/50 border-gray-700">
+          <Card className="border border-vesta-navy/10 bg-white shadow-sm">
             <CardHeader className="pb-4">
-              <CardTitle className="text-base font-semibold text-white flex items-center gap-2">
-                <TrendingUp className="h-4 w-4 text-amber-400" />
+              <CardTitle className="flex items-center gap-2 text-base font-semibold text-slate-900">
+                <TrendingUp className="h-4 w-4 text-vesta-gold" />
                 Month Actuals vs Budget
               </CardTitle>
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-slate-500">
                 {format(selectedDate, 'MMMM yyyy')} —&nbsp;
                 {metricsLoading
                   ? 'loading…'
@@ -510,14 +510,14 @@ export default function Budget() {
               {metricsLoading ? (
                 <div className="space-y-3">
                   {[1, 2, 3, 4, 5, 6].map((i) => (
-                    <div key={i} className="h-10 bg-gray-700/50 rounded-md animate-pulse" />
+                    <div key={i} className="h-10 rounded-md bg-slate-200 animate-pulse" />
                   ))}
                 </div>
               ) : !hasMetricsData ? (
                 <div className="flex flex-col items-center justify-center py-10 text-center">
-                  <Target className="h-8 w-8 text-gray-600 mb-3" />
-                  <p className="text-sm text-gray-400 font-medium">No data synced for this month yet</p>
-                  <p className="text-xs text-gray-500 mt-1">
+                  <Target className="mb-3 h-8 w-8 text-slate-400" />
+                  <p className="text-sm font-medium text-slate-600">No data synced for this month yet</p>
+                  <p className="mt-1 text-xs text-slate-500">
                     Connect a PMS or sync data to see actuals here.
                   </p>
                 </div>

@@ -4,10 +4,11 @@ import { Plus, ArrowUp } from 'lucide-react';
 
 interface PersistentChatBarProps {
   onSubmit: (text: string) => void;
-  darkMode: boolean;
+  /** Ignored — app is light-only; kept for call-site compatibility. */
+  darkMode?: boolean;
 }
 
-export function PersistentChatBar({ onSubmit, darkMode }: PersistentChatBarProps) {
+export function PersistentChatBar({ onSubmit }: PersistentChatBarProps) {
   const [text, setText] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -27,34 +28,21 @@ export function PersistentChatBar({ onSubmit, darkMode }: PersistentChatBarProps
 
   return (
     <div className="absolute bottom-0 left-0 right-0 z-30">
-      {/* Fade gradient above */}
       <div
-        className="h-16 pointer-events-none"
+        className="pointer-events-none h-16"
         style={{
-          background: darkMode
-            ? 'linear-gradient(to bottom, transparent, #0a0a0a)'
-            : 'linear-gradient(to bottom, transparent, white)',
+          background: 'linear-gradient(to bottom, transparent, white)',
         }}
       />
-      <div className={`px-4 md:px-6 pb-4 md:pb-6 ${darkMode ? 'bg-[#0a0a0a]' : 'bg-white'}`}>
-        <div className="max-w-2xl mx-auto">
-          <div
-            className={`flex items-center gap-3 rounded-2xl border px-4 py-3 transition-all duration-200 ${
-              darkMode
-                ? 'bg-[#1a1a1a] border-[#2a2a2a] shadow-lg'
-                : 'bg-white border-zinc-200 shadow-xl'
-            }`}
-          >
+      <div className="bg-white px-4 pb-4 md:px-6 md:pb-6">
+        <div className="mx-auto max-w-2xl">
+          <div className="flex items-center gap-3 rounded-2xl border border-zinc-200 bg-white px-4 py-3 shadow-xl transition-all duration-200">
             <Button
               variant="ghost"
               size="sm"
-              className={`h-8 w-8 p-0 rounded-full flex-shrink-0 ${
-                darkMode
-                  ? 'text-zinc-500 hover:text-zinc-300 hover:bg-white/5'
-                  : 'text-zinc-400 hover:text-zinc-600 hover:bg-zinc-100'
-              }`}
+              className="h-8 w-8 flex-shrink-0 rounded-full p-0 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-600"
             >
-              <Plus className="w-4 h-4" />
+              <Plus className="h-4 w-4" />
             </Button>
 
             <input
@@ -64,24 +52,16 @@ export function PersistentChatBar({ onSubmit, darkMode }: PersistentChatBarProps
               onChange={(e) => setText(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder="Ask anything..."
-              className={`flex-1 bg-transparent border-0 outline-none text-sm font-sans ${
-                darkMode
-                  ? 'text-white placeholder:text-zinc-500'
-                  : 'text-zinc-900 placeholder:text-zinc-400'
-              }`}
+              className="flex-1 border-0 bg-transparent font-sans text-sm text-zinc-900 outline-none placeholder:text-zinc-400"
             />
 
             <Button
               onClick={handleSubmit}
               disabled={!text.trim()}
               size="sm"
-              className={`h-8 w-8 p-0 rounded-full flex-shrink-0 disabled:opacity-30 border-0 ${
-                darkMode
-                  ? 'bg-[#2a2a2a] hover:bg-[#333] text-zinc-400'
-                  : 'bg-zinc-900 hover:bg-zinc-800 text-white'
-              }`}
+              className="h-8 w-8 flex-shrink-0 rounded-full border-0 bg-zinc-900 p-0 text-white hover:bg-zinc-800 disabled:opacity-30"
             >
-              <ArrowUp className="w-4 h-4" />
+              <ArrowUp className="h-4 w-4" />
             </Button>
           </div>
         </div>

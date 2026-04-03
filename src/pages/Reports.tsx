@@ -86,11 +86,13 @@ interface StatRowProps {
 
 function StatRow({ label, value, highlight = false }: StatRowProps) {
   return (
-    <div className="flex items-center justify-between py-2.5 border-b border-gray-700/50 last:border-0">
-      <span className={`text-sm ${highlight ? 'text-gray-100 font-medium' : 'text-gray-400'}`}>
+    <div className="flex items-center justify-between border-b border-slate-200 py-2.5 last:border-0">
+      <span className={`text-sm ${highlight ? 'font-medium text-slate-900' : 'text-slate-600'}`}>
         {label}
       </span>
-      <span className={`text-sm font-semibold tabular-nums ${highlight ? 'text-amber-400' : 'text-white'}`}>
+      <span
+        className={`text-sm font-semibold tabular-nums ${highlight ? 'text-vesta-gold' : 'text-slate-900'}`}
+      >
         {value}
       </span>
     </div>
@@ -271,13 +273,13 @@ export default function Reports() {
 
   // ─── Render ────────────────────────────────────────────────────────────────
   return (
-    <div className="min-h-screen bg-gray-950 text-white p-6 space-y-8">
+    <div className="min-h-full space-y-8 p-6 text-slate-900">
 
       {/* ── Header ─────────────────────────────────────────────────────────── */}
-      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h1 className="text-2xl font-semibold text-white">Reports</h1>
-          <p className="text-slate-400 mt-1">
+          <h1 className="text-2xl font-semibold text-slate-900">Reports</h1>
+          <p className="mt-1 text-slate-600">
             Monthly financial summary and performance data
             {hotel?.name ? ` for ${hotel.name}` : ''}.
           </p>
@@ -289,20 +291,20 @@ export default function Reports() {
             <Button
               variant="outline"
               size="icon"
-              className="h-9 w-9 border-gray-700 bg-gray-800/60 text-gray-300 hover:bg-gray-700 hover:text-white"
+              className="h-9 w-9 border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
               onClick={prevMonth}
             >
               <ChevronLeft className="h-4 w-4" />
             </Button>
             <div className="min-w-[130px] text-center">
-              <p className="text-sm font-semibold text-white">
+              <p className="text-sm font-semibold text-slate-900">
                 {format(selectedDate, 'MMMM yyyy')}
               </p>
             </div>
             <Button
               variant="outline"
               size="icon"
-              className="h-9 w-9 border-gray-700 bg-gray-800/60 text-gray-300 hover:bg-gray-700 hover:text-white"
+              className="h-9 w-9 border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
               onClick={nextMonth}
             >
               <ChevronRight className="h-4 w-4" />
@@ -313,7 +315,7 @@ export default function Reports() {
           <Button
             variant="outline"
             size="sm"
-            className="border-amber-500/60 text-amber-400 hover:bg-amber-500/10 hover:text-amber-300 gap-2"
+            className="gap-2 border-vesta-navy/25 text-vesta-navy hover:border-vesta-gold/40 hover:bg-vesta-gold/10"
             disabled={!hasData}
             onClick={() => exportCsv(rows, selectedDate)}
           >
@@ -325,10 +327,10 @@ export default function Reports() {
 
       {/* No hotel */}
       {!hotelId && !hotelLoading && (
-        <Card className="bg-gray-800/30 border-gray-700">
+        <Card className="border border-vesta-navy/10 bg-white shadow-sm">
           <CardContent className="py-10 text-center">
-            <UploadCloud className="w-8 h-8 text-slate-600 mx-auto mb-3" />
-            <p className="text-slate-400">No hotel linked to your account.</p>
+            <UploadCloud className="mx-auto mb-3 h-8 w-8 text-slate-400" />
+            <p className="text-slate-600">No hotel linked to your account.</p>
             <p className="text-slate-500 text-sm mt-1">
               Ask your administrator to add you to a hotel.
             </p>
@@ -342,18 +344,18 @@ export default function Reports() {
           {isLoading && (
             <div className="space-y-6">
               {[1, 2, 3].map((i) => (
-                <div key={i} className="h-48 bg-gray-800/40 rounded-xl animate-pulse" />
+                <div key={i} className="h-48 animate-pulse rounded-xl bg-slate-200" />
               ))}
             </div>
           )}
 
           {/* Empty state */}
           {!isLoading && !hasData && (
-            <Card className="bg-gray-800/30 border-gray-700">
-              <CardContent className="py-16 flex flex-col items-center justify-center text-center gap-3">
-                <UploadCloud className="w-10 h-10 text-gray-600" />
-                <p className="text-gray-300 font-medium">No data for this month.</p>
-                <p className="text-gray-500 text-sm max-w-xs">
+            <Card className="border border-vesta-navy/10 bg-white shadow-sm">
+              <CardContent className="flex flex-col items-center justify-center gap-3 py-16 text-center">
+                <UploadCloud className="h-10 w-10 text-slate-400" />
+                <p className="font-medium text-slate-900">No data for this month.</p>
+                <p className="max-w-xs text-sm text-slate-600">
                   Connect an integration or upload a CSV to get started.
                 </p>
               </CardContent>
@@ -365,13 +367,13 @@ export default function Reports() {
             <div className="space-y-6">
 
               {/* ── Section 1: Monthly P&L Summary ─────────────────────────── */}
-              <Card className="bg-gray-800/50 border-gray-700">
+              <Card className="border border-vesta-navy/10 bg-white shadow-sm">
                 <CardHeader className="pb-4">
-                  <CardTitle className="text-base font-semibold text-white flex items-center gap-2">
-                    <TrendingUp className="h-4 w-4 text-amber-400" />
+                  <CardTitle className="flex items-center gap-2 text-base font-semibold text-slate-900">
+                    <TrendingUp className="h-4 w-4 text-vesta-gold" />
                     Monthly P&amp;L Summary — {format(selectedDate, 'MMMM yyyy')}
                   </CardTitle>
-                  <p className="text-xs text-gray-500">
+                  <p className="text-xs text-slate-500">
                     {rows.length} day{rows.length !== 1 ? 's' : ''} of data
                   </p>
                 </CardHeader>
@@ -379,7 +381,7 @@ export default function Reports() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10">
                     {/* Left column — Revenue */}
                     <div>
-                      <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">
+                      <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
                         Revenue
                       </p>
                       <StatRow label="Room Revenue" value={fmtUsd(totalRoomRevenue)} />
@@ -393,7 +395,7 @@ export default function Reports() {
 
                     {/* Right column — Operational KPIs */}
                     <div className="mt-6 md:mt-0">
-                      <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">
+                      <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
                         Operational KPIs
                       </p>
                       <StatRow label="Average RevPAR" value={fmtUsd(avgRevpar)} />
@@ -407,33 +409,33 @@ export default function Reports() {
               </Card>
 
               {/* ── Section 2: Expense Breakdown ───────────────────────────── */}
-              <Card className="bg-gray-800/50 border-gray-700">
+              <Card className="border border-vesta-navy/10 bg-white shadow-sm">
                 <CardHeader className="pb-4">
-                  <CardTitle className="text-base font-semibold text-white flex items-center gap-2">
-                    <Download className="h-4 w-4 text-amber-400" />
+                  <CardTitle className="flex items-center gap-2 text-base font-semibold text-slate-900">
+                    <Download className="h-4 w-4 text-vesta-gold" />
                     Expense Breakdown — {format(selectedDate, 'MMMM yyyy')}
                   </CardTitle>
-                  <p className="text-xs text-gray-500">
+                  <p className="text-xs text-slate-500">
                     By category, sorted by amount (largest first)
                   </p>
                 </CardHeader>
                 <CardContent>
                   {categoryTotals.length === 0 ? (
-                    <p className="text-sm text-gray-500 py-4 text-center">
+                    <p className="py-4 text-center text-sm text-slate-500">
                       No expense records for this month.
                     </p>
                   ) : (
                     <div className="space-y-0">
                       {/* Header row */}
-                      <div className="flex items-center justify-between pb-2 border-b border-gray-700 mb-1">
-                        <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                      <div className="mb-1 flex items-center justify-between border-b border-slate-200 pb-2">
+                        <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">
                           Category
                         </span>
                         <div className="flex items-center gap-6">
-                          <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider w-28 text-right">
+                          <span className="w-28 text-right text-xs font-semibold uppercase tracking-wider text-slate-500">
                             Amount
                           </span>
-                          <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider w-16 text-right">
+                          <span className="w-16 text-right text-xs font-semibold uppercase tracking-wider text-slate-500">
                             % of Total
                           </span>
                         </div>
@@ -447,14 +449,14 @@ export default function Reports() {
                         return (
                           <div
                             key={category}
-                            className="flex items-center justify-between py-2.5 border-b border-gray-700/40 last:border-0"
+                            className="flex items-center justify-between border-b border-slate-100 py-2.5 last:border-0"
                           >
-                            <span className="text-sm text-gray-300">{category}</span>
+                            <span className="text-sm text-slate-700">{category}</span>
                             <div className="flex items-center gap-6">
-                              <span className="text-sm font-semibold text-white tabular-nums w-28 text-right">
+                              <span className="w-28 text-right text-sm font-semibold tabular-nums text-slate-900">
                                 {fmtUsd(total)}
                               </span>
-                              <Badge className="bg-gray-700/60 text-gray-300 border-gray-600 text-xs w-16 justify-center">
+                              <Badge className="w-16 justify-center border-slate-200 bg-slate-100 text-xs text-slate-700">
                                 {pct.toFixed(1)}%
                               </Badge>
                             </div>
@@ -463,13 +465,13 @@ export default function Reports() {
                       })}
 
                       {/* Total row */}
-                      <div className="flex items-center justify-between pt-3 mt-1">
-                        <span className="text-sm font-semibold text-gray-100">Total</span>
+                      <div className="mt-1 flex items-center justify-between pt-3">
+                        <span className="text-sm font-semibold text-slate-900">Total</span>
                         <div className="flex items-center gap-6">
-                          <span className="text-sm font-semibold text-amber-400 tabular-nums w-28 text-right">
+                          <span className="w-28 text-right text-sm font-semibold tabular-nums text-vesta-gold">
                             {fmtUsd(totalExpenseFromCategories)}
                           </span>
-                          <Badge className="bg-amber-500/15 text-amber-400 border-amber-500/30 text-xs w-16 justify-center">
+                          <Badge className="w-16 justify-center border-vesta-gold/30 bg-vesta-gold/15 text-xs text-vesta-navy">
                             100%
                           </Badge>
                         </div>
@@ -480,10 +482,10 @@ export default function Reports() {
               </Card>
 
               {/* ── Section 3: Daily Performance Table ────────────────────── */}
-              <Card className="bg-gray-800/50 border-gray-700">
+              <Card className="border border-vesta-navy/10 bg-white shadow-sm">
                 <CardHeader className="pb-4">
-                  <CardTitle className="text-base font-semibold text-white flex items-center gap-2">
-                    <TrendingUp className="h-4 w-4 text-amber-400" />
+                  <CardTitle className="flex items-center gap-2 text-base font-semibold text-slate-900">
+                    <TrendingUp className="h-4 w-4 text-vesta-gold" />
                     Daily Performance — {format(selectedDate, 'MMMM yyyy')}
                   </CardTitle>
                 </CardHeader>
@@ -491,26 +493,26 @@ export default function Reports() {
                   <div className="overflow-x-auto">
                     <table className="w-full text-sm">
                       <thead>
-                        <tr className="border-b border-gray-700">
-                          <th className="text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                        <tr className="border-b border-slate-200">
+                          <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
                             Date
                           </th>
-                          <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                          <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-wider text-slate-500">
                             Rooms Sold
                           </th>
-                          <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                          <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-wider text-slate-500">
                             Occ%
                           </th>
-                          <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                          <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-wider text-slate-500">
                             ADR
                           </th>
-                          <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                          <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-wider text-slate-500">
                             RevPAR
                           </th>
-                          <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                          <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-wider text-slate-500">
                             Revenue
                           </th>
-                          <th className="text-right px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                          <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-slate-500">
                             GOP
                           </th>
                         </tr>
@@ -527,26 +529,26 @@ export default function Reports() {
                           return (
                             <tr
                               key={row.date}
-                              className={`border-b border-gray-700/40 last:border-0 transition-colors hover:bg-gray-700/20 ${
-                                idx % 2 === 0 ? '' : 'bg-gray-800/20'
+                              className={`border-b border-slate-100 transition-colors last:border-0 hover:bg-slate-50 ${
+                                idx % 2 === 0 ? '' : 'bg-slate-50/80'
                               }`}
                             >
-                              <td className="px-6 py-3 text-gray-300 whitespace-nowrap">
+                              <td className="whitespace-nowrap px-6 py-3 text-slate-700">
                                 {format(new Date(row.date + 'T00:00:00'), 'EEE, MMM d')}
                               </td>
-                              <td className="px-4 py-3 text-right text-white tabular-nums">
+                              <td className="px-4 py-3 text-right tabular-nums text-slate-900">
                                 {fmtInt(row.rooms_sold)}
                               </td>
-                              <td className="px-4 py-3 text-right text-white tabular-nums">
+                              <td className="px-4 py-3 text-right tabular-nums text-slate-900">
                                 {fmtPct(occVal)}
                               </td>
-                              <td className="px-4 py-3 text-right text-white tabular-nums">
+                              <td className="px-4 py-3 text-right tabular-nums text-slate-900">
                                 {fmtUsd(row.adr)}
                               </td>
-                              <td className="px-4 py-3 text-right text-white tabular-nums">
+                              <td className="px-4 py-3 text-right tabular-nums text-slate-900">
                                 {fmtUsd(row.revpar)}
                               </td>
-                              <td className="px-4 py-3 text-right text-white tabular-nums">
+                              <td className="px-4 py-3 text-right tabular-nums text-slate-900">
                                 {fmtUsd(row.total_revenue)}
                               </td>
                               <td className="px-6 py-3 text-right tabular-nums">
@@ -554,9 +556,9 @@ export default function Reports() {
                                   className={
                                     row.gop !== null
                                       ? row.gop >= 0
-                                        ? 'text-emerald-400'
-                                        : 'text-red-400'
-                                      : 'text-gray-500'
+                                        ? 'text-emerald-700'
+                                        : 'text-red-700'
+                                      : 'text-slate-500'
                                   }
                                 >
                                   {fmtUsd(row.gop)}
@@ -569,26 +571,26 @@ export default function Reports() {
 
                       {/* Totals / averages footer */}
                       <tfoot>
-                        <tr className="border-t-2 border-gray-600 bg-gray-800/60">
-                          <td className="px-6 py-3 text-xs font-semibold text-gray-400 uppercase">
+                        <tr className="border-t-2 border-slate-200 bg-vesta-mist/40">
+                          <td className="px-6 py-3 text-xs font-semibold uppercase text-slate-600">
                             Month Total / Avg
                           </td>
-                          <td className="px-4 py-3 text-right text-amber-400 font-semibold tabular-nums">
+                          <td className="px-4 py-3 text-right text-sm font-semibold tabular-nums text-vesta-navy">
                             {fmtInt(totalRoomsSold)}
                           </td>
-                          <td className="px-4 py-3 text-right text-amber-400 font-semibold tabular-nums">
+                          <td className="px-4 py-3 text-right text-sm font-semibold tabular-nums text-vesta-navy">
                             {fmtPct(avgOccupancy)}
                           </td>
-                          <td className="px-4 py-3 text-right text-amber-400 font-semibold tabular-nums">
+                          <td className="px-4 py-3 text-right text-sm font-semibold tabular-nums text-vesta-navy">
                             {fmtUsd(avgAdr)}
                           </td>
-                          <td className="px-4 py-3 text-right text-amber-400 font-semibold tabular-nums">
+                          <td className="px-4 py-3 text-right text-sm font-semibold tabular-nums text-vesta-navy">
                             {fmtUsd(avgRevpar)}
                           </td>
-                          <td className="px-4 py-3 text-right text-amber-400 font-semibold tabular-nums">
+                          <td className="px-4 py-3 text-right text-sm font-semibold tabular-nums text-vesta-navy">
                             {fmtUsd(totalRevenue)}
                           </td>
-                          <td className="px-6 py-3 text-right text-amber-400 font-semibold tabular-nums">
+                          <td className="px-6 py-3 text-right text-sm font-semibold tabular-nums text-vesta-navy">
                             {fmtUsd(gop)}
                           </td>
                         </tr>

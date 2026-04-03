@@ -29,15 +29,15 @@ interface AiSummary {
 const STATUS_CONFIG: Record<SummaryStatus, { label: string; className: string }> = {
   on_track: {
     label: 'On Track',
-    className: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30',
+    className: 'border border-emerald-200 bg-emerald-50 text-emerald-800',
   },
   attention_needed: {
     label: 'Attention Needed',
-    className: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30',
+    className: 'border border-amber-200 bg-amber-50 text-amber-900',
   },
   critical: {
     label: 'Critical',
-    className: 'bg-red-500/20 text-red-400 border-red-500/30',
+    className: 'border border-red-200 bg-red-50 text-red-800',
   },
 };
 
@@ -86,11 +86,11 @@ const DailyBriefingCard: React.FC<DailyBriefingCardProps> = ({ hotelId }) => {
   };
 
   return (
-    <Card className="bg-slate-900/50 border border-slate-700/80 backdrop-blur-sm h-full shadow-lg shadow-black/20">
+    <Card className="h-full border border-vesta-navy/10 bg-white shadow-sm">
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
-          <CardTitle className="text-base font-semibold text-white flex items-center gap-2">
-            <Sparkles className="h-4 w-4 text-[#C8963E]" />
+          <CardTitle className="flex items-center gap-2 text-base font-semibold text-slate-900">
+            <Sparkles className="h-4 w-4 text-vesta-gold" />
             AI Daily Briefing
           </CardTitle>
           <div className="flex items-center gap-2">
@@ -106,36 +106,36 @@ const DailyBriefingCard: React.FC<DailyBriefingCardProps> = ({ hotelId }) => {
                 onClick={handleGenerateBriefing}
                 disabled={isGenerating}
                 aria-label="Refresh briefing"
-                className="text-slate-400 hover:text-slate-200 disabled:opacity-50 transition-colors p-1 rounded"
+                className="rounded p-1 text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-800 disabled:opacity-50"
               >
                 <RefreshCw className={`h-3.5 w-3.5 ${isGenerating ? 'animate-spin' : ''}`} />
               </button>
             )}
           </div>
         </div>
-        <p className="text-xs text-slate-500 mt-1">{format(new Date(), 'EEEE, MMMM d, yyyy')}</p>
+        <p className="mt-1 text-xs text-slate-500">{format(new Date(), 'EEEE, MMMM d, yyyy')}</p>
       </CardHeader>
       <CardContent>
         {isLoading ? (
           <div className="space-y-3">
-            <Skeleton className="h-5 w-3/4 bg-slate-700" />
-            <Skeleton className="h-4 w-full bg-slate-700" />
-            <Skeleton className="h-4 w-5/6 bg-slate-700" />
-            <Skeleton className="h-4 w-4/5 bg-slate-700" />
+            <Skeleton className="h-5 w-3/4 bg-slate-200" />
+            <Skeleton className="h-4 w-full bg-slate-200" />
+            <Skeleton className="h-4 w-5/6 bg-slate-200" />
+            <Skeleton className="h-4 w-4/5 bg-slate-200" />
           </div>
         ) : summary ? (
           <div>
-            <h3 className="text-lg font-semibold text-white leading-snug mb-3">
+            <h3 className="mb-3 text-lg font-semibold leading-snug text-slate-900">
               {summary.headline}
             </h3>
-            <p className="text-sm text-slate-300 leading-relaxed whitespace-pre-line">
+            <p className="whitespace-pre-line text-sm leading-relaxed text-slate-600">
               {summary.body}
             </p>
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center py-8 text-center">
             <Moon className="h-8 w-8 text-slate-600 mb-3" />
-            <p className="text-sm text-slate-400 font-medium">No briefing yet today</p>
+            <p className="text-sm font-medium text-slate-600">No briefing yet today</p>
             <p className="text-xs text-slate-500 mt-1 mb-4">AI briefing will be generated tonight</p>
             <Button
               onClick={handleGenerateBriefing}

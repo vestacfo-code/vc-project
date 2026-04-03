@@ -30,22 +30,22 @@ export default function HotelPartnerMarketplace() {
   );
 
   return (
-    <div className="min-h-full text-slate-100">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+    <div className="min-h-full text-slate-900">
+      <div className="mx-auto max-w-6xl space-y-6 px-4 py-8 sm:px-6 lg:px-8">
         <header className="flex items-start gap-3">
-          <div className="rounded-xl bg-amber-500/15 border border-amber-500/25 p-2.5">
-            <Handshake className="h-6 w-6 text-amber-400" />
+          <div className="rounded-xl border border-vesta-gold/30 bg-vesta-gold/15 p-2.5">
+            <Handshake className="h-6 w-6 text-vesta-gold" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-white tracking-tight">Partner marketplace</h1>
-            <p className="text-sm text-slate-400 mt-1 max-w-xl">
+            <h1 className="text-2xl font-bold tracking-tight text-slate-900">Partner marketplace</h1>
+            <p className="mt-1 max-w-xl text-sm text-slate-600">
               Browse vetted vendors. When you open a partner link from here, we record a marketplace lead for attribution — your
               team still completes purchases on the partner&apos;s site.
             </p>
           </div>
         </header>
 
-        <div className="rounded-2xl border border-slate-700/80 bg-slate-900/40 p-4 sm:p-6">
+        <div className="rounded-2xl border border-vesta-navy/10 bg-white p-4 shadow-sm sm:p-6">
           <PartnerCatalog
             partners={data?.rows ?? []}
             isFallback={data?.isFallback ?? false}

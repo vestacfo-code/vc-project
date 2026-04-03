@@ -31,11 +31,11 @@ const MetricCard: React.FC<MetricCardProps> = ({
 }) => {
   if (loading) {
     return (
-      <Card className="bg-slate-900/60 border border-slate-700/80">
+      <Card className="border border-vesta-navy/10 bg-white shadow-sm">
         <CardContent className="p-5">
-          <Skeleton className="h-4 w-24 mb-3 bg-slate-700" />
-          <Skeleton className="h-8 w-32 mb-2 bg-slate-700" />
-          <Skeleton className="h-4 w-16 bg-slate-700" />
+          <Skeleton className="mb-3 h-4 w-24 bg-slate-200" />
+          <Skeleton className="mb-2 h-8 w-32 bg-slate-200" />
+          <Skeleton className="h-4 w-16 bg-slate-200" />
         </CardContent>
       </Card>
     );
@@ -60,15 +60,15 @@ const MetricCard: React.FC<MetricCardProps> = ({
       transition={morphSpringSoft}
       className="h-full"
     >
-    <Card className="bg-slate-900/60 border border-slate-700/80 backdrop-blur-sm h-full transition-all duration-300 hover:shadow-[0_16px_48px_-16px_rgba(200,150,62,0.12)] hover:border-[#C8963E]/25">
+    <Card className="h-full border border-vesta-navy/10 bg-white shadow-sm transition-all duration-300 hover:border-vesta-gold/35 hover:shadow-md">
       <CardContent className="p-5">
-        <div className="flex items-start justify-between mb-2">
-          <p className="text-sm text-slate-400 font-medium">{label}</p>
+        <div className="mb-2 flex items-start justify-between">
+          <p className="text-sm font-medium text-slate-600">{label}</p>
           {icon && (
-            <span className="text-[#C8963E]/90">{icon}</span>
+            <span className="text-vesta-gold">{icon}</span>
           )}
         </div>
-        <p className="text-2xl font-bold text-white tracking-tight">
+        <p className="text-2xl font-bold tracking-tight text-slate-900">
           {displayValue === '—' ? '—' : `${prefix}${displayValue}${suffix}`}
         </p>
 

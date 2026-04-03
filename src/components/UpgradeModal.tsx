@@ -215,7 +215,7 @@ export const UpgradeModal = ({ open, onOpenChange, currentTier = 'founder' }: Up
               Annual
             </Label>
             {isAnnual && (
-              <Badge className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100">
+              <Badge className="bg-green-100 text-green-800">
                 Save 10%
               </Badge>
             )}
@@ -283,7 +283,7 @@ export const UpgradeModal = ({ open, onOpenChange, currentTier = 'founder' }: Up
                         </span>
                       </div>
                       {pricing.savings > 0 && (
-                        <div className="text-sm text-green-600 dark:text-green-400">
+                        <div className="text-sm text-green-600">
                           Save ${pricing.savings.toFixed(2)} per year
                         </div>
                       )}

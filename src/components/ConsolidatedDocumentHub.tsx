@@ -983,7 +983,7 @@ What would you like to explore first?`;
                     </div>
                   </div>
                 ) : streamingText ? (
-                  <div className="prose prose-sm max-w-none dark:prose-invert">
+                  <div className="prose prose-sm prose-slate max-w-none">
                     <ReactMarkdown rehypePlugins={[rehypeSanitize]}>
                       {streamingText}
                     </ReactMarkdown>
@@ -1013,7 +1013,7 @@ What would you like to explore first?`;
                       }`}
                     >
                       {message.role === 'assistant' ? (
-                        <div className="prose prose-sm max-w-none dark:prose-invert">
+                        <div className="prose prose-sm prose-slate max-w-none">
                           <ReactMarkdown rehypePlugins={[rehypeSanitize]}>
                             {message.content}
                           </ReactMarkdown>

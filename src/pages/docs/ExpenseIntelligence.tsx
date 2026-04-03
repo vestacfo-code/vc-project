@@ -16,7 +16,7 @@ const ExpenseIntelligence = () => {
       nextPage={{ href: "/docs/features/customer-profitability", title: "Customer Profitability" }}
     >
       <section id="overview" className="mb-12">
-        <h2 className="text-2xl font-semibold text-white mb-4">Overview</h2>
+        <h2 className="text-2xl font-semibold text-slate-900 mb-4">Overview</h2>
         <p className="text-slate-400 mb-4">
           Expense Intelligence automatically monitors your spending patterns to help you:
         </p>
@@ -29,21 +29,21 @@ const ExpenseIntelligence = () => {
       </section>
 
       <section id="anomalies" className="mb-12">
-        <h2 className="text-2xl font-semibold text-white mb-4">Spending Anomalies</h2>
+        <h2 className="text-2xl font-semibold text-slate-900 mb-4">Spending Anomalies</h2>
         <p className="text-slate-400 mb-4">
           Vesta uses AI to detect when expenses deviate significantly from expected patterns:
         </p>
         <div className="grid gap-4">
-          <div className="bg-[#1a1a1a] border border-white/10 rounded-xl p-4">
-            <h4 className="text-white font-medium mb-2">Deviation Alerts</h4>
+          <div className="border border-slate-200 bg-white rounded-xl p-4">
+            <h4 className="text-slate-900 font-medium mb-2">Deviation Alerts</h4>
             <p className="text-sm text-slate-400">Get notified when a category exceeds its typical range</p>
           </div>
-          <div className="bg-[#1a1a1a] border border-white/10 rounded-xl p-4">
-            <h4 className="text-white font-medium mb-2">Expected vs Actual</h4>
+          <div className="border border-slate-200 bg-white rounded-xl p-4">
+            <h4 className="text-slate-900 font-medium mb-2">Expected vs Actual</h4>
             <p className="text-sm text-slate-400">Compare what you typically spend versus actual expenditure</p>
           </div>
-          <div className="bg-[#1a1a1a] border border-white/10 rounded-xl p-4">
-            <h4 className="text-white font-medium mb-2">Trend Detection</h4>
+          <div className="border border-slate-200 bg-white rounded-xl p-4">
+            <h4 className="text-slate-900 font-medium mb-2">Trend Detection</h4>
             <p className="text-sm text-slate-400">Identify gradual increases that might go unnoticed</p>
           </div>
         </div>
@@ -55,19 +55,19 @@ const ExpenseIntelligence = () => {
       </section>
 
       <section id="vendors" className="mb-12">
-        <h2 className="text-2xl font-semibold text-white mb-4">Top Vendors</h2>
+        <h2 className="text-2xl font-semibold text-slate-900 mb-4">Top Vendors</h2>
         <p className="text-slate-400 mb-4">
           Track where your money is going with vendor-level insights:
         </p>
         <ul className="list-disc list-inside text-slate-400 space-y-2">
-          <li><strong className="text-white">Top 5 Vendors:</strong> Your largest expense relationships</li>
-          <li><strong className="text-white">Spending Trends:</strong> Month-over-month changes per vendor</li>
-          <li><strong className="text-white">Category Breakdown:</strong> How each vendor fits into your expense categories</li>
+          <li><strong className="text-slate-900">Top 5 Vendors:</strong> Your largest expense relationships</li>
+          <li><strong className="text-slate-900">Spending Trends:</strong> Month-over-month changes per vendor</li>
+          <li><strong className="text-slate-900">Category Breakdown:</strong> How each vendor fits into your expense categories</li>
         </ul>
       </section>
 
       <section id="optimization" className="mb-12">
-        <h2 className="text-2xl font-semibold text-white mb-4">Optimization Insights</h2>
+        <h2 className="text-2xl font-semibold text-slate-900 mb-4">Optimization Insights</h2>
         <p className="text-slate-400 mb-4">
           AI-generated recommendations to reduce costs:
         </p>

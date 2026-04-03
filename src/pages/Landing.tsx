@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import ScrollyVideo from 'scrolly-video/dist/ScrollyVideo.esm.jsx';
-import { VestaLogo } from '@/components/VestaLogo';
+import { SiteFooter } from '@/components/layout/SiteFooter';
 import { MarketingNav } from '@/components/marketing/MarketingNav';
 import { BarChart3, Brain, Plug, Sparkles, ArrowRight, Quote } from 'lucide-react';
 
@@ -146,11 +146,11 @@ export default function Landing() {
 
   return (
     <main className="min-h-screen bg-vesta-cream text-slate-900">
-      <MarketingNav variant="dark" />
+      <MarketingNav variant="light" />
 
-      {/* ── Scroll-scrubbed video section (dark hero only) ── */}
-      <div ref={containerRef} style={{ height: SCROLL_HEIGHT }} className="relative bg-slate-900">
-        <div className="sticky top-0 h-screen w-full overflow-hidden bg-slate-900" style={{ willChange: 'transform', transform: 'translateZ(0)' }}>
+      {/* ── Scroll-scrubbed video section ── */}
+      <div ref={containerRef} style={{ height: SCROLL_HEIGHT }} className="relative bg-vesta-cream">
+        <div className="sticky top-0 h-screen w-full overflow-hidden bg-vesta-cream" style={{ willChange: 'transform', transform: 'translateZ(0)' }}>
           <ScrollyVideo
             src="/hotel.mp4"
             transitionSpeed={30}
@@ -161,30 +161,22 @@ export default function Landing() {
             videoPercentage={progress}
           />
 
-          <div className="absolute bg-slate-900" style={{ bottom: 0, right: 0, width: '14%', height: '9%' }} />
-
-          {/* Softer vignettes — less harsh than pure black */}
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/55 via-slate-900/15 to-slate-900/65 pointer-events-none" />
-          {activeChapter?.align === 'left' && (
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-900/65 via-slate-900/20 to-transparent pointer-events-none transition-opacity duration-700" />
-          )}
-          {activeChapter?.align === 'right' && (
-            <div className="absolute inset-0 bg-gradient-to-l from-slate-900/65 via-slate-900/20 to-transparent pointer-events-none transition-opacity duration-700" />
-          )}
-          {activeChapter?.align === 'center' && (
-            <div className="absolute inset-0 bg-slate-900/25 pointer-events-none transition-opacity duration-700" />
-          )}
-
           <div
             className={`absolute inset-0 flex flex-col justify-center px-10 md:px-24 gap-4 transition-all duration-500 ${alignClass}`}
           >
             {activeChapter && (
-              <>
+              <div
+                className={`flex w-full max-w-2xl flex-col gap-4 rounded-3xl border border-white/15 bg-[#1B3A5C]/85 px-7 py-8 shadow-[0_24px_80px_-20px_rgba(0,0,0,0.65)] backdrop-blur-md md:px-10 md:py-10 ${
+                  activeChapter.align === 'center' ? 'mx-auto text-center' : ''
+                }`}
+              >
                 {activeChapter.eyebrow && (
-                  <p className="text-xs uppercase tracking-[0.3em] text-white/55 drop-shadow">{activeChapter.eyebrow}</p>
+                  <p className="text-xs uppercase tracking-[0.3em] text-vesta-gold">{activeChapter.eyebrow}</p>
                 )}
                 <h2
-                  className={`font-light text-white drop-shadow-md leading-tight max-w-xl transition-all duration-500 ${
+                  className={`max-w-xl font-light leading-tight text-white transition-all duration-500 ${
+                    activeChapter.align === 'center' ? 'mx-auto' : ''
+                  } ${
                     activeChapter.align === 'center'
                       ? 'text-5xl md:text-8xl'
                       : activeChapter.headline.length > 30
@@ -195,30 +187,38 @@ export default function Landing() {
                   {activeChapter.headline}
                 </h2>
                 {activeChapter.sub && (
-                  <p className="text-sm text-white/80 leading-relaxed max-w-sm mt-1 drop-shadow">{activeChapter.sub}</p>
+                  <p
+                    className={`mt-1 max-w-sm text-sm leading-relaxed text-white/90 md:text-base ${
+                      activeChapter.align === 'center' ? 'mx-auto' : ''
+                    }`}
+                  >
+                    {activeChapter.sub}
+                  </p>
                 )}
                 {isLastChapter && (
                   <button
                     type="button"
                     onClick={() => navigate('/auth')}
-                    className="mt-4 w-fit px-10 py-4 bg-vesta-gold hover:bg-vesta-gold/90 text-vesta-navy rounded-full text-sm tracking-widest uppercase font-semibold transition-all duration-300 shadow-lg shadow-black/20"
+                    className={`mt-4 w-fit rounded-full bg-vesta-gold px-10 py-4 text-sm font-semibold uppercase tracking-widest text-vesta-navy shadow-md shadow-black/20 transition-all duration-300 hover:bg-vesta-gold/90 hover:shadow-lg ${
+                      activeChapter.align === 'center' ? 'mx-auto' : ''
+                    }`}
                   >
                     Get started
                   </button>
                 )}
-              </>
+              </div>
             )}
           </div>
 
-          <div className="absolute bottom-0 left-0 right-0 h-px bg-white/15 pointer-events-none">
+          <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-px bg-slate-200/80">
             <div className="h-full bg-vesta-gold/80 transition-all duration-100" style={{ width: `${progress * 100}%` }} />
           </div>
 
           <div
-            className={`absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/45 transition-opacity duration-700 pointer-events-none ${progress > 0.04 ? 'opacity-0' : 'opacity-100'}`}
+            className={`pointer-events-none absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-slate-500 transition-opacity duration-700 ${progress > 0.04 ? 'opacity-0' : 'opacity-100'}`}
           >
-            <span className="text-xs tracking-widest uppercase">Scroll</span>
-            <div className="w-px h-6 bg-white/30 animate-pulse" />
+            <span className="text-xs uppercase tracking-widest">Scroll</span>
+            <div className="h-6 w-px animate-pulse bg-slate-400/60" />
           </div>
         </div>
       </div>
@@ -254,7 +254,7 @@ export default function Landing() {
                 <Link
                   key={title}
                   to={to}
-                  className="group rounded-2xl border border-vesta-navy/10 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-vesta-gold/35 hover:shadow-md md:p-8"
+                  className="group rounded-2xl border border-vesta-navy/10 bg-vesta-mist/25 p-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-vesta-gold/35 hover:bg-vesta-mist/40 hover:shadow-md md:p-8"
                 >
                   <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl border border-vesta-gold/25 bg-vesta-cream transition-colors group-hover:bg-vesta-mist/60">
                     <Icon className="h-5 w-5 text-vesta-gold" strokeWidth={1.5} />
@@ -272,7 +272,7 @@ export default function Landing() {
         </section>
 
         {/* ── Testimonials ── */}
-        <section className="border-t border-vesta-navy/10 bg-white">
+        <section className="border-t border-vesta-navy/10 bg-vesta-cream">
           <div className="mx-auto w-full max-w-6xl px-6 py-16 md:px-10 md:py-24 lg:px-12">
             <p className="mb-3 text-xs uppercase tracking-[0.3em] text-vesta-navy-muted">From operators</p>
             <h2 className="mb-12 font-serif text-3xl font-light text-vesta-navy md:text-4xl max-w-2xl">
@@ -282,7 +282,7 @@ export default function Landing() {
               {TESTIMONIALS.map((t) => (
                 <blockquote
                   key={t.name}
-                  className="flex h-full flex-col rounded-2xl border border-vesta-navy/8 bg-vesta-cream/80 p-6 md:p-8"
+                  className="flex h-full flex-col rounded-2xl border border-vesta-navy/10 bg-vesta-mist/35 p-6 shadow-sm md:p-8"
                 >
                   <Quote className="mb-4 h-8 w-8 text-vesta-gold/70" aria-hidden strokeWidth={1.25} />
                   <p className="flex-1 text-sm leading-relaxed text-slate-700">&ldquo;{t.quote}&rdquo;</p>
@@ -301,9 +301,9 @@ export default function Landing() {
         </section>
 
         {/* ── CTA ── */}
-        <section className="border-t border-vesta-navy/10 bg-gradient-to-b from-vesta-cream to-white">
+        <section className="border-t border-vesta-navy/10 bg-vesta-cream">
           <div className="mx-auto w-full max-w-6xl px-6 py-20 text-center md:px-10 md:py-28 lg:px-12">
-            <div className="mx-auto max-w-2xl rounded-3xl border border-vesta-navy/10 bg-white px-8 py-12 shadow-[0_24px_60px_-24px_rgba(27,58,92,0.15)] md:px-14 md:py-16">
+            <div className="mx-auto max-w-2xl rounded-3xl border border-vesta-navy/10 bg-vesta-mist/30 px-8 py-12 shadow-[0_20px_48px_-22px_rgba(27,58,92,0.1)] md:px-14 md:py-16">
               <p className="mb-4 text-xs uppercase tracking-[0.3em] text-vesta-navy-muted">Get started</p>
               <h2 className="mb-4 font-serif text-3xl font-light leading-tight text-vesta-navy md:text-4xl">
                 See your numbers in one calm place.
@@ -335,27 +335,10 @@ export default function Landing() {
                 </button>
               </div>
             </div>
-
-            <div className="mt-16 flex flex-col items-center justify-between gap-6 border-t border-vesta-navy/10 pt-10 text-xs text-slate-500 sm:flex-row">
-              <VestaLogo size="sm" />
-              <span>© 2026 Vesta · Vesta CFO</span>
-              <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
-                <Link to="/features" className="transition-colors hover:text-vesta-navy">
-                  Features
-                </Link>
-                <Link to="/company" className="transition-colors hover:text-vesta-navy">
-                  Company
-                </Link>
-                <Link to="/privacy" className="transition-colors hover:text-vesta-navy">
-                  Privacy
-                </Link>
-                <Link to="/terms" className="transition-colors hover:text-vesta-navy">
-                  Terms
-                </Link>
-              </div>
-            </div>
           </div>
         </section>
+
+        <SiteFooter variant="light" />
       </div>
     </main>
   );

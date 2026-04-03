@@ -45,16 +45,16 @@ export const CreditTracker = ({ compact = false, showUpgrade = true }: CreditTra
 
   if (!credits) {
     return (
-      <Card className={compact ? "w-80 bg-orange-50 border-orange-200 dark:bg-orange-950/20 dark:border-orange-800" : "w-full max-w-sm bg-orange-50 border-orange-200 dark:bg-orange-950/20 dark:border-orange-800"}>
+      <Card className={compact ? "w-80 bg-orange-50 border-orange-200" : "w-full max-w-sm bg-orange-50 border-orange-200"}>
         <CardContent className="p-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-orange-100 dark:bg-orange-900/50">
-                <Coins className="h-5 w-5 text-orange-600 dark:text-orange-400" />
+              <div className="p-2 rounded-lg bg-orange-100">
+                <Coins className="h-5 w-5 text-orange-600" />
               </div>
               <div>
-                <h3 className="font-semibold text-orange-800 dark:text-orange-200">Credit System</h3>
-                <p className="text-sm text-orange-600 dark:text-orange-300">
+                <h3 className="font-semibold text-orange-800">Credit System</h3>
+                <p className="text-sm text-orange-600">
                   Unable to load credit information
                 </p>
               </div>

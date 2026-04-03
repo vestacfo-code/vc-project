@@ -11,6 +11,7 @@ import { DashboardReferenceProvider } from "@/contexts/DashboardReferenceContext
 import { PortalAnimationProvider, usePortalAnimation } from "@/contexts/PortalAnimationContext";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import { FloatingChatbot } from "@/components/FloatingChatbot";
+import { VestaSiteBadge } from "@/components/VestaSiteBadge";
 import { SignInPortalAnimation } from "@/components/SignInPortalAnimation";
 import Dashboard from "./pages/Dashboard";
 import Landing from "./pages/Landing";
@@ -227,6 +228,7 @@ const AppContent = () => {
         <Route path="*" element={<NotFound />} />
       </Routes>
       <FloatingChatbot />
+      <VestaSiteBadge />
       
       {/* Portal animation rendered OUTSIDE routes - persists across navigation */}
       <SignInPortalAnimation 
@@ -239,7 +241,7 @@ const AppContent = () => {
 };
 
 const App = () => (
-  <Sentry.ErrorBoundary fallback={<div className="min-h-screen flex items-center justify-center bg-gray-950 text-white text-sm">Something went wrong. Please refresh.</div>}>
+  <Sentry.ErrorBoundary fallback={<div className="flex min-h-screen items-center justify-center bg-vesta-cream px-4 text-center text-sm text-slate-700">Something went wrong. Please refresh.</div>}>
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <TooltipProvider>

@@ -21,7 +21,7 @@ export const TypewriterText = ({
   
   return (
     <div className="relative">
-      <div className="prose prose-sm dark:prose-invert max-w-none [&>*:last-child]:mb-0">
+      <div className="prose prose-sm prose-slate max-w-none [&>*:last-child]:mb-0">
         <ReactMarkdown
           remarkPlugins={[remarkMath, remarkGfm]}
           rehypePlugins={[rehypeKatex]}

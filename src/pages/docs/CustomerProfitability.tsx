@@ -16,7 +16,7 @@ const CustomerProfitability = () => {
       nextPage={{ href: "/docs/features/top-customers", title: "Top Customers" }}
     >
       <section id="overview" className="mb-12">
-        <h2 className="text-2xl font-semibold text-white mb-4">Overview</h2>
+        <h2 className="text-2xl font-semibold text-slate-900 mb-4">Overview</h2>
         <p className="text-slate-400 mb-4">
           Customer Profitability analysis helps you understand your revenue mix:
         </p>
@@ -29,17 +29,17 @@ const CustomerProfitability = () => {
       </section>
 
       <section id="concentration" className="mb-12">
-        <h2 className="text-2xl font-semibold text-white mb-4">Revenue Concentration</h2>
+        <h2 className="text-2xl font-semibold text-slate-900 mb-4">Revenue Concentration</h2>
         <p className="text-slate-400 mb-4">
           High revenue concentration can be a business risk. Vesta tracks:
         </p>
         <div className="grid gap-4">
-          <div className="bg-[#1a1a1a] border border-white/10 rounded-xl p-4">
-            <h4 className="text-white font-medium mb-2">Concentration Percentage</h4>
+          <div className="border border-slate-200 bg-white rounded-xl p-4">
+            <h4 className="text-slate-900 font-medium mb-2">Concentration Percentage</h4>
             <p className="text-sm text-slate-400">Percentage of revenue from your top customers</p>
           </div>
-          <div className="bg-[#1a1a1a] border border-white/10 rounded-xl p-4">
-            <h4 className="text-white font-medium mb-2">Diversification Score</h4>
+          <div className="border border-slate-200 bg-white rounded-xl p-4">
+            <h4 className="text-slate-900 font-medium mb-2">Diversification Score</h4>
             <p className="text-sm text-slate-400">How well-distributed your revenue is across customers</p>
           </div>
         </div>
@@ -51,20 +51,20 @@ const CustomerProfitability = () => {
       </section>
 
       <section id="top-customers" className="mb-12">
-        <h2 className="text-2xl font-semibold text-white mb-4">Top Customers</h2>
+        <h2 className="text-2xl font-semibold text-slate-900 mb-4">Top Customers</h2>
         <p className="text-slate-400 mb-4">
           For each top customer, you can view:
         </p>
         <ul className="list-disc list-inside text-slate-400 space-y-2">
-          <li><strong className="text-white">Total Revenue:</strong> Lifetime value from this customer</li>
-          <li><strong className="text-white">Invoice Count:</strong> Number of transactions</li>
-          <li><strong className="text-white">Days Since Last Purchase:</strong> Engagement recency</li>
-          <li><strong className="text-white">Payment History:</strong> On-time vs late payment trends</li>
+          <li><strong className="text-slate-900">Total Revenue:</strong> Lifetime value from this customer</li>
+          <li><strong className="text-slate-900">Invoice Count:</strong> Number of transactions</li>
+          <li><strong className="text-slate-900">Days Since Last Purchase:</strong> Engagement recency</li>
+          <li><strong className="text-slate-900">Payment History:</strong> On-time vs late payment trends</li>
         </ul>
       </section>
 
       <section id="risk-alerts" className="mb-12">
-        <h2 className="text-2xl font-semibold text-white mb-4">Risk Alerts</h2>
+        <h2 className="text-2xl font-semibold text-slate-900 mb-4">Risk Alerts</h2>
         <p className="text-slate-400 mb-4">
           Proactive notifications about customer-related risks:
         </p>

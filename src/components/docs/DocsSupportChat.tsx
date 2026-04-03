@@ -143,15 +143,15 @@ export const DocsSupportChat = ({ isOpen: externalIsOpen, onOpenChange }: DocsSu
         {/* Tooltip pointer */}
         {showTooltip && (
           <div className="absolute bottom-full right-0 mb-3 animate-fade-in">
-            <div className="relative bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl px-4 py-2.5 shadow-xl">
-              <p className="text-white text-sm font-medium whitespace-nowrap">Need help? Ask Ava! 👋</p>
+            <div className="relative rounded-2xl border border-slate-200 bg-white px-4 py-2.5 shadow-xl">
+              <p className="whitespace-nowrap text-sm font-medium text-slate-900">Need help? Ask Ava! 👋</p>
               {/* Arrow pointing down - proper triangle shape */}
               <div 
-                className="absolute -bottom-2 right-6 w-0 h-0"
+                className="absolute -bottom-2 right-6 h-0 w-0"
                 style={{
                   borderLeft: '8px solid transparent',
                   borderRight: '8px solid transparent',
-                  borderTop: '8px solid rgba(255, 255, 255, 0.1)',
+                  borderTop: '8px solid rgb(226 232 240)',
                 }}
               />
             </div>
@@ -161,39 +161,34 @@ export const DocsSupportChat = ({ isOpen: externalIsOpen, onOpenChange }: DocsSu
         {/* Glassmorphic chat button */}
         <button
           onClick={() => setIsOpen(true)}
-          className="relative h-12 w-12 sm:h-14 sm:w-14 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 text-white shadow-xl shadow-black/20 hover:shadow-2xl hover:bg-white/15 transition-all duration-300 hover:scale-110 flex items-center justify-center group"
+          className="group relative flex h-12 w-12 items-center justify-center rounded-2xl border border-slate-200 bg-white text-slate-700 shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl sm:h-14 sm:w-14"
         >
-          {/* Inner gradient glow */}
-          <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#7ba3e8]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-          <MessageCircle className="h-5 w-5 sm:h-6 sm:w-6 relative z-10" />
+          <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#7ba3e8]/15 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+          <MessageCircle className="relative z-10 h-5 w-5 sm:h-6 sm:w-6" />
         </button>
       </div>
     );
   }
 
   return (
-    <div className="fixed bottom-0 right-0 sm:bottom-6 sm:right-6 w-full sm:w-[400px] h-[100dvh] sm:h-[520px] z-50 flex flex-col overflow-hidden animate-in fade-in-0 zoom-in-95 slide-in-from-bottom-4 duration-300">
-      {/* Glassmorphism container */}
-      <div className="absolute inset-0 bg-gradient-to-b from-white/[0.08] to-white/[0.03] backdrop-blur-2xl sm:rounded-3xl border-0 sm:border border-white/20 shadow-2xl shadow-black/40" />
-      
-      {/* Inner glow effect */}
-      <div className="absolute inset-[1px] sm:rounded-[23px] bg-gradient-to-b from-white/10 to-transparent pointer-events-none" />
-      
-      <div className="relative z-10 flex flex-col h-full">
+    <div className="fixed bottom-0 right-0 z-50 flex h-[100dvh] w-full animate-in flex-col overflow-hidden duration-300 fade-in-0 zoom-in-95 slide-in-from-bottom-4 sm:bottom-6 sm:right-6 sm:h-[520px] sm:w-[400px]">
+      <div className="absolute inset-0 border-0 bg-white shadow-2xl sm:rounded-3xl sm:border sm:border-slate-200" />
+
+      <div className="relative z-10 flex h-full flex-col">
         {/* Header */}
-        <div className="flex items-center justify-between p-4 sm:p-5 border-b border-white/10 pt-safe">
+        <div className="flex items-center justify-between border-b border-slate-200 p-4 pt-safe sm:p-5">
           <div className="flex items-center gap-3">
-            <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-2xl bg-gradient-to-br from-[#7ba3e8] to-[#5a8ad4] flex items-center justify-center shadow-lg shadow-[#7ba3e8]/20">
-              <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
+            <div className="flex h-9 w-9 items-center justify-center rounded-2xl bg-gradient-to-br from-[#7ba3e8] to-[#5a8ad4] shadow-lg shadow-[#7ba3e8]/20 sm:h-10 sm:w-10">
+              <Sparkles className="h-4 w-4 text-white sm:h-5 sm:w-5" />
             </div>
             <div>
-              <h3 className="font-semibold text-white text-sm">Ava from Vesta Support</h3>
-              <p className="text-xs text-white/50">Ask anything about Vesta</p>
+              <h3 className="text-sm font-semibold text-slate-900">Ava from Vesta Support</h3>
+              <p className="text-xs text-slate-500">Ask anything about Vesta</p>
             </div>
           </div>
           <button 
             onClick={() => setIsOpen(false)}
-            className="h-9 w-9 text-white/50 hover:text-white transition-colors rounded-xl hover:bg-white/10 flex items-center justify-center"
+            className="flex h-9 w-9 items-center justify-center rounded-xl text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-900"
           >
             <X className="h-5 w-5" />
           </button>
@@ -207,21 +202,21 @@ export const DocsSupportChat = ({ isOpen: externalIsOpen, onOpenChange }: DocsSu
                 <div className={`max-w-[85%] rounded-2xl px-4 py-3 ${
                   message.type === 'user' 
                     ? 'bg-gradient-to-br from-[#7ba3e8] to-[#5a8ad4] text-white shadow-lg shadow-[#7ba3e8]/20' 
-                    : 'bg-white/10 backdrop-blur-sm text-white/90 border border-white/10'
+                    : 'border border-slate-200 bg-slate-50 text-slate-800'
                 }`}>
-                  <div className="text-sm leading-relaxed prose prose-invert prose-sm max-w-none prose-p:my-1 prose-strong:text-white prose-strong:font-semibold prose-ul:my-2 prose-ul:pl-4 prose-ul:list-disc prose-ol:my-2 prose-ol:pl-4 prose-ol:list-decimal prose-li:my-0.5 prose-li:marker:text-[#7ba3e8]">
+                  <div className="prose prose-sm prose-slate max-w-none text-sm leading-relaxed prose-p:my-1 prose-strong:font-semibold prose-strong:text-slate-900 prose-ul:my-2 prose-ul:list-disc prose-ul:pl-4 prose-ol:my-2 prose-ol:list-decimal prose-ol:pl-4 prose-li:my-0.5 prose-li:marker:text-[#7ba3e8]">
                     <ReactMarkdown>{message.content}</ReactMarkdown>
                   </div>
                   
                   {/* Docs Links */}
                   {message.links && message.links.length > 0 && (
-                    <div className="mt-3 pt-3 border-t border-white/10 space-y-2">
+                    <div className="mt-3 space-y-2 border-t border-slate-200 pt-3">
                       {message.links.map((link, index) => (
                         <Link
                           key={index}
                           to={link.href}
                           onClick={() => setIsOpen(false)}
-                          className="flex items-center gap-2 text-xs text-[#7ba3e8] hover:text-white transition-colors group"
+                          className="group flex items-center gap-2 text-xs text-[#5a8ad4] transition-colors hover:text-[#7ba3e8]"
                         >
                           <ExternalLink className="h-3 w-3 group-hover:scale-110 transition-transform" />
                           {link.title}
@@ -235,7 +230,7 @@ export const DocsSupportChat = ({ isOpen: externalIsOpen, onOpenChange }: DocsSu
             
             {isTyping && (
               <div className="flex justify-start">
-                <div className="bg-white/10 backdrop-blur-sm text-white/60 rounded-2xl px-4 py-3 max-w-[80%] border border-white/10">
+                <div className="max-w-[80%] rounded-2xl border border-slate-200 bg-slate-100 px-4 py-3 text-slate-500">
                   <div className="flex items-center gap-1.5">
                     <div className="w-2 h-2 bg-current rounded-full animate-bounce [animation-delay:-0.3s]"></div>
                     <div className="w-2 h-2 bg-current rounded-full animate-bounce [animation-delay:-0.15s]"></div>
@@ -249,10 +244,10 @@ export const DocsSupportChat = ({ isOpen: externalIsOpen, onOpenChange }: DocsSu
         </ScrollArea>
 
         {/* Email Support Banner */}
-        <div className="px-5 py-2.5 border-t border-white/10 bg-white/[0.02]">
+        <div className="border-t border-slate-200 bg-slate-50 px-5 py-2.5">
           <a 
             href="mailto:support@vesta.ai"
-            className="flex items-center justify-center gap-2 text-xs text-white/40 hover:text-[#7ba3e8] transition-colors"
+            className="flex items-center justify-center gap-2 text-xs text-slate-500 transition-colors hover:text-[#7ba3e8]"
           >
             <Mail className="h-3.5 w-3.5" />
             Need human support? Email support@vesta.ai
@@ -260,16 +255,16 @@ export const DocsSupportChat = ({ isOpen: externalIsOpen, onOpenChange }: DocsSu
         </div>
 
         {/* Input Area */}
-        <div className="border-t border-white/10 p-4 bg-white/[0.02]">
+        <div className="border-t border-slate-200 bg-white p-4">
           <div className="flex items-center gap-3">
-            <div className="flex-1 relative">
+            <div className="relative flex-1">
               <Input
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder="Ask about Vesta..."
                 disabled={isTyping}
-                className="border-0 bg-white/10 backdrop-blur-sm text-white placeholder:text-white/40 focus-visible:ring-1 focus-visible:ring-[#7ba3e8]/50 rounded-xl h-11 pr-4"
+                className="h-11 rounded-xl border border-slate-200 bg-white pr-4 text-slate-900 placeholder:text-slate-400 focus-visible:ring-1 focus-visible:ring-[#7ba3e8]/40"
               />
             </div>
             <Button

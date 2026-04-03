@@ -31,17 +31,17 @@ const ROLE_CONFIG = {
   owner: {
     label: 'Owner',
     icon: Crown,
-    badge: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
+    badge: 'border border-amber-200 bg-amber-50 text-amber-900',
   },
   manager: {
     label: 'Manager',
     icon: Shield,
-    badge: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
+    badge: 'border border-blue-200 bg-blue-50 text-blue-900',
   },
   viewer: {
     label: 'Viewer',
     icon: Eye,
-    badge: 'bg-slate-500/10 text-slate-400 border-slate-500/20',
+    badge: 'border border-slate-200 bg-slate-100 text-slate-700',
   },
 } as const
 
@@ -61,13 +61,13 @@ function MemberSkeleton() {
   return (
     <div className="flex items-center justify-between p-4 animate-pulse">
       <div className="flex items-center gap-3">
-        <div className="w-9 h-9 rounded-full bg-gray-700" />
+        <div className="h-9 w-9 rounded-full bg-slate-200" />
         <div className="space-y-2">
-          <div className="h-3.5 w-32 bg-gray-700 rounded" />
-          <div className="h-3 w-24 bg-gray-700/60 rounded" />
+          <div className="h-3.5 w-32 rounded bg-slate-200" />
+          <div className="h-3 w-24 rounded bg-slate-100" />
         </div>
       </div>
-      <div className="h-6 w-20 bg-gray-700 rounded-full" />
+      <div className="h-6 w-20 rounded-full bg-slate-200" />
     </div>
   )
 }
@@ -152,42 +152,42 @@ export default function Team() {
 
   // ─────────────────────────────────────────────────────────────────────────
   return (
-    <div className="min-h-screen bg-gray-950 text-white p-6 space-y-8">
+    <div className="min-h-full space-y-8 p-6 text-slate-900">
 
       {/* ── Header ──────────────────────────────────────────────────────────── */}
       <div>
-        <h1 className="text-2xl font-semibold text-white">Team</h1>
-        <p className="text-slate-400 mt-1">
+        <h1 className="text-2xl font-semibold text-slate-900">Team</h1>
+        <p className="mt-1 text-slate-600">
           Manage who has access to your hotel's Vesta workspace.
         </p>
       </div>
 
       {/* ── Section 1: Current Members ──────────────────────────────────────── */}
       <div>
-        <h2 className="text-sm font-medium text-slate-400 uppercase tracking-wider mb-4 flex items-center gap-2">
-          <Users className="w-4 h-4" />
+        <h2 className="mb-4 flex items-center gap-2 text-sm font-medium uppercase tracking-wider text-slate-600">
+          <Users className="h-4 w-4" />
           Members
         </h2>
 
         {membersLoading ? (
-          <Card className="bg-gray-800/50 border-gray-700 divide-y divide-gray-700">
+          <Card className="divide-y divide-slate-200 border border-vesta-navy/10 bg-white shadow-sm">
             {[1, 2, 3].map((i) => (
               <MemberSkeleton key={i} />
             ))}
           </Card>
         ) : members.length === 0 ? (
-          <Card className="bg-gray-800/30 border-gray-700">
+          <Card className="border border-vesta-navy/10 bg-white shadow-sm">
             <CardContent className="py-10 text-center">
-              <Users className="w-8 h-8 text-slate-600 mx-auto mb-3" />
-              <p className="text-slate-400">No team members found.</p>
+              <Users className="mx-auto mb-3 h-8 w-8 text-slate-400" />
+              <p className="text-slate-600">No team members found.</p>
               <p className="text-slate-500 text-sm mt-1">
                 Invite someone below to get started.
               </p>
             </CardContent>
           </Card>
         ) : (
-          <Card className="bg-gray-800/50 border-gray-700 overflow-hidden">
-            <div className="divide-y divide-gray-700/60">
+          <Card className="overflow-hidden border border-vesta-navy/10 bg-white shadow-sm">
+            <div className="divide-y divide-slate-200">
               {members.map((member) => {
                 const cfg = getRoleConfig(member.role)
                 const RoleIcon = cfg.icon
@@ -197,16 +197,16 @@ export default function Team() {
                 return (
                   <div
                     key={member.id}
-                    className="flex items-center justify-between px-5 py-4 hover:bg-gray-700/20 transition-colors"
+                    className="flex items-center justify-between px-5 py-4 transition-colors hover:bg-slate-50"
                   >
                     {/* Left: avatar + info */}
                     <div className="flex items-center gap-3 min-w-0">
-                      <div className="w-9 h-9 rounded-full bg-gray-700 flex items-center justify-center shrink-0">
-                        <RoleIcon className="w-4 h-4 text-slate-300" />
+                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-slate-100">
+                        <RoleIcon className="h-4 w-4 text-slate-600" />
                       </div>
                       <div className="min-w-0">
                         <div className="flex items-center gap-2 flex-wrap">
-                          <span className="text-sm font-medium text-white font-mono">
+                          <span className="font-mono text-sm font-medium text-slate-900">
                             …{abbreviateUuid(member.user_id)}
                           </span>
                           {isCurrentUser && (
@@ -230,7 +230,7 @@ export default function Team() {
                         <Button
                           size="sm"
                           variant="outline"
-                          className="border-red-500/40 text-red-400 hover:bg-red-500/10 hover:border-red-500/60 hover:text-red-300 h-7 px-2"
+                          className="h-7 border-red-200 px-2 text-red-700 hover:border-red-300 hover:bg-red-50"
                           disabled={removeMutation.isPending}
                           onClick={() => removeMutation.mutate(member.id)}
                           aria-label="Remove member"
@@ -249,17 +249,17 @@ export default function Team() {
 
       {/* ── Section 2: Invite New Member ────────────────────────────────────── */}
       <div>
-        <h2 className="text-sm font-medium text-slate-400 uppercase tracking-wider mb-4 flex items-center gap-2">
-          <UserPlus className="w-4 h-4" />
+        <h2 className="mb-4 flex items-center gap-2 text-sm font-medium uppercase tracking-wider text-slate-600">
+          <UserPlus className="h-4 w-4" />
           Invite New Member
         </h2>
 
-        <Card className="bg-gray-800/50 border-gray-700">
-          <CardHeader className="pb-3 px-5 pt-5">
-            <CardTitle className="text-base font-medium text-white">
+        <Card className="border border-vesta-navy/10 bg-white shadow-sm">
+          <CardHeader className="px-5 pb-3 pt-5">
+            <CardTitle className="text-base font-medium text-slate-900">
               Send an invitation
             </CardTitle>
-            <p className="text-slate-400 text-sm mt-0.5">
+            <p className="mt-0.5 text-sm text-slate-600">
               The recipient will receive an email with a link to join your workspace.
             </p>
           </CardHeader>
@@ -270,7 +270,7 @@ export default function Team() {
                 placeholder="colleague@example.com"
                 value={inviteEmail}
                 onChange={(e) => setInviteEmail(e.target.value)}
-                className="bg-gray-900 border-gray-700 text-white placeholder-slate-500 focus:border-amber-500/60 focus:ring-amber-500/20 flex-1"
+                className="flex-1 border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus:border-vesta-gold/50 focus:ring-vesta-gold/20"
                 required
                 disabled={inviteMutation.isPending}
               />
@@ -280,14 +280,14 @@ export default function Team() {
                 onValueChange={(val) => setInviteRole(val as InviteRole)}
                 disabled={inviteMutation.isPending}
               >
-                <SelectTrigger className="bg-gray-900 border-gray-700 text-white w-full sm:w-36 focus:border-amber-500/60">
+                <SelectTrigger className="w-full border-slate-200 bg-white text-slate-900 sm:w-36 focus:border-vesta-gold/50">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent className="bg-gray-900 border-gray-700 text-white">
-                  <SelectItem value="manager" className="focus:bg-gray-800 focus:text-white">
+                <SelectContent className="border-slate-200 bg-white text-slate-900">
+                  <SelectItem value="manager" className="focus:bg-slate-100 focus:text-slate-900">
                     Manager
                   </SelectItem>
-                  <SelectItem value="viewer" className="focus:bg-gray-800 focus:text-white">
+                  <SelectItem value="viewer" className="focus:bg-slate-100 focus:text-slate-900">
                     Viewer
                   </SelectItem>
                 </SelectContent>
@@ -296,7 +296,7 @@ export default function Team() {
               <Button
                 type="submit"
                 disabled={inviteMutation.isPending || !inviteEmail.trim() || !hotelId}
-                className="bg-amber-500 hover:bg-amber-400 text-gray-950 font-semibold shrink-0 disabled:opacity-50"
+                className="shrink-0 bg-vesta-gold font-semibold text-slate-950 hover:bg-vesta-gold/90 disabled:opacity-50"
               >
                 <UserPlus className="w-4 h-4 mr-1.5" />
                 {inviteMutation.isPending ? 'Sending…' : 'Send Invite'}
@@ -308,22 +308,22 @@ export default function Team() {
 
       {/* ── Section 3: Role Guide ────────────────────────────────────────────── */}
       <div>
-        <h2 className="text-sm font-medium text-slate-400 uppercase tracking-wider mb-4">
+        <h2 className="mb-4 text-sm font-medium uppercase tracking-wider text-slate-600">
           Role Guide
         </h2>
 
-        <Card className="bg-gray-800/30 border-gray-700">
+        <Card className="border border-vesta-navy/10 bg-white shadow-sm">
           <CardContent className="p-5">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
 
               {/* Owner */}
               <div className="flex gap-3">
-                <div className="mt-0.5 w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center shrink-0">
-                  <Crown className="w-4 h-4 text-amber-400" />
+                <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-vesta-gold/15">
+                  <Crown className="h-4 w-4 text-vesta-gold" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-white">Owner</p>
-                  <p className="text-xs text-slate-400 mt-1 leading-relaxed">
+                  <p className="text-sm font-medium text-slate-900">Owner</p>
+                  <p className="mt-1 text-xs leading-relaxed text-slate-600">
                     Full access to all features including billing management and hotel deletion.
                     Automatically assigned to the account creator.
                   </p>
@@ -332,12 +332,12 @@ export default function Team() {
 
               {/* Manager */}
               <div className="flex gap-3">
-                <div className="mt-0.5 w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center shrink-0">
-                  <Shield className="w-4 h-4 text-blue-400" />
+                <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-50">
+                  <Shield className="h-4 w-4 text-blue-700" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-white">Manager</p>
-                  <p className="text-xs text-slate-400 mt-1 leading-relaxed">
+                  <p className="text-sm font-medium text-slate-900">Manager</p>
+                  <p className="mt-1 text-xs leading-relaxed text-slate-600">
                     Can view and edit all data, manage integrations, and invite new members.
                     Cannot access billing or delete the hotel.
                   </p>
@@ -346,12 +346,12 @@ export default function Team() {
 
               {/* Viewer */}
               <div className="flex gap-3">
-                <div className="mt-0.5 w-8 h-8 rounded-lg bg-slate-500/10 flex items-center justify-center shrink-0">
-                  <Eye className="w-4 h-4 text-slate-400" />
+                <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-slate-100">
+                  <Eye className="h-4 w-4 text-slate-600" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-white">Viewer</p>
-                  <p className="text-xs text-slate-400 mt-1 leading-relaxed">
+                  <p className="text-sm font-medium text-slate-900">Viewer</p>
+                  <p className="mt-1 text-xs leading-relaxed text-slate-600">
                     Read-only access to the dashboard and reports. Cannot edit data or
                     change any settings.
                   </p>

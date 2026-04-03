@@ -74,13 +74,13 @@ const KnowledgeBase = () => {
     >
       <div className="grid gap-6 md:grid-cols-2">
         {categories.map((category) => (
-          <div key={category.title} className="bg-[#1a1a1a] border border-white/10 rounded-xl p-6">
+          <div key={category.title} className="border border-slate-200 bg-white rounded-xl p-6">
             <div className="flex items-start gap-4 mb-4">
               <div className="bg-[#7ba3e8]/10 p-3 rounded-lg">
                 <category.icon className="h-6 w-6 text-[#7ba3e8]" />
               </div>
               <div>
-                <h3 className="text-white font-semibold">{category.title}</h3>
+                <h3 className="text-slate-900 font-semibold">{category.title}</h3>
                 <p className="text-sm text-slate-400">{category.description}</p>
               </div>
             </div>
@@ -101,7 +101,7 @@ const KnowledgeBase = () => {
       </div>
 
       <div className="mt-12 bg-gradient-to-r from-[#7ba3e8]/20 to-[#7ba3e8]/5 border border-[#7ba3e8]/20 rounded-xl p-6 text-center">
-        <h3 className="text-white font-semibold mb-2">Can't find what you're looking for?</h3>
+        <h3 className="text-slate-900 font-semibold mb-2">Can't find what you're looking for?</h3>
         <p className="text-slate-400 mb-4">Our AI assistant can help answer your questions.</p>
         <Link 
           to="/chat"

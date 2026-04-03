@@ -52,10 +52,10 @@ export function MarketingNav({ variant = 'light' }: MarketingNavProps) {
 
   const barLight = cn(
     barBase,
-    'border shadow-lg',
+    'border border-vesta-navy/10 shadow-md',
     scrolled
-      ? 'bg-white/72 backdrop-blur-2xl border-white/90 shadow-slate-900/10'
-      : 'bg-white/50 backdrop-blur-xl border-white/60 shadow-slate-900/5'
+      ? 'bg-vesta-cream/95 backdrop-blur-2xl shadow-lg shadow-vesta-navy/[0.06]'
+      : 'bg-vesta-cream/90 backdrop-blur-xl shadow-md shadow-vesta-navy/[0.04]'
   );
 
   const barDark = cn(
@@ -76,7 +76,7 @@ export function MarketingNav({ variant = 'light' }: MarketingNavProps) {
           : 'text-white/90 hover:text-white hover:bg-white/10 hover:shadow-[0_8px_24px_-8px_rgba(0,0,0,0.5)]'
         : active
           ? 'text-vesta-navy bg-vesta-mist/90 ring-1 ring-vesta-navy/15 shadow-sm'
-          : 'text-slate-600 hover:text-vesta-navy hover:bg-white/80 hover:shadow-md'
+          : 'text-slate-600 hover:text-vesta-navy hover:bg-vesta-mist/55 hover:shadow-sm'
     );
 
   const signInClass = isDark
@@ -118,7 +118,7 @@ export function MarketingNav({ variant = 'light' }: MarketingNavProps) {
                 'flex items-center gap-1 px-2.5 sm:px-3 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 hover:-translate-y-0.5',
                 isDark
                   ? 'text-white/90 hover:text-white hover:bg-white/10'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-white/70 hover:shadow-md'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-vesta-mist/55 hover:shadow-sm'
               )}
               aria-expanded={moreOpen}
               aria-haspopup="menu"
@@ -137,7 +137,7 @@ export function MarketingNav({ variant = 'light' }: MarketingNavProps) {
                     'absolute right-0 top-full mt-1 py-2 min-w-[11rem] rounded-xl border shadow-xl z-50',
                     isDark
                       ? 'bg-zinc-950/90 backdrop-blur-2xl border-white/15'
-                      : 'bg-white/90 backdrop-blur-2xl border-vesta-navy/10'
+                      : 'border-vesta-navy/10 bg-vesta-cream/95 backdrop-blur-2xl'
                   )}
                   role="menu"
                 >
@@ -214,10 +214,10 @@ export function MarketingNav({ variant = 'light' }: MarketingNavProps) {
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
             className={cn(
-              'lg:hidden overflow-hidden mt-2 rounded-2xl border shadow-2xl',
+              'lg:hidden overflow-hidden mt-2 rounded-2xl border',
               isDark
-                ? 'bg-zinc-950/92 backdrop-blur-2xl border-white/12'
-                : 'bg-white/92 backdrop-blur-2xl border-slate-200/80'
+                ? 'bg-zinc-950/92 backdrop-blur-2xl border-white/12 shadow-2xl'
+                : 'border border-vesta-navy/10 bg-vesta-cream/95 backdrop-blur-2xl shadow-lg shadow-vesta-navy/[0.06]'
             )}
           >
             <nav className="px-3 py-3 flex flex-col gap-0.5 max-h-[min(70vh,520px)] overflow-y-auto">
@@ -239,7 +239,7 @@ export function MarketingNav({ variant = 'light' }: MarketingNavProps) {
               <div
                 className={cn(
                   'flex flex-col gap-2 pt-3 mt-2 border-t',
-                  isDark ? 'border-white/10' : 'border-slate-100'
+                  isDark ? 'border-white/10' : 'border-vesta-navy/10'
                 )}
               >
                 <button

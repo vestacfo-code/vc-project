@@ -32,7 +32,7 @@ interface SettingsContextType {
 }
 
 const defaultSettings: SettingsState = {
-  theme: 'system',
+  theme: 'light',
   accentColor: 'default',
   language: 'auto',
   spokenLanguage: 'auto',
@@ -46,7 +46,7 @@ const defaultSettings: SettingsState = {
   sessionTimeout: '30',
   dataRetentionDays: 365,
   exportFormat: 'json',
-  chatDarkMode: true,
+  chatDarkMode: false,
 };
 
 const SettingsContext = createContext<SettingsContextType | undefined>(undefined);
@@ -121,8 +121,11 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
       }
 
       if (data) {
+        const rawTheme = data.theme as SettingsState['theme'];
+        const theme: SettingsState['theme'] =
+          rawTheme === 'dark' ? 'light' : rawTheme;
         const loadedSettings: SettingsState = {
-          theme: data.theme as SettingsState['theme'],
+          theme,
           accentColor: data.accent_color as SettingsState['accentColor'],
           language: data.language as SettingsState['language'],
           spokenLanguage: data.spoken_language as SettingsState['spokenLanguage'],
@@ -136,7 +139,7 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
           sessionTimeout: data.session_timeout as SettingsState['sessionTimeout'],
           dataRetentionDays: data.data_retention_days,
           exportFormat: data.export_format as SettingsState['exportFormat'],
-          chatDarkMode: data.chat_dark_mode ?? true,
+          chatDarkMode: false,
         };
         setSettings(loadedSettings);
         applyTheme(loadedSettings.theme);
@@ -156,7 +159,7 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
 
       const settingsData = {
         user_id: user.id,
-        theme: newSettings.theme,
+        theme: newSettings.theme === 'dark' ? 'light' : newSettings.theme,
         accent_color: newSettings.accentColor,
         language: newSettings.language,
         spoken_language: newSettings.spokenLanguage,
@@ -170,7 +173,7 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
         session_timeout: newSettings.sessionTimeout,
         data_retention_days: newSettings.dataRetentionDays,
         export_format: newSettings.exportFormat,
-        chat_dark_mode: newSettings.chatDarkMode,
+        chat_dark_mode: false,
       };
 
       const { error } = await supabase
@@ -190,12 +193,18 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
   ) => {
     try {
       // Update local state immediately for optimistic UI
-      const newSettings = { ...settings, [key]: value };
+      const coercedValue =
+        key === 'chatDarkMode'
+          ? (false as SettingsState[K])
+          : key === 'theme' && value === 'dark'
+            ? ('light' as SettingsState[K])
+            : value;
+      const newSettings = { ...settings, [key]: coercedValue };
       setSettings(newSettings);
 
       // Apply theme changes immediately
       if (key === 'theme') {
-        applyTheme(value as string);
+        applyTheme((coercedValue as string) ?? 'light');
       }
 
       // Apply accent color changes immediately
@@ -254,21 +263,10 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
 
   const applyTheme = (theme: string) => {
     const root = document.documentElement;
+    root.classList.remove('dark');
+    root.classList.add('light');
     if (theme === 'dark') {
-      root.classList.remove('light');
-      root.classList.add('dark');
-    } else if (theme === 'light') {
-      root.classList.remove('dark');
-      root.classList.add('light');
-    } else {
-      // System theme
-      root.classList.remove('dark', 'light');
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      if (prefersDark) {
-        root.classList.add('dark');
-      } else {
-        root.classList.add('light');
-      }
+      console.info('[settings] Dark theme is disabled; using light UI.');
     }
   };
 

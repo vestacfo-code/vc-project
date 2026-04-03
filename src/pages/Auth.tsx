@@ -49,11 +49,11 @@ const TypingHeadline = ({ text }: { text: string }) => {
   }, [isComplete]);
 
   return (
-    <span className="font-serif text-white text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-normal leading-tight">
+    <span className="font-serif text-4xl font-normal leading-tight text-slate-900 sm:text-5xl lg:text-6xl xl:text-7xl">
       {displayText}
       {!isComplete && (
         <span 
-          className="ml-1 inline-block w-[3px] h-[1em] bg-white/80 align-middle"
+          className="ml-1 inline-block h-[1em] w-[3px] align-middle bg-slate-400"
           style={{ opacity: showCursor ? 1 : 0, transition: 'opacity 0.1s' }}
         />
       )}
@@ -61,7 +61,7 @@ const TypingHeadline = ({ text }: { text: string }) => {
   );
 };
 
-// Dark input component - must be outside Auth to prevent re-creation on render
+// Input — defined outside Auth to prevent re-creation on render
 const UnderlineInput = ({
   type = "text",
   placeholder,
@@ -89,9 +89,7 @@ const UnderlineInput = ({
       value={value}
       onChange={onChange}
       required={required}
-      className={`w-full h-12 bg-slate-900 border border-slate-700 rounded-lg
-        focus:border-amber-500/60 focus:ring-0 focus:outline-none
-        text-slate-100 placeholder:text-slate-500 transition-colors text-sm
+      className={`h-12 w-full rounded-lg border border-slate-200 bg-white text-sm text-slate-900 transition-colors placeholder:text-slate-400 focus:border-amber-500/60 focus:outline-none focus:ring-0
         ${icon ? 'pl-10 pr-4' : 'px-4'}`}
     />
   </div>
@@ -591,8 +589,8 @@ const Auth = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-950">
-        <Loader2 className="w-8 h-8 animate-spin text-amber-400" />
+      <div className="flex min-h-screen items-center justify-center bg-vesta-cream">
+        <Loader2 className="h-8 w-8 animate-spin text-vesta-gold" />
       </div>
     );
   }
@@ -605,10 +603,10 @@ const Auth = () => {
           initial={{ opacity: 0, x: -24 }}
           animate={{ opacity: 1, x: 0 }}
           transition={morphSpringSoft}
-          className="hidden lg:flex w-[48%] bg-[#0a0f1e] relative overflow-hidden"
+          className="relative hidden w-[48%] overflow-hidden border-r border-slate-200 bg-slate-50 lg:flex"
         >
           {/* Subtle radial glow */}
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_50%,rgba(245,158,11,0.06),transparent_70%)] pointer-events-none" />
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_30%_50%,rgba(245,158,11,0.12),transparent_70%)]" />
 
           {/* Decorative curved lines */}
           <svg className="absolute top-0 right-0 w-[600px] h-[600px]" viewBox="0 0 600 600" fill="none">
@@ -621,16 +619,16 @@ const Auth = () => {
 
           <div className="flex flex-col justify-between p-12 lg:p-16 w-full relative z-10">
             {/* Logo */}
-            <VestaLogo size="md" />
+            <VestaLogo size="md" tone="light" />
 
             {/* Main copy */}
             <div className="space-y-8">
               <div>
-                <h1 className="font-serif text-white text-4xl lg:text-5xl font-normal leading-tight mb-4">
+                <h1 className="mb-4 font-serif text-4xl font-normal leading-tight text-slate-900 lg:text-5xl">
                   Your hotel's<br />
-                  <span className="text-amber-400">AI CFO.</span>
+                  <span className="text-amber-600">AI CFO.</span>
                 </h1>
-                <p className="text-slate-400 text-base leading-relaxed max-w-xs">
+                <p className="max-w-xs text-base leading-relaxed text-slate-600">
                   Real-time financial intelligence built for hoteliers — from RevPAR to GOPPAR, always a step ahead.
                 </p>
               </div>
@@ -642,25 +640,25 @@ const Auth = () => {
                   { icon: ShieldCheck, text: 'Bank-grade security with role-based access' },
                 ].map(({ icon: Icon, text }) => (
                   <li key={text} className="flex items-start gap-3">
-                    <span className="mt-0.5 flex-shrink-0 w-7 h-7 rounded-full bg-amber-500/10 flex items-center justify-center">
-                      <Icon className="w-3.5 h-3.5 text-amber-400" />
+                    <span className="mt-0.5 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-amber-100">
+                      <Icon className="h-3.5 w-3.5 text-amber-700" />
                     </span>
-                    <span className="text-slate-300 text-sm leading-relaxed">{text}</span>
+                    <span className="text-sm leading-relaxed text-slate-700">{text}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
-            <p className="text-slate-600 text-xs">© 2026 Vesta. All rights reserved.</p>
+            <p className="text-xs text-slate-500">© 2026 Vesta. All rights reserved.</p>
           </div>
         </motion.div>
 
-        {/* Right Panel - Dark - Full screen on mobile */}
+        {/* Right Panel — form */}
         <motion.div
           initial={{ opacity: 0, filter: 'blur(8px)' }}
           animate={{ opacity: 1, filter: 'blur(0px)' }}
           transition={{ ...morphSpringSoft, delay: 0.08 }}
-          className="flex-1 flex flex-col bg-slate-950 px-4 py-6 sm:px-8 sm:py-8 lg:px-16 xl:px-24 min-h-[100dvh] lg:min-h-0 relative"
+          className="relative flex min-h-[100dvh] flex-1 flex-col bg-vesta-cream px-4 py-6 sm:px-8 sm:py-8 lg:min-h-0 lg:bg-white lg:px-16 xl:px-24"
         >
           {/* Top bar with back button and logo */}
           <div className="flex items-center justify-between w-full">
@@ -672,7 +670,7 @@ const Auth = () => {
                   navigate(-1);
                 }
               }}
-              className="flex items-center gap-2 text-slate-500 hover:text-slate-200 hover:bg-slate-800 rounded-lg px-3 py-2 transition-colors -ml-3"
+              className="-ml-3 flex items-center gap-2 rounded-lg px-3 py-2 text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900"
             >
               <ArrowLeft className="w-4 h-4" />
               <span className="text-sm">Back</span>
@@ -680,7 +678,7 @@ const Auth = () => {
 
             {/* Mobile-only logo */}
             <div className="lg:hidden">
-              <VestaLogo size="sm" />
+              <VestaLogo size="sm" tone="light" />
             </div>
           </div>
 
@@ -697,10 +695,10 @@ const Auth = () => {
                   transition={morphSpringSoft}
                   className="space-y-8"
                 >
-                  <h1 className="text-3xl lg:text-4xl font-serif text-white">
+                  <h1 className="font-serif text-3xl text-slate-900 lg:text-4xl">
                     Set New Password
                   </h1>
-                  <p className="text-slate-400 text-sm -mt-4">
+                  <p className="-mt-4 text-sm text-slate-600">
                     Enter your new password below.
                   </p>
 
@@ -738,7 +736,7 @@ const Auth = () => {
                   transition={morphSpringSoft}
                   className="space-y-8"
                 >
-                  <h1 className="text-3xl lg:text-4xl font-serif text-white">
+                  <h1 className="font-serif text-3xl text-slate-900 lg:text-4xl">
                     Reset Password
                   </h1>
 
@@ -762,7 +760,7 @@ const Auth = () => {
                     <button
                       type="button"
                       onClick={() => setShowForgotPassword(false)}
-                      className="w-full text-slate-500 hover:text-slate-200 text-sm"
+                      className="w-full text-sm text-slate-600 hover:text-slate-900"
                     >
                       Back to Sign In
                     </button>
@@ -778,27 +776,27 @@ const Auth = () => {
                   className="space-y-6"
                 >
                   <div>
-                    <h1 className="text-3xl lg:text-4xl font-serif text-white mb-2">
+                    <h1 className="mb-2 font-serif text-3xl text-slate-900 lg:text-4xl">
                       {teamInvite ? 'Accept Invitation' : 'Create Account'}
                     </h1>
                     {teamInvite ? (
-                      <p className="text-slate-400 text-sm">
+                      <p className="text-sm text-slate-600">
                         Already have an account?{' '}
                         <button
                           type="button"
                           onClick={() => setShowSignUp(false)}
-                          className="text-amber-400 underline underline-offset-4 hover:text-amber-300"
+                          className="text-amber-600 underline underline-offset-4 hover:text-amber-700"
                         >
                           Sign in instead
                         </button>
                       </p>
                     ) : (
-                      <p className="text-slate-400 text-sm">
+                      <p className="text-sm text-slate-600">
                         Already have an account?{' '}
                         <button
                           type="button"
                           onClick={() => setShowSignUp(false)}
-                          className="text-amber-400 underline underline-offset-4 hover:text-amber-300"
+                          className="text-amber-600 underline underline-offset-4 hover:text-amber-700"
                         >
                           Sign in
                         </button>
@@ -832,12 +830,12 @@ const Auth = () => {
                   </form>
 
                   <div className="relative">
-                    <div className="absolute inset-0 flex items-center"><span className="w-full border-t border-slate-800" /></div>
-                    <div className="relative flex justify-center text-xs uppercase"><span className="bg-slate-950 px-4 text-slate-500">Or</span></div>
+                    <div className="absolute inset-0 flex items-center"><span className="w-full border-t border-slate-200" /></div>
+                    <div className="relative flex justify-center text-xs uppercase"><span className="bg-vesta-cream px-4 text-slate-500 lg:bg-white">Or</span></div>
                   </div>
 
-                  <Button type="button" variant="outline" onClick={handleGoogleSignIn} disabled={isLoading} className="w-full h-12 bg-transparent hover:bg-slate-800 text-slate-200 border border-slate-700 hover:border-slate-600 font-medium rounded-lg flex items-center justify-center gap-3">
-                    <GoogleLogo className="w-5 h-5" />
+                  <Button type="button" variant="outline" onClick={handleGoogleSignIn} disabled={isLoading} className="flex h-12 w-full items-center justify-center gap-3 rounded-lg border border-slate-200 bg-white font-medium text-slate-700 hover:bg-slate-50">
+                    <GoogleLogo className="h-5 w-5" />
                     Sign up with Google
                   </Button>
                 </motion.div>
@@ -851,12 +849,12 @@ const Auth = () => {
                   className="space-y-6"
                 >
                   <div>
-                    <h1 className="text-3xl lg:text-4xl font-serif text-white mb-2">
+                    <h1 className="mb-2 font-serif text-3xl text-slate-900 lg:text-4xl">
                       Welcome Back
                     </h1>
-                    <p className="text-slate-400 text-sm">
+                    <p className="text-sm text-slate-600">
                       {"Don't have an account? "}
-                      <button type="button" onClick={() => setShowSignUp(true)} className="text-amber-400 underline underline-offset-4 hover:text-amber-300">
+                      <button type="button" onClick={() => setShowSignUp(true)} className="text-amber-600 underline underline-offset-4 hover:text-amber-700">
                         Create one
                       </button>
                     </p>
@@ -872,17 +870,17 @@ const Auth = () => {
                   </form>
 
                   <div className="relative">
-                    <div className="absolute inset-0 flex items-center"><span className="w-full border-t border-slate-800" /></div>
-                    <div className="relative flex justify-center text-xs uppercase"><span className="bg-slate-950 px-4 text-slate-500">Or</span></div>
+                    <div className="absolute inset-0 flex items-center"><span className="w-full border-t border-slate-200" /></div>
+                    <div className="relative flex justify-center text-xs uppercase"><span className="bg-vesta-cream px-4 text-slate-500 lg:bg-white">Or</span></div>
                   </div>
 
-                  <Button type="button" variant="outline" onClick={handleGoogleSignIn} disabled={isLoading} className="w-full h-12 bg-transparent hover:bg-slate-800 text-slate-200 border border-slate-700 hover:border-slate-600 font-medium rounded-lg flex items-center justify-center gap-3">
-                    <GoogleLogo className="w-5 h-5" />
+                  <Button type="button" variant="outline" onClick={handleGoogleSignIn} disabled={isLoading} className="flex h-12 w-full items-center justify-center gap-3 rounded-lg border border-slate-200 bg-white font-medium text-slate-700 hover:bg-slate-50">
+                    <GoogleLogo className="h-5 w-5" />
                     Login with Google
                   </Button>
 
                   <div className="text-center">
-                    <button type="button" onClick={() => setShowForgotPassword(true)} className="text-slate-500 hover:text-slate-200 text-sm">
+                    <button type="button" onClick={() => setShowForgotPassword(true)} className="text-sm text-slate-600 hover:text-slate-900">
                       Forgot password? <span className="underline underline-offset-4">Click here</span>
                     </button>
                   </div>

@@ -544,11 +544,11 @@ export function PricingUploadDialog({ open, onOpenChange, onSuccess }: PricingUp
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-[#0a0a0a] border-white/10 text-white [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-zinc-800/50 [&::-webkit-scrollbar-thumb]:bg-zinc-600 [&::-webkit-scrollbar-thumb]:rounded-full">
+      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-white border-slate-200 text-slate-900 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-slate-100 [&::-webkit-scrollbar-thumb]:bg-slate-300 [&::-webkit-scrollbar-thumb]:rounded-full">
         <DialogHeader>
-          <DialogTitle className="text-white font-[Georgia] text-xl">
+          <DialogTitle className="text-slate-900 font-[Georgia] text-xl">
             {step === 0 ? 'Import Data' : uploadType === 'catalog' ? 'Import Catalog' : 'Import Supplier Prices'}
-            {step > 0 && <Badge variant="outline" className="ml-2 border-white/20 text-slate-400">Step {step}/3</Badge>}
+            {step > 0 && <Badge variant="outline" className="ml-2 border-slate-200 text-slate-500">Step {step}/3</Badge>}
           </DialogTitle>
           <DialogDescription className="text-slate-400">
             {step === 0 && 'Choose what type of data you want to import'}
@@ -564,7 +564,7 @@ export function PricingUploadDialog({ open, onOpenChange, onSuccess }: PricingUp
             <div className="grid grid-cols-2 gap-4">
               <button
                 onClick={() => handleSelectUploadType('catalog')}
-                className="relative p-6 rounded-xl border-2 border-white/10 hover:border-blue-500/50 transition-all text-left group overflow-hidden"
+                className="relative p-6 rounded-xl border-2 border-slate-200 hover:border-blue-500/50 transition-all text-left group overflow-hidden"
               >
                 {/* Layered background */}
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-900/40 via-blue-800/20 to-transparent" />
@@ -576,7 +576,7 @@ export function PricingUploadDialog({ open, onOpenChange, onSuccess }: PricingUp
                   <div className="w-10 h-10 rounded-lg bg-blue-500/20 border border-blue-500/30 flex items-center justify-center mb-4 group-hover:bg-blue-500/30 transition-all">
                     <div className="w-5 h-5 rounded bg-blue-400/60" />
                   </div>
-                  <h3 className="font-semibold text-white mb-1 text-lg">My Catalog</h3>
+                  <h3 className="font-semibold text-slate-900 mb-1 text-lg">My Catalog</h3>
                   <p className="text-sm text-slate-400">
                     Your products with prices, COGS, and target margins
                   </p>
@@ -585,7 +585,7 @@ export function PricingUploadDialog({ open, onOpenChange, onSuccess }: PricingUp
 
               <button
                 onClick={() => handleSelectUploadType('supplier')}
-                className="relative p-6 rounded-xl border-2 border-white/10 hover:border-purple-500/50 transition-all text-left group overflow-hidden"
+                className="relative p-6 rounded-xl border-2 border-slate-200 hover:border-purple-500/50 transition-all text-left group overflow-hidden"
               >
                 {/* Layered background */}
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-900/40 via-purple-800/20 to-transparent" />
@@ -598,7 +598,7 @@ export function PricingUploadDialog({ open, onOpenChange, onSuccess }: PricingUp
                     <div className="w-3 h-5 rounded-sm bg-purple-400/60 mr-1" />
                     <div className="w-3 h-5 rounded-sm bg-purple-400/40" />
                   </div>
-                  <h3 className="font-semibold text-white mb-1 text-lg">Supplier Price List</h3>
+                  <h3 className="font-semibold text-slate-900 mb-1 text-lg">Supplier Price List</h3>
                   <p className="text-sm text-slate-400">
                     Competitor or supplier pricing for comparison
                   </p>
@@ -614,7 +614,7 @@ export function PricingUploadDialog({ open, onOpenChange, onSuccess }: PricingUp
             {/* File Drop Zone */}
             <div
               className={`border-2 border-dashed rounded-xl p-8 text-center transition-colors cursor-pointer
-                ${file ? 'border-primary/50 bg-primary/10' : 'border-white/10 hover:border-white/20 bg-white/5'}`}
+                ${file ? 'border-primary/50 bg-primary/10' : 'border-slate-200 hover:border-white/20 bg-white/5'}`}
               onDragOver={(e) => e.preventDefault()}
               onDrop={handleFileDrop}
               onClick={() => fileInputRef.current?.click()}
@@ -632,7 +632,7 @@ export function PricingUploadDialog({ open, onOpenChange, onSuccess }: PricingUp
                   <div className="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mx-auto">
                     <Check className="w-6 h-6 text-primary" />
                   </div>
-                  <p className="font-medium text-white">{file.name}</p>
+                  <p className="font-medium text-slate-900">{file.name}</p>
                   <p className="text-sm text-slate-400">
                     {parsedData ? `${parsedData.rows.length} rows detected` : 'Parsing...'}
                   </p>
@@ -642,7 +642,7 @@ export function PricingUploadDialog({ open, onOpenChange, onSuccess }: PricingUp
                   <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mx-auto">
                     <Upload className="w-6 h-6 text-slate-400" />
                   </div>
-                  <p className="font-medium text-white">Drop your Excel or CSV file here</p>
+                  <p className="font-medium text-slate-900">Drop your Excel or CSV file here</p>
                   <p className="text-sm text-slate-400">or click to browse</p>
                 </div>
               )}
@@ -660,7 +660,7 @@ export function PricingUploadDialog({ open, onOpenChange, onSuccess }: PricingUp
                       value={newSupplierName}
                       onChange={(e) => setNewSupplierName(e.target.value)}
                       autoFocus
-                      className="bg-white/5 border-white/10 text-white placeholder:text-slate-500"
+                      className="bg-white/5 border-slate-200 text-slate-900 placeholder:text-slate-500"
                     />
                     <Button 
                       onClick={handleCreateSupplier}
@@ -669,25 +669,25 @@ export function PricingUploadDialog({ open, onOpenChange, onSuccess }: PricingUp
                     >
                       {createSupplier.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Add'}
                     </Button>
-                    <Button variant="ghost" onClick={() => setShowNewSupplier(false)} className="text-slate-400 hover:text-white hover:bg-white/10">
+                    <Button variant="ghost" onClick={() => setShowNewSupplier(false)} className="text-slate-400 hover:text-slate-900 hover:bg-white/10">
                       Cancel
                     </Button>
                   </div>
                 ) : (
                   <div className="flex gap-2">
                     <Select value={selectedSupplier} onValueChange={setSelectedSupplier}>
-                      <SelectTrigger className="flex-1 bg-white/5 border-white/10 text-white">
+                      <SelectTrigger className="flex-1 bg-white/5 border-slate-200 text-slate-900">
                         <SelectValue placeholder="Select a supplier" />
                       </SelectTrigger>
-                      <SelectContent className="bg-[#1a1a1a] border-white/10">
+                      <SelectContent className="bg-white border-slate-200">
                         {suppliers.map((supplier) => (
-                          <SelectItem key={supplier.id} value={supplier.id} className="text-slate-300 focus:bg-white/10 focus:text-white">
+                          <SelectItem key={supplier.id} value={supplier.id} className="text-slate-300 focus:bg-white/10 focus:text-slate-900">
                             {supplier.name}
                           </SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
-                    <Button variant="outline" onClick={() => setShowNewSupplier(true)} className="border-white/10 text-slate-300 hover:bg-white/10 bg-transparent">
+                    <Button variant="outline" onClick={() => setShowNewSupplier(true)} className="border-slate-200 text-slate-300 hover:bg-white/10 bg-transparent">
                       <Plus className="w-4 h-4 mr-1" />
                       New
                     </Button>
@@ -704,14 +704,14 @@ export function PricingUploadDialog({ open, onOpenChange, onSuccess }: PricingUp
                   <Button
                     variant="outline"
                     className={cn(
-                      "w-full justify-start text-left font-normal bg-white/5 border-white/10 text-white hover:bg-white/10 hover:text-white",
+                      "w-full justify-start text-left font-normal bg-white/5 border-slate-200 text-slate-900 hover:bg-white/10 hover:text-slate-900",
                     )}
                   >
                     <CalendarIcon className="mr-2 h-4 w-4 text-slate-400" />
                     {format(effectiveDate, "PPP")}
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-auto p-0 bg-[#1a1a1a] border-white/10" align="start">
+                <PopoverContent className="w-auto p-0 bg-white border-slate-200" align="start">
                   <Calendar
                     mode="single"
                     selected={effectiveDate}
@@ -725,7 +725,7 @@ export function PricingUploadDialog({ open, onOpenChange, onSuccess }: PricingUp
             </div>
 
             <div className="flex justify-between">
-              <Button variant="outline" onClick={() => setStep(0)} className="border-white/10 text-slate-300 hover:bg-white/10 bg-transparent">
+              <Button variant="outline" onClick={() => setStep(0)} className="border-slate-200 text-slate-300 hover:bg-white/10 bg-transparent">
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Back
               </Button>
@@ -752,10 +752,10 @@ export function PricingUploadDialog({ open, onOpenChange, onSuccess }: PricingUp
               {fieldMappings.map((field) => (
                 <div 
                   key={field.systemField}
-                  className="grid grid-cols-3 gap-4 items-center p-3 rounded-lg border border-white/10 bg-white/5"
+                  className="grid grid-cols-3 gap-4 items-center p-3 rounded-lg border border-slate-200 bg-white/5"
                 >
                   <div>
-                    <p className="font-medium text-sm text-white">
+                    <p className="font-medium text-sm text-slate-900">
                       {field.label}
                       {field.required && <span className="text-red-400 ml-1">*</span>}
                     </p>
@@ -765,13 +765,13 @@ export function PricingUploadDialog({ open, onOpenChange, onSuccess }: PricingUp
                     value={field.mappedColumn || 'unmapped'}
                     onValueChange={(v) => handleMappingChange(field.systemField, v === 'unmapped' ? null : v)}
                   >
-                    <SelectTrigger className="bg-white/5 border-white/10 text-white">
+                    <SelectTrigger className="bg-white/5 border-slate-200 text-slate-900">
                       <SelectValue placeholder="Select column" />
                     </SelectTrigger>
-                    <SelectContent className="bg-[#1a1a1a] border-white/10">
-                      <SelectItem value="unmapped" className="text-slate-400 focus:bg-white/10 focus:text-white">-- Not mapped --</SelectItem>
+                    <SelectContent className="bg-white border-slate-200">
+                      <SelectItem value="unmapped" className="text-slate-400 focus:bg-white/10 focus:text-slate-900">-- Not mapped --</SelectItem>
                       {parsedData.headers.map((header, index) => (
-                        <SelectItem key={index} value={String(index)} className="text-slate-300 focus:bg-white/10 focus:text-white">
+                        <SelectItem key={index} value={String(index)} className="text-slate-300 focus:bg-white/10 focus:text-slate-900">
                           {header || `Column ${index + 1}`}
                         </SelectItem>
                       ))}
@@ -799,7 +799,7 @@ export function PricingUploadDialog({ open, onOpenChange, onSuccess }: PricingUp
             )}
 
             <div className="flex justify-between">
-              <Button variant="outline" onClick={() => setStep(1)} className="border-white/10 text-slate-300 hover:bg-white/10 bg-transparent">
+              <Button variant="outline" onClick={() => setStep(1)} className="border-slate-200 text-slate-300 hover:bg-white/10 bg-transparent">
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Back
               </Button>
@@ -840,7 +840,7 @@ export function PricingUploadDialog({ open, onOpenChange, onSuccess }: PricingUp
               <div className="w-16 h-16 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto">
                 <Check className="w-8 h-8 text-emerald-400" />
               </div>
-              <h3 className="text-lg font-semibold text-white">Import Complete!</h3>
+              <h3 className="text-lg font-semibold text-slate-900">Import Complete!</h3>
             </div>
 
             <div className="grid grid-cols-3 gap-4">
@@ -852,14 +852,14 @@ export function PricingUploadDialog({ open, onOpenChange, onSuccess }: PricingUp
                 <p className="text-2xl font-bold text-blue-400">{importStats.updated}</p>
                 <p className="text-sm text-blue-300/70">Updated</p>
               </div>
-              <div className="bg-white/5 p-4 rounded-xl text-center border border-white/10">
+              <div className="bg-white/5 p-4 rounded-xl text-center border border-slate-200">
                 <p className="text-2xl font-bold text-slate-400">{importStats.errors}</p>
                 <p className="text-sm text-slate-500">Errors</p>
               </div>
             </div>
 
             <div className="flex justify-end gap-3">
-              <Button variant="outline" onClick={resetDialog} className="border-white/10 text-slate-300 hover:bg-white/10 bg-transparent">
+              <Button variant="outline" onClick={resetDialog} className="border-slate-200 text-slate-300 hover:bg-white/10 bg-transparent">
                 Import Another
               </Button>
               <Button onClick={() => { handleClose(); onSuccess(); }} className="bg-white text-black hover:bg-slate-200">

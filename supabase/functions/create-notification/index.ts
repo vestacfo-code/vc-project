@@ -127,7 +127,7 @@ serve(async (req) => {
               notificationTitle: title,
               notificationMessage: enhancedMessage,
               notificationType: type,
-              dashboardUrl: `${Deno.env.get('SUPABASE_URL')?.replace('supabase.co', 'lovableproject.com')}/dashboard`
+              dashboardUrl: `${(Deno.env.get('PUBLIC_SITE_URL') ?? Deno.env.get('SITE_URL') ?? 'https://www.vesta.ai').replace(/\/$/, '')}/dashboard`
             }
           }).then(({ error: emailError }) => {
             if (!emailError) {

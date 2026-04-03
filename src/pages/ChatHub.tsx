@@ -17,7 +17,6 @@ import { CompetitivePricingDashboard, VarianceAnalysisDashboard, MarketTrendDash
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from '@/components/ui/dropdown-menu';
 import SettingsModal from '@/components/SettingsModal';
 import { TrialCountdown } from '@/components/TrialCountdown';
-import { useSettings } from '@/contexts/SettingsContext';
 import { PersistentChatBar } from '@/components/PersistentChatBar';
 
 const ChatHub = () => {
@@ -182,39 +181,24 @@ const ChatHubContent = ({
   setCurrentView,
   navigate
 }: ChatHubContentProps) => {
-  const { toggleSidebar, isMobile } = useSidebar();
-  const { settings } = useSettings();
-  const chatDark = settings.chatDarkMode;
+  const { toggleSidebar } = useSidebar();
 
-  // Set sidebar CSS variables on root so mobile Sheet portals inherit correct theme
+  // Light sidebar tokens for Sheet portals
   useEffect(() => {
     const root = document.documentElement;
-    if (!chatDark) {
-      root.style.setProperty('--sidebar-background', '0 0% 100%');
-      root.style.setProperty('--sidebar-foreground', '222 47% 11%');
-      root.style.setProperty('--sidebar-primary', '221 83% 53%');
-      root.style.setProperty('--sidebar-primary-foreground', '0 0% 100%');
-      root.style.setProperty('--sidebar-accent', '210 17% 95%');
-      root.style.setProperty('--sidebar-accent-foreground', '222 47% 11%');
-      root.style.setProperty('--sidebar-border', '220 13% 91%');
-      root.style.setProperty('--sidebar-ring', '221 83% 53%');
-    } else {
-      // Dark mode — match #111111 bg, #1a1a1a borders
-      root.style.setProperty('--sidebar-background', '0 0% 6.7%');
-      root.style.setProperty('--sidebar-foreground', '0 0% 89%');
-      root.style.setProperty('--sidebar-primary', '221 70% 58%');
-      root.style.setProperty('--sidebar-primary-foreground', '0 0% 6.7%');
-      root.style.setProperty('--sidebar-accent', '0 0% 10%');
-      root.style.setProperty('--sidebar-accent-foreground', '0 0% 89%');
-      root.style.setProperty('--sidebar-border', '0 0% 10.2%');
-      root.style.setProperty('--sidebar-ring', '221 70% 58%');
-    }
+    root.style.setProperty('--sidebar-background', '0 0% 100%');
+    root.style.setProperty('--sidebar-foreground', '222 47% 11%');
+    root.style.setProperty('--sidebar-primary', '221 83% 53%');
+    root.style.setProperty('--sidebar-primary-foreground', '0 0% 100%');
+    root.style.setProperty('--sidebar-accent', '210 17% 95%');
+    root.style.setProperty('--sidebar-accent-foreground', '222 47% 11%');
+    root.style.setProperty('--sidebar-border', '220 13% 91%');
+    root.style.setProperty('--sidebar-ring', '221 83% 53%');
     return () => {
-      // Clean up on unmount
       const vars = ['--sidebar-background', '--sidebar-foreground', '--sidebar-primary', '--sidebar-primary-foreground', '--sidebar-accent', '--sidebar-accent-foreground', '--sidebar-border', '--sidebar-ring'];
       vars.forEach(v => root.style.removeProperty(v));
     };
-  }, [chatDark]);
+  }, []);
   
   const handlePersistentChatSubmit = (text: string) => {
     setCurrentView('chat');
@@ -225,7 +209,7 @@ const ChatHubContent = ({
   };
   
   return (
-    <div className={`flex h-[100dvh] w-full ${chatDark ? 'bg-[#0a0a0a] text-white' : 'text-zinc-900'}`} style={chatDark ? undefined : { backgroundColor: '#f8f4f1' }}>
+    <div className="flex h-[100dvh] w-full bg-vesta-cream text-zinc-900">
       {/* Always show main layout - walkthrough will guide users */}
       <>
         <IntegrationLayoutSidebar
@@ -236,9 +220,9 @@ const ChatHubContent = ({
             currentView={currentView}
           />
           
-          <div className={`flex-1 flex flex-col relative overflow-hidden ${chatDark ? 'bg-[#0a0a0a]' : ''}`}>
+          <div className="relative flex flex-1 flex-col overflow-hidden">
             {/* Mobile Header */}
-            <div className={`md:hidden flex items-center justify-between px-4 py-3 border-b sticky top-0 z-40 ${chatDark ? 'bg-[#0a0a0a] border-[#1a1a1a]' : 'bg-white border-gray-100'}`}>
+            <div className="sticky top-0 z-40 flex items-center justify-between border-b border-slate-200 bg-white px-4 py-3 md:hidden">
               <Button
                 variant="ghost"
                 size="sm"
@@ -268,21 +252,21 @@ const ChatHubContent = ({
                     <Button
                       variant="ghost"
                       size="sm"
-                      className={`h-8 w-8 p-0 rounded-full border transition-all duration-150 shadow-sm ${chatDark ? 'bg-[#1a1a1a] border-[#2a2a2a] text-zinc-400 hover:bg-[#2a2a2a] hover:text-white' : 'bg-white border-gray-200 hover:bg-gray-50 hover:border-gray-300 text-gray-600 hover:text-gray-900'}`}
+                      className="h-8 w-8 rounded-full border border-gray-200 bg-white p-0 text-gray-600 shadow-sm transition-all duration-150 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900"
                     >
                       <User className="w-4 h-4" />
                     </Button>
                   </DropdownMenuTrigger>
-                 <DropdownMenuContent align="end" className={`w-48 ${chatDark ? 'bg-[#1a1a1a] border-[#2a2a2a] text-zinc-200' : 'bg-white border-gray-200 text-gray-700'}`}>
-                    <DropdownMenuItem onClick={() => navigate('/dashboard')} className={chatDark ? 'text-zinc-200 hover:bg-white/5 focus:bg-white/5 focus:text-white' : 'text-gray-700 hover:bg-gray-100 focus:bg-gray-100'}>
+                 <DropdownMenuContent align="end" className="w-48 border border-gray-200 bg-white text-gray-700">
+                    <DropdownMenuItem onClick={() => navigate('/dashboard')} className="text-gray-700 hover:bg-gray-100 focus:bg-gray-100">
                       <ArrowLeft className="w-4 h-4 mr-2" />
                       Back to Dashboard
                     </DropdownMenuItem>
-                    <DropdownMenuSeparator className={chatDark ? 'bg-[#2a2a2a]' : 'bg-gray-200'} />
+                    <DropdownMenuSeparator className="bg-gray-200" />
                     <DropdownMenuItem onClick={() => {
                       setSettingsDefaultTab('general');
                       setSettingsOpen(true);
-                    }} className={chatDark ? 'text-zinc-200 hover:bg-white/5 focus:bg-white/5 focus:text-white' : 'text-gray-700 hover:bg-gray-100 focus:bg-gray-100'}>
+                    }} className="text-gray-700 hover:bg-gray-100 focus:bg-gray-100">
                       <Settings className="w-4 h-4 mr-2" />
                       Settings
                     </DropdownMenuItem>
@@ -312,43 +296,43 @@ const ChatHubContent = ({
                     <Button
                       variant="ghost"
                       size="sm"
-                      className={`h-8 w-8 p-0 rounded-full border transition-all duration-150 shadow-sm ${chatDark ? 'bg-[#1a1a1a] border-[#2a2a2a] text-zinc-400 hover:bg-[#2a2a2a] hover:text-white' : 'bg-white border-gray-200 hover:bg-gray-50 hover:border-gray-300 text-gray-600 hover:text-gray-900'}`}
+                      className="h-8 w-8 rounded-full border border-gray-200 bg-white p-0 text-gray-600 shadow-sm transition-all duration-150 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900"
                     >
                     <User className="w-4 h-4" />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className={`w-48 ${chatDark ? 'bg-[#1a1a1a] border-[#2a2a2a] text-zinc-200' : 'bg-white border-gray-200 text-gray-700'}`}>
-                  <DropdownMenuItem onClick={() => navigate('/dashboard')} className={chatDark ? 'text-zinc-200 hover:bg-white/5 focus:bg-white/5 focus:text-white' : 'text-gray-700 hover:bg-gray-100 focus:bg-gray-100'}>
+                <DropdownMenuContent align="end" className="w-48 border border-gray-200 bg-white text-gray-700">
+                  <DropdownMenuItem onClick={() => navigate('/dashboard')} className="text-gray-700 hover:bg-gray-100 focus:bg-gray-100">
                     <ArrowLeft className="w-4 h-4 mr-2" />
                     Back to Dashboard
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => setCurrentView('chat')} className={chatDark ? 'text-zinc-200 hover:bg-white/5 focus:bg-white/5 focus:text-white' : 'text-gray-700 hover:bg-gray-100 focus:bg-gray-100'}>
+                  <DropdownMenuItem onClick={() => setCurrentView('chat')} className="text-gray-700 hover:bg-gray-100 focus:bg-gray-100">
                     <MessageSquare className="w-4 h-4 mr-2" />
                     Chat View
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => setCurrentView('dashboard')} className={chatDark ? 'text-zinc-200 hover:bg-white/5 focus:bg-white/5 focus:text-white' : 'text-gray-700 hover:bg-gray-100 focus:bg-gray-100'}>
+                  <DropdownMenuItem onClick={() => setCurrentView('dashboard')} className="text-gray-700 hover:bg-gray-100 focus:bg-gray-100">
                     <Database className="w-4 h-4 mr-2" />
                     Dashboard View
                   </DropdownMenuItem>
-                  <DropdownMenuSeparator className={chatDark ? 'bg-[#2a2a2a]' : 'bg-gray-200'} />
+                  <DropdownMenuSeparator className="bg-gray-200" />
                   <DropdownMenuItem onClick={() => {
                     setSettingsDefaultTab('collaborators');
                     setSettingsOpen(true);
-                  }} className={chatDark ? 'text-zinc-200 hover:bg-white/5 focus:bg-white/5 focus:text-white' : 'text-gray-700 hover:bg-gray-100 focus:bg-gray-100'}>
+                  }} className="text-gray-700 hover:bg-gray-100 focus:bg-gray-100">
                     <Users className="w-4 h-4 mr-2" />
                     Collaborators
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => {
                     setSettingsDefaultTab('plan-credits');
                     setSettingsOpen(true);
-                  }} className={chatDark ? 'text-zinc-200 hover:bg-white/5 focus:bg-white/5 focus:text-white' : 'text-gray-700 hover:bg-gray-100 focus:bg-gray-100'}>
+                  }} className="text-gray-700 hover:bg-gray-100 focus:bg-gray-100">
                     <CreditCard className="w-4 h-4 mr-2" />
                     Billing
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => {
                     setSettingsDefaultTab('general');
                     setSettingsOpen(true);
-                  }} className={chatDark ? 'text-zinc-200 hover:bg-white/5 focus:bg-white/5 focus:text-white' : 'text-gray-700 hover:bg-gray-100 focus:bg-gray-100'}>
+                  }} className="text-gray-700 hover:bg-gray-100 focus:bg-gray-100">
                     <Settings className="w-4 h-4 mr-2" />
                     Settings
                   </DropdownMenuItem>
@@ -360,7 +344,7 @@ const ChatHubContent = ({
             {currentView === 'chat' ? (
               <IntegrationChat key={chatKey} conversationId={currentSessionId} />
             ) : (
-              <div className={`relative flex-1 flex flex-col overflow-hidden ${chatDark ? 'dark-mode-cards' : ''}`}>
+              <div className="relative flex flex-1 flex-col overflow-hidden">
                 <div className="flex-1 overflow-y-auto pb-24">
                   {currentView === 'pricing' ? (
                     <VarianceAnalysisDashboard />
@@ -372,7 +356,7 @@ const ChatHubContent = ({
                     <IntegrationDashboard />
                   )}
                 </div>
-                <PersistentChatBar onSubmit={handlePersistentChatSubmit} darkMode={chatDark} />
+                <PersistentChatBar onSubmit={handlePersistentChatSubmit} darkMode={false} />
               </div>
             )}
         </div>

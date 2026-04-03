@@ -385,7 +385,7 @@ export const CollaboratorsTab = () => {
       {/* Header */}
       <div className="flex items-center justify-between mb-8 pr-8">
         <div>
-          <h2 className="font-serif text-2xl text-white mb-1">Collaborators</h2>
+          <h2 className="font-serif text-2xl text-slate-900 mb-1">Collaborators</h2>
         <p className="text-slate-400 text-sm">
           {Math.max(0, members.length - 1 + pendingInvites.length)} of {MAX_COLLABORATORS} members added
         </p>
@@ -398,7 +398,7 @@ export const CollaboratorsTab = () => {
 
       {/* Progress bar */}
       <div className="mb-8">
-        <div className="h-2 bg-white/10 rounded-full overflow-hidden">
+        <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
           <div className="h-full bg-gradient-to-r from-emerald-500 to-emerald-400 transition-all duration-300" style={{
           width: `${totalUsed / MAX_COLLABORATORS * 100}%`
         }} />
@@ -407,10 +407,10 @@ export const CollaboratorsTab = () => {
 
       {/* Tabs */}
       <div className="flex gap-2 mb-6">
-        <button onClick={() => setActiveView('members')} className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${activeView === 'members' ? 'bg-white/10 text-white' : 'text-slate-400 hover:text-white hover:bg-white/5'}`}>
+        <button onClick={() => setActiveView('members')} className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${activeView === 'members' ? 'bg-slate-100 text-slate-900' : 'text-slate-400 hover:text-slate-900 hover:bg-slate-50'}`}>
           Members ({members.length})
         </button>
-        <button onClick={() => setActiveView('pending')} className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${activeView === 'pending' ? 'bg-white/10 text-white' : 'text-slate-400 hover:text-white hover:bg-white/5'}`}>
+        <button onClick={() => setActiveView('pending')} className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${activeView === 'pending' ? 'bg-slate-100 text-slate-900' : 'text-slate-400 hover:text-slate-900 hover:bg-slate-50'}`}>
           Pending ({pendingInvites.length})
         </button>
       </div>
@@ -423,14 +423,14 @@ export const CollaboratorsTab = () => {
               <p className="text-slate-500 text-sm mt-1">Add your first collaborator to get started</p>
             </div> : members.map(member => {
         const RoleIcon = roleIcons[member.role] || User;
-        return <div key={member.id} className="flex items-center justify-between p-4 bg-white/5 border border-white/10 rounded-xl hover:bg-white/[0.07] transition-colors">
+        return <div key={member.id} className="flex items-center justify-between p-4 bg-slate-50 border border-slate-200 rounded-xl hover:bg-white/[0.07] transition-colors">
                   <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">
+                    <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center">
                       <User className="w-5 h-5 text-slate-400" />
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
-                        <p className="font-medium text-white">{member.name}</p>
+                        <p className="font-medium text-slate-900">{member.name}</p>
                         {member.isOwner && <span className="text-xs text-slate-500">(You)</span>}
                       </div>
                       <p className="text-sm text-slate-500">{member.email}</p>
@@ -444,7 +444,7 @@ export const CollaboratorsTab = () => {
                     </Badge>
                     
                     {!member.isOwner && <div className="flex gap-1">
-                        <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-slate-400 hover:text-white hover:bg-white/10" onClick={() => {
+                        <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-slate-400 hover:text-slate-900 hover:bg-slate-100" onClick={() => {
                 setEditingMember(member);
                 setEditRole(member.role);
               }}>
@@ -464,13 +464,13 @@ export const CollaboratorsTab = () => {
           {pendingInvites.length === 0 ? <div className="text-center py-12">
               <Mail className="w-12 h-12 text-slate-600 mx-auto mb-4" />
               <p className="text-slate-400">No pending invitations</p>
-            </div> : pendingInvites.map(invite => <div key={invite.id} className="flex items-center justify-between p-4 bg-white/5 border border-white/10 rounded-xl">
+            </div> : pendingInvites.map(invite => <div key={invite.id} className="flex items-center justify-between p-4 bg-slate-50 border border-slate-200 rounded-xl">
                 <div className="flex items-center gap-4">
                   <div className="w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center">
                     <Clock className="w-5 h-5 text-amber-400" />
                   </div>
                   <div>
-                    <p className="font-medium text-white">{invite.email}</p>
+                    <p className="font-medium text-slate-900">{invite.email}</p>
                     <p className="text-sm text-slate-500">
                       Invited {new Date(invite.created_at).toLocaleDateString()}
                     </p>
@@ -493,9 +493,9 @@ export const CollaboratorsTab = () => {
 
       {/* Add Member Dialog */}
       <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
-        <DialogContent className="bg-[#1a1a1a] border-white/10 text-white">
+        <DialogContent className="bg-white border-slate-200 text-slate-900">
           <DialogHeader>
-            <DialogTitle className="text-white">Add Team Member</DialogTitle>
+            <DialogTitle className="text-slate-900">Add Team Member</DialogTitle>
             <DialogDescription className="text-slate-400">
               Send an invitation to join your team
             </DialogDescription>
@@ -503,37 +503,37 @@ export const CollaboratorsTab = () => {
           <div className="space-y-4 mt-4">
             <div className="space-y-2">
               <Label className="text-slate-300">Name (optional)</Label>
-              <Input value={newMemberName} onChange={e => setNewMemberName(e.target.value)} placeholder="John Doe" className="bg-white/5 border-white/10 text-white placeholder:text-slate-500" />
+              <Input value={newMemberName} onChange={e => setNewMemberName(e.target.value)} placeholder="John Doe" className="bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-500" />
             </div>
             <div className="space-y-2">
               <Label className="text-slate-300">Email *</Label>
-              <Input type="email" value={newMemberEmail} onChange={e => setNewMemberEmail(e.target.value)} placeholder="john@company.com" className="bg-white/5 border-white/10 text-white placeholder:text-slate-500" />
+              <Input type="email" value={newMemberEmail} onChange={e => setNewMemberEmail(e.target.value)} placeholder="john@company.com" className="bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-500" />
             </div>
             <div className="space-y-2">
               <Label className="text-slate-300">Title (optional)</Label>
-              <Input value={newMemberTitle} onChange={e => setNewMemberTitle(e.target.value)} placeholder="CFO, Accountant, etc." className="bg-white/5 border-white/10 text-white placeholder:text-slate-500" />
+              <Input value={newMemberTitle} onChange={e => setNewMemberTitle(e.target.value)} placeholder="CFO, Accountant, etc." className="bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-500" />
             </div>
             <div className="space-y-2">
               <Label className="text-slate-300">Role</Label>
               <Select value={newMemberRole} onValueChange={(v: MemberRole) => setNewMemberRole(v)}>
-                <SelectTrigger className="bg-white/5 border-white/10 text-white">
+                <SelectTrigger className="bg-slate-50 border-slate-200 text-slate-900">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent className="bg-[#1a1a1a] border-white/10">
-                  <SelectItem value="member" className="text-slate-300 focus:bg-white/10 focus:text-white">
+                <SelectContent className="bg-white border-slate-200">
+                  <SelectItem value="member" className="text-slate-300 focus:bg-slate-100 focus:text-slate-900">
                     Member - Can view and interact with data
                   </SelectItem>
-                  <SelectItem value="admin" className="text-slate-300 focus:bg-white/10 focus:text-white">
+                  <SelectItem value="admin" className="text-slate-300 focus:bg-slate-100 focus:text-slate-900">
                     Administrator - Can manage members
                   </SelectItem>
-                  <SelectItem value="super_admin" className="text-slate-300 focus:bg-white/10 focus:text-white">
+                  <SelectItem value="super_admin" className="text-slate-300 focus:bg-slate-100 focus:text-slate-900">
                     Super Administrator - Full control including billing
                   </SelectItem>
                 </SelectContent>
               </Select>
             </div>
             <div className="flex justify-end gap-3 pt-4">
-              <Button variant="outline" onClick={() => setShowAddDialog(false)} className="border-white/10 text-slate-300 hover:bg-white/10 bg-transparent">
+              <Button variant="outline" onClick={() => setShowAddDialog(false)} className="border-slate-200 text-slate-300 hover:bg-slate-100 bg-transparent">
                 Cancel
               </Button>
               <Button onClick={handleInvite} disabled={!newMemberEmail.trim() || isInviting} className="bg-white text-black hover:bg-slate-200">
@@ -547,26 +547,26 @@ export const CollaboratorsTab = () => {
 
       {/* Edit Role Dialog */}
       <Dialog open={!!editingMember} onOpenChange={() => setEditingMember(null)}>
-        <DialogContent className="bg-[#1a1a1a] border-white/10 text-white">
+        <DialogContent className="bg-white border-slate-200 text-slate-900">
           <DialogHeader>
-            <DialogTitle className="text-white">Edit Role</DialogTitle>
+            <DialogTitle className="text-slate-900">Edit Role</DialogTitle>
             <DialogDescription className="text-slate-400">
               Change role for {editingMember?.name}
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4 mt-4">
             <Select value={editRole} onValueChange={(v: MemberRole) => setEditRole(v)}>
-              <SelectTrigger className="bg-white/5 border-white/10 text-white">
+              <SelectTrigger className="bg-slate-50 border-slate-200 text-slate-900">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent className="bg-[#1a1a1a] border-white/10">
-                <SelectItem value="member" className="text-slate-300 focus:bg-white/10 focus:text-white">Member</SelectItem>
-                <SelectItem value="admin" className="text-slate-300 focus:bg-white/10 focus:text-white">Administrator</SelectItem>
-                <SelectItem value="super_admin" className="text-slate-300 focus:bg-white/10 focus:text-white">Super Administrator</SelectItem>
+              <SelectContent className="bg-white border-slate-200">
+                <SelectItem value="member" className="text-slate-300 focus:bg-slate-100 focus:text-slate-900">Member</SelectItem>
+                <SelectItem value="admin" className="text-slate-300 focus:bg-slate-100 focus:text-slate-900">Administrator</SelectItem>
+                <SelectItem value="super_admin" className="text-slate-300 focus:bg-slate-100 focus:text-slate-900">Super Administrator</SelectItem>
               </SelectContent>
             </Select>
             <div className="flex justify-end gap-3">
-              <Button variant="outline" onClick={() => setEditingMember(null)} className="border-white/10 text-slate-300 hover:bg-white/10 bg-transparent">
+              <Button variant="outline" onClick={() => setEditingMember(null)} className="border-slate-200 text-slate-300 hover:bg-slate-100 bg-transparent">
                 Cancel
               </Button>
               <Button onClick={handleUpdateRole} className="bg-white text-black hover:bg-slate-200">
@@ -579,9 +579,9 @@ export const CollaboratorsTab = () => {
 
       {/* Delete Confirmation */}
       <AlertDialog open={!!deletingMember} onOpenChange={() => setDeletingMember(null)}>
-        <AlertDialogContent className="bg-[#1a1a1a] border-white/10">
+        <AlertDialogContent className="bg-white border-slate-200">
           <AlertDialogHeader>
-            <AlertDialogTitle className="text-white">
+            <AlertDialogTitle className="text-slate-900">
               {'isPending' in (deletingMember || {}) ? 'Cancel Invitation?' : 'Remove Member?'}
             </AlertDialogTitle>
             <AlertDialogDescription className="text-slate-400">
@@ -589,10 +589,10 @@ export const CollaboratorsTab = () => {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel className="border-white/10 text-slate-300 hover:bg-white/10 bg-transparent">
+            <AlertDialogCancel className="border-slate-200 text-slate-300 hover:bg-slate-100 bg-transparent">
               Cancel
             </AlertDialogCancel>
-            <AlertDialogAction onClick={handleRemoveMember} className="bg-red-600 hover:bg-red-700 text-white">
+            <AlertDialogAction onClick={handleRemoveMember} className="bg-red-600 hover:bg-red-700 text-slate-900">
               {'isPending' in (deletingMember || {}) ? 'Cancel Invitation' : 'Remove'}
             </AlertDialogAction>
           </AlertDialogFooter>
@@ -601,18 +601,18 @@ export const CollaboratorsTab = () => {
 
       {/* Upgrade Dialog */}
       <Dialog open={showUpgradeDialog} onOpenChange={setShowUpgradeDialog}>
-        <DialogContent className="bg-[#1a1a1a] border-white/10 text-white max-w-md">
+        <DialogContent className="bg-white border-slate-200 text-slate-900 max-w-md">
           <DialogHeader className="text-center pb-2">
             <div className="relative mx-auto w-16 h-16 mb-4">
               <div className="absolute inset-0 bg-gradient-to-br from-purple-500 to-blue-600 rounded-2xl rotate-6 opacity-80" />
               <div className="relative flex items-center justify-center h-full bg-gradient-to-br from-purple-500 to-blue-600 rounded-2xl">
-                <Users className="w-8 h-8 text-white" />
+                <Users className="w-8 h-8 text-slate-900" />
               </div>
               <div className="absolute -top-1 -right-1 w-5 h-5 bg-yellow-400 rounded-full flex items-center justify-center">
                 <Sparkles className="w-2.5 h-2.5 text-yellow-900" />
               </div>
             </div>
-            <DialogTitle className="text-xl font-semibold text-white">
+            <DialogTitle className="text-xl font-semibold text-slate-900">
               Unlock Collaborators
             </DialogTitle>
             <DialogDescription className="text-slate-400 text-sm mt-2">
@@ -620,7 +620,7 @@ export const CollaboratorsTab = () => {
             </DialogDescription>
           </DialogHeader>
           
-          <div className="bg-white/5 rounded-xl p-4 space-y-3 border border-white/10 my-4">
+          <div className="bg-slate-50 rounded-xl p-4 space-y-3 border border-slate-200 my-4">
             <div className="flex items-center gap-3 text-sm text-slate-300">
               <div className="w-5 h-5 rounded-full bg-emerald-500/20 flex items-center justify-center flex-shrink-0">
                 <span className="text-emerald-400 text-xs">✓</span>
@@ -642,7 +642,7 @@ export const CollaboratorsTab = () => {
           </div>
 
           <div className="space-y-3">
-            <Button className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white" onClick={() => {
+            <Button className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-slate-900" onClick={() => {
             setShowUpgradeDialog(false);
             window.dispatchEvent(new CustomEvent('openSettings', {
               detail: {

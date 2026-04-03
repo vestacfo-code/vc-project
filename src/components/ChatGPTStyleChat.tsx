@@ -5,7 +5,7 @@ import { Loader2, Send, Mic, Building2, Sparkles, MessageSquare, ChevronDown } f
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { useQuickBooksIntegration } from '@/hooks/useQuickBooksIntegration';
-import { VestaBrand } from '@/components/ui/finlo-brand';
+import { VestaBrand } from '@/components/ui/vesta-brand';
 import ReactMarkdown from 'react-markdown';
 import ThinkingAnimation from '@/components/ThinkingAnimation';
 import TypingAnimation from '@/components/TypingAnimation';
@@ -236,7 +236,7 @@ User Question: ${userMessage.content}`;
                       <Mic className="w-4 h-4" />
                     </Button>
                     
-                    <Button onClick={handleSendMessage} disabled={loading || !input.trim()} size="sm" className="h-8 w-8 p-0 bg-zinc-800 hover:bg-zinc-900 text-white rounded-lg disabled:opacity-50">
+                    <Button onClick={handleSendMessage} disabled={loading || !input.trim()} size="sm" className="h-8 w-8 rounded-lg bg-slate-900 p-0 text-white hover:bg-slate-800 disabled:opacity-50">
                       <Send className="w-4 h-4" />
                     </Button>
                   </div>
@@ -314,7 +314,7 @@ User Question: ${userMessage.content}`;
                     <Mic className="w-4 h-4" />
                   </Button>
                   
-                  <Button onClick={handleSendMessage} disabled={loading || !input.trim()} size="sm" className="h-8 w-8 p-0 bg-zinc-800 hover:bg-zinc-900 text-white rounded-lg disabled:opacity-50">
+                  <Button onClick={handleSendMessage} disabled={loading || !input.trim()} size="sm" className="h-8 w-8 rounded-lg bg-slate-900 p-0 text-white hover:bg-slate-800 disabled:opacity-50">
                     <Send className="w-4 h-4" />
                   </Button>
                 </div>

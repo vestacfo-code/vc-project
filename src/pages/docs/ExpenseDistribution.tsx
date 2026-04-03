@@ -16,7 +16,7 @@ const ExpenseDistribution = () => {
       nextPage={{ href: "/docs/features/reports", title: "Automated Reports" }}
     >
       <section id="overview" className="mb-12">
-        <h2 className="text-2xl font-semibold text-white mb-4">Overview</h2>
+        <h2 className="text-2xl font-semibold text-slate-900 mb-4">Overview</h2>
         <p className="text-slate-400 mb-4">
           The Expense Distribution chart gives you a clear picture of where your money goes:
         </p>
@@ -29,40 +29,40 @@ const ExpenseDistribution = () => {
       </section>
 
       <section id="pie-chart" className="mb-12">
-        <h2 className="text-2xl font-semibold text-white mb-4">Pie Chart Breakdown</h2>
+        <h2 className="text-2xl font-semibold text-slate-900 mb-4">Pie Chart Breakdown</h2>
         <p className="text-slate-400 mb-4">
           Each segment of the pie chart represents:
         </p>
         <div className="grid gap-4">
-          <div className="bg-[#1a1a1a] border border-white/10 rounded-xl p-4">
-            <h4 className="text-white font-medium mb-2">Vendor Name</h4>
+          <div className="border border-slate-200 bg-white rounded-xl p-4">
+            <h4 className="text-slate-900 font-medium mb-2">Vendor Name</h4>
             <p className="text-sm text-slate-400">Company or service provider you pay</p>
           </div>
-          <div className="bg-[#1a1a1a] border border-white/10 rounded-xl p-4">
-            <h4 className="text-white font-medium mb-2">Expense Amount</h4>
+          <div className="border border-slate-200 bg-white rounded-xl p-4">
+            <h4 className="text-slate-900 font-medium mb-2">Expense Amount</h4>
             <p className="text-sm text-slate-400">Total dollars spent with this vendor</p>
           </div>
-          <div className="bg-[#1a1a1a] border border-white/10 rounded-xl p-4">
-            <h4 className="text-white font-medium mb-2">Percentage Share</h4>
+          <div className="border border-slate-200 bg-white rounded-xl p-4">
+            <h4 className="text-slate-900 font-medium mb-2">Percentage Share</h4>
             <p className="text-sm text-slate-400">Proportion of total expenses</p>
           </div>
         </div>
       </section>
 
       <section id="vendors" className="mb-12">
-        <h2 className="text-2xl font-semibold text-white mb-4">Vendor Analysis</h2>
+        <h2 className="text-2xl font-semibold text-slate-900 mb-4">Vendor Analysis</h2>
         <p className="text-slate-400 mb-4">
           Understanding your vendor relationships:
         </p>
         <ul className="list-disc list-inside text-slate-400 space-y-2">
-          <li><strong className="text-white">Top Vendors:</strong> Your 5 largest expense relationships</li>
-          <li><strong className="text-white">Concentration:</strong> How dependent you are on specific vendors</li>
-          <li><strong className="text-white">Category Mapping:</strong> Which expense categories each vendor falls into</li>
+          <li><strong className="text-slate-900">Top Vendors:</strong> Your 5 largest expense relationships</li>
+          <li><strong className="text-slate-900">Concentration:</strong> How dependent you are on specific vendors</li>
+          <li><strong className="text-slate-900">Category Mapping:</strong> Which expense categories each vendor falls into</li>
         </ul>
       </section>
 
       <section id="insights" className="mb-12">
-        <h2 className="text-2xl font-semibold text-white mb-4">Actionable Insights</h2>
+        <h2 className="text-2xl font-semibold text-slate-900 mb-4">Actionable Insights</h2>
         <p className="text-slate-400 mb-4">
           Use expense distribution data to:
         </p>
@@ -72,9 +72,9 @@ const ExpenseDistribution = () => {
           <li>Spot unexpected expense concentrations</li>
           <li>Track changes in spending patterns over time</li>
         </ul>
-        <div className="bg-[#1a1a1a] border border-white/10 rounded-xl p-4 mt-4">
+        <div className="border border-slate-200 bg-white rounded-xl p-4 mt-4">
           <p className="text-sm text-slate-400">
-            💡 <strong className="text-white">Tip:</strong> If one vendor represents more than 40% of a category, consider exploring alternatives to reduce risk.
+            💡 <strong className="text-slate-900">Tip:</strong> If one vendor represents more than 40% of a category, consider exploring alternatives to reduce risk.
           </p>
         </div>
       </section>

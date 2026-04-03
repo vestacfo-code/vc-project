@@ -35,13 +35,13 @@ interface ChartDataPoint {
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-slate-800 border border-slate-700 rounded-lg p-3 shadow-xl">
-        <p className="text-slate-400 text-xs mb-2">{label}</p>
+      <div className="rounded-lg border border-slate-200 bg-white p-3 shadow-lg">
+        <p className="mb-2 text-xs text-slate-500">{label}</p>
         {payload.map((entry: any) => (
           <div key={entry.dataKey} className="flex items-center gap-2 text-sm">
-            <span className="inline-block w-2.5 h-2.5 rounded-full" style={{ backgroundColor: entry.color }} />
-            <span className="text-slate-300">{entry.name}:</span>
-            <span className="text-white font-semibold">
+            <span className="inline-block h-2.5 w-2.5 rounded-full" style={{ backgroundColor: entry.color }} />
+            <span className="text-slate-600">{entry.name}:</span>
+            <span className="font-semibold text-slate-900">
               {entry.dataKey === 'revpar'
                 ? `$${Number(entry.value).toFixed(2)}`
                 : `${(Number(entry.value) * 100).toFixed(1)}%`}
@@ -83,16 +83,16 @@ const RevParChart: React.FC<RevParChartProps> = ({ hotelId }) => {
   }));
 
   return (
-    <Card className="bg-slate-900/50 border border-slate-700/80 backdrop-blur-sm shadow-lg shadow-black/15">
+    <Card className="border border-vesta-navy/10 bg-white shadow-sm">
       <CardHeader className="pb-2">
-        <CardTitle className="text-base font-semibold text-white">
+        <CardTitle className="text-base font-semibold text-slate-900">
           30-Day RevPAR &amp; Occupancy Trend
         </CardTitle>
       </CardHeader>
       <CardContent>
         {isLoading ? (
           <div className="space-y-3">
-            <Skeleton className="h-64 w-full bg-slate-700 rounded-lg" />
+            <Skeleton className="h-64 w-full rounded-lg bg-slate-200" />
           </div>
         ) : chartData.length === 0 ? (
           <div className="flex items-center justify-center h-64 text-slate-500">
@@ -101,27 +101,27 @@ const RevParChart: React.FC<RevParChartProps> = ({ hotelId }) => {
         ) : (
           <ResponsiveContainer width="100%" height={280}>
             <LineChart data={chartData} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+              <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
               <XAxis
                 dataKey="displayDate"
-                tick={{ fill: '#9CA3AF', fontSize: 11 }}
-                axisLine={{ stroke: '#4B5563' }}
+                tick={{ fill: '#64748b', fontSize: 11 }}
+                axisLine={{ stroke: '#cbd5e1' }}
                 tickLine={false}
                 interval="preserveStartEnd"
               />
               <YAxis
                 yAxisId="revpar"
                 orientation="left"
-                tick={{ fill: '#9CA3AF', fontSize: 11 }}
-                axisLine={{ stroke: '#4B5563' }}
+                tick={{ fill: '#64748b', fontSize: 11 }}
+                axisLine={{ stroke: '#cbd5e1' }}
                 tickLine={false}
                 tickFormatter={(v) => `$${v}`}
               />
               <YAxis
                 yAxisId="occupancy"
                 orientation="right"
-                tick={{ fill: '#9CA3AF', fontSize: 11 }}
-                axisLine={{ stroke: '#4B5563' }}
+                tick={{ fill: '#64748b', fontSize: 11 }}
+                axisLine={{ stroke: '#cbd5e1' }}
                 tickLine={false}
                 tickFormatter={(v) => `${(v * 100).toFixed(0)}%`}
                 domain={[0, 1]}
@@ -130,7 +130,7 @@ const RevParChart: React.FC<RevParChartProps> = ({ hotelId }) => {
               <Legend
                 wrapperStyle={{ paddingTop: '12px' }}
                 formatter={(value) => (
-                  <span style={{ color: '#D1D5DB', fontSize: '12px' }}>{value}</span>
+                  <span style={{ color: '#475569', fontSize: '12px' }}>{value}</span>
                 )}
               />
               <Line

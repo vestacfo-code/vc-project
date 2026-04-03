@@ -22,6 +22,11 @@ async function fetchPartnerCatalog(): Promise<{ rows: PartnerWithProducts[]; isF
     const productList = prE ? [] : (products ?? []);
 
     if (!partners?.length) {
+      if (import.meta.env.DEV) {
+        console.warn(
+          '[partner marketplace] No active rows in public.partners — using fallback catalog. Run migrations (including partner seed) on this Supabase project.'
+        );
+      }
       return { rows: buildFallbackCatalog(), isFallback: true };
     }
 
@@ -31,7 +36,10 @@ async function fetchPartnerCatalog(): Promise<{ rows: PartnerWithProducts[]; isF
     }));
 
     return { rows: list, isFallback: false };
-  } catch {
+  } catch (e) {
+    if (import.meta.env.DEV) {
+      console.warn('[partner marketplace] Supabase fetch failed — using fallback catalog:', e);
+    }
     return { rows: buildFallbackCatalog(), isFallback: true };
   }
 }

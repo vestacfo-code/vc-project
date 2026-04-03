@@ -98,11 +98,11 @@ export const ModelSelector = ({ selectedModel, onModelChange, disabled }: ModelS
           disabled={disabled}
           className={cn(
             'flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all duration-200',
-            'text-slate-400 hover:text-slate-100 hover:bg-white/10',
+            'text-slate-500 hover:bg-slate-100 hover:text-slate-900',
             disabled && 'opacity-50 cursor-not-allowed'
           )}
         >
-          <span className="text-slate-400">{triggerLabel}</span>
+          <span className="text-slate-600">{triggerLabel}</span>
           <ChevronDown className="w-3 h-3 text-slate-500" />
         </button>
       </PopoverTrigger>
@@ -110,7 +110,7 @@ export const ModelSelector = ({ selectedModel, onModelChange, disabled }: ModelS
         side="top"
         align="end"
         sideOffset={8}
-        className="w-64 p-0 bg-slate-900 border border-slate-700 rounded-xl shadow-2xl overflow-hidden"
+        className="w-64 overflow-hidden rounded-xl border border-slate-200 bg-white p-0 shadow-xl"
       >
         {/* Model list — no header */}
         <div className="py-1">
@@ -126,8 +126,8 @@ export const ModelSelector = ({ selectedModel, onModelChange, disabled }: ModelS
                 className={cn(
                   "w-full flex items-center gap-3 px-3 py-1.5 text-left transition-colors",
                   isSelected
-                    ? "bg-white/5"
-                    : "hover:bg-white/5"
+                    ? "bg-slate-100"
+                    : "hover:bg-slate-50"
                 )}
               >
                 {/* Check / icon */}
@@ -144,7 +144,7 @@ export const ModelSelector = ({ selectedModel, onModelChange, disabled }: ModelS
                   <div className="flex items-center gap-1.5">
                     <span className={cn(
                       "text-[13px] font-medium",
-                      isSelected ? 'text-white' : 'text-slate-300'
+                      isSelected ? 'text-slate-900' : 'text-slate-700'
                     )}>
                       {model.displayName}
                     </span>
@@ -153,10 +153,10 @@ export const ModelSelector = ({ selectedModel, onModelChange, disabled }: ModelS
                         className={cn(
                           'px-1.5 py-0.5 text-[10px] font-bold uppercase rounded',
                           model.badge === 'Slow'
-                            ? 'bg-amber-500/20 text-amber-400'
+                            ? 'bg-amber-100 text-amber-900'
                             : model.badge === 'API'
-                              ? 'bg-slate-600/50 text-slate-300'
-                              : 'bg-violet-500/20 text-violet-300'
+                              ? 'bg-slate-100 text-slate-700'
+                              : 'bg-violet-100 text-violet-900'
                         )}
                       >
                         {model.badge}

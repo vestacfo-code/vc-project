@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { TrendingUp, Calculator, DollarSign, BarChart3, PieChart } from 'lucide-react';
-import { VestaBrand } from '@/components/ui/finlo-brand';
+import { VestaBrand } from '@/components/ui/vesta-brand';
 import quickbooksLogo from '@/assets/quickbooks-logo.png';
 
 interface ThinkingAnimationProps {

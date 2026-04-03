@@ -27,10 +27,10 @@ const PROVIDER_LABELS: Record<string, string> = {
 }
 
 const STATUS_CONFIG = {
-  active: { label: 'Active', icon: CheckCircle2, color: 'text-emerald-400', badge: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' },
-  pending: { label: 'Pending', icon: Clock, color: 'text-amber-400', badge: 'bg-amber-500/10 text-amber-400 border-amber-500/20' },
-  error: { label: 'Error', icon: AlertCircle, color: 'text-red-400', badge: 'bg-red-500/10 text-red-400 border-red-500/20' },
-  disconnected: { label: 'Disconnected', icon: WifiOff, color: 'text-slate-400', badge: 'bg-slate-500/10 text-slate-400 border-slate-500/20' },
+  active: { label: 'Active', icon: CheckCircle2, color: 'text-emerald-700', badge: 'border border-emerald-200 bg-emerald-50 text-emerald-800' },
+  pending: { label: 'Pending', icon: Clock, color: 'text-amber-700', badge: 'border border-amber-200 bg-amber-50 text-amber-900' },
+  error: { label: 'Error', icon: AlertCircle, color: 'text-red-700', badge: 'border border-red-200 bg-red-50 text-red-800' },
+  disconnected: { label: 'Disconnected', icon: WifiOff, color: 'text-slate-600', badge: 'border border-slate-200 bg-slate-100 text-slate-700' },
 }
 
 const AVAILABLE_PROVIDERS = [
@@ -432,21 +432,21 @@ export default function Integrations() {
   // ---------------------------------------------------------------------------
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white p-6 space-y-8">
+    <div className="min-h-full space-y-8 p-6 text-slate-900">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-semibold text-white">Integrations</h1>
-        <p className="text-slate-400 mt-1">Connect your PMS and accounting systems to sync data automatically.</p>
+        <h1 className="text-2xl font-semibold text-slate-900">Integrations</h1>
+        <p className="mt-1 text-slate-600">Connect your PMS and accounting systems to sync data automatically.</p>
       </div>
 
       {/* QuickBooks OAuth card */}
       {qbCallbackLoading ? (
-        <div className="h-32 bg-gray-800/50 rounded-xl animate-pulse flex items-center justify-center">
+        <div className="flex h-32 items-center justify-center rounded-xl bg-slate-200 animate-pulse">
           <RefreshCw className="w-6 h-6 text-slate-400 animate-spin" />
           <span className="ml-3 text-slate-400">Connecting QuickBooks...</span>
         </div>
       ) : (
-        <Card className="bg-gray-800/50 border-gray-700 border-l-4 border-l-green-500">
+        <Card className="border border-vesta-navy/10 border-l-4 border-l-green-500 bg-white shadow-sm">
           <CardContent className="p-5">
             <div className="flex items-start justify-between gap-4 flex-wrap">
               {/* Logo + title area */}
@@ -455,7 +455,7 @@ export default function Integrations() {
                   <span className="text-green-400 font-bold text-sm">QB</span>
                 </div>
                 <div>
-                  <p className="font-medium text-white">QuickBooks Online</p>
+                  <p className="font-medium text-slate-900">QuickBooks Online</p>
                   <p className="text-slate-400 text-sm mt-0.5">Sync expenses &amp; P&amp;L data automatically</p>
                 </div>
               </div>
@@ -463,7 +463,7 @@ export default function Integrations() {
               {/* Action area */}
               {qbLoading ? (
                 <div className="flex gap-2">
-                  <div className="h-9 w-28 bg-gray-700 rounded-md animate-pulse" />
+                  <div className="h-9 w-28 rounded-md bg-slate-200 animate-pulse" />
                 </div>
               ) : qbIntegration ? (
                 <div className="flex items-center gap-2 flex-wrap">
@@ -527,13 +527,13 @@ export default function Integrations() {
         <h2 className="text-sm font-medium text-slate-400 uppercase tracking-wider mb-4">Connected</h2>
         {isLoading ? (
           <div className="space-y-3">
-            {[1, 2].map((i) => <div key={i} className="h-24 bg-gray-800/50 rounded-xl animate-pulse" />)}
+            {[1, 2].map((i) => <div key={i} className="h-24 rounded-xl bg-slate-200 animate-pulse" />)}
           </div>
         ) : integrations.length === 0 ? (
-          <Card className="bg-gray-800/30 border-gray-700">
+          <Card className="border border-vesta-navy/10 bg-white shadow-sm">
             <CardContent className="py-10 text-center">
-              <WifiOff className="w-8 h-8 text-slate-600 mx-auto mb-3" />
-              <p className="text-slate-400">No integrations connected yet.</p>
+              <WifiOff className="mx-auto mb-3 h-8 w-8 text-slate-400" />
+              <p className="text-slate-600">No integrations connected yet.</p>
               <p className="text-slate-500 text-sm mt-1">Connect a PMS below to start syncing data.</p>
             </CardContent>
           </Card>
@@ -545,16 +545,16 @@ export default function Integrations() {
               const recentLogs = syncLogs.filter((l) => l.integration_id === integration.id).slice(0, 5)
 
               return (
-                <Card key={integration.id} className="bg-gray-800/50 border-gray-700">
+                <Card key={integration.id} className="border border-vesta-navy/10 bg-white shadow-sm">
                   <CardContent className="p-5">
                     <div className="flex items-start justify-between gap-4">
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-lg bg-gray-700 flex items-center justify-center">
-                          <Wifi className="w-5 h-5 text-slate-300" />
+                        <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 bg-slate-100">
+                          <Wifi className="h-5 w-5 text-slate-600" />
                         </div>
                         <div>
                           <div className="flex items-center gap-2">
-                            <span className="font-medium text-white">
+                            <span className="font-medium text-slate-900">
                               {PROVIDER_LABELS[integration.provider] ?? integration.provider}
                             </span>
                             <Badge className={`text-xs border ${cfg.badge}`}>
@@ -575,7 +575,7 @@ export default function Integrations() {
                       <Button
                         size="sm"
                         variant="outline"
-                        className="border-gray-600 text-slate-300 hover:bg-gray-700 shrink-0"
+                        className="shrink-0 border-slate-200 text-slate-700 hover:bg-slate-50"
                         disabled={isSyncing}
                         onClick={() =>
                           sync({
@@ -593,7 +593,7 @@ export default function Integrations() {
 
                     {/* Recent sync history */}
                     {recentLogs.length > 0 && (
-                      <div className="mt-4 pt-4 border-t border-gray-700">
+                      <div className="mt-4 border-t border-slate-200 pt-4">
                         <p className="text-xs text-slate-500 mb-2">Recent syncs</p>
                         <div className="space-y-1.5">
                           {recentLogs.map((log) => (
@@ -633,12 +633,12 @@ export default function Integrations() {
           {AVAILABLE_PROVIDERS.filter((p) => !connectedProviders.has(p.provider)).map((p) => (
             <Card
               key={p.provider}
-              className="bg-gray-800/30 border-gray-700 hover:border-gray-600 hover:bg-gray-800/50 transition-all cursor-pointer group"
+              className="group cursor-pointer border border-vesta-navy/10 bg-white shadow-sm transition-all hover:border-vesta-gold/35 hover:shadow-md"
             >
               <CardHeader className="p-4 pb-2">
                 <div className="flex items-center justify-between">
-                  <CardTitle className="text-sm font-medium text-white">{p.label}</CardTitle>
-                  <Badge variant="outline" className="text-xs border-gray-600 text-slate-500">
+                  <CardTitle className="text-sm font-medium text-slate-900">{p.label}</CardTitle>
+                  <Badge variant="outline" className="border-slate-200 text-xs text-slate-600">
                     {p.type}
                   </Badge>
                 </div>
@@ -648,7 +648,7 @@ export default function Integrations() {
                 <Button
                   size="sm"
                   variant="ghost"
-                  className="mt-3 w-full text-amber-400 hover:text-amber-300 hover:bg-amber-400/10 border border-amber-400/20 hover:border-amber-400/40"
+                  className="mt-3 w-full border border-vesta-gold/30 text-vesta-navy hover:border-vesta-gold/50 hover:bg-vesta-gold/10"
                 >
                   <Plug className="w-3.5 h-3.5 mr-1.5" />
                   Connect
@@ -665,8 +665,8 @@ export default function Integrations() {
       <div>
         <h2 className="text-sm font-medium text-slate-400 uppercase tracking-wider mb-4">Import Data</h2>
 
-        <Card className="bg-gray-800/30 border-gray-700">
-          <CardContent className="p-6 space-y-5">
+        <Card className="border border-vesta-navy/10 bg-white shadow-sm">
+          <CardContent className="space-y-5 p-6">
             {/* Drag-and-drop / file picker */}
             <div
               onDragOver={handleDragOver}
@@ -681,7 +681,7 @@ export default function Integrations() {
                   ? 'border-amber-500/40 bg-amber-500/5 cursor-default'
                   : dragActive
                     ? 'border-amber-400/60 bg-amber-400/10 cursor-copy'
-                    : 'border-gray-600 hover:border-gray-500 hover:bg-gray-800/40 cursor-pointer'
+                    : 'cursor-pointer border-slate-300 hover:border-vesta-gold/40 hover:bg-slate-50'
                 }
               `}
             >
@@ -697,7 +697,7 @@ export default function Integrations() {
                 <div className="flex items-center gap-3">
                   <FileSpreadsheet className="w-8 h-8 text-amber-400 shrink-0" />
                   <div className="text-left">
-                    <p className="text-sm font-medium text-white">{selectedFile.name}</p>
+                    <p className="text-sm font-medium text-slate-900">{selectedFile.name}</p>
                     <p className="text-xs text-slate-400 mt-0.5">
                       {(selectedFile.size / 1024).toFixed(1)} KB
                     </p>
@@ -705,7 +705,7 @@ export default function Integrations() {
                   <button
                     type="button"
                     onClick={(e) => { e.stopPropagation(); handleRemoveFile() }}
-                    className="ml-2 p-1 rounded-md text-slate-500 hover:text-white hover:bg-gray-700 transition-colors"
+                    className="ml-2 rounded-md p-1 text-slate-500 transition-colors hover:bg-slate-200 hover:text-slate-900"
                     aria-label="Remove file"
                   >
                     <X className="w-4 h-4" />
@@ -713,13 +713,13 @@ export default function Integrations() {
                 </div>
               ) : (
                 <>
-                  <div className="w-12 h-12 rounded-xl bg-gray-700/60 flex items-center justify-center">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-slate-100">
                     <Upload className="w-6 h-6 text-slate-400" />
                   </div>
                   <div className="text-center">
-                    <p className="text-sm font-medium text-white">
+                    <p className="text-sm font-medium text-slate-900">
                       Drop a CSV file here, or{' '}
-                      <span className="text-amber-400 hover:text-amber-300 underline underline-offset-2">
+                      <span className="text-vesta-navy-muted underline underline-offset-2 hover:text-vesta-gold">
                         browse
                       </span>
                     </p>
@@ -732,20 +732,20 @@ export default function Integrations() {
             {/* Data type selector */}
             <div className="flex flex-col sm:flex-row gap-3">
               <div className="flex-1">
-                <label className="block text-xs text-slate-400 mb-1.5">Data type</label>
+                <label className="mb-1.5 block text-xs text-slate-600">Data type</label>
                 <Select
                   value={importType}
                   onValueChange={(val) => setImportType(val as ImportType)}
                 >
-                  <SelectTrigger className="bg-gray-800 border-gray-600 text-white focus:ring-amber-400/30 focus:border-amber-400/50">
+                  <SelectTrigger className="border-slate-200 bg-white text-slate-900 focus:border-vesta-gold/50 focus:ring-vesta-gold/25">
                     <SelectValue placeholder="Select data type..." />
                   </SelectTrigger>
-                  <SelectContent className="bg-gray-800 border-gray-700 text-white">
+                  <SelectContent className="border-slate-200 bg-white text-slate-900">
                     {(Object.keys(IMPORT_TYPE_LABELS) as ImportType[]).map((type) => (
                       <SelectItem
                         key={type}
                         value={type}
-                        className="focus:bg-gray-700 focus:text-white"
+                        className="focus:bg-slate-100 focus:text-slate-900"
                       >
                         {IMPORT_TYPE_LABELS[type]}
                       </SelectItem>
@@ -759,7 +759,7 @@ export default function Integrations() {
                 <Button
                   onClick={handleImport}
                   disabled={isImporting || !selectedFile || !importType || !hotelId}
-                  className="bg-amber-500 hover:bg-amber-400 text-gray-950 font-semibold disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto"
+                  className="w-full bg-vesta-gold font-semibold text-slate-950 hover:bg-vesta-gold/90 disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
                 >
                   {isImporting ? (
                     <>
@@ -777,7 +777,7 @@ export default function Integrations() {
             </div>
 
             {/* Sample CSV links */}
-            <div className="pt-1 border-t border-gray-700/60">
+            <div className="border-t border-slate-200 pt-1">
               <p className="text-xs text-slate-500">
                 Download sample CSVs:{' '}
                 {(Object.keys(SAMPLE_CSV_PATHS) as ImportType[]).map((type, idx, arr) => (

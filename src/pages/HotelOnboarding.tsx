@@ -15,11 +15,10 @@ import { cn } from '@/lib/utils';
 
 const TOTAL_STEPS = 4;
 
-/** Radix SelectItem defaults to `text-gray-900`; on dark popovers that reads as invisible. */
-const DARK_SELECT_CONTENT =
-  'z-[200] max-h-[min(22rem,70vh)] bg-slate-800 border border-slate-600 text-slate-100 shadow-2xl';
-const DARK_SELECT_ITEM =
-  'cursor-pointer py-2.5 pl-8 pr-3 text-slate-100 focus:bg-slate-600 focus:text-white data-[highlighted]:bg-slate-600 data-[highlighted]:text-white data-[state=checked]:bg-slate-700 data-[state=checked]:text-white';
+const LIGHT_SELECT_CONTENT =
+  'z-[200] max-h-[min(22rem,70vh)] border border-slate-200 bg-white text-slate-900 shadow-xl';
+const LIGHT_SELECT_ITEM =
+  'cursor-pointer py-2.5 pl-8 pr-3 text-slate-900 focus:bg-slate-100 data-[highlighted]:bg-slate-100 data-[state=checked]:bg-slate-50';
 
 interface OnboardingFormData {
   hotelName: string;
@@ -262,30 +261,30 @@ const HotelOnboarding = () => {
     (step === 4 && !canComplete);
 
   return (
-    <div className="min-h-screen bg-[#0a0f1e] flex flex-col items-center justify-center p-4 sm:p-6">
-      <div className="w-full max-w-lg flex flex-col items-center mb-6">
-        <VestaLogo size="md" />
+    <div className="flex min-h-screen flex-col items-center justify-center bg-vesta-cream p-4 sm:p-6">
+      <div className="mb-6 flex w-full max-w-lg flex-col items-center">
+        <VestaLogo size="md" tone="light" />
       </div>
 
-      <div className="w-full max-w-lg mb-6">
-        <div className="flex items-center justify-between mb-3 gap-4">
-          <span className="text-slate-400 text-sm font-medium whitespace-nowrap">
+      <div className="mb-6 w-full max-w-lg">
+        <div className="mb-3 flex items-center justify-between gap-4">
+          <span className="whitespace-nowrap text-sm font-medium text-slate-600">
             Step {step} of {TOTAL_STEPS}
           </span>
-          <span className="text-slate-300 text-sm font-medium text-right truncate">{stepTitles[step - 1]}</span>
+          <span className="truncate text-right text-sm font-medium text-slate-800">{stepTitles[step - 1]}</span>
         </div>
-        <Progress value={progressValue} className="h-1 bg-slate-800 [&>div]:bg-amber-500" />
+        <Progress value={progressValue} className="h-1 bg-slate-200 [&>div]:bg-vesta-gold" />
       </div>
 
-      <Card className="w-full max-w-lg bg-slate-900 border border-slate-800 shadow-2xl">
+      <Card className="w-full max-w-lg border border-vesta-navy/10 bg-white shadow-xl">
         <CardHeader className="pb-4">
-          <div className="flex items-center gap-3 mb-1">
-            <div className="w-9 h-9 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400">
+          <div className="mb-1 flex items-center gap-3">
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-vesta-gold/15 text-vesta-gold">
               {stepIcons[step - 1]}
             </div>
-            <CardTitle className="text-white text-xl">{stepTitles[step - 1]}</CardTitle>
+            <CardTitle className="text-xl text-slate-900">{stepTitles[step - 1]}</CardTitle>
           </div>
-          <CardDescription className="text-slate-400">
+          <CardDescription className="text-slate-600">
             {step === 1 && 'Official name, type, and room count for this property.'}
             {step === 2 && 'Where you operate and how we should format numbers.'}
             {step === 3 && 'Helps us prioritize alerts, integrations, and your dashboard.'}
@@ -297,24 +296,24 @@ const HotelOnboarding = () => {
           {step === 1 && (
             <>
               <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-200">Hotel name *</label>
+                <label className="text-sm font-medium text-slate-700">Hotel name *</label>
                 <Input
                   placeholder="e.g. The Grand Meridian"
                   value={form.hotelName}
                   onChange={(e) => set('hotelName', e.target.value)}
-                  className="bg-slate-800 border-slate-600 text-white placeholder:text-slate-500 focus-visible:ring-amber-500/40"
+                  className="border border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus-visible:ring-vesta-gold/35"
                 />
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-200">Property type *</label>
+                <label className="text-sm font-medium text-slate-700">Property type *</label>
                 <Select value={form.propertyType} onValueChange={(v) => set('propertyType', v)}>
-                  <SelectTrigger className="bg-slate-800 border-slate-600 text-white focus:ring-amber-500/40 [&>span]:text-white">
+                  <SelectTrigger className="border border-slate-200 bg-white text-slate-900 focus:ring-vesta-gold/35 [&>span]:text-slate-900">
                     <SelectValue placeholder="Select property type" />
                   </SelectTrigger>
-                  <SelectContent className={DARK_SELECT_CONTENT}>
+                  <SelectContent className={LIGHT_SELECT_CONTENT}>
                     {PROPERTY_TYPES.map((pt) => (
-                      <SelectItem key={pt.value} value={pt.value} className={DARK_SELECT_ITEM}>
+                      <SelectItem key={pt.value} value={pt.value} className={LIGHT_SELECT_ITEM}>
                         {pt.label}
                       </SelectItem>
                     ))}
@@ -323,14 +322,14 @@ const HotelOnboarding = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-200">Number of keys / rooms *</label>
+                <label className="text-sm font-medium text-slate-700">Number of keys / rooms *</label>
                 <Input
                   type="number"
                   min={1}
                   placeholder="e.g. 120"
                   value={form.roomCount}
                   onChange={(e) => set('roomCount', e.target.value)}
-                  className="bg-slate-800 border-slate-600 text-white placeholder:text-slate-500 focus-visible:ring-amber-500/40"
+                  className="border border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus-visible:ring-vesta-gold/35"
                 />
               </div>
             </>
@@ -339,64 +338,64 @@ const HotelOnboarding = () => {
           {step === 2 && (
             <>
               <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-200">Street address (optional)</label>
+                <label className="text-sm font-medium text-slate-700">Street address (optional)</label>
                 <Input
                   placeholder="123 Ocean Drive"
                   value={form.addressLine}
                   onChange={(e) => set('addressLine', e.target.value)}
-                  className="bg-slate-800 border-slate-600 text-white placeholder:text-slate-500 focus-visible:ring-amber-500/40"
+                  className="border border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus-visible:ring-vesta-gold/35"
                 />
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-slate-200">City *</label>
+                  <label className="text-sm font-medium text-slate-700">City *</label>
                   <Input
                     placeholder="Dubai"
                     value={form.city}
                     onChange={(e) => set('city', e.target.value)}
-                    className="bg-slate-800 border-slate-600 text-white placeholder:text-slate-500 focus-visible:ring-amber-500/40"
+                    className="border border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus-visible:ring-vesta-gold/35"
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-slate-200">State / region (optional)</label>
+                  <label className="text-sm font-medium text-slate-700">State / region (optional)</label>
                   <Input
                     placeholder="Dubai"
                     value={form.state}
                     onChange={(e) => set('state', e.target.value)}
-                    className="bg-slate-800 border-slate-600 text-white placeholder:text-slate-500 focus-visible:ring-amber-500/40"
+                    className="border border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus-visible:ring-vesta-gold/35"
                   />
                 </div>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-slate-200">Postal code (optional)</label>
+                  <label className="text-sm font-medium text-slate-700">Postal code (optional)</label>
                   <Input
                     placeholder="00000"
                     value={form.zip}
                     onChange={(e) => set('zip', e.target.value)}
-                    className="bg-slate-800 border-slate-600 text-white placeholder:text-slate-500 focus-visible:ring-amber-500/40"
+                    className="border border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus-visible:ring-vesta-gold/35"
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-slate-200">Country *</label>
+                  <label className="text-sm font-medium text-slate-700">Country *</label>
                   <Input
                     placeholder="United Arab Emirates"
                     value={form.country}
                     onChange={(e) => set('country', e.target.value)}
-                    className="bg-slate-800 border-slate-600 text-white placeholder:text-slate-500 focus-visible:ring-amber-500/40"
+                    className="border border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus-visible:ring-vesta-gold/35"
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-200">Timezone *</label>
+                <label className="text-sm font-medium text-slate-700">Timezone *</label>
                 <Select value={form.timezone} onValueChange={(v) => set('timezone', v)}>
-                  <SelectTrigger className="bg-slate-800 border-slate-600 text-white focus:ring-amber-500/40 [&>span]:text-white">
+                  <SelectTrigger className="border border-slate-200 bg-white text-slate-900 focus:ring-vesta-gold/35 [&>span]:text-slate-900">
                     <SelectValue placeholder="Select timezone" />
                   </SelectTrigger>
-                  <SelectContent className={DARK_SELECT_CONTENT}>
+                  <SelectContent className={LIGHT_SELECT_CONTENT}>
                     {TIMEZONES.map((tz) => (
-                      <SelectItem key={tz.value} value={tz.value} className={DARK_SELECT_ITEM}>
+                      <SelectItem key={tz.value} value={tz.value} className={LIGHT_SELECT_ITEM}>
                         {tz.label}
                       </SelectItem>
                     ))}
@@ -405,14 +404,14 @@ const HotelOnboarding = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-200">Reporting currency *</label>
+                <label className="text-sm font-medium text-slate-700">Reporting currency *</label>
                 <Select value={form.currency} onValueChange={(v) => set('currency', v)}>
-                  <SelectTrigger className="bg-slate-800 border-slate-600 text-white focus:ring-amber-500/40 [&>span]:text-white">
+                  <SelectTrigger className="border border-slate-200 bg-white text-slate-900 focus:ring-vesta-gold/35 [&>span]:text-slate-900">
                     <SelectValue placeholder="Select currency" />
                   </SelectTrigger>
-                  <SelectContent className={DARK_SELECT_CONTENT}>
+                  <SelectContent className={LIGHT_SELECT_CONTENT}>
                     {CURRENCIES.map((c) => (
-                      <SelectItem key={c.value} value={c.value} className={DARK_SELECT_ITEM}>
+                      <SelectItem key={c.value} value={c.value} className={LIGHT_SELECT_ITEM}>
                         {c.label}
                       </SelectItem>
                     ))}
@@ -425,14 +424,14 @@ const HotelOnboarding = () => {
           {step === 3 && (
             <>
               <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-200">Your role *</label>
+                <label className="text-sm font-medium text-slate-700">Your role *</label>
                 <Select value={form.role} onValueChange={(v) => set('role', v)}>
-                  <SelectTrigger className="bg-slate-800 border-slate-600 text-white focus:ring-amber-500/40 [&>span]:text-white">
+                  <SelectTrigger className="border border-slate-200 bg-white text-slate-900 focus:ring-vesta-gold/35 [&>span]:text-slate-900">
                     <SelectValue placeholder="Select role" />
                   </SelectTrigger>
-                  <SelectContent className={DARK_SELECT_CONTENT}>
+                  <SelectContent className={LIGHT_SELECT_CONTENT}>
                     {ROLE_OPTIONS.map((r) => (
-                      <SelectItem key={r.value} value={r.value} className={DARK_SELECT_ITEM}>
+                      <SelectItem key={r.value} value={r.value} className={LIGHT_SELECT_ITEM}>
                         {r.label}
                       </SelectItem>
                     ))}
@@ -441,14 +440,14 @@ const HotelOnboarding = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-200">Portfolio size *</label>
+                <label className="text-sm font-medium text-slate-700">Portfolio size *</label>
                 <Select value={form.portfolioSize} onValueChange={(v) => set('portfolioSize', v)}>
-                  <SelectTrigger className="bg-slate-800 border-slate-600 text-white focus:ring-amber-500/40 [&>span]:text-white">
+                  <SelectTrigger className="border border-slate-200 bg-white text-slate-900 focus:ring-vesta-gold/35 [&>span]:text-slate-900">
                     <SelectValue placeholder="How many properties do you oversee?" />
                   </SelectTrigger>
-                  <SelectContent className={DARK_SELECT_CONTENT}>
+                  <SelectContent className={LIGHT_SELECT_CONTENT}>
                     {PORTFOLIO_OPTIONS.map((p) => (
-                      <SelectItem key={p.value} value={p.value} className={DARK_SELECT_ITEM}>
+                      <SelectItem key={p.value} value={p.value} className={LIGHT_SELECT_ITEM}>
                         {p.label}
                       </SelectItem>
                     ))}
@@ -457,7 +456,7 @@ const HotelOnboarding = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-200">Top priorities * (select all that apply)</label>
+                <label className="text-sm font-medium text-slate-700">Top priorities * (select all that apply)</label>
                 <div className="flex flex-wrap gap-2">
                   {GOAL_OPTIONS.map((g) => {
                     const on = form.primaryGoals.includes(g.id);
@@ -469,8 +468,8 @@ const HotelOnboarding = () => {
                         className={cn(
                           'rounded-lg border px-3 py-2 text-xs sm:text-sm font-medium transition-colors',
                           on
-                            ? 'border-amber-500/60 bg-amber-500/15 text-amber-200'
-                            : 'border-slate-600 bg-slate-800/80 text-slate-300 hover:border-slate-500 hover:text-white'
+                            ? 'border-vesta-gold/50 bg-vesta-gold/15 text-vesta-navy'
+                            : 'border-slate-200 bg-slate-50 text-slate-700 hover:border-slate-300 hover:text-slate-900'
                         )}
                       >
                         {g.label}
@@ -481,14 +480,14 @@ const HotelOnboarding = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-200">How do you get financial / PMS data today? *</label>
+                <label className="text-sm font-medium text-slate-700">How do you get financial / PMS data today? *</label>
                 <Select value={form.dataApproach} onValueChange={(v) => set('dataApproach', v)}>
-                  <SelectTrigger className="bg-slate-800 border-slate-600 text-white focus:ring-amber-500/40 [&>span]:text-white">
+                  <SelectTrigger className="border border-slate-200 bg-white text-slate-900 focus:ring-vesta-gold/35 [&>span]:text-slate-900">
                     <SelectValue placeholder="Select the closest option" />
                   </SelectTrigger>
-                  <SelectContent className={DARK_SELECT_CONTENT}>
+                  <SelectContent className={LIGHT_SELECT_CONTENT}>
                     {DATA_APPROACH_OPTIONS.map((d) => (
-                      <SelectItem key={d.value} value={d.value} className={DARK_SELECT_ITEM}>
+                      <SelectItem key={d.value} value={d.value} className={LIGHT_SELECT_ITEM}>
                         {d.label}
                       </SelectItem>
                     ))}
@@ -501,14 +500,14 @@ const HotelOnboarding = () => {
           {step === 4 && (
             <>
               <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-200">Primary PMS *</label>
+                <label className="text-sm font-medium text-slate-700">Primary PMS *</label>
                 <Select value={form.pmsProvider} onValueChange={(v) => set('pmsProvider', v)}>
-                  <SelectTrigger className="bg-slate-800 border-slate-600 text-white focus:ring-amber-500/40 [&>span]:text-white">
+                  <SelectTrigger className="border border-slate-200 bg-white text-slate-900 focus:ring-vesta-gold/35 [&>span]:text-slate-900">
                     <SelectValue placeholder="Select your system" />
                   </SelectTrigger>
-                  <SelectContent className={DARK_SELECT_CONTENT}>
+                  <SelectContent className={LIGHT_SELECT_CONTENT}>
                     {PMS_PROVIDERS.map((p) => (
-                      <SelectItem key={p.value} value={p.value} className={DARK_SELECT_ITEM}>
+                      <SelectItem key={p.value} value={p.value} className={LIGHT_SELECT_ITEM}>
                         {p.label}
                       </SelectItem>
                     ))}
@@ -517,19 +516,19 @@ const HotelOnboarding = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-200">Anything else we should know? (optional)</label>
+                <label className="text-sm font-medium text-slate-700">Anything else we should know? (optional)</label>
                 <Textarea
                   placeholder="e.g. We use a channel manager, fiscal year ends in March, multi-currency deposits…"
                   value={form.notes}
                   onChange={(e) => set('notes', e.target.value)}
                   rows={4}
-                  className="bg-slate-800 border-slate-600 text-white placeholder:text-slate-500 focus-visible:ring-amber-500/40 resize-none"
+                  className="resize-none border border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus-visible:ring-vesta-gold/35"
                 />
               </div>
 
-              <div className="rounded-lg bg-amber-500/5 border border-amber-500/20 px-4 py-3">
-                <p className="text-slate-300 text-sm leading-relaxed">
-                  After setup, open <span className="text-amber-400 font-medium">Integrations</span> to connect your PMS, upload
+              <div className="rounded-lg border border-vesta-gold/25 bg-vesta-gold/10 px-4 py-3">
+                <p className="text-sm leading-relaxed text-slate-700">
+                  After setup, open <span className="font-medium text-vesta-navy">Integrations</span> to connect your PMS, upload
                   CSVs, or enter manual metrics. You can change PMS in Settings later.
                 </p>
               </div>
@@ -542,7 +541,7 @@ const HotelOnboarding = () => {
                 type="button"
                 variant="ghost"
                 onClick={() => setStep((s) => s - 1)}
-                className="text-slate-400 hover:text-white hover:bg-slate-800 shrink-0"
+                className="shrink-0 text-slate-600 hover:bg-slate-100 hover:text-slate-900"
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Back
@@ -556,7 +555,7 @@ const HotelOnboarding = () => {
                 type="button"
                 onClick={() => setStep((s) => s + 1)}
                 disabled={stepBlocked}
-                className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-semibold disabled:opacity-40 shrink-0"
+                className="shrink-0 bg-vesta-gold font-semibold text-slate-950 hover:bg-vesta-gold/90 disabled:opacity-40"
               >
                 Continue
                 <ArrowRight className="w-4 h-4 ml-2" />
@@ -566,7 +565,7 @@ const HotelOnboarding = () => {
                 type="button"
                 onClick={handleComplete}
                 disabled={isSubmitting || !canComplete}
-                className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-semibold disabled:opacity-40 shrink-0"
+                className="shrink-0 bg-vesta-gold font-semibold text-slate-950 hover:bg-vesta-gold/90 disabled:opacity-40"
               >
                 {isSubmitting ? (
                   <>

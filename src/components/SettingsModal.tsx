@@ -112,52 +112,39 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
       case 'general':
         return (
           <div className="flex-1 p-6 overflow-y-auto scrollbar-hide">
-            <h2 className="font-serif text-2xl text-white mb-6">General</h2>
+            <h2 className="font-serif text-2xl text-slate-900 mb-6">General</h2>
             
             <div className="space-y-6">
               {/* Theme */}
               <div className="flex items-center justify-between">
                 <div>
-                  <label className="text-sm font-medium text-white">Theme</label>
+                  <label className="text-sm font-medium text-slate-900">Theme</label>
                 </div>
                 <Select value={settings.theme} onValueChange={(value: any) => updateSetting('theme', value)}>
-                  <SelectTrigger className="w-32 h-8 text-sm bg-white/5 border-white/10 text-white">
+                  <SelectTrigger className="w-32 h-8 text-sm border-slate-200 bg-white text-slate-900">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent className="bg-[#1a1a1a] border-white/10 shadow-lg z-50">
-                    <SelectItem value="system" className="text-slate-300 focus:bg-white/10 focus:text-white">System</SelectItem>
-                    <SelectItem value="light" className="text-slate-300 focus:bg-white/10 focus:text-white">Light</SelectItem>
-                    <SelectItem value="dark" className="text-slate-300 focus:bg-white/10 focus:text-white">Dark</SelectItem>
+                  <SelectContent className="z-50 border border-slate-200 bg-white shadow-lg">
+                    <SelectItem value="system" className="text-slate-900 focus:bg-slate-100 focus:text-slate-900">System (light)</SelectItem>
+                    <SelectItem value="light" className="text-slate-900 focus:bg-slate-100 focus:text-slate-900">Light</SelectItem>
                   </SelectContent>
                 </Select>
-              </div>
-
-              {/* Chat Dark Mode */}
-              <div className="flex items-center justify-between">
-                <div>
-                  <label className="text-sm font-medium text-white">Chat dark mode</label>
-                  <p className="text-xs text-slate-400 mt-0.5">Dark background on the chat welcome screen</p>
-                </div>
-                <Switch
-                  checked={settings.chatDarkMode}
-                  onCheckedChange={(checked) => updateSetting('chatDarkMode', checked)}
-                />
               </div>
 
               {/* Accent Color */}
               <div className="flex items-center justify-between">
                 <div>
-                  <label className="text-sm font-medium text-white">Accent color</label>
+                  <label className="text-sm font-medium text-slate-900">Accent color</label>
                 </div>
                 <Select value={settings.accentColor} onValueChange={(value: any) => updateSetting('accentColor', value)}>
-                  <SelectTrigger className="w-32 h-8 text-sm bg-white/5 border-white/10 text-white">
+                  <SelectTrigger className="w-32 h-8 text-sm border-slate-200 bg-white text-slate-900">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent className="bg-[#1a1a1a] border-white/10 shadow-lg z-50">
-                    <SelectItem value="default" className="text-slate-300 focus:bg-white/10 focus:text-white">Default</SelectItem>
-                    <SelectItem value="blue" className="text-slate-300 focus:bg-white/10 focus:text-white">Blue</SelectItem>
-                    <SelectItem value="green" className="text-slate-300 focus:bg-white/10 focus:text-white">Green</SelectItem>
-                    <SelectItem value="purple" className="text-slate-300 focus:bg-white/10 focus:text-white">Purple</SelectItem>
+                  <SelectContent className="z-50 border border-slate-200 bg-white shadow-lg">
+                    <SelectItem value="default" className="text-slate-900 focus:bg-slate-100 focus:text-slate-900">Default</SelectItem>
+                    <SelectItem value="blue" className="text-slate-900 focus:bg-slate-100 focus:text-slate-900">Blue</SelectItem>
+                    <SelectItem value="green" className="text-slate-900 focus:bg-slate-100 focus:text-slate-900">Green</SelectItem>
+                    <SelectItem value="purple" className="text-slate-900 focus:bg-slate-100 focus:text-slate-900">Purple</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -165,17 +152,17 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
               {/* Language */}
               <div className="flex items-center justify-between">
                 <div>
-                  <label className="text-sm font-medium text-white">Language</label>
+                  <label className="text-sm font-medium text-slate-900">Language</label>
                 </div>
                 <Select value={settings.language} onValueChange={(value: any) => updateSetting('language', value)}>
-                  <SelectTrigger className="w-32 h-8 text-sm bg-white/5 border-white/10 text-white">
+                  <SelectTrigger className="w-32 h-8 text-sm border-slate-200 bg-white text-slate-900">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent className="bg-[#1a1a1a] border-white/10 shadow-lg z-50">
-                    <SelectItem value="auto" className="text-slate-300 focus:bg-white/10 focus:text-white">Auto-detect</SelectItem>
-                    <SelectItem value="en" className="text-slate-300 focus:bg-white/10 focus:text-white">English</SelectItem>
-                    <SelectItem value="es" className="text-slate-300 focus:bg-white/10 focus:text-white">Spanish</SelectItem>
-                    <SelectItem value="fr" className="text-slate-300 focus:bg-white/10 focus:text-white">French</SelectItem>
+                  <SelectContent className="z-50 border border-slate-200 bg-white shadow-lg">
+                    <SelectItem value="auto" className="text-slate-900 focus:bg-slate-100 focus:text-slate-900">Auto-detect</SelectItem>
+                    <SelectItem value="en" className="text-slate-900 focus:bg-slate-100 focus:text-slate-900">English</SelectItem>
+                    <SelectItem value="es" className="text-slate-900 focus:bg-slate-100 focus:text-slate-900">Spanish</SelectItem>
+                    <SelectItem value="fr" className="text-slate-900 focus:bg-slate-100 focus:text-slate-900">French</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -184,17 +171,17 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <div>
-                    <label className="text-sm font-medium text-white">Spoken language</label>
+                    <label className="text-sm font-medium text-slate-900">Spoken language</label>
                   </div>
                   <Select value={settings.spokenLanguage} onValueChange={(value: any) => updateSetting('spokenLanguage', value)}>
-                    <SelectTrigger className="w-32 h-8 text-sm bg-white/5 border-white/10 text-white">
+                    <SelectTrigger className="w-32 h-8 text-sm border-slate-200 bg-white text-slate-900">
                       <SelectValue />
                     </SelectTrigger>
-                    <SelectContent className="bg-[#1a1a1a] border-white/10 shadow-lg z-50">
-                      <SelectItem value="auto" className="text-slate-300 focus:bg-white/10 focus:text-white">Auto-detect</SelectItem>
-                      <SelectItem value="en" className="text-slate-300 focus:bg-white/10 focus:text-white">English</SelectItem>
-                      <SelectItem value="es" className="text-slate-300 focus:bg-white/10 focus:text-white">Spanish</SelectItem>
-                      <SelectItem value="fr" className="text-slate-300 focus:bg-white/10 focus:text-white">French</SelectItem>
+                    <SelectContent className="z-50 border border-slate-200 bg-white shadow-lg">
+                      <SelectItem value="auto" className="text-slate-900 focus:bg-slate-100 focus:text-slate-900">Auto-detect</SelectItem>
+                      <SelectItem value="en" className="text-slate-900 focus:bg-slate-100 focus:text-slate-900">English</SelectItem>
+                      <SelectItem value="es" className="text-slate-900 focus:bg-slate-100 focus:text-slate-900">Spanish</SelectItem>
+                      <SelectItem value="fr" className="text-slate-900 focus:bg-slate-100 focus:text-slate-900">French</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -206,26 +193,26 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
               {/* Voice */}
               <div className="flex items-center justify-between">
                 <div>
-                  <label className="text-sm font-medium text-white">Voice</label>
+                  <label className="text-sm font-medium text-slate-900">Voice</label>
                 </div>
                 <div className="flex items-center gap-2">
                   <Button 
                     variant="ghost" 
                     size="sm" 
-                    className="h-8 px-3 text-sm hover:bg-white/10 text-slate-300"
+                    className="h-8 px-3 text-sm text-slate-700 hover:bg-slate-100"
                     onClick={() => playVoice(settings.voice)}
                   >
                     <Play className="w-3 h-3 mr-1" />
                     Play
                   </Button>
                   <Select value={settings.voice} onValueChange={(value: any) => updateSetting('voice', value)}>
-                    <SelectTrigger className="w-24 h-8 text-sm bg-white/5 border-white/10 text-white">
+                    <SelectTrigger className="w-24 h-8 text-sm border-slate-200 bg-white text-slate-900">
                       <SelectValue />
                     </SelectTrigger>
-                    <SelectContent className="bg-[#1a1a1a] border-white/10 shadow-lg z-50">
-                      <SelectItem value="spruce" className="text-slate-300 focus:bg-white/10 focus:text-white">Spruce</SelectItem>
-                      <SelectItem value="oak" className="text-slate-300 focus:bg-white/10 focus:text-white">Oak</SelectItem>
-                      <SelectItem value="birch" className="text-slate-300 focus:bg-white/10 focus:text-white">Birch</SelectItem>
+                    <SelectContent className="z-50 border border-slate-200 bg-white shadow-lg">
+                      <SelectItem value="spruce" className="text-slate-900 focus:bg-slate-100 focus:text-slate-900">Spruce</SelectItem>
+                      <SelectItem value="oak" className="text-slate-900 focus:bg-slate-100 focus:text-slate-900">Oak</SelectItem>
+                      <SelectItem value="birch" className="text-slate-900 focus:bg-slate-100 focus:text-slate-900">Birch</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -234,7 +221,7 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
               {/* Show Additional Models */}
               <div className="flex items-center justify-between">
                 <div>
-                  <label className="text-sm font-medium text-white">Show additional models</label>
+                  <label className="text-sm font-medium text-slate-900">Show additional models</label>
                 </div>
                 <Switch 
                   checked={settings.showAdditionalModels} 
@@ -274,7 +261,7 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
       case 'personalization':
         return (
           <div className="flex-1 p-6 overflow-y-auto scrollbar-hide">
-            <h2 className="font-serif text-2xl text-white mb-6">Personalization</h2>
+            <h2 className="font-serif text-2xl text-slate-900 mb-6">Personalization</h2>
             <div className="space-y-6">
               {/* Profile Settings */}
               <div className="space-y-4">
@@ -287,7 +274,7 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
                   <>
                     <div className="flex items-center justify-between">
                       <div>
-                        <label className="text-sm font-medium text-white">Custom avatar</label>
+                        <label className="text-sm font-medium text-slate-900">Custom avatar</label>
                         <p className="text-xs text-slate-500">Upload a custom profile picture</p>
                       </div>
                       <input
@@ -334,7 +321,7 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
                       <Button
                         variant="outline"
                         size="sm"
-                        className="bg-white/5 text-white border-white/10 hover:bg-white/10"
+                        className="border border-slate-200 bg-white text-slate-900 hover:bg-slate-50"
                         onClick={() => document.getElementById('avatar-upload')?.click()}
                       >
                         <Upload className="w-3 h-3 mr-1" />
@@ -343,7 +330,7 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
                     </div>
                     <div className="flex items-center justify-between">
                       <div>
-                        <label className="text-sm font-medium text-white">Display name</label>
+                        <label className="text-sm font-medium text-slate-900">Display name</label>
                         <p className="text-xs text-slate-500">How your name appears to others</p>
                       </div>
                       {isEditingName ? (
@@ -351,7 +338,7 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
                           <Input
                             value={editedName}
                             onChange={(e) => setEditedName(e.target.value)}
-                            className="h-9 w-40 bg-white/5 border-white/10 text-white"
+                            className="h-9 w-40 border border-slate-200 bg-white text-slate-900"
                             placeholder="Enter your display name"
                             autoFocus
                           />
@@ -394,7 +381,7 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
                           <Button
                             variant="outline"
                             size="sm"
-                            className="h-9 bg-transparent text-slate-300 border-white/10 hover:bg-white/10"
+                            className="h-9 border border-slate-200 bg-transparent text-slate-700 hover:bg-slate-50"
                             onClick={() => {
                               setIsEditingName(false);
                               setEditedName(userInfo?.fullName || '');
@@ -405,13 +392,13 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
                         </div>
                       ) : (
                         <div className="flex items-center gap-2">
-                          <span className="text-sm text-white font-medium">
+                          <span className="text-sm font-medium text-slate-900">
                             {userInfo?.fullName || 'Not set'}
                           </span>
                           <Button
                             variant="ghost"
                             size="sm"
-                            className="h-7 px-2 text-slate-400 hover:text-white hover:bg-white/10"
+                            className="h-7 px-2 text-slate-500 hover:bg-slate-100 hover:text-slate-900"
                             onClick={() => {
                               setEditedName(userInfo?.fullName || '');
                               setIsEditingName(true);
@@ -427,7 +414,7 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
               </div>
 
               {/* Divider */}
-              <div className="border-t border-white/10" />
+              <div className="border-t border-slate-200" />
 
               {/* Business Profile Editor */}
               <div className="space-y-4">
@@ -454,7 +441,7 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
         }
         return (
           <div className="flex-1 p-6 overflow-y-auto scrollbar-hide">
-            <h2 className="font-serif text-2xl text-white mb-6">Integrations</h2>
+            <h2 className="font-serif text-2xl text-slate-900 mb-6">Integrations</h2>
             <p className="text-sm text-slate-400 mb-4 max-w-xl">
               Vesta CFO connects to your property systems and data you provide—PMS (e.g. Mews, Cloudbeds, Oracle Opera), CSV imports, and manual metrics—not generic small-business accounting tools.
             </p>
@@ -489,7 +476,7 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
         }
         return (
           <div className="flex-1 p-6 overflow-y-auto scrollbar-hide">
-            <h2 className="font-serif text-2xl text-white mb-6">Schedules</h2>
+            <h2 className="font-serif text-2xl text-slate-900 mb-6">Schedules</h2>
             <div className="space-y-6">
               <WeeklyNotificationReport />
             </div>
@@ -499,31 +486,31 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
       case 'data-controls':
         return (
           <div className="flex-1 p-6 overflow-y-auto scrollbar-hide">
-            <h2 className="font-serif text-2xl text-white mb-6">Data controls</h2>
+            <h2 className="font-serif text-2xl text-slate-900 mb-6">Data controls</h2>
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <label className="text-sm font-medium text-white">Export data</label>
+                  <label className="text-sm font-medium text-slate-900">Export data</label>
                   <p className="text-xs text-slate-500">Download all your financial data</p>
                 </div>
-                <Button variant="outline" size="sm" className="bg-white/5 text-white border-white/10 hover:bg-white/10">
+                <Button variant="outline" size="sm" className="border border-slate-200 bg-white text-slate-900 hover:bg-slate-50">
                   <Download className="w-3 h-3 mr-1" />
                   Export
                 </Button>
               </div>
               <div className="flex items-center justify-between">
                 <div>
-                  <label className="text-sm font-medium text-white">Data retention</label>
+                  <label className="text-sm font-medium text-slate-900">Data retention</label>
                   <p className="text-xs text-slate-500">How long we keep your data</p>
                 </div>
                 <Select defaultValue="indefinite">
-                  <SelectTrigger className="w-32 h-8 text-sm bg-white/5 border-white/10 text-white">
+                  <SelectTrigger className="w-32 h-8 text-sm border-slate-200 bg-white text-slate-900">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent className="bg-[#1a1a1a] border-white/10 shadow-lg z-50">
-                    <SelectItem value="1year" className="text-slate-300 focus:bg-white/10 focus:text-white">1 year</SelectItem>
-                    <SelectItem value="2years" className="text-slate-300 focus:bg-white/10 focus:text-white">2 years</SelectItem>
-                    <SelectItem value="indefinite" className="text-slate-300 focus:bg-white/10 focus:text-white">Indefinite</SelectItem>
+                  <SelectContent className="z-50 border border-slate-200 bg-white shadow-lg">
+                    <SelectItem value="1year" className="text-slate-900 focus:bg-slate-100 focus:text-slate-900">1 year</SelectItem>
+                    <SelectItem value="2years" className="text-slate-900 focus:bg-slate-100 focus:text-slate-900">2 years</SelectItem>
+                    <SelectItem value="indefinite" className="text-slate-900 focus:bg-slate-100 focus:text-slate-900">Indefinite</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -534,11 +521,11 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
       case 'security':
         return (
           <div className="flex-1 p-6 overflow-y-auto scrollbar-hide">
-            <h2 className="font-serif text-2xl text-white mb-6">Security</h2>
+            <h2 className="font-serif text-2xl text-slate-900 mb-6">Security</h2>
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <label className="text-sm font-medium text-white">Two-factor authentication</label>
+                  <label className="text-sm font-medium text-slate-900">Two-factor authentication</label>
                   <p className="text-xs text-slate-500">Add an extra layer of security to your account</p>
                 </div>
                 <Switch 
@@ -548,17 +535,17 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
               </div>
               <div className="flex items-center justify-between">
                 <div>
-                  <label className="text-sm font-medium text-white">Session timeout</label>
+                  <label className="text-sm font-medium text-slate-900">Session timeout</label>
                   <p className="text-xs text-slate-500">Automatically log out after inactivity</p>
                 </div>
                 <Select value={settings.sessionTimeout} onValueChange={(value: any) => updateSetting('sessionTimeout', value)}>
-                  <SelectTrigger className="w-20 h-8 text-sm bg-white/5 border-white/10 text-white">
+                  <SelectTrigger className="h-8 w-20 border border-slate-200 bg-white text-sm text-slate-900">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent className="bg-[#1a1a1a] border-white/10 shadow-lg z-50">
-                    <SelectItem value="15" className="text-slate-300 focus:bg-white/10 focus:text-white">15m</SelectItem>
-                    <SelectItem value="30" className="text-slate-300 focus:bg-white/10 focus:text-white">30m</SelectItem>
-                    <SelectItem value="60" className="text-slate-300 focus:bg-white/10 focus:text-white">1h</SelectItem>
+                  <SelectContent className="z-50 border border-slate-200 bg-white shadow-lg">
+                    <SelectItem value="15" className="text-slate-900 focus:bg-slate-100 focus:text-slate-900">15m</SelectItem>
+                    <SelectItem value="30" className="text-slate-900 focus:bg-slate-100 focus:text-slate-900">30m</SelectItem>
+                    <SelectItem value="60" className="text-slate-900 focus:bg-slate-100 focus:text-slate-900">1h</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -569,7 +556,7 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
       case 'account':
         return (
           <div className="flex-1 p-6 overflow-y-auto scrollbar-hide">
-            <h2 className="font-serif text-2xl text-white mb-6">Account</h2>
+            <h2 className="font-serif text-2xl text-slate-900 mb-6">Account</h2>
             {isLoadingUser ? (
               <div className="flex justify-center py-8">
                 <Loader2 className="w-6 h-6 animate-spin text-slate-400" />
@@ -577,26 +564,26 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
             ) : (
               <div className="space-y-6">
                 <div className="flex items-center justify-between">
-                  <label className="text-sm font-medium text-white">Email</label>
+                  <label className="text-sm font-medium text-slate-900">Email</label>
                   <span className="text-sm text-slate-400">{userInfo?.email || 'Not available'}</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <label className="text-sm font-medium text-white">Plan</label>
+                  <label className="text-sm font-medium text-slate-900">Plan</label>
                   <span className="text-sm text-slate-400">
                     {userInfo?.tier === 'ceo' ? 'CFO' : userInfo?.tier === 'scale' ? 'Scale' : userInfo?.tier === 'founder' ? 'Founder' : 'Free'}
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <label className="text-sm font-medium text-white">Account created</label>
+                  <label className="text-sm font-medium text-slate-900">Account created</label>
                   <span className="text-sm text-slate-400">
                     {userInfo?.createdAt ? new Date(userInfo.createdAt).toLocaleDateString() : 'Not available'}
                   </span>
                 </div>
-                <div className="pt-4 border-t border-white/10 space-y-3">
+                <div className="space-y-3 border-t border-slate-200 pt-4">
                   <Button 
                     variant="outline" 
                     size="sm" 
-                    className="w-full bg-white/5 text-white border-white/10 hover:bg-white/10"
+                    className="w-full border border-slate-200 bg-white text-slate-900 hover:bg-slate-50"
                     onClick={signOut}
                   >
                     <LogOut className="w-3 h-3 mr-2" />
@@ -628,12 +615,12 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
           {/* Custom overlay with blur */}
           <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
         
- <DialogPrimitive.Content className="w-full max-w-[1100px] h-[90vh] md:h-[700px] p-0 gap-0 bg-[#0a0a0a] fixed left-[50%] top-[50%] z-50 translate-x-[-50%] translate-y-[-50%] rounded-xl overflow-hidden border border-white/10 shadow-2xl mx-4 md:mx-0 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%]">
+ <DialogPrimitive.Content className="fixed left-[50%] top-[50%] z-50 mx-4 h-[90vh] max-w-[1100px] translate-x-[-50%] translate-y-[-50%] gap-0 overflow-hidden rounded-xl border border-slate-200 bg-white p-0 shadow-2xl md:mx-0 md:h-[700px] data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=closed]:zoom-out-95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] data-[state=open]:zoom-in-95">
           {/* Close Button - positioned in sidebar area to avoid overlap with content */}
         <Button
           variant="ghost"
           size="sm"
-          className="absolute top-3 left-3 md:top-4 md:left-4 z-10 h-8 w-8 md:h-6 md:w-6 p-0 hover:bg-white/10 text-slate-400 hover:text-white focus:ring-0 focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
+          className="absolute left-3 top-3 z-10 h-8 w-8 p-0 text-slate-500 hover:bg-slate-100 hover:text-slate-900 focus:outline-none focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0 md:left-4 md:top-4 md:h-6 md:w-6"
           onClick={() => onOpenChange(false)}
         >
           <X className="w-5 h-5 md:w-4 md:h-4" />
@@ -641,7 +628,7 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
 
         <div className="flex flex-col md:flex-row h-full overflow-hidden">
           {/* Sidebar - Horizontal scroll on mobile, vertical on desktop */}
-          <div className="w-full md:w-64 bg-[#0a0a0a] border-b md:border-b-0 md:border-r border-white/10 md:rounded-l-xl overflow-hidden flex-shrink-0">
+          <div className="w-full flex-shrink-0 overflow-hidden border-b border-slate-200 bg-vesta-cream md:w-64 md:rounded-l-xl md:border-b-0 md:border-r">
             <div className="p-3 md:p-4 md:pt-12 overflow-x-auto md:overflow-x-visible">
               <nav className="flex md:flex-col gap-1 md:space-y-1 min-w-max md:min-w-0">
                 {sidebarItems.map((item) => {
@@ -650,10 +637,10 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
                     <button
                       key={item.id}
                       onClick={() => setActiveTab(item.id)}
-                      className={`flex items-center gap-2 md:gap-3 px-3 py-2 rounded-lg text-xs md:text-sm font-medium transition-colors whitespace-nowrap ${
+                      className={`flex items-center gap-2 whitespace-nowrap rounded-lg px-3 py-2 text-xs font-medium transition-colors md:gap-3 md:text-sm ${
                         activeTab === item.id
-                          ? 'bg-white/10 text-white'
-                          : 'text-slate-400 hover:text-white hover:bg-white/5'
+                          ? 'bg-white text-slate-900 shadow-sm ring-1 ring-slate-200'
+                          : 'text-slate-600 hover:bg-white/80 hover:text-slate-900'
                       }`}
                     >
                       <Icon className="w-4 h-4 flex-shrink-0" />
@@ -666,7 +653,7 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
           </div>
 
           {/* Main Content - Scrollable */}
-          <div className="flex-1 flex flex-col overflow-hidden min-h-0 bg-[#0a0a0a]">
+          <div className="flex min-h-0 flex-1 flex-col overflow-hidden bg-white">
             {renderContent()}
           </div>
         </div>

@@ -12,12 +12,12 @@ import { DndContext, DragEndEvent, DragOverlay, closestCorners, PointerSensor, u
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 
 const STAGES: { id: DealStage; label: string; color: string }[] = [
-  { id: 'prospecting', label: 'Prospecting', color: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200' },
-  { id: 'qualification', label: 'Qualification', color: 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200' },
-  { id: 'proposal', label: 'Proposal', color: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200' },
-  { id: 'negotiation', label: 'Negotiation', color: 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200' },
-  { id: 'closed_won', label: 'Closed Won', color: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' },
-  { id: 'closed_lost', label: 'Closed Lost', color: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200' }
+  { id: 'prospecting', label: 'Prospecting', color: 'bg-blue-100 text-blue-800' },
+  { id: 'qualification', label: 'Qualification', color: 'bg-purple-100 text-purple-800' },
+  { id: 'proposal', label: 'Proposal', color: 'bg-yellow-100 text-yellow-800' },
+  { id: 'negotiation', label: 'Negotiation', color: 'bg-orange-100 text-orange-800' },
+  { id: 'closed_won', label: 'Closed Won', color: 'bg-green-100 text-green-800' },
+  { id: 'closed_lost', label: 'Closed Lost', color: 'bg-red-100 text-red-800' }
 ];
 
 export const PipelineBoard = () => {

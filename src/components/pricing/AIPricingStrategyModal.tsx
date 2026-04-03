@@ -48,7 +48,7 @@ export function AIPricingStrategyModal({ open, onOpenChange, onSave, initialStra
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="bg-[#0a0a0a] border-zinc-800 text-white max-w-lg">
+      <DialogContent className="bg-white border-slate-200 text-slate-900 max-w-lg">
         <DialogHeader>
           <DialogTitle className="text-xl font-serif">
             AI Pricing Strategy
@@ -62,12 +62,12 @@ export function AIPricingStrategyModal({ open, onOpenChange, onSave, initialStra
 
           {/* Target Margin */}
           <div className="space-y-2">
-            <Label className="text-white">Target Margin Above COGS (%)</Label>
+            <Label className="text-slate-900">Target Margin Above COGS (%)</Label>
             <Input
               type="number"
               value={strategy.targetMarginPercent}
               onChange={(e) => setStrategy({ ...strategy, targetMarginPercent: Number(e.target.value) })}
-              className="bg-[#1a1a1a] border-zinc-700 text-white focus:border-zinc-500 focus:ring-0"
+              className="bg-white border-slate-200 text-slate-900 focus:border-zinc-500 focus:ring-0"
               placeholder="15"
             />
             <p className="text-xs text-slate-500">
@@ -77,27 +77,27 @@ export function AIPricingStrategyModal({ open, onOpenChange, onSave, initialStra
 
           {/* Competitor Strategy */}
           <div className="space-y-2">
-            <Label className="text-white">Competitor Pricing Strategy</Label>
+            <Label className="text-slate-900">Competitor Pricing Strategy</Label>
             <Select
               value={strategy.competitorStrategy}
               onValueChange={(value: PricingStrategy['competitorStrategy']) => 
                 setStrategy({ ...strategy, competitorStrategy: value })
               }
             >
-              <SelectTrigger className="bg-[#1a1a1a] border-zinc-700 text-white focus:ring-0">
+              <SelectTrigger className="bg-white border-slate-200 text-slate-900 focus:ring-0">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent className="bg-[#0a0a0a] border-zinc-700">
-                <SelectItem value="beat-all" className="text-white focus:bg-white focus:text-black">
+              <SelectContent className="bg-white border-slate-200">
+                <SelectItem value="beat-all" className="text-slate-900 focus:bg-white focus:text-black">
                   Beat All Suppliers
                 </SelectItem>
-                <SelectItem value="beat-lowest" className="text-white focus:bg-white focus:text-black">
+                <SelectItem value="beat-lowest" className="text-slate-900 focus:bg-white focus:text-black">
                   Beat Lowest Supplier Only
                 </SelectItem>
-                <SelectItem value="match-average" className="text-white focus:bg-white focus:text-black">
+                <SelectItem value="match-average" className="text-slate-900 focus:bg-white focus:text-black">
                   Match Market Average
                 </SelectItem>
-                <SelectItem value="premium" className="text-white focus:bg-white focus:text-black">
+                <SelectItem value="premium" className="text-slate-900 focus:bg-white focus:text-black">
                   Premium Positioning (+5% Above Average)
                 </SelectItem>
               </SelectContent>
@@ -106,12 +106,12 @@ export function AIPricingStrategyModal({ open, onOpenChange, onSave, initialStra
 
           {/* Minimum Margin Floor */}
           <div className="space-y-2">
-            <Label className="text-white">Minimum Margin Floor (%)</Label>
+            <Label className="text-slate-900">Minimum Margin Floor (%)</Label>
             <Input
               type="number"
               value={strategy.minMarginFloor}
               onChange={(e) => setStrategy({ ...strategy, minMarginFloor: Number(e.target.value) })}
-              className="bg-[#1a1a1a] border-zinc-700 text-white focus:border-zinc-500 focus:ring-0"
+              className="bg-white border-slate-200 text-slate-900 focus:border-zinc-500 focus:ring-0"
               placeholder="10"
             />
             <p className="text-xs text-slate-500">
@@ -121,11 +121,11 @@ export function AIPricingStrategyModal({ open, onOpenChange, onSave, initialStra
 
           {/* Custom Prompt */}
           <div className="space-y-2">
-            <Label className="text-white">Custom AI Instructions (Optional)</Label>
+            <Label className="text-slate-900">Custom AI Instructions (Optional)</Label>
             <Textarea
               value={strategy.customPrompt}
               onChange={(e) => setStrategy({ ...strategy, customPrompt: e.target.value })}
-              className="bg-[#1a1a1a] border-zinc-700 text-white focus:border-zinc-500 focus:ring-0 min-h-[100px] resize-none"
+              className="bg-white border-slate-200 text-slate-900 focus:border-zinc-500 focus:ring-0 min-h-[100px] resize-none"
               placeholder="E.g., 'Prioritize volume over margin for clearance items' or 'Always maintain at least $2 profit per unit on fragrances under $20 COGS'"
             />
             <p className="text-xs text-slate-500">
@@ -138,7 +138,7 @@ export function AIPricingStrategyModal({ open, onOpenChange, onSave, initialStra
             <Button
               variant="outline"
               onClick={() => onOpenChange(false)}
-              className="border-white text-white hover:bg-white hover:text-black bg-transparent"
+              className="border-white text-slate-900 hover:bg-white hover:text-black bg-transparent"
             >
               Cancel
             </Button>

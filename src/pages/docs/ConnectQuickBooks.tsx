@@ -17,7 +17,7 @@ const ConnectQuickBooks = () => {
       nextPage={{ href: "/docs/connect/xero", title: "Connect Xero" }}
     >
       <section id="prerequisites" className="mb-12">
-        <h2 className="text-2xl font-semibold text-white mb-4">Prerequisites</h2>
+        <h2 className="text-2xl font-semibold text-slate-900 mb-4">Prerequisites</h2>
         <p className="text-slate-400 mb-4">Before connecting QuickBooks, ensure you have:</p>
         <ul className="list-disc list-inside text-slate-400 space-y-2">
           <li>An active QuickBooks Online account</li>
@@ -27,20 +27,20 @@ const ConnectQuickBooks = () => {
       </section>
 
       <section id="authorize" className="mb-12">
-        <h2 className="text-2xl font-semibold text-white mb-4">Step 1: Authorize Vesta</h2>
+        <h2 className="text-2xl font-semibold text-slate-900 mb-4">Step 1: Authorize Vesta</h2>
         <p className="text-slate-400 mb-4">
-          Navigate to your Vesta dashboard and click the <strong className="text-white">"Connect QuickBooks"</strong> button. 
+          Navigate to your Vesta dashboard and click the <strong className="text-slate-900">"Connect QuickBooks"</strong> button. 
           You'll be redirected to Intuit's secure authorization page.
         </p>
-        <div className="bg-[#1a1a1a] border border-white/10 rounded-xl p-4 mb-4">
+        <div className="border border-slate-200 bg-white rounded-xl p-4 mb-4">
           <p className="text-sm text-slate-400">
-            💡 <strong className="text-white">Tip:</strong> Make sure you're logged into the correct QuickBooks account before authorizing.
+            💡 <strong className="text-slate-900">Tip:</strong> Make sure you're logged into the correct QuickBooks account before authorizing.
           </p>
         </div>
       </section>
 
       <section id="select-company" className="mb-12">
-        <h2 className="text-2xl font-semibold text-white mb-4">Step 2: Select Company</h2>
+        <h2 className="text-2xl font-semibold text-slate-900 mb-4">Step 2: Select Company</h2>
         <p className="text-slate-400 mb-4">
           If you have multiple QuickBooks companies, select the one you want to connect. 
           You can connect additional companies later from your settings.
@@ -48,7 +48,7 @@ const ConnectQuickBooks = () => {
       </section>
 
       <section id="sync" className="mb-12">
-        <h2 className="text-2xl font-semibold text-white mb-4">Step 3: Sync Data</h2>
+        <h2 className="text-2xl font-semibold text-slate-900 mb-4">Step 3: Sync Data</h2>
         <p className="text-slate-400 mb-4">
           Once authorized, Vesta will automatically sync your financial data. The initial sync may take a few minutes 
           depending on the size of your data. You'll see a progress indicator on your dashboard.
@@ -59,16 +59,16 @@ const ConnectQuickBooks = () => {
       </section>
 
       <section id="troubleshooting" className="mb-12">
-        <h2 className="text-2xl font-semibold text-white mb-4">Troubleshooting</h2>
+        <h2 className="text-2xl font-semibold text-slate-900 mb-4">Troubleshooting</h2>
         <div className="space-y-4">
-          <div className="bg-[#1a1a1a] border border-white/10 rounded-xl p-4">
-            <h4 className="text-white font-medium mb-2">Connection Failed</h4>
+          <div className="border border-slate-200 bg-white rounded-xl p-4">
+            <h4 className="text-slate-900 font-medium mb-2">Connection Failed</h4>
             <p className="text-sm text-slate-400">
               Try logging out of QuickBooks and logging back in, then attempt the connection again.
             </p>
           </div>
-          <div className="bg-[#1a1a1a] border border-white/10 rounded-xl p-4">
-            <h4 className="text-white font-medium mb-2">Missing Data</h4>
+          <div className="border border-slate-200 bg-white rounded-xl p-4">
+            <h4 className="text-slate-900 font-medium mb-2">Missing Data</h4>
             <p className="text-sm text-slate-400">
               Ensure you have admin permissions in QuickBooks. Some data may require elevated access.
             </p>

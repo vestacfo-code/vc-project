@@ -219,9 +219,9 @@ const WeeklyEmailReport = () => {
     return (
       <div className="space-y-6">
         <div className="animate-pulse space-y-4">
-          <div className="h-6 bg-white/10 rounded w-1/3"></div>
-          <div className="h-4 bg-white/5 rounded w-2/3"></div>
-          <div className="h-12 bg-white/5 rounded"></div>
+          <div className="h-6 bg-slate-100 rounded w-1/3"></div>
+          <div className="h-4 bg-slate-50 rounded w-2/3"></div>
+          <div className="h-12 bg-slate-50 rounded"></div>
         </div>
       </div>
     );
@@ -232,8 +232,8 @@ const WeeklyEmailReport = () => {
       <div>
         <div className="mb-6">
           <div className="flex items-center space-x-2 mb-2">
-            <Mail className="w-5 h-5 text-white" />
-            <h3 className="text-base font-semibold text-white">Weekly Email Reports</h3>
+            <Mail className="w-5 h-5 text-slate-900" />
+            <h3 className="text-base font-semibold text-slate-900">Weekly Email Reports</h3>
           </div>
           <p className="text-sm text-slate-400">
             Get insightful financial summaries delivered straight to your inbox every week
@@ -245,7 +245,7 @@ const WeeklyEmailReport = () => {
 
             <div className="flex items-center justify-between py-2">
               <div className="space-y-1">
-                <Label className="text-sm font-medium text-white">Weekly Email Reports</Label>
+                <Label className="text-sm font-medium text-slate-900">Weekly Email Reports</Label>
                 <p className="text-xs text-slate-500">
                   Receive comprehensive weekly financial summaries via email
                 </p>
@@ -258,47 +258,47 @@ const WeeklyEmailReport = () => {
             </div>
 
             {settings.weekly_reports_enabled && (
-              <div className="space-y-4 pt-4 border-t border-white/10">
+              <div className="space-y-4 pt-4 border-t border-slate-200">
                 <div className="grid gap-4 md:grid-cols-2">
                   <div className="space-y-2">
-                    <Label className="text-sm font-medium text-white">Day of Week</Label>
+                    <Label className="text-sm font-medium text-slate-900">Day of Week</Label>
                     <Select
                       value={settings.day_of_week}
                       onValueChange={(day_of_week) => setSettings({ ...settings, day_of_week })}
                     >
-                      <SelectTrigger className="bg-white/5 border-white/10 text-white">
+                      <SelectTrigger className="bg-slate-50 border-slate-200 text-slate-900">
                         <SelectValue />
                       </SelectTrigger>
-                      <SelectContent className="bg-[#1a1a1a] border-white/10 shadow-lg z-50">
-                        <SelectItem value="monday" className="text-slate-300 focus:bg-white/10 focus:text-white">Monday</SelectItem>
-                        <SelectItem value="tuesday" className="text-slate-300 focus:bg-white/10 focus:text-white">Tuesday</SelectItem>
-                        <SelectItem value="wednesday" className="text-slate-300 focus:bg-white/10 focus:text-white">Wednesday</SelectItem>
-                        <SelectItem value="thursday" className="text-slate-300 focus:bg-white/10 focus:text-white">Thursday</SelectItem>
-                        <SelectItem value="friday" className="text-slate-300 focus:bg-white/10 focus:text-white">Friday</SelectItem>
-                        <SelectItem value="saturday" className="text-slate-300 focus:bg-white/10 focus:text-white">Saturday</SelectItem>
-                        <SelectItem value="sunday" className="text-slate-300 focus:bg-white/10 focus:text-white">Sunday</SelectItem>
+                      <SelectContent className="bg-white border-slate-200 shadow-lg z-50">
+                        <SelectItem value="monday" className="text-slate-300 focus:bg-slate-100 focus:text-slate-900">Monday</SelectItem>
+                        <SelectItem value="tuesday" className="text-slate-300 focus:bg-slate-100 focus:text-slate-900">Tuesday</SelectItem>
+                        <SelectItem value="wednesday" className="text-slate-300 focus:bg-slate-100 focus:text-slate-900">Wednesday</SelectItem>
+                        <SelectItem value="thursday" className="text-slate-300 focus:bg-slate-100 focus:text-slate-900">Thursday</SelectItem>
+                        <SelectItem value="friday" className="text-slate-300 focus:bg-slate-100 focus:text-slate-900">Friday</SelectItem>
+                        <SelectItem value="saturday" className="text-slate-300 focus:bg-slate-100 focus:text-slate-900">Saturday</SelectItem>
+                        <SelectItem value="sunday" className="text-slate-300 focus:bg-slate-100 focus:text-slate-900">Sunday</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
 
                   <div className="space-y-2">
-                    <Label className="text-sm font-medium text-white">Time of Day</Label>
+                    <Label className="text-sm font-medium text-slate-900">Time of Day</Label>
                     <Select
                       value={settings.time_of_day}
                       onValueChange={(time_of_day) => setSettings({ ...settings, time_of_day })}
                     >
-                      <SelectTrigger className="bg-white/5 border-white/10 text-white">
+                      <SelectTrigger className="bg-slate-50 border-slate-200 text-slate-900">
                         <SelectValue />
                       </SelectTrigger>
-                      <SelectContent className="bg-[#1a1a1a] border-white/10 shadow-lg z-50">
-                        <SelectItem value="06:00" className="text-slate-300 focus:bg-white/10 focus:text-white">6:00 AM</SelectItem>
-                        <SelectItem value="07:00" className="text-slate-300 focus:bg-white/10 focus:text-white">7:00 AM</SelectItem>
-                        <SelectItem value="08:00" className="text-slate-300 focus:bg-white/10 focus:text-white">8:00 AM</SelectItem>
-                        <SelectItem value="09:00" className="text-slate-300 focus:bg-white/10 focus:text-white">9:00 AM</SelectItem>
-                        <SelectItem value="10:00" className="text-slate-300 focus:bg-white/10 focus:text-white">10:00 AM</SelectItem>
-                        <SelectItem value="12:00" className="text-slate-300 focus:bg-white/10 focus:text-white">12:00 PM</SelectItem>
-                        <SelectItem value="17:00" className="text-slate-300 focus:bg-white/10 focus:text-white">5:00 PM</SelectItem>
-                        <SelectItem value="18:00" className="text-slate-300 focus:bg-white/10 focus:text-white">6:00 PM</SelectItem>
+                      <SelectContent className="bg-white border-slate-200 shadow-lg z-50">
+                        <SelectItem value="06:00" className="text-slate-300 focus:bg-slate-100 focus:text-slate-900">6:00 AM</SelectItem>
+                        <SelectItem value="07:00" className="text-slate-300 focus:bg-slate-100 focus:text-slate-900">7:00 AM</SelectItem>
+                        <SelectItem value="08:00" className="text-slate-300 focus:bg-slate-100 focus:text-slate-900">8:00 AM</SelectItem>
+                        <SelectItem value="09:00" className="text-slate-300 focus:bg-slate-100 focus:text-slate-900">9:00 AM</SelectItem>
+                        <SelectItem value="10:00" className="text-slate-300 focus:bg-slate-100 focus:text-slate-900">10:00 AM</SelectItem>
+                        <SelectItem value="12:00" className="text-slate-300 focus:bg-slate-100 focus:text-slate-900">12:00 PM</SelectItem>
+                        <SelectItem value="17:00" className="text-slate-300 focus:bg-slate-100 focus:text-slate-900">5:00 PM</SelectItem>
+                        <SelectItem value="18:00" className="text-slate-300 focus:bg-slate-100 focus:text-slate-900">6:00 PM</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -309,7 +309,7 @@ const WeeklyEmailReport = () => {
 
           {/* Actions */}
           {settings.weekly_reports_enabled && (
-            <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-white/10">
+            <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-slate-200">
               <Button
                 onClick={handleSaveSettings}
                 disabled={isLoading || !settings.weekly_reports_enabled}
@@ -324,7 +324,7 @@ const WeeklyEmailReport = () => {
                 size="sm"
                 onClick={handleSendTestEmail}
                 disabled={isLoading || !settings.weekly_reports_enabled}
-                className="flex-1 bg-transparent text-white border-white/10 hover:bg-white/10"
+                className="flex-1 bg-transparent text-slate-900 border-slate-200 hover:bg-slate-100"
               >
                 <Send className="w-3 h-3 mr-2" />
                 Send Test Email
@@ -337,7 +337,7 @@ const WeeklyEmailReport = () => {
             <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-4">
               <div className="flex items-center space-x-2 mb-2">
                 <Clock className="w-4 h-4 text-blue-400" />
-                <span className="text-sm font-medium text-white">Next Report</span>
+                <span className="text-sm font-medium text-slate-900">Next Report</span>
               </div>
               <p className="text-sm text-slate-400">
                 Your next email report will be delivered on {capitalizeFirst(settings.day_of_week)} at {formatTime(settings.time_of_day)}

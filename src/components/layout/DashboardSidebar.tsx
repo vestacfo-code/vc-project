@@ -8,7 +8,7 @@ import {
   Bell,
   Settings,
 } from 'lucide-react';
-import { VestaBrand } from '@/components/ui/finlo-brand';
+import { VestaBrand } from '@/components/ui/vesta-brand';
 import { cn } from '@/lib/utils';
 
 interface NavItem {
@@ -37,17 +37,12 @@ export const DashboardSidebar: React.FC = () => {
   };
 
   return (
-    <aside
-      className="flex flex-col h-full shrink-0"
-      style={{ width: 240, backgroundColor: '#1B3A5C' }}
-    >
-      {/* Logo */}
-      <div className="px-5 py-6 border-b" style={{ borderColor: 'rgba(255,255,255,0.08)' }}>
-        <VestaBrand size="sm" variant="dark" />
+    <aside className="flex h-full w-[240px] shrink-0 flex-col border-r border-slate-200/90 bg-gradient-to-b from-white to-slate-50/40">
+      <div className="border-b border-slate-200/90 px-5 py-6">
+        <VestaBrand size="sm" variant="light" />
       </div>
 
-      {/* Nav items */}
-      <nav className="flex flex-col gap-1 px-3 py-4 flex-1">
+      <nav className="flex flex-1 flex-col gap-1 px-3 py-4" style={{ fontFamily: "'DM Sans', sans-serif" }}>
         {navItems.map((item) => {
           const active = isActive(item.to);
           return (
@@ -56,22 +51,19 @@ export const DashboardSidebar: React.FC = () => {
               to={item.to}
               end={item.to === '/app'}
               className={cn(
-                'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-150',
-                'relative',
+                'relative flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-150',
                 active
-                  ? 'bg-white/10 text-white'
-                  : 'text-white/60 hover:text-white/90 hover:bg-white/5',
+                  ? 'bg-vesta-gold/15 text-vesta-navy'
+                  : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900',
               )}
-              style={{ fontFamily: "'DM Sans', sans-serif" }}
             >
-              {/* Active gold left border */}
               {active && (
                 <span
-                  className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-5 rounded-full"
-                  style={{ backgroundColor: '#C8963E' }}
+                  className="absolute left-0 top-1/2 h-5 w-0.5 -translate-y-1/2 rounded-full bg-vesta-gold"
+                  aria-hidden
                 />
               )}
-              <span className={cn('flex items-center', active ? 'text-white' : 'text-white/60')}>
+              <span className={cn('flex items-center', active ? 'text-vesta-navy' : 'text-slate-500')}>
                 {item.icon}
               </span>
               <span>{item.label}</span>
@@ -80,14 +72,10 @@ export const DashboardSidebar: React.FC = () => {
         })}
       </nav>
 
-      {/* Footer accent */}
-      <div
-        className="px-5 py-4 border-t"
-        style={{ borderColor: 'rgba(255,255,255,0.08)' }}
-      >
+      <div className="border-t border-slate-200 px-5 py-4">
         <p
-          className="text-[10px] uppercase tracking-widest"
-          style={{ color: 'rgba(255,255,255,0.25)', fontFamily: "'DM Mono', monospace" }}
+          className="text-[10px] uppercase tracking-widest text-slate-400"
+          style={{ fontFamily: "'DM Mono', monospace" }}
         >
           AI CFO for Hotels
         </p>

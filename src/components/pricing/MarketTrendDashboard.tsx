@@ -42,8 +42,8 @@ export function MarketTrendDashboard() {
               className={cn(
                 'h-8 px-5 text-xs font-semibold rounded-md transition-all duration-200',
                 dateRange === r.value
-                  ? 'bg-zinc-900 text-white hover:bg-zinc-800 hover:text-white shadow-sm'
-                  : 'text-zinc-500 hover:text-zinc-700 hover:bg-zinc-50'
+                  ? 'bg-vesta-gold/20 text-vesta-navy shadow-sm ring-1 ring-vesta-gold/35 hover:bg-vesta-gold/25'
+                  : 'text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700'
               )}
             >
               {r.label}

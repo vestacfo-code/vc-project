@@ -5,7 +5,7 @@
 
 ## Overview
 
-Finlo Custom Solutions delivers a fully white-labeled, AI-powered financial intelligence platform tailored to your business needs. Each solution includes personalized branding, dedicated feature modules, and flexible credit allocations.
+Vesta Custom Solutions delivers a fully white-labeled, AI-powered financial intelligence platform tailored to your business needs. Each solution includes personalized branding, dedicated feature modules, and flexible credit allocations.
 
 ---
 
@@ -43,7 +43,7 @@ Work together with your team.
 
 ### 🎨 White-Label Branding
 Your brand, your platform.
-- **Custom Logo**: Replace Finlo branding with your company logo
+- **Custom Logo**: Replace default Vesta branding with your company logo
 - **Branded Experience**: Users see your identity throughout the application
 - **Professional URLs**: Custom domain support available
 
@@ -188,8 +188,8 @@ Pay-as-you-go for AI usage.
 
 Ready to get started with your Custom Solution?
 
-**Email**: solutions@finlo.ai
-**Website**: https://joinfinlo.ai
+**Website**: https://www.vesta.ai  
+**Contact**: `/contact` in the product or your Vesta account team.
 
 ---
 

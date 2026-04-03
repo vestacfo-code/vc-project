@@ -76,18 +76,18 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({ active, payload, label })
   if (!active || !payload || payload.length === 0) return null;
 
   return (
-    <div className="bg-slate-800 border border-slate-700 rounded-lg p-3 shadow-xl min-w-[160px]">
-      <p className="text-slate-400 text-xs mb-2 font-medium">{label}</p>
+    <div className="min-w-[160px] rounded-lg border border-slate-200 bg-white p-3 shadow-lg">
+      <p className="mb-2 text-xs font-medium text-slate-500">{label}</p>
       {payload.map((entry) => (
-        <div key={entry.dataKey} className="flex items-center justify-between gap-4 text-sm mb-1 last:mb-0">
+        <div key={entry.dataKey} className="mb-1 flex items-center justify-between gap-4 text-sm last:mb-0">
           <div className="flex items-center gap-1.5">
             <span
-              className="inline-block w-2.5 h-2.5 rounded-sm shrink-0"
+              className="inline-block h-2.5 w-2.5 shrink-0 rounded-sm"
               style={{ backgroundColor: entry.color }}
             />
-            <span className="text-slate-300">{entry.name}</span>
+            <span className="text-slate-600">{entry.name}</span>
           </div>
-          <span className="text-white font-semibold">{formatCurrency(entry.value)}</span>
+          <span className="font-semibold text-slate-900">{formatCurrency(entry.value)}</span>
         </div>
       ))}
     </div>
@@ -152,16 +152,16 @@ const RevenueByChannelChart: React.FC<RevenueByChannelChartProps> = ({ hotelId }
   const isEmpty = !isLoading && chartData.length === 0;
 
   return (
-    <div className="bg-slate-900/50 border border-slate-700/80 backdrop-blur-sm rounded-xl p-5 shadow-lg shadow-black/15">
+    <div className="rounded-xl border border-vesta-navy/10 bg-white p-5 shadow-sm">
       {/* Header */}
-      <div className="flex items-center gap-2 mb-4">
-        <BarChart2 className="h-4 w-4 text-amber-400 shrink-0" />
-        <h3 className="text-base font-semibold text-white">Revenue by Channel</h3>
+      <div className="mb-4 flex items-center gap-2">
+        <BarChart2 className="h-4 w-4 shrink-0 text-vesta-gold" />
+        <h3 className="text-base font-semibold text-slate-900">Revenue by Channel</h3>
       </div>
 
       {/* Loading skeleton */}
       {isLoading && (
-        <div className="h-64 animate-pulse bg-slate-700/50 rounded-lg" />
+        <div className="h-64 animate-pulse rounded-lg bg-slate-200" />
       )}
 
       {/* Empty state */}
@@ -176,29 +176,29 @@ const RevenueByChannelChart: React.FC<RevenueByChannelChartProps> = ({ hotelId }
       {!isLoading && !isEmpty && (
         <ResponsiveContainer width="100%" height={280}>
           <BarChart data={chartData} margin={{ top: 4, right: 16, left: 0, bottom: 4 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#374151" vertical={false} />
+            <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" vertical={false} />
             <XAxis
               dataKey="displayDate"
-              tick={{ fill: '#9CA3AF', fontSize: 11 }}
-              axisLine={{ stroke: '#4B5563' }}
+              tick={{ fill: '#64748b', fontSize: 11 }}
+              axisLine={{ stroke: '#cbd5e1' }}
               tickLine={false}
               interval="preserveStartEnd"
             />
             <YAxis
-              tick={{ fill: '#9CA3AF', fontSize: 11 }}
-              axisLine={{ stroke: '#4B5563' }}
+              tick={{ fill: '#64748b', fontSize: 11 }}
+              axisLine={{ stroke: '#cbd5e1' }}
               tickLine={false}
               tickFormatter={(v: number) => `$${v >= 1000 ? `${(v / 1000).toFixed(0)}k` : v}`}
               width={52}
             />
             <Tooltip
               content={<CustomTooltip />}
-              cursor={{ fill: 'rgba(255,255,255,0.04)' }}
+              cursor={{ fill: 'rgba(27, 58, 92, 0.06)' }}
             />
             <Legend
               wrapperStyle={{ paddingTop: '12px' }}
               formatter={(value: string) => (
-                <span style={{ color: '#D1D5DB', fontSize: '12px' }}>
+                <span style={{ color: '#475569', fontSize: '12px' }}>
                   {formatChannelLabel(value)}
                 </span>
               )}

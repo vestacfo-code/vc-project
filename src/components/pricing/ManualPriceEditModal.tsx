@@ -184,25 +184,25 @@ export function ManualPriceEditModal({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-md bg-[#0a0a0a] border-white/10 text-zinc-100 sm:rounded-xl shadow-2xl [&>button]:top-4 [&>button]:left-4 [&>button]:right-auto [&>button]:text-zinc-500 [&>button]:hover:text-white focus-visible:[&>button]:ring-0">
+      <DialogContent className="max-w-md bg-white border-slate-200 text-slate-900 sm:rounded-xl shadow-2xl [&>button]:top-4 [&>button]:left-4 [&>button]:right-auto [&>button]:text-slate-500 [&>button]:hover:text-slate-900 focus-visible:[&>button]:ring-0">
         <DialogHeader className="pr-8">
-          <DialogTitle className="text-lg font-semibold text-white">
+          <DialogTitle className="text-lg font-semibold text-slate-900">
             Edit Prices
           </DialogTitle>
-          <DialogDescription className="text-zinc-500 text-xs">
+          <DialogDescription className="text-slate-500 text-xs">
             Manually override prices for this product
           </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-5 py-2 max-h-[70vh] overflow-y-auto">
           {/* Product Info */}
-          <div className="p-3 rounded-lg bg-[#1a1a1a] border border-white/[0.06]">
+          <div className="p-3 rounded-lg bg-white border border-slate-200">
             <div className="flex items-center gap-2 mb-1.5 flex-wrap">
-              <Badge variant="outline" className="text-[10px] border-white/10 text-zinc-500 bg-transparent font-mono">
+              <Badge variant="outline" className="text-[10px] border-slate-200 text-slate-500 bg-transparent font-mono">
                 {product.upc}
               </Badge>
               {product.brand && (
-                <Badge variant="outline" className="text-[10px] border-white/10 text-zinc-500 bg-transparent">
+                <Badge variant="outline" className="text-[10px] border-slate-200 text-slate-500 bg-transparent">
                   {product.brand}
                 </Badge>
               )}
@@ -218,25 +218,25 @@ export function ManualPriceEditModal({
             
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-1.5">
-                <Label className="text-zinc-500 text-[10px] uppercase tracking-wider">Your Price ($)</Label>
+                <Label className="text-slate-500 text-[10px] uppercase tracking-wider">Your Price ($)</Label>
                 <Input
                   type="number"
                   step="0.01"
                   value={yourPrice}
                   onChange={(e) => setYourPrice(e.target.value)}
                   placeholder="0.00"
-                  className="h-9 bg-[#1a1a1a] border-white/[0.06] text-white placeholder:text-zinc-700 focus:border-white/20 focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0"
+                  className="h-9 bg-white border-slate-200 text-slate-900 placeholder:text-slate-400 focus:border-slate-400 focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0"
                 />
               </div>
               <div className="space-y-1.5">
-                <Label className="text-zinc-500 text-[10px] uppercase tracking-wider">Target Margin (%)</Label>
+                <Label className="text-slate-500 text-[10px] uppercase tracking-wider">Target Margin (%)</Label>
                 <Input
                   type="number"
                   step="1"
                   value={targetMargin}
                   onChange={(e) => setTargetMargin(e.target.value)}
                   placeholder="15"
-                  className="h-9 bg-[#1a1a1a] border-white/[0.06] text-white placeholder:text-zinc-700 focus:border-white/20 focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0"
+                  className="h-9 bg-white border-slate-200 text-slate-900 placeholder:text-slate-400 focus:border-slate-400 focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0"
                 />
               </div>
             </div>
@@ -249,7 +249,7 @@ export function ManualPriceEditModal({
             <div className="space-y-2">
               {supplierPrices.map((entry) => (
                 <div key={entry.supplierId} className="flex items-center gap-3">
-                  <span className="text-[11px] text-zinc-500 min-w-[100px] truncate" title={entry.supplierName}>
+                  <span className="text-[11px] text-slate-500 min-w-[100px] truncate" title={entry.supplierName}>
                     {entry.supplierName}
                   </span>
                   <Input
@@ -258,7 +258,7 @@ export function ManualPriceEditModal({
                     value={entry.price}
                     onChange={(e) => handleSupplierPriceChange(entry.supplierId, e.target.value)}
                     placeholder="0.00"
-                    className="flex-1 h-8 bg-[#1a1a1a] border-white/[0.06] text-white placeholder:text-zinc-700 focus:border-white/20 focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-xs"
+                    className="flex-1 h-8 bg-white border-slate-200 text-slate-900 placeholder:text-slate-400 focus:border-slate-400 focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-xs"
                   />
                 </div>
               ))}
@@ -282,7 +282,7 @@ export function ManualPriceEditModal({
             {aliases.length > 0 && (
               <div className="space-y-1">
                 {aliases.map((alias, idx) => (
-                  <div key={idx} className="flex items-center gap-2 bg-[#1a1a1a] border border-white/[0.06] rounded-md px-2.5 py-1.5">
+                  <div key={idx} className="flex items-center gap-2 bg-white border border-slate-200 rounded-md px-2.5 py-1.5">
                     <span className="font-mono text-[11px] text-zinc-400 flex-1">{alias.alias_upc}</span>
                     {alias.isNew && <span className="text-[9px] text-amber-500 font-medium">NEW</span>}
                     <button
@@ -301,7 +301,7 @@ export function ManualPriceEditModal({
                 value={newAliasUpc}
                 onChange={(e) => setNewAliasUpc(e.target.value)}
                 placeholder="Enter alternate UPC..."
-                className="flex-1 h-8 bg-[#1a1a1a] border-white/[0.06] text-white placeholder:text-zinc-700 focus:border-white/20 focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0 font-mono text-xs"
+                className="flex-1 h-8 bg-white border-slate-200 text-slate-900 placeholder:text-slate-400 focus:border-slate-400 focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0 font-mono text-xs"
                 onKeyDown={(e) => e.key === 'Enter' && handleAddAlias()}
               />
               <Button
@@ -309,7 +309,7 @@ export function ManualPriceEditModal({
                 size="sm"
                 onClick={handleAddAlias}
                 disabled={!newAliasUpc.trim()}
-                className="h-8 px-2.5 text-zinc-500 hover:text-white hover:bg-white/10"
+                className="h-8 px-2.5 text-slate-500 hover:bg-slate-100 hover:text-slate-900"
               >
                 <Plus className="w-3.5 h-3.5" />
               </Button>
@@ -318,11 +318,11 @@ export function ManualPriceEditModal({
         </div>
 
         {/* Actions */}
-        <div className="flex justify-end gap-2 pt-4 border-t border-white/[0.06]">
+        <div className="flex justify-end gap-2 pt-4 border-t border-slate-200">
           <Button 
             variant="ghost" 
             onClick={() => onOpenChange(false)}
-            className="text-zinc-500 hover:bg-white/5 hover:text-zinc-300"
+            className="text-slate-500 hover:bg-white/5 hover:text-zinc-300"
           >
             Cancel
           </Button>

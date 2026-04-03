@@ -16,7 +16,7 @@ const AIChat = () => {
       nextPage={{ href: "/docs/features/analytics", title: "Dashboard Analytics" }}
     >
       <section id="ask" className="mb-12">
-        <h2 className="text-2xl font-semibold text-white mb-4">What You Can Ask</h2>
+        <h2 className="text-2xl font-semibold text-slate-900 mb-4">What You Can Ask</h2>
         <p className="text-slate-400 mb-4">
           Vesta's AI understands natural language questions about your business:
         </p>
@@ -31,43 +31,43 @@ const AIChat = () => {
       </section>
 
       <section id="examples" className="mb-12">
-        <h2 className="text-2xl font-semibold text-white mb-4">Example Questions</h2>
+        <h2 className="text-2xl font-semibold text-slate-900 mb-4">Example Questions</h2>
         <div className="space-y-3">
-          <div className="bg-[#1a1a1a] border border-white/10 rounded-xl p-4">
-            <p className="text-white">"What was my revenue last month?"</p>
+          <div className="border border-slate-200 bg-white rounded-xl p-4">
+            <p className="text-slate-800">"What was my revenue last month?"</p>
           </div>
-          <div className="bg-[#1a1a1a] border border-white/10 rounded-xl p-4">
-            <p className="text-white">"How do my expenses compare to last quarter?"</p>
+          <div className="border border-slate-200 bg-white rounded-xl p-4">
+            <p className="text-slate-800">"How do my expenses compare to last quarter?"</p>
           </div>
-          <div className="bg-[#1a1a1a] border border-white/10 rounded-xl p-4">
-            <p className="text-white">"What's my biggest expense category?"</p>
+          <div className="border border-slate-200 bg-white rounded-xl p-4">
+            <p className="text-slate-800">"What's my biggest expense category?"</p>
           </div>
-          <div className="bg-[#1a1a1a] border border-white/10 rounded-xl p-4">
-            <p className="text-white">"Will I have enough cash for payroll next month?"</p>
+          <div className="border border-slate-200 bg-white rounded-xl p-4">
+            <p className="text-slate-800">"Will I have enough cash for payroll next month?"</p>
           </div>
-          <div className="bg-[#1a1a1a] border border-white/10 rounded-xl p-4">
-            <p className="text-white">"Show me my profit margin trend over the past year"</p>
+          <div className="border border-slate-200 bg-white rounded-xl p-4">
+            <p className="text-slate-800">"Show me my profit margin trend over the past year"</p>
           </div>
         </div>
       </section>
 
       <section id="how" className="mb-12">
-        <h2 className="text-2xl font-semibold text-white mb-4">How It Works</h2>
+        <h2 className="text-2xl font-semibold text-slate-900 mb-4">How It Works</h2>
         <ol className="list-decimal list-inside text-slate-400 space-y-3">
           <li>Type your question in the chat interface</li>
           <li>Vesta's AI analyzes your connected financial data</li>
           <li>Receive an instant, conversational response</li>
           <li>Follow up with more questions for deeper insights</li>
         </ol>
-        <div className="bg-[#1a1a1a] border border-white/10 rounded-xl p-4 mt-4">
+        <div className="border border-slate-200 bg-white rounded-xl p-4 mt-4">
           <p className="text-sm text-slate-400">
-            🔒 <strong className="text-white">Privacy:</strong> Your data is encrypted and never shared. AI analysis happens in real-time without storing your questions.
+            🔒 <strong className="text-slate-900">Privacy:</strong> Your data is encrypted and never shared. AI analysis happens in real-time without storing your questions.
           </p>
         </div>
       </section>
 
       <section id="tips" className="mb-12">
-        <h2 className="text-2xl font-semibold text-white mb-4">Tips for Better Answers</h2>
+        <h2 className="text-2xl font-semibold text-slate-900 mb-4">Tips for Better Answers</h2>
         <ul className="list-disc list-inside text-slate-400 space-y-2">
           <li>Be specific about time periods (e.g., "last month" vs "January 2024")</li>
           <li>Mention categories when asking about expenses or revenue</li>
