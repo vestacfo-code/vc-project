@@ -82,6 +82,14 @@ export default {
 				expense: 'hsl(var(--expense))',
 				profit: 'hsl(var(--profit))',
 				'cash-flow': 'hsl(var(--cash-flow))',
+				/* Vesta CFO marketing kit — see BRAND_KIT.md */
+				vesta: {
+					navy: '#1B3A5C',
+					'navy-muted': '#2E6DA4',
+					gold: '#C8963E',
+					cream: '#F7F4EE',
+					mist: '#D6E8F2',
+				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',

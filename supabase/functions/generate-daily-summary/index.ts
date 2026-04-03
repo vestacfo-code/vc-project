@@ -9,7 +9,8 @@ const corsHeaders = {
 
 const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
 const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
-const anthropicApiKey = Deno.env.get('ANTHROPIC_API_KEY')!;
+const openaiApiKey = Deno.env.get('OPENAI_API_KEY')!;
+// const anthropicApiKey = Deno.env.get('ANTHROPIC_API_KEY')!; // Switch back when ready;
 
 const log = (step: string, details?: any) => {
   const suffix = details ? ` - ${JSON.stringify(details)}` : '';
@@ -134,51 +135,79 @@ function buildFallbackSummary(
   return { headline, body, status: statusLabel, recommendation };
 }
 
-// ─── Claude API call ──────────────────────────────────────────────────────────
+// ─── OpenAI API call ─────────────────────────────────────────────────────────
+// To switch back to Claude: comment this out and uncomment the Claude block below.
 
-async function callClaude(prompt: string): Promise<{
+async function callAI(prompt: string): Promise<{
   headline: string;
   body: string;
   status: string;
   recommendation: string;
   tokensUsed: number;
+  modelUsed: string;
 }> {
-  const response = await fetch('https://api.anthropic.com/v1/messages', {
+  const response = await fetch('https://api.openai.com/v1/chat/completions', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'x-api-key': anthropicApiKey,
-      'anthropic-version': '2023-06-01',
+      'Authorization': `Bearer ${openaiApiKey}`,
     },
     body: JSON.stringify({
-      model: 'claude-sonnet-4-6',
+      model: 'gpt-4o',
       max_tokens: 500,
-      messages: [{ role: 'user', content: prompt }],
+      temperature: 0.3,
+      response_format: { type: 'json_object' },
+      messages: [
+        {
+          role: 'system',
+          content: 'You are an expert hotel CFO AI. Always respond with valid JSON only.',
+        },
+        { role: 'user', content: prompt },
+      ],
     }),
   });
 
   if (!response.ok) {
     const errText = await response.text();
-    throw new Error(`Claude API error ${response.status}: ${errText}`);
+    throw new Error(`OpenAI API error ${response.status}: ${errText}`);
   }
 
   const data = await response.json();
-  const rawContent = data.content[0]?.text ?? '';
-  const tokensUsed = data.usage?.input_tokens + data.usage?.output_tokens ?? 0;
+  const rawContent = data.choices[0]?.message?.content ?? '';
+  const tokensUsed = (data.usage?.prompt_tokens ?? 0) + (data.usage?.completion_tokens ?? 0);
 
-  // Extract JSON from Claude's response
-  const jsonMatch = rawContent.match(/\{[\s\S]*\}/);
-  if (!jsonMatch) throw new Error('No JSON found in Claude response');
-
-  const parsed = JSON.parse(jsonMatch[0]);
+  const parsed = JSON.parse(rawContent);
   return {
     headline: parsed.headline ?? '',
     body: parsed.body ?? '',
     status: parsed.status ?? 'attention_needed',
     recommendation: parsed.recommendation ?? '',
     tokensUsed,
+    modelUsed: 'gpt-4o',
   };
 }
+
+// ─── Claude API call (swap back when ready) ───────────────────────────────────
+// async function callAI(prompt: string) {
+//   const response = await fetch('https://api.anthropic.com/v1/messages', {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json',
+//       'x-api-key': anthropicApiKey,
+//       'anthropic-version': '2023-06-01',
+//     },
+//     body: JSON.stringify({
+//       model: 'claude-sonnet-4-6',
+//       max_tokens: 500,
+//       messages: [{ role: 'user', content: prompt }],
+//     }),
+//   });
+//   const data = await response.json();
+//   const rawContent = data.content[0]?.text ?? '';
+//   const jsonMatch = rawContent.match(/\{[\s\S]*\}/);
+//   const parsed = JSON.parse(jsonMatch![0]);
+//   return { ...parsed, tokensUsed: data.usage?.input_tokens + data.usage?.output_tokens, modelUsed: 'claude-sonnet-4-6' };
+// }
 
 // ─── Main handler ─────────────────────────────────────────────────────────────
 
@@ -365,19 +394,20 @@ Format your response as JSON:
     let status: string;
     let recommendation: string;
     let tokensUsed = 0;
-    let modelUsed = 'claude-sonnet-4-6';
+    let modelUsed = 'gpt-4o';
     let usedFallback = false;
 
     try {
-      const claudeResult = await callClaude(prompt);
-      headline = claudeResult.headline;
-      bodyText = claudeResult.body;
-      status = claudeResult.status;
-      recommendation = claudeResult.recommendation;
-      tokensUsed = claudeResult.tokensUsed;
-      log('Claude call succeeded', { tokensUsed });
-    } catch (claudeErr) {
-      log('Claude call failed, using fallback', { error: String(claudeErr) });
+      const aiResult = await callAI(prompt);
+      headline = aiResult.headline;
+      bodyText = aiResult.body;
+      status = aiResult.status;
+      recommendation = aiResult.recommendation;
+      tokensUsed = aiResult.tokensUsed;
+      modelUsed = aiResult.modelUsed;
+      log('AI call succeeded', { model: modelUsed, tokensUsed });
+    } catch (aiErr) {
+      log('AI call failed, using fallback', { error: String(aiErr) });
       const fallback = buildFallbackSummary(hotel.name, currency, todayRow, revparChange, occupancyChange);
       headline = fallback.headline;
       bodyText = fallback.body;

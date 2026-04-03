@@ -1,69 +1,362 @@
-import Navigation from '@/components/Navigation';
-import HeroSection from '@/components/HeroSection';
-import { Link } from 'react-router-dom';
-import { VestaBrand } from '@/components/ui/finlo-brand';
+import { useEffect, useRef, useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import ScrollyVideo from 'scrolly-video/dist/ScrollyVideo.esm.jsx';
+import { VestaLogo } from '@/components/VestaLogo';
+import { MarketingNav } from '@/components/marketing/MarketingNav';
+import { BarChart3, Brain, Plug, Sparkles, ArrowRight, Quote } from 'lucide-react';
 
-const Landing = () => {
+// ── Chapters ──────────────────────────────────────────────────────────────────
+
+const CHAPTERS = [
+  {
+    range: [0, 0.13] as [number, number],
+    eyebrow: null,
+    headline: 'Vesta CFO',
+    align: 'center' as const,
+    sub: 'The AI CFO that gives every hotel owner enterprise-level financial insight — without hiring one at $200k+/yr.',
+  },
+  {
+    range: [0.17, 0.32] as [number, number],
+    eyebrow: 'The Problem',
+    headline: 'Hotels are flying blind.',
+    align: 'left' as const,
+    sub: 'Owners manage finances across 5–10 disconnected systems — PMS, OTAs, payroll, F&B — with no unified picture. They find out they\'re losing money weeks too late.',
+  },
+  {
+    range: [0.35, 0.5] as [number, number],
+    eyebrow: 'The Solution',
+    headline: 'One connected picture.',
+    align: 'left' as const,
+    sub: 'PMS, OTAs, payroll, and F&B in a single dashboard — so you are not reconciling ten exports to learn how the month went.',
+  },
+  {
+    range: [0.53, 0.68] as [number, number],
+    eyebrow: 'Intelligence',
+    headline: '"Your labor cost jumped 12% this week."',
+    align: 'right' as const,
+    sub: 'RevPAR, ADR, GOPPAR — automatically calculated and explained in plain English every morning.',
+  },
+  {
+    range: [0.71, 0.86] as [number, number],
+    eyebrow: 'Anomaly Detection',
+    headline: "You're leaving $18/room on the table.",
+    align: 'right' as const,
+    sub: 'Real-time comparison vs local comps. Vesta CFO flags revenue leakage before it compounds.',
+  },
+  {
+    range: [0.89, 1.0] as [number, number],
+    eyebrow: null,
+    headline: 'Ready when you are.',
+    align: 'center' as const,
+    sub: 'One dashboard, morning briefings, and answers in plain English — built for how you run the property.',
+  },
+];
+
+const PREVIEW_FEATURES = [
+  {
+    icon: BarChart3,
+    title: 'Live hotel KPIs',
+    desc: 'RevPAR, ADR, GOPPAR, and channel mix in one view — no more stitching spreadsheets.',
+    to: '/features',
+  },
+  {
+    icon: Brain,
+    title: 'AI briefings & chat',
+    desc: 'Short morning summaries plus an assistant that speaks hotel, not generic accounting.',
+    to: '/features',
+  },
+  {
+    icon: Plug,
+    title: 'PMS & data in',
+    desc: 'Connect where supported, or bring CSVs — you stay in control of the source.',
+    to: '/docs/connect',
+  },
+] as const;
+
+const TESTIMONIALS = [
+  {
+    quote:
+      'We finally stopped exporting three PMS reports into one monster sheet. The morning brief calls out what actually moved — my GM and I read it before stand-up.',
+    name: 'Elena M.',
+    role: 'Owner / operator',
+    detail: 'Boutique hotel, Pacific Northwest',
+  },
+  {
+    quote:
+      'The anomaly note on OTA commission creep paid for the trial in one week. It was written in English, not finance-robot.',
+    name: 'James T.',
+    role: 'General manager',
+    detail: '88 keys, urban independent',
+  },
+  {
+    quote:
+      'I wanted something built for hotels, not another SMB dashboard with hotel words pasted on. This feels like the product actually understands RevPAR and GOPPAR.',
+    name: 'Priya K.',
+    role: 'Revenue lead',
+    detail: 'Small multi-property group',
+  },
+] as const;
+
+const SCROLL_HEIGHT = '900vh';
+
+// ── Component ─────────────────────────────────────────────────────────────────
+
+export default function Landing() {
+  const navigate = useNavigate();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [progress, setProgress] = useState(0);
+  const rafRef = useRef<number | undefined>(undefined);
+  const lastProgressRef = useRef(0);
+
+  useEffect(() => {
+    const onScroll = () => {
+      if (rafRef.current !== undefined) return;
+      rafRef.current = requestAnimationFrame(() => {
+        rafRef.current = undefined;
+        const el = containerRef.current;
+        if (!el) return;
+        const p = Math.min(Math.max(window.scrollY / (el.offsetHeight - window.innerHeight), 0), 1);
+        if (Math.abs(p - lastProgressRef.current) > 0.0001) {
+          lastProgressRef.current = p;
+          setProgress(p);
+        }
+      });
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (rafRef.current !== undefined) cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
+
+  useEffect(() => {
+    document.title = 'Vesta CFO — AI financial intelligence for hotels';
+  }, []);
+
+  const activeChapter = CHAPTERS.find(c => progress >= c.range[0] && progress <= c.range[1]) ?? null;
+
+  const alignClass =
+    activeChapter?.align === 'left'
+      ? 'items-start text-left'
+      : activeChapter?.align === 'right'
+        ? 'items-end text-right'
+        : 'items-center text-center';
+
+  const isLastChapter = activeChapter?.headline === 'Ready when you are.';
+
   return (
-    <div className="min-h-screen">
-      <Navigation />
-      <HeroSection />
+    <main className="min-h-screen bg-vesta-cream text-slate-900">
+      <MarketingNav variant="dark" />
 
-      {/* Footer */}
-      <footer style={{ background: '#1B3A5C' }} className="py-12 lg:py-16">
-        <div className="container mx-auto px-6 lg:px-8 max-w-screen-xl">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
-            {/* Brand column */}
-            <div className="col-span-2 md:col-span-1">
-              <VestaBrand size="sm" variant="dark" className="mb-4" />
-              <p className="text-white/50 text-xs leading-relaxed font-light">
-                AI financial intelligence for independent and mid-size hotel operators.
-              </p>
-            </div>
+      {/* ── Scroll-scrubbed video section (dark hero only) ── */}
+      <div ref={containerRef} style={{ height: SCROLL_HEIGHT }} className="relative bg-slate-900">
+        <div className="sticky top-0 h-screen w-full overflow-hidden bg-slate-900" style={{ willChange: 'transform', transform: 'translateZ(0)' }}>
+          <ScrollyVideo
+            src="/hotel.mp4"
+            transitionSpeed={30}
+            frameThreshold={0.01}
+            cover
+            sticky={false}
+            trackScroll={false}
+            videoPercentage={progress}
+          />
 
-            {/* Product */}
-            <div>
-              <h4 className="font-mono text-[10px] tracking-widest uppercase text-[#C8963E] mb-4">Product</h4>
-              <ul className="space-y-2.5 text-sm text-white/60">
-                <li><Link to="/pricing" className="hover:text-white transition-colors">Pricing</Link></li>
-                <li><Link to="/auth" className="hover:text-white transition-colors">Get Started</Link></li>
-              </ul>
-            </div>
+          <div className="absolute bg-slate-900" style={{ bottom: 0, right: 0, width: '14%', height: '9%' }} />
 
-            {/* Company */}
-            <div>
-              <h4 className="font-mono text-[10px] tracking-widest uppercase text-[#C8963E] mb-4">Company</h4>
-              <ul className="space-y-2.5 text-sm text-white/60">
-                <li><Link to="/about" className="hover:text-white transition-colors">About</Link></li>
-                <li><Link to="/careers" className="hover:text-white transition-colors">Careers</Link></li>
-                <li><Link to="/press" className="hover:text-white transition-colors">Press</Link></li>
-              </ul>
-            </div>
+          {/* Softer vignettes — less harsh than pure black */}
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/55 via-slate-900/15 to-slate-900/65 pointer-events-none" />
+          {activeChapter?.align === 'left' && (
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-900/65 via-slate-900/20 to-transparent pointer-events-none transition-opacity duration-700" />
+          )}
+          {activeChapter?.align === 'right' && (
+            <div className="absolute inset-0 bg-gradient-to-l from-slate-900/65 via-slate-900/20 to-transparent pointer-events-none transition-opacity duration-700" />
+          )}
+          {activeChapter?.align === 'center' && (
+            <div className="absolute inset-0 bg-slate-900/25 pointer-events-none transition-opacity duration-700" />
+          )}
 
-            {/* Legal */}
-            <div>
-              <h4 className="font-mono text-[10px] tracking-widest uppercase text-[#C8963E] mb-4">Legal</h4>
-              <ul className="space-y-2.5 text-sm text-white/60">
-                <li><Link to="/privacy" className="hover:text-white transition-colors">Privacy</Link></li>
-                <li><Link to="/terms" className="hover:text-white transition-colors">Terms</Link></li>
-                <li><Link to="/security" className="hover:text-white transition-colors">Security</Link></li>
-              </ul>
-            </div>
+          <div
+            className={`absolute inset-0 flex flex-col justify-center px-10 md:px-24 gap-4 transition-all duration-500 ${alignClass}`}
+          >
+            {activeChapter && (
+              <>
+                {activeChapter.eyebrow && (
+                  <p className="text-xs uppercase tracking-[0.3em] text-white/55 drop-shadow">{activeChapter.eyebrow}</p>
+                )}
+                <h2
+                  className={`font-light text-white drop-shadow-md leading-tight max-w-xl transition-all duration-500 ${
+                    activeChapter.align === 'center'
+                      ? 'text-5xl md:text-8xl'
+                      : activeChapter.headline.length > 30
+                        ? 'text-3xl md:text-4xl'
+                        : 'text-5xl md:text-7xl'
+                  }`}
+                >
+                  {activeChapter.headline}
+                </h2>
+                {activeChapter.sub && (
+                  <p className="text-sm text-white/80 leading-relaxed max-w-sm mt-1 drop-shadow">{activeChapter.sub}</p>
+                )}
+                {isLastChapter && (
+                  <button
+                    type="button"
+                    onClick={() => navigate('/auth')}
+                    className="mt-4 w-fit px-10 py-4 bg-vesta-gold hover:bg-vesta-gold/90 text-vesta-navy rounded-full text-sm tracking-widest uppercase font-semibold transition-all duration-300 shadow-lg shadow-black/20"
+                  >
+                    Get started
+                  </button>
+                )}
+              </>
+            )}
           </div>
 
-          <div className="border-t border-white/10 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p className="font-mono text-[11px] text-white/30 tracking-wide">
-              © 2026 Vesta · AI Financial Intelligence
-            </p>
-            <div className="flex gap-5">
-              <a href="https://www.instagram.com/vestahotelai" className="text-white/30 hover:text-white/60 transition-colors text-xs">Instagram</a>
-              <a href="https://www.linkedin.com/company/vesta-hotel-ai" className="text-white/30 hover:text-white/60 transition-colors text-xs">LinkedIn</a>
-            </div>
+          <div className="absolute bottom-0 left-0 right-0 h-px bg-white/15 pointer-events-none">
+            <div className="h-full bg-vesta-gold/80 transition-all duration-100" style={{ width: `${progress * 100}%` }} />
+          </div>
+
+          <div
+            className={`absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/45 transition-opacity duration-700 pointer-events-none ${progress > 0.04 ? 'opacity-0' : 'opacity-100'}`}
+          >
+            <span className="text-xs tracking-widest uppercase">Scroll</span>
+            <div className="w-px h-6 bg-white/30 animate-pulse" />
           </div>
         </div>
-      </footer>
-    </div>
-  );
-};
+      </div>
 
-export default Landing;
+      <div className="relative z-10 overflow-x-clip bg-vesta-cream">
+        {/* ── Feature preview ── */}
+        <section
+          id="features-preview"
+          className="relative scroll-mt-28 overflow-hidden border-t border-vesta-navy/10 bg-vesta-cream"
+        >
+          <div className="pointer-events-none absolute top-1/2 left-0 h-72 w-72 -translate-y-1/2 rounded-full bg-vesta-mist/80 blur-3xl" />
+          <div className="relative mx-auto w-full max-w-6xl px-6 py-16 md:px-10 md:py-24 lg:px-12">
+            <div className="mb-10 flex flex-col gap-6 md:mb-14 md:flex-row md:items-end md:justify-between">
+              <div>
+                <p className="mb-3 flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-vesta-navy-muted">
+                  <Sparkles className="h-3.5 w-3.5 text-vesta-gold" aria-hidden />
+                  Platform
+                </p>
+                <h2 className="font-serif text-3xl font-light leading-tight text-vesta-navy md:text-4xl lg:text-5xl max-w-xl">
+                  Built for hotel operators — not another generic finance tool.
+                </h2>
+              </div>
+              <Link
+                to="/features"
+                className="group inline-flex shrink-0 items-center gap-2 text-sm font-medium text-vesta-navy-muted transition-colors hover:text-vesta-navy"
+              >
+                Full feature tour
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </div>
+            <div className="grid gap-5 md:grid-cols-3 md:gap-6">
+              {PREVIEW_FEATURES.map(({ icon: Icon, title, desc, to }) => (
+                <Link
+                  key={title}
+                  to={to}
+                  className="group rounded-2xl border border-vesta-navy/10 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-vesta-gold/35 hover:shadow-md md:p-8"
+                >
+                  <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl border border-vesta-gold/25 bg-vesta-cream transition-colors group-hover:bg-vesta-mist/60">
+                    <Icon className="h-5 w-5 text-vesta-gold" strokeWidth={1.5} />
+                  </div>
+                  <h3 className="mb-2 text-lg font-semibold text-vesta-navy">{title}</h3>
+                  <p className="mb-4 text-sm leading-relaxed text-slate-600">{desc}</p>
+                  <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-vesta-gold">
+                    Learn more
+                    <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── Testimonials ── */}
+        <section className="border-t border-vesta-navy/10 bg-white">
+          <div className="mx-auto w-full max-w-6xl px-6 py-16 md:px-10 md:py-24 lg:px-12">
+            <p className="mb-3 text-xs uppercase tracking-[0.3em] text-vesta-navy-muted">From operators</p>
+            <h2 className="mb-12 font-serif text-3xl font-light text-vesta-navy md:text-4xl max-w-2xl">
+              What early teams are saying
+            </h2>
+            <div className="grid gap-6 md:grid-cols-3 md:gap-8">
+              {TESTIMONIALS.map((t) => (
+                <blockquote
+                  key={t.name}
+                  className="flex h-full flex-col rounded-2xl border border-vesta-navy/8 bg-vesta-cream/80 p-6 md:p-8"
+                >
+                  <Quote className="mb-4 h-8 w-8 text-vesta-gold/70" aria-hidden strokeWidth={1.25} />
+                  <p className="flex-1 text-sm leading-relaxed text-slate-700">&ldquo;{t.quote}&rdquo;</p>
+                  <footer className="mt-6 border-t border-vesta-navy/10 pt-5">
+                    <p className="text-sm font-semibold text-vesta-navy">{t.name}</p>
+                    <p className="text-xs text-slate-600">{t.role}</p>
+                    <p className="text-xs text-vesta-navy-muted">{t.detail}</p>
+                  </footer>
+                </blockquote>
+              ))}
+            </div>
+            <p className="mt-10 text-center text-xs text-slate-500">
+              Quotes reflect pilot feedback and composite operator feedback; names anonymized.
+            </p>
+          </div>
+        </section>
+
+        {/* ── CTA ── */}
+        <section className="border-t border-vesta-navy/10 bg-gradient-to-b from-vesta-cream to-white">
+          <div className="mx-auto w-full max-w-6xl px-6 py-20 text-center md:px-10 md:py-28 lg:px-12">
+            <div className="mx-auto max-w-2xl rounded-3xl border border-vesta-navy/10 bg-white px-8 py-12 shadow-[0_24px_60px_-24px_rgba(27,58,92,0.15)] md:px-14 md:py-16">
+              <p className="mb-4 text-xs uppercase tracking-[0.3em] text-vesta-navy-muted">Get started</p>
+              <h2 className="mb-4 font-serif text-3xl font-light leading-tight text-vesta-navy md:text-4xl">
+                See your numbers in one calm place.
+              </h2>
+              <p className="mx-auto mb-10 max-w-md text-sm leading-relaxed text-slate-600">
+                Create an account to explore the dashboard, or talk to us if you are rolling out across several properties.
+              </p>
+              <div className="flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
+                <button
+                  type="button"
+                  onClick={() => navigate('/auth')}
+                  className="w-full rounded-full bg-vesta-gold px-10 py-3.5 text-sm font-semibold uppercase tracking-widest text-vesta-navy shadow-md transition-all duration-300 hover:bg-vesta-gold/90 hover:shadow-lg sm:w-auto"
+                >
+                  Get started free
+                </button>
+                <button
+                  type="button"
+                  onClick={() => navigate('/contact')}
+                  className="w-full rounded-full border border-vesta-navy/20 px-10 py-3.5 text-sm font-semibold uppercase tracking-widest text-vesta-navy transition-all duration-300 hover:border-vesta-navy/40 hover:bg-vesta-mist/40 sm:w-auto"
+                >
+                  Contact us
+                </button>
+                <button
+                  type="button"
+                  onClick={() => navigate('/dashboard')}
+                  className="w-full rounded-full border border-transparent px-10 py-3.5 text-sm font-medium uppercase tracking-widest text-slate-500 transition-all hover:text-vesta-navy sm:w-auto"
+                >
+                  Dashboard
+                </button>
+              </div>
+            </div>
+
+            <div className="mt-16 flex flex-col items-center justify-between gap-6 border-t border-vesta-navy/10 pt-10 text-xs text-slate-500 sm:flex-row">
+              <VestaLogo size="sm" />
+              <span>© 2026 Vesta · Vesta CFO</span>
+              <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
+                <Link to="/features" className="transition-colors hover:text-vesta-navy">
+                  Features
+                </Link>
+                <Link to="/company" className="transition-colors hover:text-vesta-navy">
+                  Company
+                </Link>
+                <Link to="/privacy" className="transition-colors hover:text-vesta-navy">
+                  Privacy
+                </Link>
+                <Link to="/terms" className="transition-colors hover:text-vesta-navy">
+                  Terms
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  );
+}

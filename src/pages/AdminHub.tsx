@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-import { ArrowLeft, FileText, Megaphone, Users, Loader2, LogOut, UserCircle, PhoneCall, GraduationCap, Shield, Calendar, UsersRound, LifeBuoy } from 'lucide-react';
+import { ArrowLeft, FileText, Megaphone, Users, Loader2, LogOut, UserCircle, PhoneCall, GraduationCap, Shield, Calendar, UsersRound, LifeBuoy, Handshake } from 'lucide-react';
 import { Link, Navigate } from 'react-router-dom';
 import { CareersAdminSection } from '@/components/admin/CareersAdminSection';
 import { BlogAdminSection } from '@/components/admin/BlogAdminSection';
@@ -17,6 +17,7 @@ import TrainingSection from '@/components/admin/training/TrainingSection';
 import { ContentCalendarSection } from '@/components/admin/ContentCalendarSection';
 import { ConsumerManagementSection } from '@/components/admin/ConsumerManagementSection';
 import { SupportAdminSection } from '@/components/admin/SupportAdminSection';
+import { PartnersAdminSection } from '@/components/admin/PartnersAdminSection';
 import { useAuth } from '@/hooks/useAuth';
 import { usePermissions } from '@/hooks/usePermissions';
 
@@ -76,6 +77,9 @@ const AdminHub = () => {
    const hasSupportAccess = () => {
      return isSuperAdmin || userRoles.some(r => ['admin', 'super_admin', 'staff'].includes(r));
    };
+
+  const hasPartnersAdminAccess = () =>
+    userRoles.some((r) => ['admin', 'super_admin'].includes(r));
 
   useEffect(() => {
     checkAdminAccess();
@@ -272,7 +276,8 @@ const AdminHub = () => {
           hasPressAccess() ? 'press' :
           hasContentCalendarAccess() ? 'content' :
           hasTrainingAccess() ? 'training' :
-          hasCRMAccess() ? 'crm' : 'careers'
+          hasCRMAccess() ? 'crm' :
+          hasPartnersAdminAccess() ? 'partners' : 'careers'
          } className="space-y-4">
           {/* Tab Navigation */}
            <TabsList className="flex w-full sm:w-auto sm:inline-flex sm:mx-auto h-auto items-center rounded-lg bg-white/5 border border-white/10 p-1 gap-0.5 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
@@ -337,6 +342,15 @@ const AdminHub = () => {
               >
                 <PhoneCall className="h-4 w-4" />
                  <span>CRM</span>
+              </TabsTrigger>
+            )}
+            {hasPartnersAdminAccess() && (
+              <TabsTrigger
+                value="partners"
+                className="inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-md px-2.5 py-1.5 text-xs font-medium transition-all text-slate-400 data-[state=active]:bg-white/10 data-[state=active]:text-white shrink-0"
+              >
+                <Handshake className="h-4 w-4" />
+                <span>Partners</span>
               </TabsTrigger>
             )}
             {isSuperAdmin && (
@@ -424,6 +438,12 @@ const AdminHub = () => {
                   isSuperAdmin={isSuperAdmin}
                   userRoles={userRoles}
                 />
+            </TabsContent>
+          )}
+
+          {hasPartnersAdminAccess() && (
+            <TabsContent value="partners" className="mt-0">
+              <PartnersAdminSection />
             </TabsContent>
           )}
 

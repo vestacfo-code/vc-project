@@ -25,7 +25,7 @@ interface Anomaly {
   deviation_pct: number | null;
   severity: Severity;
   message: string;
-  is_resolved: boolean;
+  resolved: boolean;
 }
 
 const SEVERITY_CONFIG: Record<Severity, { label: string; className: string; icon: React.ReactNode }> = {
@@ -64,7 +64,7 @@ const AnomalyFeed: React.FC<AnomalyFeedProps> = ({ hotelId }) => {
         .from('anomalies')
         .select('*')
         .eq('hotel_id', hotelId)
-        .eq('is_resolved', false)
+        .eq('resolved', false)
         .gte('date', sevenDaysAgo)
         .order('date', { ascending: false });
 
@@ -82,7 +82,7 @@ const AnomalyFeed: React.FC<AnomalyFeedProps> = ({ hotelId }) => {
     mutationFn: async (anomalyId: string) => {
       const { error } = await supabase
         .from('anomalies')
-        .update({ is_resolved: true })
+        .update({ resolved: true })
         .eq('id', anomalyId);
       if (error) throw error;
     },
@@ -96,30 +96,30 @@ const AnomalyFeed: React.FC<AnomalyFeedProps> = ({ hotelId }) => {
   });
 
   return (
-    <Card className="bg-gray-800/50 border border-gray-700 h-full">
+    <Card className="bg-slate-900/50 border border-slate-700/80 backdrop-blur-sm h-full shadow-lg shadow-black/15">
       <CardHeader className="pb-3">
         <CardTitle className="text-base font-semibold text-white flex items-center gap-2">
           <AlertTriangle className="h-4 w-4 text-yellow-400" />
           Recent Anomalies
         </CardTitle>
-        <p className="text-xs text-gray-500">Last 7 days — unresolved</p>
+        <p className="text-xs text-slate-500">Last 7 days — unresolved</p>
       </CardHeader>
       <CardContent className="px-4 pb-4">
         {isLoading ? (
           <div className="space-y-3">
             {[1, 2, 3].map((i) => (
               <div key={i} className="space-y-2 py-2">
-                <Skeleton className="h-4 w-20 bg-gray-700" />
-                <Skeleton className="h-4 w-full bg-gray-700" />
-                <Skeleton className="h-3 w-24 bg-gray-700" />
+                <Skeleton className="h-4 w-20 bg-slate-700" />
+                <Skeleton className="h-4 w-full bg-slate-700" />
+                <Skeleton className="h-3 w-24 bg-slate-700" />
               </div>
             ))}
           </div>
         ) : !anomalies || anomalies.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-8 text-center">
             <ShieldCheck className="h-8 w-8 text-emerald-500 mb-3" />
-            <p className="text-sm text-gray-300 font-medium">All clear!</p>
-            <p className="text-xs text-gray-500 mt-1">
+            <p className="text-sm text-slate-300 font-medium">All clear!</p>
+            <p className="text-xs text-slate-500 mt-1">
               No anomalies detected — your metrics look healthy
             </p>
           </div>
@@ -130,7 +130,7 @@ const AnomalyFeed: React.FC<AnomalyFeedProps> = ({ hotelId }) => {
               return (
                 <div
                   key={anomaly.id}
-                  className="rounded-lg border border-gray-700 bg-gray-900/50 p-3"
+                  className="rounded-lg border border-slate-700 bg-slate-900/50 p-3"
                 >
                   <div className="flex items-start justify-between gap-2 mb-1.5">
                     <Badge
@@ -139,18 +139,18 @@ const AnomalyFeed: React.FC<AnomalyFeedProps> = ({ hotelId }) => {
                       {severityCfg.icon}
                       {severityCfg.label}
                     </Badge>
-                    <span className="text-xs text-gray-500 shrink-0">
+                    <span className="text-xs text-slate-500 shrink-0">
                       {format(new Date(anomaly.date + 'T00:00:00'), 'MMM d')}
                     </span>
                   </div>
-                  <p className="text-xs font-semibold text-gray-200 mb-1 capitalize">
+                  <p className="text-xs font-semibold text-slate-200 mb-1 capitalize">
                     {anomaly.metric_name.replace(/_/g, ' ')}
                   </p>
-                  <p className="text-xs text-gray-400 leading-relaxed mb-2">{anomaly.message}</p>
+                  <p className="text-xs text-slate-400 leading-relaxed mb-2">{anomaly.message}</p>
                   <Button
                     size="sm"
                     variant="ghost"
-                    className="h-6 px-2 text-xs text-gray-400 hover:text-emerald-400 hover:bg-emerald-500/10"
+                    className="h-6 px-2 text-xs text-slate-400 hover:text-emerald-400 hover:bg-emerald-500/10"
                     onClick={() => resolveMutation.mutate(anomaly.id)}
                     disabled={resolveMutation.isPending}
                   >

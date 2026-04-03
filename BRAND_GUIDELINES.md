@@ -5,10 +5,10 @@
 Vesta is an AI-powered financial intelligence platform that transforms complex financial data into clear, actionable insights. Our brand reflects **trust, sophistication, and accessibility** — making CFO-level financial analysis available to every business owner.
 
 ### Brand Personality
-- **Professional yet Approachable**: Enterprise-grade insights without enterprise complexity
-- **Data-Driven**: Powered by AI, grounded in real financial intelligence
-- **Empowering**: Democratizing financial expertise for founders and business owners
-- **Modern**: Cutting-edge technology with timeless design principles
+- **Professional yet Approachable**: Enterprise-grade insights without enterprise complexity.
+- **Data-Driven**: Powered by AI, grounded in real financial intelligence.
+- **Empowering**: Democratizing financial expertise for founders and business owners.
+- **Modern**: Cutting-edge technology with timeless design principles.
 
 ---
 

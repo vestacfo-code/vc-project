@@ -121,7 +121,7 @@ export default function ConsumerJoin() {
         title: 'Payment successful!',
         description: 'Your account is now fully activated.',
       });
-      navigate('/chat');
+      navigate('/app');
     } else if (paymentStatus === 'cancelled') {
       toast({
         title: 'Payment cancelled',
@@ -206,7 +206,7 @@ export default function ConsumerJoin() {
             email: invite.email,
             features: featuresArray,
             monthlyCredits: invite.monthly_credits,
-            successUrl: getRedirectUrl('/chat?payment=success'),
+            successUrl: getRedirectUrl('/app?payment=success'),
             cancelUrl: getRedirectUrl(`/join/${slug}?payment=cancelled`),
           },
         }
@@ -339,7 +339,7 @@ export default function ConsumerJoin() {
               email: invite.email,
               features: featuresArray,
               monthlyCredits: invite.monthly_credits,
-              successUrl: getRedirectUrl('/chat?payment=success'),
+              successUrl: getRedirectUrl('/app?payment=success'),
               cancelUrl: getRedirectUrl(`/join/${slug}?payment=cancelled`),
             },
           }
@@ -367,7 +367,7 @@ export default function ConsumerJoin() {
           .update({ status: 'used' })
           .eq('id', invite.id);
 
-        setTimeout(() => navigate('/chat'), 1500);
+        setTimeout(() => navigate('/app'), 1500);
       }
     } catch (err: any) {
       console.error('Error creating account:', err);

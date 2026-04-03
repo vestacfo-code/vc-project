@@ -1,0 +1,2 @@
+[functions.quickbooks-hotel-sync]
+verify_jwt = false

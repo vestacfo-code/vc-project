@@ -4,7 +4,6 @@ import { Textarea } from '@/components/ui/textarea';
 import { Loader2, Send, Building2, Sparkles, ChevronDown, Mic, Plus, Link, Square, Copy, Check, ThumbsUp, ThumbsDown, CornerDownRight, Download, MoreHorizontal, Globe, ExternalLink } from 'lucide-react';
 import { useQuickBooksIntegration } from '@/hooks/useQuickBooksIntegration';
 import { useQuickBooksChat } from '@/hooks/useQuickBooksChat';
-import { VestaBrand } from '@/components/ui/finlo-brand';
 import ReactMarkdown from 'react-markdown';
 import remarkMath from 'remark-math';
 import remarkGfm from 'remark-gfm';
@@ -18,7 +17,6 @@ import { ThinkingIndicator } from '@/components/ThinkingIndicator';
 import { ModelSelector, getModelById } from '@/components/chat/ModelSelector';
 import { AgentProgressIndicator } from '@/components/chat/AgentProgressIndicator';
 import { DeepResearchProgress } from '@/components/chat/DeepResearchProgress';
-import { IntegrationWalkthrough } from '@/components/IntegrationWalkthrough';
 import SettingsModal from '@/components/SettingsModal';
 import { FileUploadButton } from '@/components/chat/FileUploadButton';
 import { VoiceInputButton } from '@/components/chat/VoiceInputButton';
@@ -31,12 +29,14 @@ import { ReferenceTag } from '@/components/chat/ReferenceTag';
 import { useCreditGuard } from '@/hooks/useCreditGuard';
 import { useSettings } from '@/contexts/SettingsContext';
 import { useToast } from '@/hooks/use-toast';
-import { usePortalAnimation } from '@/contexts/PortalAnimationContext';
+import { VestaLogo } from '@/components/VestaLogo';
 import { useConsumerFeatures } from '@/hooks/useConsumerFeatures';
 import { useAgentChat } from '@/hooks/useAgentChat';
 
 interface IntegrationChatProps {
   conversationId?: string;
+  /** `hotel` = inside HotelLayout; Vesta CFO chrome, matches dashboard shell. */
+  variant?: 'default' | 'hotel';
 }
 
 /* Strip inline citation brackets like [1](url), 【6†source】, [^1], etc. from AI text */
@@ -230,12 +230,13 @@ const FollowUpSuggestions = ({
   );
 };
 
-const IntegrationChat = ({ conversationId }: IntegrationChatProps) => {
+const IntegrationChat = ({ conversationId, variant = 'default' }: IntegrationChatProps) => {
   const { user } = useAuth();
-  const { isActive: portalAnimationActive } = usePortalAnimation();
-  const { integration, loading: integrationLoading, refreshAfterOAuth } = useQuickBooksIntegration();
+  const { refreshAfterOAuth } = useQuickBooksIntegration();
   const { checkAndUseCredits, canUseCredits } = useCreditGuard();
   const { settings } = useSettings();
+  const isHotelShell = variant === 'hotel';
+  const dark = isHotelShell ? true : settings.chatDarkMode;
   const { toast } = useToast();
   const { hasFeature, getEnabledFeatures, isCustomSolution } = useConsumerFeatures();
   const { 
@@ -258,8 +259,6 @@ const IntegrationChat = ({ conversationId }: IntegrationChatProps) => {
   } = useQuickBooksChat(conversationId);
   const [input, setInput] = useState('');
   const [selectedModel, setSelectedModel] = useState('auto');
-  const [showWalkthrough, setShowWalkthrough] = useState(false);
-  const [walkthroughReady, setWalkthroughReady] = useState(false); // Prevent flash
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [settingsDefaultTab, setSettingsDefaultTab] = useState<string>('general');
   const [isUploading, setIsUploading] = useState(false);
@@ -270,12 +269,6 @@ const IntegrationChat = ({ conversationId }: IntegrationChatProps) => {
   const [mentionDropdownPosition, setMentionDropdownPosition] = useState({ top: 0, left: 0 });
   const [isTransitioningToChat, setIsTransitioningToChat] = useState(false);
   const [skipIntegrationOnboarding, setSkipIntegrationOnboarding] = useState<boolean | null>(null); // null = not yet loaded
-  const [isDemoMode, setIsDemoMode] = useState(() => 
-    sessionStorage.getItem('walkthrough_dismissed') === 'true'
-  );
-  // Initial loading state - don't show walkthrough until we've checked everything
-  const [initialLoadComplete, setInitialLoadComplete] = useState(false);
-  const initialLoadCompletedRef = useRef(false);
   const [aiFollowUpsByMessageId, setAiFollowUpsByMessageId] = useState<Record<string, string[]>>({});
   const [loadingFollowUpsFor, setLoadingFollowUpsFor] = useState<string | null>(null);
   
@@ -355,7 +348,7 @@ const IntegrationChat = ({ conversationId }: IntegrationChatProps) => {
     };
   }, [user]);
 
-  // Check for skip_integration_onboarding flag - must complete before showing walkthrough
+  // Check for skip_integration_onboarding (custom solutions / admin skip)
   useEffect(() => {
     const checkSkipFlag = async () => {
       if (!user) {
@@ -372,66 +365,18 @@ const IntegrationChat = ({ conversationId }: IntegrationChatProps) => {
     checkSkipFlag();
   }, [user]);
 
-  // Listen for demo mode changes (reactive state sync)
-  useEffect(() => {
-    const handleDemoModeChange = () => {
-      setIsDemoMode(sessionStorage.getItem('walkthrough_dismissed') === 'true');
-    };
-    
-    window.addEventListener('demoModeChanged', handleDemoModeChange);
-    return () => window.removeEventListener('demoModeChanged', handleDemoModeChange);
-  }, []);
-
-  // Mark initial load complete after we've checked all conditions
-  // This prevents the walkthrough from flashing during the initial render
-  useEffect(() => {
-    // Once initial load is complete, never reset it — prevents flashing
-    if (initialLoadCompletedRef.current) return;
-    
-    // Only mark as complete when all async checks are done, including skip flag
-    if (!integrationLoading && user && !portalAnimationActive && skipIntegrationOnboarding !== null) {
-      const timer = setTimeout(() => {
-        initialLoadCompletedRef.current = true;
-        setInitialLoadComplete(true);
-      }, 300);
-      return () => clearTimeout(timer);
-    }
-  }, [integrationLoading, user, portalAnimationActive, skipIntegrationOnboarding]);
-
-  // Show persistent walkthrough when no integration (after loading completes)
-  // IMPORTANT: Wait for portal animation AND initial load to complete before showing walkthrough
-  useEffect(() => {
-    // Don't show walkthrough until initial load is complete (prevents flash)
-    if (!initialLoadComplete) {
-      setShowWalkthrough(false);
-      return;
-    }
-    
-    // Don't show walkthrough while portal animation is playing
-    if (portalAnimationActive) {
-      setShowWalkthrough(false);
-      return;
-    }
-    
-    // Hide walkthrough when settings modal is open
-    if (settingsOpen) {
-      setShowWalkthrough(false);
-      return;
-    }
-    
-    // Show walkthrough only if:
-    // - No integration connected AND
-    // - Not admin-skipped AND
-    // - Not in demo mode
-    if (!integration && !skipIntegrationOnboarding && !isDemoMode) {
-      setShowWalkthrough(true);
-    } else {
-      setShowWalkthrough(false);
-    }
-  }, [integration, integrationLoading, settingsOpen, skipIntegrationOnboarding, portalAnimationActive, isDemoMode, initialLoadComplete]);
-
   // Generate contextual questions based on enabled features
   const cfoQuestions = useMemo(() => {
+    if (isHotelShell) {
+      return [
+        'What moved RevPAR and ADR this week?',
+        'How does occupancy compare to the last few weeks?',
+        'What do our channel mix and GOPPAR suggest?',
+        'Any labor or F&B cost lines worth a closer look?',
+        'Summarize what I should bring to owner stand-up.',
+        'Where might we be leaving rate or upsell on the table?',
+      ];
+    }
     const enabledFeatures = getEnabledFeatures();
     
     // If this is a custom solution user with skip_integration_onboarding, show feature-specific questions
@@ -501,7 +446,7 @@ const IntegrationChat = ({ conversationId }: IntegrationChatProps) => {
       "Are we on track to meet our financial goals?", 
       "What trends do you see in our business performance?"
     ];
-  }, [skipIntegrationOnboarding, isCustomSolution, hasFeature, getEnabledFeatures]);
+  }, [isHotelShell, skipIntegrationOnboarding, isCustomSolution, hasFeature, getEnabledFeatures]);
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
@@ -804,31 +749,10 @@ const IntegrationChat = ({ conversationId }: IntegrationChatProps) => {
     }
   };
 
-  const handleWalkthroughComplete = () => {
-    // Open settings to connect integration
-    setSettingsOpen(true);
-    setShowWalkthrough(false);
-  };
-
-  const handleWalkthroughSkip = () => {
-    // Only allow skip if user already has dismissed it before
-    // Otherwise, walkthrough will persist until integration is connected
-    setShowWalkthrough(false);
-  };
-
-  const handleConnectClick = () => {
-    setSettingsOpen(true);
-    setSettingsDefaultTab('connectors');
-  };
-
   const handleSettingsChange = async (open: boolean) => {
     setSettingsOpen(open);
     if (!open) {
-      // When settings closes, refresh integration status
       await refreshAfterOAuth();
-      
-      // Check integration status AFTER refresh to determine walkthrough state
-      // The useEffect will handle showing/hiding based on the updated integration state
     }
   };
 
@@ -845,46 +769,63 @@ const IntegrationChat = ({ conversationId }: IntegrationChatProps) => {
   };
 
   return (
-    <div className={`flex-1 flex flex-col h-full ${settings.chatDarkMode ? 'bg-[#0a0a0a] text-white' : 'bg-white text-zinc-900'} overflow-hidden`}>
-      <IntegrationWalkthrough
-        isActive={showWalkthrough}
-        onComplete={handleWalkthroughComplete}
-        onSkip={handleWalkthroughSkip}
-        onConnectClick={handleConnectClick}
-        startFromStep={1}
-        persistent={!integration}
-      />
-      
+    <div
+      className={`flex flex-col overflow-hidden ${isHotelShell ? 'flex-1 min-h-0 h-full' : 'flex-1 h-full'} ${dark ? 'bg-slate-950 text-white' : 'bg-white text-zinc-900'}`}
+    >
+      {isHotelShell && (
+        <header className="shrink-0 flex items-center gap-3 px-4 sm:px-6 py-3 border-b border-slate-800 bg-slate-900/90">
+          <span className="w-1 self-stretch min-h-[2.25rem] rounded-full bg-amber-500 shrink-0" aria-hidden />
+          <VestaLogo size="sm" />
+          <div className="min-w-0 flex-1">
+            <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-violet-300/90">Vesta CFO</p>
+            <h1 className="text-sm font-semibold text-white tracking-tight">Assistant</h1>
+          </div>
+          <p className="hidden md:block text-xs text-slate-500 max-w-xs text-right leading-snug">
+            Plain-language answers over your metrics, uploads, and connected data.
+          </p>
+        </header>
+      )}
       <SettingsModal open={settingsOpen} onOpenChange={handleSettingsChange} defaultTab={settingsDefaultTab} />
       {/* Messages Area */}
-      <div ref={scrollContainerRef} className="flex-1 overflow-y-auto scrollbar-hide relative">
+      <div ref={scrollContainerRef} className="flex-1 min-h-0 overflow-y-auto scrollbar-hide relative">
        {showWelcomeScreen ? (
           /* Welcome Screen */
           (() => {
-            const dark = settings.chatDarkMode;
             return (
           <div className="flex flex-col items-center justify-center h-full px-4 md:px-8 pb-16 animate-fade-in">
-            <div className="text-center mb-6 md:mb-10">
-              <h2 className="text-3xl md:text-[2.6rem] font-light min-h-[2.5rem] md:min-h-[3.5rem] tracking-tight leading-tight">
-                <TypingAnimation messages={cfoQuestions} className={dark ? "text-zinc-400" : "text-zinc-500"} />
-              </h2>
+            <div className="text-center mb-6 md:mb-10 max-w-xl">
+              {isHotelShell ? (
+                <>
+                  <p className="text-xs text-slate-500 mb-3 font-medium">Start with a question</p>
+                  <h2 className="font-serif text-2xl sm:text-3xl text-slate-100 leading-snug mb-4">
+                    What should we look at first?
+                  </h2>
+                  <div className="rounded-xl border border-slate-800 bg-slate-900/50 px-4 py-3">
+                    <TypingAnimation messages={cfoQuestions} className="text-slate-400 text-base md:text-lg" />
+                  </div>
+                </>
+              ) : (
+                <h2 className="text-3xl md:text-[2.6rem] font-light min-h-[2.5rem] md:min-h-[3.5rem] tracking-tight leading-tight">
+                  <TypingAnimation messages={cfoQuestions} className={dark ? 'text-zinc-400' : 'text-zinc-500'} />
+                </h2>
+              )}
             </div>
 
             {/* Input Area - Centered */}
             <div className="w-full max-w-2xl px-2 md:px-0">
-              <div className={`relative rounded-xl transition-all duration-200 ${dark ? 'bg-[#1a1a1a] border border-[#2a2a2a]' : 'bg-white/80 backdrop-blur-sm border border-zinc-200/60 shadow-xl'}`}>
+              <div className={`relative rounded-xl transition-all duration-200 ${dark ? 'bg-slate-900 border border-slate-800' : 'bg-white/80 backdrop-blur-sm border border-zinc-200/60 shadow-xl'}`}>
                 {/* Attached & Pending Documents */}
                 {(attachedDocuments.length > 0 || pendingDocuments.length > 0) && (
                   <div className={`px-6 pt-4 pb-2 flex flex-wrap gap-2`}>
                     {attachedDocuments.map((doc) => (
                       <div 
                         key={doc.id}
-                        className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm ${dark ? 'bg-purple-950/40 border border-purple-800/50' : 'bg-purple-50 border border-purple-200'}`}
+                        className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm ${dark ? 'bg-amber-950/30 border border-amber-900/40' : 'bg-amber-50 border border-amber-200/80'}`}
                       >
-                        <span className={dark ? 'text-purple-300' : 'text-purple-700'}>📎 {doc.fileName}</span>
+                        <span className={dark ? 'text-amber-200' : 'text-amber-900'}>📎 {doc.fileName}</span>
                         <button
                           onClick={() => removeDocument(doc.id)}
-                          className={`transition-colors ${dark ? 'text-purple-500 hover:text-purple-300' : 'text-purple-400 hover:text-purple-600'}`}
+                          className={`transition-colors ${dark ? 'text-amber-500/80 hover:text-amber-300' : 'text-amber-700/70 hover:text-amber-900'}`}
                         >
                           ×
                         </button>
@@ -893,12 +834,12 @@ const IntegrationChat = ({ conversationId }: IntegrationChatProps) => {
                     {pendingDocuments.map((doc) => (
                       <div 
                         key={doc.id}
-                        className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm ${dark ? 'bg-purple-950/40 border border-purple-800/50' : 'bg-purple-50 border border-purple-200'}`}
+                        className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm ${dark ? 'bg-amber-950/30 border border-amber-900/40' : 'bg-amber-50 border border-amber-200/80'}`}
                       >
-                        <span className={dark ? 'text-purple-300' : 'text-purple-700'}>📎 {doc.fileName}</span>
+                        <span className={dark ? 'text-amber-200' : 'text-amber-900'}>📎 {doc.fileName}</span>
                         <button
                           onClick={() => setPendingDocuments(prev => prev.filter(d => d.id !== doc.id))}
-                          className={`transition-colors ${dark ? 'text-purple-500 hover:text-purple-300' : 'text-purple-400 hover:text-purple-600'}`}
+                          className={`transition-colors ${dark ? 'text-amber-500/80 hover:text-amber-300' : 'text-amber-700/70 hover:text-amber-900'}`}
                         >
                           ×
                         </button>
@@ -909,7 +850,7 @@ const IntegrationChat = ({ conversationId }: IntegrationChatProps) => {
                 
                 {/* Reference Tags */}
                 {addedReferences.length > 0 && (
-                  <div className={`px-6 pt-4 pb-2 flex flex-wrap gap-2 border-b ${dark ? 'border-[#2a2a2a]' : 'border-zinc-100'}`}>
+                  <div className={`px-6 pt-4 pb-2 flex flex-wrap gap-2 border-b ${dark ? 'border-slate-800' : 'border-zinc-100'}`}>
                     {addedReferences.map((ref) => (
                       <ReferenceTag 
                         key={ref.id} 
@@ -967,7 +908,7 @@ const IntegrationChat = ({ conversationId }: IntegrationChatProps) => {
                           setIsStreaming(false);
                         }}
                         size="sm" 
-                        className={`h-8 w-8 p-0 rounded-full border-0 ${dark ? 'bg-[#2a2a2a] hover:bg-[#333] text-zinc-400' : 'bg-zinc-900 hover:bg-zinc-800 text-white'}`}
+                        className={`h-8 w-8 p-0 rounded-full border-0 ${dark ? 'bg-slate-800 hover:bg-slate-700 text-slate-300' : 'bg-zinc-900 hover:bg-zinc-800 text-white'}`}
                       >
                         <Square className="w-3.5 h-3.5" />
                       </Button>
@@ -976,7 +917,7 @@ const IntegrationChat = ({ conversationId }: IntegrationChatProps) => {
                         onClick={handleSendMessage}
                         disabled={!input.trim() || loading || agentState.isRunning}
                         size="sm" 
-                        className={`h-8 w-8 p-0 rounded-full disabled:opacity-30 border-0 ${dark ? 'bg-[#2a2a2a] hover:bg-[#333] text-zinc-400' : 'bg-zinc-900 hover:bg-zinc-800 text-white'}`}
+                        className={`h-8 w-8 p-0 rounded-full disabled:opacity-30 border-0 ${dark ? 'bg-amber-600 hover:bg-amber-500 text-white' : 'bg-zinc-900 hover:bg-zinc-800 text-white'}`}
                       >
                         {(loading || agentState.isRunning) ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
                       </Button>
@@ -992,20 +933,19 @@ const IntegrationChat = ({ conversationId }: IntegrationChatProps) => {
           /* Chat Messages */
          <div className="max-w-2xl mx-auto px-3 md:px-4 py-4 md:py-8 animate-fade-in">
             {messages.map((message, index) => {
-              const dark = settings.chatDarkMode;
               return (
               <div key={message.id} className={message.role === 'user' ? 'mb-6' : 'mb-8'}>
                 {message.role === 'user' ? (
                   /* Right-aligned user bubble, no avatar — inline-block so it shrink-wraps */
                   <div className="flex justify-end">
-                    <div data-message-id={message.id} data-message-role="user" className={`inline-block rounded-2xl px-4 py-2 text-sm ${dark ? 'bg-[#2a2a2a] text-white' : 'bg-zinc-100 text-zinc-900'}`}>
+                    <div data-message-id={message.id} data-message-role="user" className={`inline-block rounded-2xl px-4 py-2 text-sm ${dark ? 'bg-slate-800 text-white border border-slate-700/80' : 'bg-zinc-100 text-zinc-900'}`}>
                       {message.content}
                     </div>
                   </div>
                 ) : (
                   /* AI response — no avatar, full width */
                   <div>
-                    <div className={`prose prose-sm max-w-none leading-relaxed font-serif [&>p]:mb-4 [&>h2]:mt-6 [&>h2]:mb-3 [&>h2]:text-base [&>h2]:font-semibold [&>h3]:mt-4 [&>h3]:mb-2 [&>h3]:text-sm [&>h3]:font-semibold [&_ul]:mb-4 [&_ol]:mb-4 [&_ul]:space-y-2 [&_ol]:space-y-2 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:pl-1 [&>table]:mb-4 [&>table]:mt-2 ${dark ? 'text-zinc-200 prose-headings:text-white prose-strong:text-zinc-100 prose-code:text-zinc-300 prose-a:text-blue-400' : 'text-zinc-900'}`}>
+                    <div className={`prose prose-sm max-w-none leading-relaxed font-serif [&>p]:mb-4 [&>h2]:mt-6 [&>h2]:mb-3 [&>h2]:text-base [&>h2]:font-semibold [&>h3]:mt-4 [&>h3]:mb-2 [&>h3]:text-sm [&>h3]:font-semibold [&_ul]:mb-4 [&_ol]:mb-4 [&_ul]:space-y-2 [&_ol]:space-y-2 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:pl-1 [&>table]:mb-4 [&>table]:mt-2 ${dark ? 'text-slate-200 prose-headings:text-white prose-strong:text-slate-100 prose-code:text-violet-200/90 prose-a:text-violet-400' : 'text-zinc-900'}`}>
                       {message.role === 'assistant' && isStreaming && index === messages.length - 1 ? (
                         <TypewriterText 
                           text={message.sources?.length ? stripInlineCitations(message.content) : message.content} 
@@ -1031,7 +971,8 @@ const IntegrationChat = ({ conversationId }: IntegrationChatProps) => {
                   </div>
                 )}
                </div>
-            );})}
+            );
+            })}
             
             {/* Thinking / Agent Progress Animation */}
             {(isWaitingForResponse || deepResearchStatus?.isPolling) && (
@@ -1050,7 +991,7 @@ const IntegrationChat = ({ conversationId }: IntegrationChatProps) => {
                   <DeepResearchProgress
                     elapsedSeconds={deepResearchStatus.elapsedSeconds}
                     statusMessage={deepResearchStatus.statusMessage}
-                    dark={settings.chatDarkMode}
+                    dark={dark}
                   />
                 ) : (
                   <ThinkingIndicator />
@@ -1063,27 +1004,26 @@ const IntegrationChat = ({ conversationId }: IntegrationChatProps) => {
         
       </div>
 
-      {/* Input Area for Chat Mode - Two-row Perplexity style */}
+      {/* Input area (conversation mode) */}
       {!showWelcomeScreen && (
         (() => {
-          const dark = settings.chatDarkMode;
           return (
-        <div className={`relative ${dark ? 'bg-[#0a0a0a]' : 'bg-white'}`}>
-          <div className={`px-3 md:px-4 pb-3 md:pb-4 ${dark ? 'bg-[#0a0a0a]' : 'bg-white'}`} style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}>
+        <div className={`relative shrink-0 ${dark ? 'bg-slate-950' : 'bg-white'} ${isHotelShell ? 'border-t border-slate-800' : ''}`}>
+          <div className={`px-3 md:px-4 pb-3 md:pb-4 ${dark ? 'bg-slate-950' : 'bg-white'}`} style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}>
           <div className="max-w-2xl mx-auto">
-            <div className={`relative rounded-2xl transition-all duration-200 ${dark ? 'bg-[#1a1a1a] border border-[#2a2a2a] shadow-lg' : 'bg-white ring-1 ring-zinc-200 shadow-xl'}`}>
+            <div className={`relative rounded-2xl transition-all duration-200 ${dark ? 'bg-slate-900 border border-slate-800 shadow-lg' : 'bg-white ring-1 ring-zinc-200 shadow-xl'}`}>
               {/* Attached Documents */}
               {attachedDocuments.length > 0 && (
                 <div className={`px-4 pt-3 pb-2 flex flex-wrap gap-2`}>
                   {attachedDocuments.map((doc) => (
                     <div 
                       key={doc.id}
-                      className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm ${dark ? 'bg-purple-950/40 border border-purple-800/50' : 'bg-purple-50 border border-purple-200'}`}
+                      className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm ${dark ? 'bg-amber-950/30 border border-amber-900/40' : 'bg-amber-50 border border-amber-200/80'}`}
                     >
-                      <span className={dark ? 'text-purple-300' : 'text-purple-700'}>📎 {doc.fileName}</span>
+                      <span className={dark ? 'text-amber-200' : 'text-amber-900'}>📎 {doc.fileName}</span>
                       <button
                         onClick={() => removeDocument(doc.id)}
-                        className={`transition-colors ${dark ? 'text-purple-500 hover:text-purple-300' : 'text-purple-400 hover:text-purple-600'}`}
+                        className={`transition-colors ${dark ? 'text-amber-500/80 hover:text-amber-300' : 'text-amber-700/70 hover:text-amber-900'}`}
                       >
                         ×
                       </button>
@@ -1094,7 +1034,7 @@ const IntegrationChat = ({ conversationId }: IntegrationChatProps) => {
               
               {/* Reference Tags */}
               {addedReferences.length > 0 && (
-                <div className={`px-4 pt-3 pb-2 flex flex-wrap gap-2 border-b ${dark ? 'border-[#2a2a2a]' : 'border-gray-100'}`}>
+                <div className={`px-4 pt-3 pb-2 flex flex-wrap gap-2 border-b ${dark ? 'border-slate-800' : 'border-zinc-100'}`}>
                   {addedReferences.map((ref) => (
                     <ReferenceTag 
                       key={ref.id} 
@@ -1147,7 +1087,7 @@ const IntegrationChat = ({ conversationId }: IntegrationChatProps) => {
                     <Button 
                       onClick={() => { setLoading(false); setIsStreaming(false); }}
                       size="sm" 
-                      className={`h-8 w-8 p-0 rounded-full border-0 ${dark ? 'bg-[#2a2a2a] hover:bg-[#333] text-zinc-400' : 'bg-zinc-900 hover:bg-zinc-800 text-white'}`}
+                      className={`h-8 w-8 p-0 rounded-full border-0 ${dark ? 'bg-slate-800 hover:bg-slate-700 text-slate-300' : 'bg-zinc-900 hover:bg-zinc-800 text-white'}`}
                     >
                       <Square className="w-3.5 h-3.5" />
                     </Button>
@@ -1156,7 +1096,7 @@ const IntegrationChat = ({ conversationId }: IntegrationChatProps) => {
                       onClick={handleSendMessage}
                       disabled={!input.trim()}
                       size="sm" 
-                      className={`h-8 w-8 p-0 rounded-full disabled:opacity-30 border-0 ${dark ? 'bg-[#2a2a2a] hover:bg-[#333] text-zinc-400' : 'bg-zinc-900 hover:bg-zinc-800 text-white'}`}
+                      className={`h-8 w-8 p-0 rounded-full disabled:opacity-30 border-0 ${dark ? 'bg-amber-600 hover:bg-amber-500 text-white' : 'bg-zinc-900 hover:bg-zinc-800 text-white'}`}
                     >
                       <Send className="w-4 h-4" />
                     </Button>

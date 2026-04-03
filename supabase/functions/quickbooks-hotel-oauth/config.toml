@@ -1,0 +1,2 @@
+[functions.quickbooks-hotel-oauth]
+verify_jwt = false

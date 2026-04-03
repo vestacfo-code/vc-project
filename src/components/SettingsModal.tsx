@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { X, Settings, Bell, Palette, Link, Calendar, Shield, User, Play, Upload, Edit3, Database, Download, LogOut, AlertCircle, Loader2, Check, CreditCard, Users } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { X, Settings, Bell, Palette, Link, Calendar, Shield, User, Play, Upload, Edit3, Database, Download, LogOut, AlertCircle, Loader2, Check, CreditCard, Users, ExternalLink } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogPortal, DialogOverlay } from '@/components/ui/dialog';
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { Button } from '@/components/ui/button';
@@ -7,12 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Switch } from '@/components/ui/switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useSettings } from '@/contexts/SettingsContext';
-import { useQuickBooksIntegration } from '@/hooks/useQuickBooksIntegration';
-import { useWaveIntegration } from '@/hooks/useWaveIntegration';
-import { useZohoIntegration } from '@/hooks/useZohoIntegration';
 import { useTeamRole } from '@/hooks/useTeamRole';
-import { WaveButton } from '@/components/WaveButton';
-import { ZohoButton } from '@/components/ZohoButton';
 import { NotificationPreferences } from './NotificationPreferences';
 import WeeklyNotificationReport from './WeeklyEmailReport';
 import { PlanCreditsTab } from './PlanCreditsTab';
@@ -21,7 +17,6 @@ import { PermissionRestricted } from './settings/PermissionRestricted';
 import { ProfileDataEditor } from './settings/ProfileDataEditor';
 import { useToast } from '@/hooks/use-toast';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
-import { getAvailableIntegrations } from '@/config/integrations';
 import { supabase } from '@/integrations/supabase/client';
 
 interface SettingsModalProps {
@@ -31,11 +26,9 @@ interface SettingsModalProps {
 }
 
 const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) => {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState(defaultTab || 'general');
   const { settings, updateSetting, isLoading, playVoice, exportData, deleteAccount, signOut } = useSettings();
-  const { integration, disconnectIntegration, refreshAfterOAuth } = useQuickBooksIntegration();
-  const { integration: waveIntegration, disconnectIntegration: disconnectWave } = useWaveIntegration();
-  const { integration: zohoIntegration, disconnectIntegration: disconnectZoho } = useZohoIntegration();
   const { 
     isMember, 
     role, 
@@ -45,14 +38,11 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
     canManageMembers 
   } = useTeamRole();
   const { toast } = useToast();
-  const [showDisconnectDialog, setShowDisconnectDialog] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
-  const [isConnecting, setIsConnecting] = useState(false);
   const [userInfo, setUserInfo] = useState<any>(null);
   const [isLoadingUser, setIsLoadingUser] = useState(true);
   const [isEditingName, setIsEditingName] = useState(false);
   const [editedName, setEditedName] = useState('');
-  const availableIntegrations = getAvailableIntegrations();
 
   // Update activeTab when defaultTab changes or modal opens
   useEffect(() => {
@@ -102,154 +92,6 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
       console.error('Error loading user info:', error);
     } finally {
       setIsLoadingUser(false);
-    }
-  };
-
-  const handleQuickBooksConnect = async () => {
-    setIsConnecting(true);
-    
-    try {
-      // Clear any previous OAuth state
-      localStorage.removeItem('qb_oauth_success');
-      localStorage.removeItem('qb_oauth_error');
-      
-      // Get auth URL from our edge function
-      const { data, error } = await supabase.functions.invoke('quickbooks-oauth', {
-        body: {}
-      });
-
-      if (error) {
-        throw new Error(error.message || 'Failed to get authorization URL');
-      }
-
-      if (!data?.authUrl) {
-        throw new Error('No authorization URL received');
-      }
-
-      // Open QuickBooks OAuth in a new window
-      const popup = window.open(
-        data.authUrl,
-        'quickbooks-auth',
-        'width=600,height=700,scrollbars=yes,resizable=yes'
-      );
-
-      if (!popup) {
-        throw new Error('Failed to open popup window. Please check your popup blocker settings.');
-      }
-
-      // Listen for auth completion via postMessage
-      const messageListener = (event: MessageEvent) => {
-        console.log('[Settings Modal] Received message:', {
-          type: event.data?.type,
-          origin: event.origin,
-          companyName: event.data?.companyName
-        });
-        
-        // Accept messages from Supabase functions domain and any valid app origin
-        const validOrigins = [
-          'https://qjgnbvrxpmspzfqlomjc.supabase.co',
-          'https://vesta.ai',
-          'https://www.vesta.ai'
-        ];
-        
-        // Accept from valid origins OR lovableproject.com preview URLs
-        const isValidOrigin = event.origin.includes('.lovableproject.com') || 
-                             validOrigins.includes(event.origin);
-        
-        if (!isValidOrigin) {
-          console.log('[Settings Modal] Ignoring message from invalid origin:', event.origin);
-          return;
-        }
-        
-        console.log('[Settings Modal] Processing message from valid origin:', event.origin);
-        
-        if (event.data?.type === 'QB_AUTH_SUCCESS') {
-          console.log('[Settings Modal] QuickBooks auth success via postMessage');
-          cleanup();
-          
-          const companyName = event.data?.companyName || 'your company';
-          
-          toast({
-            title: "QuickBooks Connected!",
-            description: `Successfully connected to ${companyName}. Your financial data is now syncing.`,
-          });
-
-          refreshAfterOAuth();
-          setIsConnecting(false);
-        } else if (event.data?.type === 'QB_AUTH_ERROR') {
-          console.log('[Settings Modal] QuickBooks auth error via postMessage:', event.data?.error);
-          cleanup();
-          
-          toast({
-            title: "Connection Failed",
-            description: event.data?.error || 'Unknown error occurred',
-            variant: "destructive",
-          });
-          
-          setIsConnecting(false);
-        }
-      };
-
-      window.addEventListener('message', messageListener);
-
-      // Fallback: Poll database to check if integration was saved
-      const checkIntegrationStatus = async () => {
-        try {
-          const { data: { user } } = await supabase.auth.getUser();
-          if (!user) return;
-          
-          const { data, error } = await supabase
-            .from('quickbooks_integrations')
-            .select('company_name, created_at')
-            .eq('user_id', user.id)
-            .order('created_at', { ascending: false })
-            .limit(1)
-            .maybeSingle();
-          
-          // If we find a very recent integration (within last 10 seconds), consider it successful
-          if (data && new Date().getTime() - new Date(data.created_at).getTime() < 10000) {
-            console.log('[Settings Modal] QuickBooks auth success detected via database check');
-            cleanup();
-            
-            toast({
-              title: "QuickBooks Connected!",
-              description: `Successfully connected to ${data.company_name}. Your financial data is now syncing.`,
-            });
-
-            refreshAfterOAuth();
-            setIsConnecting(false);
-          }
-        } catch (error) {
-          console.error('[Settings Modal] Error checking integration status:', error);
-        }
-      };
-
-      // Check database every 2 seconds as fallback
-      const dbChecker = setInterval(checkIntegrationStatus, 2000);
-
-      // Cleanup function to prevent memory leaks
-      const cleanup = () => {
-        clearInterval(checkClosed);
-        clearInterval(dbChecker);
-        window.removeEventListener('message', messageListener);
-        popup?.close();
-      };
-
-      // Handle popup being closed manually
-      const checkClosed = setInterval(() => {
-        if (popup?.closed) {
-          cleanup();
-          setIsConnecting(false);
-        }
-      }, 1000);
-
-    } catch (error: any) {
-      toast({
-        title: "Connection Failed",
-        description: error.message || "Failed to connect to QuickBooks. Please try again.",
-        variant: "destructive",
-      });
-      setIsConnecting(false);
     }
   };
 
@@ -605,7 +447,7 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
           return (
             <PermissionRestricted 
               title="Integrations"
-              description="You don't have permission to connect or disconnect integrations. Contact the account owner to manage integrations."
+              description="You don't have permission to manage data connections. Contact the account owner."
               requiredRole="Super Administrator or Owner"
             />
           );
@@ -613,164 +455,24 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
         return (
           <div className="flex-1 p-6 overflow-y-auto scrollbar-hide">
             <h2 className="font-serif text-2xl text-white mb-6">Integrations</h2>
-            <p className="text-sm text-slate-400 mb-6">
-              Connect your accounting software to sync financial data and get AI-powered insights.
+            <p className="text-sm text-slate-400 mb-4 max-w-xl">
+              Vesta CFO connects to your property systems and data you provide—PMS (e.g. Mews, Cloudbeds, Oracle Opera), CSV imports, and manual metrics—not generic small-business accounting tools.
             </p>
-            <div className="space-y-4">
-              {availableIntegrations.map((integ) => {
-                const isConnected = 
-                  (integ.id === 'quickbooks' && integration) ||
-                  (integ.id === 'wave' && waveIntegration) ||
-                  (integ.id === 'zoho' && zohoIntegration);
-                const isComingSoon = integ.status === 'coming-soon';
-                
-                return (
-                  <div 
-                    key={integ.id}
-                    className={`border rounded-lg p-4 transition-all ${
-                      isConnected 
-                        ? 'border-emerald-500/30 bg-emerald-500/10' 
-                        : isComingSoon 
-                        ? 'border-white/10 bg-white/5 opacity-60' 
-                        : 'border-white/10 bg-white/5 hover:border-white/20'
-                    }`}
-                  >
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3 flex-1">
-                        <img 
-                          src={integ.logo} 
-                          alt={`${integ.displayName} logo`}
-                          className="w-10 h-10 object-contain"
-                        />
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-1">
-                            <h3 className="text-sm font-semibold text-white">
-                              {integ.displayName}
-                            </h3>
-                            {isConnected && (
-                              <span className="text-xs px-2 py-0.5 bg-emerald-600 text-white rounded-full font-medium">
-                                Connected
-                              </span>
-                            )}
-                            {isComingSoon && (
-                              <span className="text-xs px-2 py-0.5 bg-slate-600 text-white rounded-full font-medium">
-                                Coming Soon
-                              </span>
-                            )}
-                          </div>
-                          {isConnected && (integration || waveIntegration || zohoIntegration) && (
-                            <div className="space-y-0.5">
-                              <p className="text-xs text-slate-300">
-                                <span className="font-medium">Company:</span> {
-                                  integ.id === 'quickbooks' ? integration?.company_name :
-                                  integ.id === 'wave' ? waveIntegration?.business_name :
-                                  integ.id === 'zoho' ? zohoIntegration?.organization_name :
-                                  'Unknown'
-                                }
-                              </p>
-                              <p className="text-xs text-slate-500">
-                                Connected {new Date(
-                                  integ.id === 'quickbooks' ? integration?.created_at :
-                                  integ.id === 'wave' ? waveIntegration?.created_at :
-                                  integ.id === 'zoho' ? zohoIntegration?.updated_at :
-                                  new Date()
-                                ).toLocaleDateString()}
-                              </p>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                      <div className="ml-3">
-                        {isConnected ? (
-                          <Button 
-                            variant="outline" 
-                            size="sm" 
-                            onClick={() => {
-                              if (integ.id === 'quickbooks') {
-                                setShowDisconnectDialog(true);
-                              } else if (integ.id === 'wave') {
-                                disconnectWave();
-                                loadUserInfo();
-                              } else if (integ.id === 'zoho') {
-                                disconnectZoho();
-                                loadUserInfo();
-                              }
-                            }}
-                            className="text-red-400 hover:text-red-300 hover:bg-red-500/10 border-red-500/30 hover:border-red-500/50 font-medium bg-transparent"
-                          >
-                            Disconnect
-                          </Button>
-                        ) : isComingSoon ? (
-                          <Button 
-                            variant="outline" 
-                            size="sm"
-                            disabled
-                            className="bg-white/5 text-slate-500 border-white/10 cursor-not-allowed"
-                          >
-                            Coming Soon
-                          </Button>
-                        ) : integ.id === 'wave' ? (
-                          <WaveButton onConnected={loadUserInfo} variant="small" />
-                        ) : integ.id === 'zoho' ? (
-                          <ZohoButton onConnected={loadUserInfo} variant="small" />
-                        ) : (
-                          <Button 
-                            variant="outline" 
-                            size="sm"
-                            disabled={isConnecting}
-                            onClick={() => {
-                              if (integ.id === 'quickbooks') {
-                                handleQuickBooksConnect();
-                              }
-                            }}
-                            className="bg-white text-black hover:bg-slate-200 border-transparent font-medium"
-                          >
-                            {isConnecting && integ.id === 'quickbooks' ? (
-                              <>
-                                <Loader2 className="w-3 h-3 mr-1 animate-spin" />
-                                Connecting...
-                              </>
-                            ) : (
-                              'Connect'
-                            )}
-                          </Button>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-            
-            {/* Continue without connection option */}
-            {!integration && (
-              <div className="mt-6 pt-6 border-t border-white/10">
-                <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-4">
-                  <h3 className="text-sm font-semibold text-white mb-2">
-                    Want to explore first?
-                  </h3>
-                  <p className="text-xs text-slate-400 mb-3">
-                    You can continue without connecting an integration to see how Vesta works. Connect later to access your real financial data.
-                  </p>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => {
-                      sessionStorage.setItem('walkthrough_dismissed', 'true');
-                      window.dispatchEvent(new Event('demoModeChanged'));
-                      onOpenChange(false);
-                      toast({
-                        title: "Demo Mode",
-                        description: "You can explore Vesta's features. Connect an integration anytime to access your financial data.",
-                      });
-                    }}
-                    className="bg-white/5 text-blue-400 border-blue-500/30 hover:bg-blue-500/10 hover:border-blue-500/50 font-medium"
-                  >
-                    Continue without connection
-                  </Button>
-                </div>
-              </div>
-            )}
+            <p className="text-sm text-slate-500 mb-6 max-w-xl">
+              Add or manage connections on the Integrations page in the app sidebar.
+            </p>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => {
+                onOpenChange(false);
+                navigate('/integrations');
+              }}
+              className="bg-white text-black hover:bg-slate-200 border-transparent font-medium"
+            >
+              <ExternalLink className="w-3.5 h-3.5 mr-2" />
+              Open Integrations
+            </Button>
           </div>
         );
 
@@ -919,36 +621,6 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
     }
   };
 
-  const handleDisconnect = async () => {
-    console.log('[Settings Modal] Starting disconnect process');
-    const success = await disconnectIntegration();
-    
-    if (success) {
-      console.log('[Settings Modal] Disconnect successful, updating UI');
-      
-      toast({
-        title: "Integration disconnected",
-        description: "Your QuickBooks account has been disconnected.",
-      });
-      setShowDisconnectDialog(false);
-      
-      // Clear BOTH storage keys to show walkthrough again
-      localStorage.removeItem('integration_walkthrough_dismissed');
-      sessionStorage.removeItem('walkthrough_dismissed');
-      window.dispatchEvent(new Event('demoModeChanged'));
-      
-      // Close modal - the realtime subscription should handle the refresh
-      onOpenChange(false);
-    } else {
-      console.log('[Settings Modal] Disconnect failed');
-      toast({
-        title: "Error",
-        description: "Failed to disconnect integration. Please try again.",
-        variant: "destructive",
-      });
-    }
-  };
-
   return (
     <>
       <Dialog open={open} onOpenChange={onOpenChange}>
@@ -1001,30 +673,6 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
         </DialogPrimitive.Content>
       </DialogPortal>
     </Dialog>
-
-    {/* Disconnect Confirmation Dialog */}
-    <AlertDialog open={showDisconnectDialog} onOpenChange={setShowDisconnectDialog}>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle className="flex items-center gap-2">
-            <AlertCircle className="w-5 h-5 text-orange-500" />
-            Disconnect QuickBooks?
-          </AlertDialogTitle>
-          <AlertDialogDescription>
-            This will disconnect your QuickBooks integration. Your chat history will be preserved, but you won't be able to access real-time financial data until you reconnect.
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction 
-            onClick={handleDisconnect}
-            className="bg-red-600 hover:bg-red-700"
-          >
-            Disconnect
-          </AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
 
     {/* Delete Account Confirmation Dialog */}
     <AlertDialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>

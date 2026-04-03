@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { morphSpringSoft } from '@/lib/motion';
 import { useAuth } from '@/hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 // Use the wrapper client that respects recovery mode
@@ -7,10 +9,11 @@ import { clearRecoveryMode } from '@/lib/auth-recovery-interceptor';
 import { getRedirectUrl } from '@/lib/constants';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Gift, ArrowLeft } from 'lucide-react';
+import { Loader2, Gift, ArrowLeft, TrendingUp, Brain, ShieldCheck } from 'lucide-react';
 import GoogleLogo from '@/components/ui/google-logo';
 import { ReferralCodesModal } from '@/components/ReferralCodesModal';
 import { usePortalAnimation } from '@/contexts/PortalAnimationContext';
+import { VestaLogo } from '@/components/VestaLogo';
 
 // Typing effect component with slower speed and subtle cursor
 const TypingHeadline = ({ text }: { text: string }) => {
@@ -58,12 +61,12 @@ const TypingHeadline = ({ text }: { text: string }) => {
   );
 };
 
-// Underline input component - must be outside Auth to prevent re-creation on render
-const UnderlineInput = ({ 
-  type = "text", 
-  placeholder, 
-  value, 
-  onChange, 
+// Dark input component - must be outside Auth to prevent re-creation on render
+const UnderlineInput = ({
+  type = "text",
+  placeholder,
+  value,
+  onChange,
   required = false,
   icon
 }: {
@@ -76,7 +79,7 @@ const UnderlineInput = ({
 }) => (
   <div className="relative">
     {icon && (
-      <div className="absolute left-0 top-1/2 -translate-y-1/2 text-gray-400">
+      <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500">
         {icon}
       </div>
     )}
@@ -86,10 +89,10 @@ const UnderlineInput = ({
       value={value}
       onChange={onChange}
       required={required}
-      className={`w-full h-12 bg-transparent border-0 border-b-2 border-gray-200 rounded-none 
-        focus:border-gray-900 focus:ring-0 focus:outline-none
-        text-gray-900 placeholder:text-gray-400 transition-colors
-        ${icon ? 'pl-8' : 'px-0'}`}
+      className={`w-full h-12 bg-slate-900 border border-slate-700 rounded-lg
+        focus:border-amber-500/60 focus:ring-0 focus:outline-none
+        text-slate-100 placeholder:text-slate-500 transition-colors text-sm
+        ${icon ? 'pl-10 pr-4' : 'px-4'}`}
     />
   </div>
 );
@@ -251,7 +254,7 @@ const Auth = () => {
     }
     
     if (user && !loading && !portalIsActive && !showSetNewPassword) {
-      navigate('/chat');
+      navigate('/dashboard');
     }
   }, [user, loading, navigate, portalIsActive, showSetNewPassword]);
 
@@ -588,8 +591,8 @@ const Auth = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-white">
-        <Loader2 className="w-8 h-8 animate-spin text-blue-500" />
+      <div className="min-h-screen flex items-center justify-center bg-slate-950">
+        <Loader2 className="w-8 h-8 animate-spin text-amber-400" />
       </div>
     );
   }
@@ -597,58 +600,67 @@ const Auth = () => {
   return (
     <>
       <div className="min-h-[100dvh] flex flex-col lg:flex-row overflow-hidden">
-        {/* Left Panel - Blue - Hidden on mobile */}
-        <div 
-          className="hidden lg:flex w-[55%] bg-gradient-to-b from-[#2563eb] to-[#1e40af] relative overflow-hidden"
+        {/* Left Panel - Deep Navy - Hidden on mobile */}
+        <motion.div
+          initial={{ opacity: 0, x: -24 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={morphSpringSoft}
+          className="hidden lg:flex w-[48%] bg-[#0a0f1e] relative overflow-hidden"
         >
-          {/* Heavy grainy noise texture overlay */}
-          <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ opacity: 0.35 }}>
-            <filter id="grainyNoise">
-              <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="5" stitchTiles="stitch" />
-              <feColorMatrix type="saturate" values="0" />
-              <feComponentTransfer>
-                <feFuncR type="linear" slope="1.5" />
-                <feFuncG type="linear" slope="1.5" />
-                <feFuncB type="linear" slope="1.5" />
-              </feComponentTransfer>
-            </filter>
-            <rect width="100%" height="100%" filter="url(#grainyNoise)" />
-          </svg>
-          
-          {/* Secondary grain layer */}
-          <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ opacity: 0.25, mixBlendMode: 'multiply' }}>
-            <filter id="fineGrain">
-              <feTurbulence type="fractalNoise" baseFrequency="1.5" numOctaves="4" stitchTiles="stitch" />
-            </filter>
-            <rect width="100%" height="100%" filter="url(#fineGrain)" />
-          </svg>
-          
-          {/* Decorative curved lines */}
-          <svg className="absolute top-0 right-0 w-[700px] h-[700px]" viewBox="0 0 700 700" fill="none">
-            <path d="M700 0 Q500 200 700 400" stroke="rgba(255,255,255,0.12)" strokeWidth="1" fill="none" />
-            <path d="M700 80 Q550 280 700 480" stroke="rgba(255,255,255,0.08)" strokeWidth="1" fill="none" />
-            <path d="M700 160 Q600 360 700 560" stroke="rgba(255,255,255,0.05)" strokeWidth="1" fill="none" />
-          </svg>
-          
-          <svg className="absolute bottom-0 left-0 w-[600px] h-[600px]" viewBox="0 0 600 600" fill="none">
-            <path d="M0 600 Q200 400 0 200" stroke="rgba(255,255,255,0.1)" strokeWidth="1" fill="none" />
-            <path d="M0 520 Q150 320 0 120" stroke="rgba(255,255,255,0.06)" strokeWidth="1" fill="none" />
-          </svg>
-          
-          <div 
-            className="flex flex-col justify-between p-12 lg:p-16 w-full relative z-10"
-          >
-            <div />
-            <div>
-              <TypingHeadline key={getHeadline()} text={getHeadline()} />
-            </div>
-            <p className="text-white/40 text-sm">© 2026 Vesta. All rights reserved.</p>
-          </div>
-        </div>
+          {/* Subtle radial glow */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_50%,rgba(245,158,11,0.06),transparent_70%)] pointer-events-none" />
 
-        {/* Right Panel - White - Full screen on mobile */}
-        <div 
-          className="flex-1 flex flex-col bg-white px-4 py-6 sm:px-8 sm:py-8 lg:px-16 xl:px-24 min-h-[100dvh] lg:min-h-0 relative"
+          {/* Decorative curved lines */}
+          <svg className="absolute top-0 right-0 w-[600px] h-[600px]" viewBox="0 0 600 600" fill="none">
+            <path d="M600 0 Q400 200 600 400" stroke="rgba(245,158,11,0.08)" strokeWidth="1" fill="none" />
+            <path d="M600 80 Q450 280 600 480" stroke="rgba(245,158,11,0.05)" strokeWidth="1" fill="none" />
+          </svg>
+          <svg className="absolute bottom-0 left-0 w-[500px] h-[500px]" viewBox="0 0 500 500" fill="none">
+            <path d="M0 500 Q200 300 0 100" stroke="rgba(245,158,11,0.06)" strokeWidth="1" fill="none" />
+          </svg>
+
+          <div className="flex flex-col justify-between p-12 lg:p-16 w-full relative z-10">
+            {/* Logo */}
+            <VestaLogo size="md" />
+
+            {/* Main copy */}
+            <div className="space-y-8">
+              <div>
+                <h1 className="font-serif text-white text-4xl lg:text-5xl font-normal leading-tight mb-4">
+                  Your hotel's<br />
+                  <span className="text-amber-400">AI CFO.</span>
+                </h1>
+                <p className="text-slate-400 text-base leading-relaxed max-w-xs">
+                  Real-time financial intelligence built for hoteliers — from RevPAR to GOPPAR, always a step ahead.
+                </p>
+              </div>
+
+              <ul className="space-y-4">
+                {[
+                  { icon: TrendingUp, text: 'Live KPI dashboard — RevPAR, ADR & occupancy' },
+                  { icon: Brain,     text: 'AI-generated daily briefings & anomaly alerts' },
+                  { icon: ShieldCheck, text: 'Bank-grade security with role-based access' },
+                ].map(({ icon: Icon, text }) => (
+                  <li key={text} className="flex items-start gap-3">
+                    <span className="mt-0.5 flex-shrink-0 w-7 h-7 rounded-full bg-amber-500/10 flex items-center justify-center">
+                      <Icon className="w-3.5 h-3.5 text-amber-400" />
+                    </span>
+                    <span className="text-slate-300 text-sm leading-relaxed">{text}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <p className="text-slate-600 text-xs">© 2026 Vesta. All rights reserved.</p>
+          </div>
+        </motion.div>
+
+        {/* Right Panel - Dark - Full screen on mobile */}
+        <motion.div
+          initial={{ opacity: 0, filter: 'blur(8px)' }}
+          animate={{ opacity: 1, filter: 'blur(0px)' }}
+          transition={{ ...morphSpringSoft, delay: 0.08 }}
+          className="flex-1 flex flex-col bg-slate-950 px-4 py-6 sm:px-8 sm:py-8 lg:px-16 xl:px-24 min-h-[100dvh] lg:min-h-0 relative"
         >
           {/* Top bar with back button and logo */}
           <div className="flex items-center justify-between w-full">
@@ -660,34 +672,39 @@ const Auth = () => {
                   navigate(-1);
                 }
               }}
-              className="flex items-center gap-2 text-gray-400 hover:text-gray-900 hover:bg-gray-100 rounded-lg px-3 py-2 transition-colors -ml-3"
+              className="flex items-center gap-2 text-slate-500 hover:text-slate-200 hover:bg-slate-800 rounded-lg px-3 py-2 transition-colors -ml-3"
             >
               <ArrowLeft className="w-4 h-4" />
               <span className="text-sm">Back</span>
             </button>
-            
-            <button onClick={() => navigate('/')} className="hover:opacity-80 transition-opacity">
-              <img 
-                src="/assets/9a766835-c271-49a0-bc54-c0424112a3cc.png" 
-                alt="Vesta" 
-                className="h-10"
-              />
-            </button>
+
+            {/* Mobile-only logo */}
+            <div className="lg:hidden">
+              <VestaLogo size="sm" />
+            </div>
           </div>
 
           {/* Centered content */}
           <div className="flex-1 flex flex-col items-center justify-center">
             <div className="w-full max-w-md">
-              {showSetNewPassword ? (
-                <div className="space-y-8">
-                  <h1 className="text-3xl lg:text-4xl font-serif text-gray-900">
+              <AnimatePresence mode="wait">
+                {showSetNewPassword ? (
+                <motion.div
+                  key="set-password"
+                  initial={{ opacity: 0, x: 28, filter: 'blur(6px)' }}
+                  animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+                  exit={{ opacity: 0, x: -20, filter: 'blur(4px)' }}
+                  transition={morphSpringSoft}
+                  className="space-y-8"
+                >
+                  <h1 className="text-3xl lg:text-4xl font-serif text-white">
                     Set New Password
                   </h1>
-                  <p className="text-gray-500 text-sm -mt-4">
+                  <p className="text-slate-400 text-sm -mt-4">
                     Enter your new password below.
                   </p>
-                  
-                  <form onSubmit={handleSetNewPassword} className="space-y-6">
+
+                  <form onSubmit={handleSetNewPassword} className="space-y-4">
                     <UnderlineInput
                       type="password"
                       placeholder="New password"
@@ -702,23 +719,30 @@ const Auth = () => {
                       onChange={(e) => setConfirmNewPassword(e.target.value)}
                       required
                     />
-                    
-                    <Button 
-                      type="submit" 
-                      className="w-full h-12 bg-gray-900 hover:bg-gray-800 text-white font-medium rounded-lg"
+
+                    <Button
+                      type="submit"
+                      className="w-full h-12 bg-amber-500 hover:bg-amber-400 text-slate-950 font-semibold rounded-lg mt-2"
                       disabled={isLoading}
                     >
                       {isLoading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Updating...</> : 'Update Password'}
                     </Button>
                   </form>
-                </div>
+                </motion.div>
               ) : showForgotPassword ? (
-                <div className="space-y-8">
-                  <h1 className="text-3xl lg:text-4xl font-serif text-gray-900">
+                <motion.div
+                  key="forgot"
+                  initial={{ opacity: 0, x: 28, filter: 'blur(6px)' }}
+                  animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+                  exit={{ opacity: 0, x: -20, filter: 'blur(4px)' }}
+                  transition={morphSpringSoft}
+                  className="space-y-8"
+                >
+                  <h1 className="text-3xl lg:text-4xl font-serif text-white">
                     Reset Password
                   </h1>
-                  
-                  <form onSubmit={handleForgotPassword} className="space-y-6">
+
+                  <form onSubmit={handleForgotPassword} className="space-y-4">
                     <UnderlineInput
                       type="email"
                       placeholder="Enter your email"
@@ -726,55 +750,62 @@ const Auth = () => {
                       onChange={(e) => setResetEmail(e.target.value)}
                       required
                     />
-                    
-                    <Button 
-                      type="submit" 
-                      className="w-full h-12 bg-gray-900 hover:bg-gray-800 text-white font-medium rounded-lg"
+
+                    <Button
+                      type="submit"
+                      className="w-full h-12 bg-amber-500 hover:bg-amber-400 text-slate-950 font-semibold rounded-lg mt-2"
                       disabled={isLoading}
                     >
                       {isLoading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Sending...</> : 'Send Reset Link'}
                     </Button>
-                    
-                    <button 
-                      type="button" 
-                      onClick={() => setShowForgotPassword(false)} 
-                      className="w-full text-gray-500 hover:text-gray-900 text-sm"
+
+                    <button
+                      type="button"
+                      onClick={() => setShowForgotPassword(false)}
+                      className="w-full text-slate-500 hover:text-slate-200 text-sm"
                     >
                       Back to Sign In
                     </button>
                   </form>
-                </div>
+                </motion.div>
               ) : showSignUp ? (
-                <div className="space-y-6">
+                <motion.div
+                  key="signup"
+                  initial={{ opacity: 0, x: 28, filter: 'blur(6px)' }}
+                  animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+                  exit={{ opacity: 0, x: -20, filter: 'blur(4px)' }}
+                  transition={morphSpringSoft}
+                  className="space-y-6"
+                >
                   <div>
-                    <h1 className="text-3xl lg:text-4xl font-serif text-gray-900 mb-2">
+                    <h1 className="text-3xl lg:text-4xl font-serif text-white mb-2">
                       {teamInvite ? 'Accept Invitation' : 'Create Account'}
                     </h1>
                     {teamInvite ? (
-                      <p className="text-gray-400 text-sm">
+                      <p className="text-slate-400 text-sm">
                         Already have an account?{' '}
-                        <button 
+                        <button
                           type="button"
-                          onClick={() => setShowSignUp(false)} 
-                          className="text-gray-900 underline underline-offset-4"
+                          onClick={() => setShowSignUp(false)}
+                          className="text-amber-400 underline underline-offset-4 hover:text-amber-300"
                         >
                           Sign in instead
                         </button>
                       </p>
                     ) : (
-                      <p className="text-gray-400 text-sm">
+                      <p className="text-slate-400 text-sm">
                         Already have an account?{' '}
-                        <button 
+                        <button
                           type="button"
-                          onClick={() => setShowSignUp(false)} 
-                          className="text-gray-900 underline underline-offset-4"
+                          onClick={() => setShowSignUp(false)}
+                          className="text-amber-400 underline underline-offset-4 hover:text-amber-300"
                         >
                           Sign in
                         </button>
                       </p>
                     )}
                   </div>
-                  
+
                   <form onSubmit={handleSignUp} className="space-y-4">
                     <div className="grid grid-cols-2 gap-4">
                       <UnderlineInput
@@ -789,74 +820,82 @@ const Auth = () => {
                         onChange={(e) => setLastName(e.target.value)}
                       />
                     </div>
-                    
+
                     <UnderlineInput type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
                     <UnderlineInput type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
                     <UnderlineInput type="password" placeholder="Confirm password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
                     <UnderlineInput placeholder="Referral code (optional)" value={referralCode} onChange={(e) => setReferralCode(e.target.value.toUpperCase())} icon={<Gift className="w-5 h-5" />} />
 
-                    <Button type="submit" className="w-full h-12 bg-gray-900 hover:bg-gray-800 text-white font-medium rounded-lg mt-2" disabled={isLoading}>
+                    <Button type="submit" className="w-full h-12 bg-amber-500 hover:bg-amber-400 text-slate-950 font-semibold rounded-lg mt-2" disabled={isLoading}>
                       {isLoading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Creating...</> : 'Create Account'}
                     </Button>
                   </form>
-                  
+
                   <div className="relative">
-                    <div className="absolute inset-0 flex items-center"><span className="w-full border-t border-gray-200" /></div>
-                    <div className="relative flex justify-center text-xs uppercase"><span className="bg-white px-4 text-gray-400">Or</span></div>
+                    <div className="absolute inset-0 flex items-center"><span className="w-full border-t border-slate-800" /></div>
+                    <div className="relative flex justify-center text-xs uppercase"><span className="bg-slate-950 px-4 text-slate-500">Or</span></div>
                   </div>
 
-                  <Button type="button" variant="outline" onClick={handleGoogleSignIn} disabled={isLoading} className="w-full h-12 bg-white hover:bg-gray-50 text-gray-700 border border-gray-300 font-medium rounded-lg flex items-center justify-center gap-3">
+                  <Button type="button" variant="outline" onClick={handleGoogleSignIn} disabled={isLoading} className="w-full h-12 bg-transparent hover:bg-slate-800 text-slate-200 border border-slate-700 hover:border-slate-600 font-medium rounded-lg flex items-center justify-center gap-3">
                     <GoogleLogo className="w-5 h-5" />
                     Sign up with Google
                   </Button>
-                </div>
+                </motion.div>
               ) : (
-                <div className="space-y-6">
+                <motion.div
+                  key="signin"
+                  initial={{ opacity: 0, x: 28, filter: 'blur(6px)' }}
+                  animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+                  exit={{ opacity: 0, x: -20, filter: 'blur(4px)' }}
+                  transition={morphSpringSoft}
+                  className="space-y-6"
+                >
                   <div>
-                    <h1 className="text-3xl lg:text-4xl font-serif text-gray-900 mb-2">
+                    <h1 className="text-3xl lg:text-4xl font-serif text-white mb-2">
                       Welcome Back
                     </h1>
-                    <p className="text-gray-400 text-sm">
+                    <p className="text-slate-400 text-sm">
                       {"Don't have an account? "}
-                      <button type="button" onClick={() => setShowSignUp(true)} className="text-gray-900 underline underline-offset-4">
+                      <button type="button" onClick={() => setShowSignUp(true)} className="text-amber-400 underline underline-offset-4 hover:text-amber-300">
                         Create one
                       </button>
                     </p>
                   </div>
-                  
+
                   <form onSubmit={handleSignIn} className="space-y-4">
                     <UnderlineInput type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
                     <UnderlineInput type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-                    
-                    <Button type="submit" className="w-full h-12 bg-gray-900 hover:bg-gray-800 text-white font-medium rounded-lg mt-2" disabled={isLoading}>
+
+                    <Button type="submit" className="w-full h-12 bg-amber-500 hover:bg-amber-400 text-slate-950 font-semibold rounded-lg mt-2" disabled={isLoading}>
                       {isLoading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Signing in...</> : 'Login Now'}
                     </Button>
                   </form>
-                  
+
                   <div className="relative">
-                    <div className="absolute inset-0 flex items-center"><span className="w-full border-t border-gray-200" /></div>
-                    <div className="relative flex justify-center text-xs uppercase"><span className="bg-white px-4 text-gray-400">Or</span></div>
+                    <div className="absolute inset-0 flex items-center"><span className="w-full border-t border-slate-800" /></div>
+                    <div className="relative flex justify-center text-xs uppercase"><span className="bg-slate-950 px-4 text-slate-500">Or</span></div>
                   </div>
 
-                  <Button type="button" variant="outline" onClick={handleGoogleSignIn} disabled={isLoading} className="w-full h-12 bg-white hover:bg-gray-50 text-gray-700 border border-gray-300 font-medium rounded-lg flex items-center justify-center gap-3">
+                  <Button type="button" variant="outline" onClick={handleGoogleSignIn} disabled={isLoading} className="w-full h-12 bg-transparent hover:bg-slate-800 text-slate-200 border border-slate-700 hover:border-slate-600 font-medium rounded-lg flex items-center justify-center gap-3">
                     <GoogleLogo className="w-5 h-5" />
                     Login with Google
                   </Button>
 
                   <div className="text-center">
-                    <button type="button" onClick={() => setShowForgotPassword(true)} className="text-gray-400 hover:text-gray-900 text-sm">
-                      Forget password? <span className="underline underline-offset-4">Click here</span>
+                    <button type="button" onClick={() => setShowForgotPassword(true)} className="text-slate-500 hover:text-slate-200 text-sm">
+                      Forgot password? <span className="underline underline-offset-4">Click here</span>
                     </button>
                   </div>
-                </div>
+                </motion.div>
               )}
+              </AnimatePresence>
             </div>
           </div>
-        </div>
+        </motion.div>
       
-        <div className="lg:hidden fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#2563eb] to-[#1e40af]" />
+        <div className="lg:hidden fixed top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-amber-500 to-amber-300" />
           
-        <ReferralCodesModal codes={generatedCodes} open={showCodesModal} onClose={() => { setShowCodesModal(false); navigate('/chat'); }} />
+        <ReferralCodesModal codes={generatedCodes} open={showCodesModal} onClose={() => { setShowCodesModal(false); navigate('/dashboard'); }} />
       </div>
     </>
   );

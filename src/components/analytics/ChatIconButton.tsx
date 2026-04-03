@@ -13,7 +13,7 @@ export const ChatIconButton = ({ reference }: ChatIconButtonProps) => {
 
   const handleClick = () => {
     setPendingReference(reference);
-    navigate('/chat');
+    navigate('/app');
   };
 
   return (
