@@ -20,7 +20,7 @@ import { TrialCountdown } from '@/components/TrialCountdown';
 import { PersistentChatBar } from '@/components/PersistentChatBar';
 
 const ChatHub = () => {
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const navigate = useNavigate();
   const [currentSessionId, setCurrentSessionId] = useState<string | undefined>(undefined);
   const [chatKey, setChatKey] = useState(0); // Key to force IntegrationChat remount
@@ -76,10 +76,11 @@ const ChatHub = () => {
   }, []);
 
   useEffect(() => {
+    if (authLoading) return;
     if (!user) {
       navigate('/auth');
     }
-  }, [user, navigate]);
+  }, [user, authLoading, navigate]);
 
    // Check if user should see upgrade button
    useEffect(() => {
