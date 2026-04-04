@@ -1,6 +1,6 @@
 
 
-## Plan: Fix deletion UX — loading state, optimistic removal, proper refresh
+## Plan: Fix deletion UX — loading state, optimistic removal, proper refresh.
 
 ### Problem
 When you click Delete, the products don't disappear from the table despite a success toast. Two issues:
