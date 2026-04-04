@@ -173,41 +173,64 @@ export default function Integrations() {
   // ---------------------------------------------------------------------------
 
   useEffect(() => {
-    // Case 1: we ARE the popup (window.opener exists + QB params in URL)
     const params = new URLSearchParams(window.location.search)
     const code = params.get('code')
-    const realmId = params.get('realmId')
+    const realmId = params.get('realmId') ?? params.get('realm_id')
     const state = params.get('state')
 
+    const runHotelOAuthCallback = (c: string, r: string, s: string) => {
+      if (!hotelId) return
+      setQbCallbackLoading(true)
+      supabase.functions
+        .invoke('quickbooks-hotel-oauth', {
+          body: { action: 'callback', hotel_id: hotelId, code: c, realm_id: r, state: s },
+        })
+        .then(({ data, error }) => {
+          const errBody =
+            data && typeof data === 'object' && data !== null && 'error' in data
+              ? (data as { error?: string; details?: string })
+              : null
+          if (error) {
+            const detail = errBody?.details ?? errBody?.error ?? error.message
+            toast.error('Failed to connect QuickBooks: ' + detail)
+            return
+          }
+          if (errBody?.error) {
+            toast.error('Failed to connect QuickBooks: ' + (errBody.details ?? errBody.error))
+            return
+          }
+          toast.success('QuickBooks connected!')
+          queryClient.invalidateQueries({ queryKey: ['qb_integration', hotelId] })
+          queryClient.invalidateQueries({ queryKey: ['integrations', hotelId] })
+          window.history.replaceState({}, '', window.location.pathname)
+        })
+        .finally(() => setQbCallbackLoading(false))
+    }
+
+    // Case 1: we ARE the popup (window.opener exists + QB params in URL)
     if (code && realmId && state && window.opener) {
-      // Tell the parent window to handle the callback, then close
       window.opener.postMessage({ type: 'QB_CALLBACK', code, realmId, state }, window.location.origin)
       window.close()
       return
     }
 
-    // Case 2: we are the main window, listen for the popup's message
+    // Case 1b: same-tab OAuth (popup blocked → window.location.href was used on authorize URL)
+    if (code && realmId && state && !window.opener && hotelId) {
+      const dedupeKey = `qb_hotel_oauth_${state}`
+      if (sessionStorage.getItem(dedupeKey)) return
+      sessionStorage.setItem(dedupeKey, '1')
+      runHotelOAuthCallback(code, realmId, state)
+      return
+    }
+
+    // Case 2: main window — listen for the popup's postMessage
     const handleMessage = (event: MessageEvent) => {
       if (event.origin !== window.location.origin) return
       if (event.data?.type !== 'QB_CALLBACK') return
       if (!hotelId) return
 
-      const { code, realmId, state } = event.data
-      setQbCallbackLoading(true)
-      supabase.functions
-        .invoke('quickbooks-hotel-oauth', {
-          body: { action: 'callback', hotel_id: hotelId, code, realm_id: realmId, state },
-        })
-        .then(({ error }) => {
-          if (error) {
-            toast.error('Failed to connect QuickBooks: ' + error.message)
-          } else {
-            toast.success('QuickBooks connected!')
-            queryClient.invalidateQueries({ queryKey: ['qb_integration', hotelId] })
-            queryClient.invalidateQueries({ queryKey: ['integrations', hotelId] })
-          }
-        })
-        .finally(() => setQbCallbackLoading(false))
+      const { code: c, realmId: r, state: s } = event.data
+      runHotelOAuthCallback(c, r, s)
     }
 
     window.addEventListener('message', handleMessage)
