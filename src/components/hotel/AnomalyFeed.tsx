@@ -15,17 +15,26 @@ interface AnomalyFeedProps {
 
 type Severity = 'low' | 'medium' | 'high' | 'critical';
 
+/** DB uses info | warning | critical; UI uses low–critical. */
+function mapDbSeverity(raw: string | null | undefined): Severity {
+  const s = (raw ?? '').toLowerCase();
+  if (s === 'critical') return 'critical';
+  if (s === 'warning') return 'medium';
+  if (s === 'high') return 'high';
+  if (s === 'medium') return 'medium';
+  if (s === 'low') return 'low';
+  return 'low';
+}
+
 interface Anomaly {
   id: string;
   hotel_id: string;
   date: string;
-  metric_name: string;
-  expected_value: number | null;
-  actual_value: number | null;
-  deviation_pct: number | null;
-  severity: Severity;
-  message: string;
-  resolved: boolean;
+  metric: string;
+  title: string;
+  description: string;
+  severity: string;
+  resolved: boolean | null;
 }
 
 const SEVERITY_CONFIG: Record<Severity, { label: string; className: string; icon: React.ReactNode }> = {
@@ -72,7 +81,9 @@ const AnomalyFeed: React.FC<AnomalyFeedProps> = ({ hotelId }) => {
 
       const rows = data as Anomaly[];
       return rows.sort(
-        (a, b) => (SEVERITY_ORDER[a.severity] ?? 9) - (SEVERITY_ORDER[b.severity] ?? 9)
+        (a, b) =>
+          (SEVERITY_ORDER[mapDbSeverity(a.severity)] ?? 9) -
+          (SEVERITY_ORDER[mapDbSeverity(b.severity)] ?? 9)
       );
     },
     enabled: !!hotelId,
@@ -82,7 +93,7 @@ const AnomalyFeed: React.FC<AnomalyFeedProps> = ({ hotelId }) => {
     mutationFn: async (anomalyId: string) => {
       const { error } = await supabase
         .from('anomalies')
-        .update({ resolved: true })
+        .update({ resolved: true, resolved_at: new Date().toISOString() })
         .eq('id', anomalyId);
       if (error) throw error;
     },
@@ -126,7 +137,8 @@ const AnomalyFeed: React.FC<AnomalyFeedProps> = ({ hotelId }) => {
         ) : (
           <div className="space-y-3 max-h-80 overflow-y-auto pr-1">
             {anomalies.map((anomaly) => {
-              const severityCfg = SEVERITY_CONFIG[anomaly.severity] ?? SEVERITY_CONFIG.low;
+              const uiSeverity = mapDbSeverity(anomaly.severity);
+              const severityCfg = SEVERITY_CONFIG[uiSeverity] ?? SEVERITY_CONFIG.low;
               return (
                 <div
                   key={anomaly.id}
@@ -143,10 +155,11 @@ const AnomalyFeed: React.FC<AnomalyFeedProps> = ({ hotelId }) => {
                       {format(new Date(anomaly.date + 'T00:00:00'), 'MMM d')}
                     </span>
                   </div>
-                  <p className="mb-1 text-xs font-semibold capitalize text-slate-900">
-                    {anomaly.metric_name.replace(/_/g, ' ')}
+                  <p className="mb-1 text-xs font-semibold text-slate-900">{anomaly.title}</p>
+                  <p className="mb-1 text-[11px] font-medium capitalize text-slate-500">
+                    {anomaly.metric.replace(/_/g, ' ')}
                   </p>
-                  <p className="mb-2 text-xs leading-relaxed text-slate-600">{anomaly.message}</p>
+                  <p className="mb-2 text-xs leading-relaxed text-slate-600">{anomaly.description}</p>
                   <Button
                     size="sm"
                     variant="ghost"

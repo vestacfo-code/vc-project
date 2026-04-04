@@ -30,12 +30,8 @@ interface ParsedDataDebug {
 }
 
 interface ModelComparison {
-  claude: any;
   openai: any;
   comparison: {
-    revenueMatch: boolean;
-    expenseMatch: boolean;
-    confidenceDelta: number;
     recommendations: string[];
   };
 }
@@ -350,78 +346,36 @@ function debugCSVParsing(csvContent: string): ParsedDataDebug {
 }
 
 async function debugModelComparison(supabase: any, documentDebug: any, userId: string): Promise<ModelComparison> {
-  console.log('🔄 DEBUGGING MODEL COMPARISON...');
-  
+  console.log('🔄 DEBUGGING OPENAI ANALYSIS (debug session)...');
+
   const comparison: ModelComparison = {
-    claude: null,
     openai: null,
     comparison: {
-      revenueMatch: false,
-      expenseMatch: false,
-      confidenceDelta: 0,
-      recommendations: []
-    }
+      recommendations: [],
+    },
   };
 
   try {
-    // Test Claude Analysis
-    console.log('🧠 Testing Claude analysis...');
-    const { data: claudeResult, error: claudeError } = await supabase.functions.invoke('claude-financial-analysis', {
-      body: {
-        financialData: { revenue: 0, expenses: 0, cash_flow: 0 },
-        userId: userId,
-        documentId: null,
-        userContext: `Debug analysis for ${documentDebug.fileName}`
-      }
-    });
-
-    comparison.claude = claudeResult || { error: claudeError?.message };
-
-    // Test OpenAI Analysis  
     console.log('🤖 Testing OpenAI analysis...');
     const { data: openaiResult, error: openaiError } = await supabase.functions.invoke('openai-financial-analysis', {
       body: {
         fileContent: documentDebug.rawContent,
         fileName: documentDebug.fileName,
         fileType: documentDebug.fileType,
-        userId: userId
-      }
+        userId: userId,
+      },
     });
 
     comparison.openai = openaiResult || { error: openaiError?.message };
-
-    // Generate comparison insights
-    if (comparison.claude && comparison.openai) {
-      const claudeRevenue = comparison.claude.calculationVerification?.verifiedRevenue || 0;
-      const openaiRevenue = comparison.openai.totalRevenue || 0;
-      const claudeExpenses = comparison.claude.calculationVerification?.verifiedExpenses || 0;
-      const openaiExpenses = comparison.openai.totalExpenses || 0;
-
-      comparison.comparison.revenueMatch = Math.abs(claudeRevenue - openaiRevenue) < (Math.max(claudeRevenue, openaiRevenue) * 0.1);
-      comparison.comparison.expenseMatch = Math.abs(claudeExpenses - openaiExpenses) < (Math.max(claudeExpenses, openaiExpenses) * 0.1);
-      
-      const claudeConfidence = comparison.claude.analysisMetadata?.confidenceLevel === 'High' ? 0.9 : 0.6;
-      const openaiConfidence = (comparison.openai.healthScore || 50) / 100;
-      comparison.comparison.confidenceDelta = Math.abs(claudeConfidence - openaiConfidence);
-
-      // Generate recommendations based on comparison
-      if (!comparison.comparison.revenueMatch) {
-        comparison.comparison.recommendations.push(`Revenue mismatch: Claude=${claudeRevenue.toLocaleString()}, OpenAI=${openaiRevenue.toLocaleString()}`);
-      }
-      if (!comparison.comparison.expenseMatch) {
-        comparison.comparison.recommendations.push(`Expense mismatch: Claude=${claudeExpenses.toLocaleString()}, OpenAI=${openaiExpenses.toLocaleString()}`);
-      }
-      if (comparison.comparison.confidenceDelta > 0.3) {
-        comparison.comparison.recommendations.push(`Significant confidence gap: ${comparison.comparison.confidenceDelta.toFixed(2)}`);
-      }
+    if (openaiError?.message) {
+      comparison.comparison.recommendations.push(`OpenAI: ${openaiError.message}`);
     }
 
-    console.log('🔄 Model comparison completed:', comparison.comparison);
+    console.log('🔄 Model debug completed:', comparison.comparison);
     return comparison;
-
   } catch (error) {
-    console.error('❌ Model comparison failed:', error);
-    comparison.comparison.recommendations.push(`Comparison failed: ${error.message}`);
+    console.error('❌ Model debug failed:', error);
+    comparison.comparison.recommendations.push(`OpenAI check failed: ${error.message}`);
     return comparison;
   }
 }
@@ -455,10 +409,8 @@ function generateDebugReport(documentDebug: any, parsingResults: ParsedDataDebug
 
   if (modelComparison) {
     report.modelComparison = {
-      claudeSuccess: !!modelComparison.claude && !modelComparison.claude.error,
       openaiSuccess: !!modelComparison.openai && !modelComparison.openai.error,
-      agreement: modelComparison.comparison.revenueMatch && modelComparison.comparison.expenseMatch,
-      recommendations: modelComparison.comparison.recommendations
+      recommendations: modelComparison.comparison.recommendations,
     };
   }
 
@@ -484,9 +436,8 @@ function generateImprovementRecommendations(parsingResults: ParsedDataDebug[], m
     }
   }
 
-  // Model-specific recommendations
-  if (modelComparison && !modelComparison.comparison.revenueMatch) {
-    recommendations.push('Action: Claude and OpenAI disagree on revenue figures. Consider prompt refinement or data preprocessing.');
+  if (modelComparison?.comparison.recommendations?.length) {
+    recommendations.push(...modelComparison.comparison.recommendations);
   }
 
   // Scale detection recommendations

@@ -274,7 +274,7 @@ serve(async (req) => {
       content: message.trim(),
     });
 
-    // ── Call Claude ─────────────────────────────────────────────────────────
+    // ── Call OpenAI ───────────────────────────────────────────────────────────
     const systemPrompt = `You are Vesta, an AI CFO for independent hotels. You have access to the hotel's real financial data and answer questions clearly and specifically.
 
 Guidelines:

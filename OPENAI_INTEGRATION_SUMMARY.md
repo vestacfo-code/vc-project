@@ -23,20 +23,20 @@ Successfully integrated OpenAI GPT-5 as the primary document processing engine f
 
 ### 2. Unified File Upload Pipeline (`src/components/IntelligentDataHub/FileUploadHandler.tsx`)
 - **Replaced complex multi-stage processing** with clean, unified pipeline
-- **New Processing Flow**: OpenAI (Primary) → Claude (Fallback) → Client-side (Final fallback)
+- **Processing flow**: OpenAI (primary) → client-side processing (fallback)
 - **Simplified logic**: All file types now follow the same processing path
 - **Better error handling**: Graceful fallbacks with detailed logging
 - **Improved insights mapping**: Properly maps OpenAI response to FinancialInsight type
 
-**Old Flow (Complex):**
+**Previous flow (deprecated):**
 ```
-Excel → enhanced-xlsx-processor → claude-analysis → client fallback
-Other files → process-financial-data → claude-analysis → client fallback
+Excel → enhanced-xlsx-processor → … → client fallback
+Other files → process-financial-data → … → client fallback
 ```
 
-**New Flow (Unified):**
+**Current flow (unified):**
 ```
-All files → openai-financial-analysis → claude fallback → client fallback
+All files → openai-financial-analysis → client-side fallback
 ```
 
 ### 3. Configuration
@@ -78,9 +78,8 @@ All files → openai-financial-analysis → claude fallback → client fallback
 
 ### Error Handling & Fallbacks:
 1. **Primary**: OpenAI GPT-5 analysis
-2. **Fallback 1**: Claude analysis (existing pipeline)
-3. **Fallback 2**: Client-side processing
-4. **Final**: Graceful error with user guidance
+2. **Fallback**: Client-side processing
+3. **Final**: Graceful error with user guidance
 
 ### Database Integration:
 - Automatic storage of analysis results

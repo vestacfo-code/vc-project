@@ -8,8 +8,6 @@ export default tseslint.config(
   {
     ignores: [
       "dist",
-      ".claude/**",
-      ".claire/**",
       "node_modules/**",
     ],
   },

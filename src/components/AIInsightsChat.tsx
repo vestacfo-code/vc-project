@@ -69,56 +69,13 @@ const AIInsightsChat = ({ insights, financialData, onInsightsUpdate }: AIInsight
         .eq('user_id', user.id)
         .maybeSingle();
 
-      // Try Claude first, fallback to ai-insights
-      let data, error;
-      try {
-        const claudeResponse = await supabase.functions.invoke('claude-financial-analysis', {
-          body: {
-            financialData,
-            userId: user.id,
-            userContext: `Business: ${profile?.company_name || 'Unknown'}, Industry: ${profile?.industry || 'Technology'}, Size: ${profile?.company_size || 'Small Business'}, Type: ${profile?.business_type || 'Unknown'}, Description: ${profile?.description || 'No description provided'}`
-          }
-        });
-
-        if (claudeResponse.error) {
-          throw new Error('Claude analysis failed');
-        }
-
-        // Format Claude response for insights display
-        const claudeData = claudeResponse.data;
-        const formattedInsights = [];
-        
-        if (claudeData.summary) {
-          formattedInsights.push(`## Executive Summary\n${claudeData.summary}`);
-        }
-        
-        if (claudeData.insights && Array.isArray(claudeData.insights)) {
-          formattedInsights.push(`## Key Insights\n${claudeData.insights.map((insight: any, index: number) => 
-            `**${index + 1}. ${insight.title}** (${insight.impact} Impact)\n${insight.description}\n*Metrics: ${insight.metrics}*`
-          ).join('\n\n')}`);
-        }
-        
-        if (claudeData.recommendations && Array.isArray(claudeData.recommendations)) {
-          formattedInsights.push(`## Strategic Recommendations\n${claudeData.recommendations.map((rec: any, index: number) => 
-            `**${index + 1}. ${rec.title}** (${rec.priority} Priority)\n${rec.description}\n*Timeline: ${rec.timeframe} | Expected Impact: ${rec.expectedImpact}*`
-          ).join('\n\n')}`);
-        }
-
-        data = { insights: formattedInsights };
-        error = null;
-      } catch (claudeError) {
-        console.log('Claude analysis failed, falling back to ai-insights:', claudeError);
-        // Fallback to original ai-insights
-        const fallbackResponse = await supabase.functions.invoke('ai-insights', {
-          body: {
-            action: 'generate',
-            financialData,
-            profile
-          }
-        });
-        data = fallbackResponse.data;
-        error = fallbackResponse.error;
-      }
+      const { data, error } = await supabase.functions.invoke('ai-insights', {
+        body: {
+          action: 'generate',
+          financialData,
+          profile,
+        },
+      });
 
       if (error) throw error;
 

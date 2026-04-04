@@ -78,13 +78,32 @@ const SEVERITY_FILTERS: { value: SeverityFilter; label: string }[] = [
   { value: 'low', label: 'Low' },
 ]
 
+/** DB stores info | warning | critical; filters use low | medium | high | critical. */
+function normalizeUiSeverity(raw: string | null | undefined): Severity {
+  const s = (raw ?? 'low').toLowerCase()
+  if (s === 'critical') return 'critical'
+  if (s === 'warning') return 'medium'
+  if (s === 'info') return 'low'
+  if (s === 'high') return 'high'
+  if (s === 'medium') return 'medium'
+  if (s === 'low') return 'low'
+  return 'low'
+}
+
 function formatMetricValue(value: number | null, metric: string): string {
   if (value === null) return 'N/A'
+  const ml = metric.toLowerCase()
   const monetaryMetrics = ['revpar', 'adr', 'revenue', 'trevpar', 'goppar']
-  const isMonetary = monetaryMetrics.some((m) => metric.toLowerCase().includes(m))
+  const isMonetary = monetaryMetrics.some((m) => ml.includes(m))
   if (isMonetary) return `$${value.toFixed(2)}`
-  const percentMetrics = ['occupancy', 'rate', 'percent']
-  const isPercent = percentMetrics.some((m) => metric.toLowerCase().includes(m))
+  const fractionAsPct =
+    ml.includes('occupancy') ||
+    ml.includes('gop_margin') ||
+    ml.includes('labor_cost_ratio') ||
+    (ml.includes('ratio') && value >= 0 && value <= 1.5)
+  if (fractionAsPct) return `${(value * 100).toFixed(1)}%`
+  const percentMetrics = ['rate', 'percent']
+  const isPercent = percentMetrics.some((m) => ml.includes(m))
   if (isPercent) return `${value.toFixed(1)}%`
   return value.toFixed(2)
 }
@@ -179,12 +198,14 @@ export default function Anomalies() {
   const filtered = anomalies.filter((a) => {
     if (statusFilter === 'open' && a.resolved) return false
     if (statusFilter === 'resolved' && !a.resolved) return false
-    if (severityFilter !== 'all' && a.severity !== severityFilter) return false
+    if (severityFilter !== 'all' && normalizeUiSeverity(a.severity) !== severityFilter) return false
     return true
   })
 
   const openCount = anomalies.filter((a) => !a.resolved).length
-  const criticalCount = anomalies.filter((a) => a.severity === 'critical' && !a.resolved).length
+  const criticalCount = anomalies.filter(
+    (a) => normalizeUiSeverity(a.severity) === 'critical' && !a.resolved
+  ).length
 
   return (
     <div className="min-h-full space-y-8 p-6 text-slate-900">
@@ -288,7 +309,7 @@ export default function Anomalies() {
       ) : (
         <div className="space-y-3">
           {filtered.map((anomaly) => {
-            const severityKey = (anomaly.severity ?? 'low') as Severity
+            const severityKey = normalizeUiSeverity(anomaly.severity)
             const cfg = SEVERITY_CONFIG[severityKey] ?? SEVERITY_CONFIG.low
             const isResolved = !!anomaly.resolved
             const isAcknowledged = !!anomaly.acknowledged && !isResolved

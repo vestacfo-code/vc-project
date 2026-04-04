@@ -1,19 +1,12 @@
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Building2 } from 'lucide-react';
-import { initLovableWidgetStripper } from '@/lib/strip-lovable-widget';
 import { cn } from '@/lib/utils';
 
 /**
- * Small floating Vesta mark (replaces third-party “made with …” badges).
+ * Small floating Vesta mark.
  * Sits bottom-left so it does not overlap {@link FloatingChatbot} (bottom-right).
  */
 export function VestaSiteBadge({ className }: { className?: string }) {
-  useEffect(() => {
-    const stop = initLovableWidgetStripper();
-    return stop;
-  }, []);
-
   return (
     <Link
       to="/"

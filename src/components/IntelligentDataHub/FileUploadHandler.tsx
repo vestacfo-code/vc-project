@@ -314,56 +314,24 @@ console.log("csvAnalysis", csvAnalysis)
             continue; // Successfully processed with OpenAI, move to next file
             
             } catch (openaiError) {
-            console.warn('⚠️ OpenAI processing failed, falling back to Claude:', {
-              error: openaiError.message,
+            console.warn('⚠️ OpenAI processing failed, using client-side fallback:', {
+              error: (openaiError as Error).message,
               fileName: file.name,
-              fileSize: file.size
+              fileSize: file.size,
             });
-            
-            // Fallback to Claude analysis
-            try {              
-              // Generate better context for Claude from the file content
-              const claudeContext = `
-                File: ${file.name} (${file.size} bytes)
-                Type: ${file.type || 'unknown'}
-                Content Preview: ${fileContent.substring(0, 500)}
-                User: ${user.email?.split('@')[0] || 'Unknown'}
-                Processing Method: Enhanced fallback analysis
-              `;
 
-              const { data: claudeData, error: claudeError } = await supabase.functions.invoke('claude-financial-analysis', {
-                body: {
-                  financialData: { revenue: 0, expenses: 0, profit: 0 },
-                  userId: user.id,
-                  documentId: null,
-                  userContext: claudeContext,
-                  debugMode: true // Enable Claude debug mode
-                }
-              });
+            try {
+              const { processDocumentClientSide } = await import('@/lib/documentProcessor');
+              const processResult = await processDocumentClientSide(file, user.id);
 
-              if (claudeError) throw claudeError;
-              setInsights(claudeData);
-              setPersonalizedContext(`Claude AI fallback analysis for ${file.name}`);
-              success++;
-              continue; // Successfully processed with Claude, move to next file
-              
-            } catch (claudeError) {
-              console.warn('⚠️ Claude fallback also failed, trying basic client-side processing:', claudeError);
-              
-              // Basic client-side processing as final fallback
-              try {
-                const { processDocumentClientSide } = await import('@/lib/documentProcessor');
-                const processResult = await processDocumentClientSide(file, user.id);
-                
-                if (processResult && processResult.success) {
-                  success++;
-                } else {
-                  failed++;
-                }
-              } catch (clientError) {
-                console.error('❌ All processing methods failed for file:', file.name, clientError);
+              if (processResult && processResult.success) {
+                success++;
+              } else {
                 failed++;
               }
+            } catch (clientError) {
+              console.error('❌ All processing methods failed for file:', file.name, clientError);
+              failed++;
             }
           }
 

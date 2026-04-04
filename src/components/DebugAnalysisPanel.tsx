@@ -35,9 +35,7 @@ interface DebugResult {
     }>;
   };
   modelComparison?: {
-    claudeSuccess: boolean;
     openaiSuccess: boolean;
-    agreement: boolean;
     recommendations: string[];
   };
   recommendations: string[];
@@ -268,45 +266,15 @@ export const DebugAnalysisPanel: React.FC<DebugAnalysisPanelProps> = ({
                 <TabsContent value="models" className="space-y-4">
                   {debugResult.modelComparison ? (
                     <div className="space-y-4">
-                      <div className="grid grid-cols-2 gap-4">
-                        <Card>
-                          <CardHeader className="pb-2">
-                            <CardTitle className="text-sm">Claude Analysis</CardTitle>
-                          </CardHeader>
-                          <CardContent>
-                            <div className="flex items-center gap-2">
-                              {getStatusIcon(debugResult.modelComparison.claudeSuccess)}
-                              <span className="text-sm">
-                                {debugResult.modelComparison.claudeSuccess ? 'Success' : 'Failed'}
-                              </span>
-                            </div>
-                          </CardContent>
-                        </Card>
-
-                        <Card>
-                          <CardHeader className="pb-2">
-                            <CardTitle className="text-sm">OpenAI Analysis</CardTitle>
-                          </CardHeader>
-                          <CardContent>
-                            <div className="flex items-center gap-2">
-                              {getStatusIcon(debugResult.modelComparison.openaiSuccess)}
-                              <span className="text-sm">
-                                {debugResult.modelComparison.openaiSuccess ? 'Success' : 'Failed'}
-                              </span>
-                            </div>
-                          </CardContent>
-                        </Card>
-                      </div>
-
                       <Card>
                         <CardHeader className="pb-2">
-                          <CardTitle className="text-sm">Model Agreement</CardTitle>
+                          <CardTitle className="text-sm">OpenAI analysis</CardTitle>
                         </CardHeader>
                         <CardContent>
                           <div className="flex items-center gap-2">
-                            {getStatusIcon(debugResult.modelComparison.agreement)}
+                            {getStatusIcon(debugResult.modelComparison.openaiSuccess)}
                             <span className="text-sm">
-                              {debugResult.modelComparison.agreement ? 'Models Agree' : 'Models Disagree'}
+                              {debugResult.modelComparison.openaiSuccess ? 'Success' : 'Failed'}
                             </span>
                           </div>
                           {debugResult.modelComparison.recommendations.length > 0 && (

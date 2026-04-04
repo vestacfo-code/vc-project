@@ -17,7 +17,7 @@ CREATE TABLE public.ai_summaries (
                CHECK (status IN ('on_track', 'attention_needed', 'critical')),
   -- Key metrics snapshot used to generate this summary
   metrics_snapshot JSONB DEFAULT '{}',
-  model        TEXT DEFAULT 'claude-sonnet-4-6',
+  model        TEXT DEFAULT 'gpt-4o',
   tokens_used  INTEGER,
   generated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   UNIQUE (hotel_id, date, period_type)

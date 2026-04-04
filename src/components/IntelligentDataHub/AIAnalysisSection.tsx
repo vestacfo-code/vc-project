@@ -51,9 +51,9 @@ const AIAnalysisSection = ({
         <div className="flex items-center space-x-2">
           <Brain className="w-5 h-5 text-primary" />
           <div>
-            <h4 className="font-semibold text-primary">Claude AI Enhanced Analysis</h4>
+            <h4 className="font-semibold text-primary">AI-enhanced document analysis</h4>
             <p className="text-sm text-muted-foreground">
-              This analysis uses Claude Opus 4 for superior accuracy and insights on your financial documents.
+              Insights are generated from your uploaded financial documents using Vesta&apos;s analysis pipeline.
             </p>
           </div>
         </div>

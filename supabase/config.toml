@@ -1,6 +1,10 @@
 # Must match the project ref in src/integrations/supabase/client.ts (…/project-ref.supabase.co)
 project_id = "qjgnbvrxpmspzfqlomjc"
 
+[db.seed]
+enabled = true
+sql_paths = ["./seed.sql"]
+
 [functions.stripe-webhook]
 verify_jwt = false
 
@@ -44,9 +48,6 @@ verify_jwt = true
 verify_jwt = true
 
 [functions.huggingface-financial-analysis]
-verify_jwt = true
-
-[functions.claude-financial-analysis]
 verify_jwt = true
 
 [functions.enhanced-xlsx-processor]

@@ -10,7 +10,6 @@ const corsHeaders = {
 const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
 const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
 const openaiApiKey = Deno.env.get('OPENAI_API_KEY')!;
-// const anthropicApiKey = Deno.env.get('ANTHROPIC_API_KEY')!; // Switch back when ready;
 
 const log = (step: string, details?: any) => {
   const suffix = details ? ` - ${JSON.stringify(details)}` : '';
@@ -136,7 +135,6 @@ function buildFallbackSummary(
 }
 
 // ─── OpenAI API call ─────────────────────────────────────────────────────────
-// To switch back to Claude: comment this out and uncomment the Claude block below.
 
 async function callAI(prompt: string): Promise<{
   headline: string;
@@ -186,28 +184,6 @@ async function callAI(prompt: string): Promise<{
     modelUsed: 'gpt-4o',
   };
 }
-
-// ─── Claude API call (swap back when ready) ───────────────────────────────────
-// async function callAI(prompt: string) {
-//   const response = await fetch('https://api.anthropic.com/v1/messages', {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//       'x-api-key': anthropicApiKey,
-//       'anthropic-version': '2023-06-01',
-//     },
-//     body: JSON.stringify({
-//       model: 'claude-sonnet-4-6',
-//       max_tokens: 500,
-//       messages: [{ role: 'user', content: prompt }],
-//     }),
-//   });
-//   const data = await response.json();
-//   const rawContent = data.content[0]?.text ?? '';
-//   const jsonMatch = rawContent.match(/\{[\s\S]*\}/);
-//   const parsed = JSON.parse(jsonMatch![0]);
-//   return { ...parsed, tokensUsed: data.usage?.input_tokens + data.usage?.output_tokens, modelUsed: 'claude-sonnet-4-6' };
-// }
 
 // ─── Main handler ─────────────────────────────────────────────────────────────
 
@@ -350,11 +326,11 @@ serve(async (req) => {
     const avgRevpar = avg(rollingWindow.map((r) => r.revpar));
     const avgOccupancy = avg(rollingWindow.map((r) => r.occupancy_rate));
 
-    // ── Anomaly detection (Deno-side, before Claude) ──────────────────────────
+    // ── Anomaly detection (Deno-side, before LLM) ─────────────────────────────
     const detectedAnomalies = detectAnomalies(hotel_id, targetDate, todayRow, rollingWindow);
     log(`Detected ${detectedAnomalies.length} anomalies`);
 
-    // ── Build Claude prompt ───────────────────────────────────────────────────
+    // ── Build briefing prompt ───────────────────────────────────────────────────
     const currency = hotel.currency ?? '$';
     const fmt = (n: number | null | undefined) =>
       n !== null && n !== undefined ? n.toFixed(2) : 'N/A';
@@ -388,7 +364,7 @@ Format your response as JSON:
   "recommendation": "..."
 }`;
 
-    // ── Call Claude (with fallback) ────────────────────────────────────────────
+    // ── Call OpenAI (with templated fallback) ─────────────────────────────────
     let headline: string;
     let bodyText: string;
     let status: string;
