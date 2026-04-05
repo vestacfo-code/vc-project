@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useCallback, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { supabase } from '@/integrations/supabase/client'
@@ -58,11 +58,12 @@ const PROVIDER_LABELS: Record<string, string> = {
   manual: 'Manual Entry',
 }
 
+/** Status badge for PMS / manual rows (QuickBooks uses the dedicated card above, not this list). */
 const STATUS_CONFIG = {
-  active: { label: 'Active', icon: CheckCircle2, color: 'text-emerald-400', badge: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' },
-  pending: { label: 'Pending', icon: Clock, color: 'text-amber-400', badge: 'bg-amber-500/10 text-amber-400 border-amber-500/20' },
-  error: { label: 'Error', icon: AlertCircle, color: 'text-red-400', badge: 'bg-red-500/10 text-red-400 border-red-500/20' },
-  disconnected: { label: 'Disconnected', icon: WifiOff, color: 'text-slate-400', badge: 'bg-slate-500/10 text-slate-400 border-slate-500/20' },
+  active: { label: 'Active', icon: CheckCircle2, badge: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' },
+  pending: { label: 'Pending', icon: Clock, badge: 'bg-amber-500/10 text-amber-400 border-amber-500/20' },
+  error: { label: 'Error', icon: AlertCircle, badge: 'bg-red-500/10 text-red-400 border-red-500/20' },
+  disconnected: { label: 'Disconnected', icon: WifiOff, badge: 'bg-slate-500/10 text-slate-400 border-slate-500/20' },
 }
 
 const AVAILABLE_PROVIDERS = [
@@ -73,8 +74,13 @@ const AVAILABLE_PROVIDERS = [
   { provider: 'manual', label: 'Manual Entry', type: 'pms', description: 'Enter daily metrics directly in Vesta' },
 ]
 
-/** QuickBooks is handled by the dedicated card above — avoid a duplicate “Connect” tile. */
-const CONNECT_GRID_PROVIDERS = AVAILABLE_PROVIDERS.filter((p) => p.provider !== 'quickbooks')
+/**
+ * QuickBooks: dedicated card above — no duplicate tile.
+ * Cloudbeds: hidden until the API integration is built (re-add by removing the filter).
+ */
+const CONNECT_GRID_PROVIDERS = AVAILABLE_PROVIDERS.filter(
+  (p) => p.provider !== 'quickbooks' && p.provider !== 'cloudbeds',
+)
 
 /**
  * Stitch “Vesta Onyx” design system (Google Stitch MCP).
@@ -244,52 +250,86 @@ export default function Integrations() {
   const [stripePortalLoading, setStripePortalLoading] = useState(false)
   const [resendTestLoading, setResendTestLoading] = useState(false)
 
+  /** Intuit redirects here with query params; process once per return. */
+  const qbOAuthReturnHandledRef = useRef(false)
+  /** If OAuth completes before hotelId is loaded, finish when hotelId appears. */
+  const pendingQbOAuthRef = useRef<{ code: string; realmId: string; state: string } | null>(null)
+
+  const runQuickBooksCallback = useCallback(
+    async (code: string, realmId: string, state: string) => {
+      if (!hotelId) {
+        pendingQbOAuthRef.current = { code, realmId, state }
+        toast.info('QuickBooks: connection will finish once your hotel workspace is ready.')
+        return
+      }
+
+      setQbCallbackLoading(true)
+      try {
+        const { error } = await supabase.functions.invoke('quickbooks-hotel-oauth', {
+          body: { action: 'callback', hotel_id: hotelId, code, realm_id: realmId, state },
+        })
+        if (error) {
+          toast.error('Failed to connect QuickBooks: ' + error.message)
+          return
+        }
+        toast.success('QuickBooks connected!')
+        queryClient.invalidateQueries({ queryKey: ['qb_integration', hotelId] })
+        queryClient.invalidateQueries({ queryKey: ['integrations', hotelId] })
+      } finally {
+        setQbCallbackLoading(false)
+      }
+    },
+    [hotelId, queryClient],
+  )
+
+  // Finish OAuth if it was deferred until hotelId existed
+  useEffect(() => {
+    if (!hotelId || !pendingQbOAuthRef.current) return
+    const p = pendingQbOAuthRef.current
+    pendingQbOAuthRef.current = null
+    void runQuickBooksCallback(p.code, p.realmId, p.state)
+  }, [hotelId, runQuickBooksCallback])
+
   // ---------------------------------------------------------------------------
-  // OAuth callback detection — handles popup postMessage from QB redirect
+  // QuickBooks OAuth: popup return, same-tab return (popup blocked), postMessage
   // ---------------------------------------------------------------------------
 
   useEffect(() => {
-    // Case 1: we ARE the popup (window.opener exists + QB params in URL)
     const params = new URLSearchParams(window.location.search)
     const code = params.get('code')
     const realmId = params.get('realmId')
     const state = params.get('state')
 
+    // Popup window: forward params to opener and close
     if (code && realmId && state && window.opener) {
-      // Tell the parent window to handle the callback, then close
       window.opener.postMessage({ type: 'QB_CALLBACK', code, realmId, state }, window.location.origin)
       window.close()
-      return
+      return undefined
     }
 
-    // Case 2: we are the main window, listen for the popup's message
+    // Same-tab return (e.g. popup blocked → full redirect)
+    if (code && realmId && state && !window.opener) {
+      if (!qbOAuthReturnHandledRef.current) {
+        qbOAuthReturnHandledRef.current = true
+        const c = code
+        const r = realmId
+        const s = state
+        navigate('/integrations', { replace: true })
+        void runQuickBooksCallback(c, r, s)
+      }
+    }
+
     const handleMessage = (event: MessageEvent) => {
       if (event.origin !== window.location.origin) return
       if (event.data?.type !== 'QB_CALLBACK') return
-      if (!hotelId) return
-
-      const { code, realmId, state } = event.data
-      setQbCallbackLoading(true)
-      supabase.functions
-        .invoke('quickbooks-hotel-oauth', {
-          body: { action: 'callback', hotel_id: hotelId, code, realm_id: realmId, state },
-        })
-        .then(({ error }) => {
-          if (error) {
-            toast.error('Failed to connect QuickBooks: ' + error.message)
-          } else {
-            toast.success('QuickBooks connected!')
-            queryClient.invalidateQueries({ queryKey: ['qb_integration', hotelId] })
-            queryClient.invalidateQueries({ queryKey: ['integrations', hotelId] })
-          }
-        })
-        .finally(() => setQbCallbackLoading(false))
+      const { code: c, realmId: r, state: s } = event.data
+      if (!c || !r || !s) return
+      void runQuickBooksCallback(c, r, s)
     }
 
     window.addEventListener('message', handleMessage)
     return () => window.removeEventListener('message', handleMessage)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hotelId])
+  }, [navigate, runQuickBooksCallback])
 
   // ---------------------------------------------------------------------------
   // Queries
@@ -357,51 +397,90 @@ export default function Integrations() {
     staleTime: 60_000,
   })
 
-  const connectedProviders = new Set(integrations.map((i) => i.provider))
+  const connectedProviders = useMemo(
+    () => new Set(integrations.map((i) => i.provider)),
+    [integrations],
+  )
+
+  /** PMS + manual only — QuickBooks is only on the dedicated card to avoid duplicate rows and sync buttons. */
+  const pmsIntegrations = useMemo(
+    () => integrations.filter((i) => i.provider !== 'quickbooks'),
+    [integrations],
+  )
+
+  const connectGridProviders = useMemo(
+    () => CONNECT_GRID_PROVIDERS.filter((p) => !connectedProviders.has(p.provider)),
+    [connectedProviders],
+  )
 
   // ---------------------------------------------------------------------------
   // QuickBooks handlers
   // ---------------------------------------------------------------------------
 
   const handleQBConnect = async () => {
+    if (!hotelId) {
+      toast.error('No hotel found. Complete onboarding first.')
+      return
+    }
+    qbOAuthReturnHandledRef.current = false
     setQbConnecting(true)
     try {
       const { data, error } = await supabase.functions.invoke('quickbooks-hotel-oauth', {
         body: { action: 'authorize', hotel_id: hotelId },
       })
       if (error) throw error
-      // Open in a popup so the main page session is never disrupted
-      const popup = window.open(data.authUrl, 'qb_oauth', 'width=600,height=700,left=200,top=100')
+      const authUrl = data && typeof data === 'object' && 'authUrl' in data ? (data as { authUrl: string }).authUrl : ''
+      if (!authUrl) {
+        toast.error('Could not start QuickBooks — missing authorization URL.')
+        return
+      }
+      const popup = window.open(authUrl, 'qb_oauth', 'width=600,height=700,left=200,top=100')
       if (!popup) {
-        // Fallback if popups are blocked
-        window.location.href = data.authUrl
+        window.location.href = authUrl
       }
     } catch (err) {
-      toast.error('Failed to start QuickBooks connection')
+      const msg = err instanceof Error ? err.message : 'Failed to start QuickBooks connection'
+      toast.error(msg)
     } finally {
       setQbConnecting(false)
     }
   }
 
   const handleQBDisconnect = async () => {
-    await supabase.functions.invoke('quickbooks-hotel-oauth', {
+    if (!hotelId) return
+    const { error } = await supabase.functions.invoke('quickbooks-hotel-oauth', {
       body: { action: 'disconnect', hotel_id: hotelId },
     })
+    if (error) {
+      toast.error(error.message ?? 'Could not disconnect QuickBooks')
+      return
+    }
     queryClient.invalidateQueries({ queryKey: ['qb_integration', hotelId] })
+    queryClient.invalidateQueries({ queryKey: ['integrations', hotelId] })
     toast.success('QuickBooks disconnected')
   }
 
   const handleQBSync = async () => {
+    if (!hotelId) return
     setQbSyncing(true)
     try {
       const { data, error } = await supabase.functions.invoke('quickbooks-hotel-sync', {
         body: { hotel_id: hotelId },
       })
       if (error) throw error
-      toast.success(`Synced ${data.synced_count} expenses from QuickBooks`)
+      if (data && typeof data === 'object' && 'error' in data) {
+        toast.error((data as { error?: string }).error ?? 'QuickBooks sync failed')
+        return
+      }
+      const count = (data as { synced_count?: number })?.synced_count ?? 0
+      toast.success(`Synced ${count} expenses from QuickBooks`)
       queryClient.invalidateQueries({ queryKey: ['qb_integration', hotelId] })
+      queryClient.invalidateQueries({ queryKey: ['integrations', hotelId] })
+      queryClient.invalidateQueries({ queryKey: ['sync_logs', hotelId] })
+      queryClient.invalidateQueries({ queryKey: ['expenses'] })
     } catch (err) {
-      toast.error('QuickBooks sync failed')
+      const msg = err instanceof Error ? err.message : 'QuickBooks sync failed'
+      toast.error(msg)
     } finally {
       setQbSyncing(false)
     }
@@ -789,7 +868,7 @@ export default function Integrations() {
                   </Button>
                 </div>
               ) : (
-                <div className="flex flex-col items-end gap-1.5">
+                <div className="flex flex-col items-end gap-1.5 max-w-xs text-right">
                   <Button
                     size="sm"
                     onClick={handleQBConnect}
@@ -808,7 +887,11 @@ export default function Integrations() {
                       </>
                     )}
                   </Button>
-                  <p className="text-[#9c8f79] text-xs">Requires QuickBooks Online subscription</p>
+                  <p className="text-[#9c8f79] text-xs">
+                    {hotelId
+                      ? 'Requires a QuickBooks Online company and Intuit app credentials in Supabase.'
+                      : 'Complete hotel onboarding first — then connect your QuickBooks company.'}
+                  </p>
                 </div>
               )}
             </div>
@@ -892,7 +975,10 @@ export default function Integrations() {
                     </Button>
                   </div>
                   {!stripeBilling?.subscribed && !stripeBillingLoading && (
-                    <p className="text-[#9c8f79] text-xs text-right">No active subscription — choose a plan on Pricing.</p>
+                    <p className="text-[#9c8f79] text-xs text-right">
+                      No active subscription — use View plans to subscribe. Manage billing opens Stripe when you have a
+                      customer on file (may show an error otherwise).
+                    </p>
                   )}
                 </>
               )}
@@ -1066,17 +1152,20 @@ export default function Integrations() {
               <div key={i} className="h-24 bg-[#161c28] rounded-2xl animate-pulse ring-1 ring-white/[0.05]" />
             ))}
           </div>
-        ) : integrations.length === 0 ? (
+        ) : pmsIntegrations.length === 0 ? (
           <Card className={stitch.cardMuted}>
             <CardContent className="py-12 text-center">
               <WifiOff className="w-8 h-8 text-[#9c8f79] mx-auto mb-3" />
-              <p className="text-[#d3c5ac]">No integrations connected yet.</p>
-              <p className="text-[#9c8f79] text-sm mt-1">Connect a PMS below to start syncing data.</p>
+              <p className="text-[#d3c5ac]">No PMS or manual integration yet.</p>
+              <p className="text-[#9c8f79] text-sm mt-1">
+                QuickBooks is managed in the card above. Connect Mews, Opera, or manual entry below to sync property
+                metrics.
+              </p>
             </CardContent>
           </Card>
         ) : (
           <div className="space-y-4">
-            {integrations.map((integration) => {
+            {pmsIntegrations.map((integration) => {
               const cfg = STATUS_CONFIG[integration.status as keyof typeof STATUS_CONFIG] ?? STATUS_CONFIG.pending
               const StatusIcon = cfg.icon
               const recentLogs = syncLogs.filter((l) => l.integration_id === integration.id).slice(0, 5)
@@ -1163,38 +1252,51 @@ export default function Integrations() {
       {/* Available providers */}
       <section aria-label="Connect new integrations">
         <h2 className={stitch.sectionLabel}>Connect new</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {CONNECT_GRID_PROVIDERS.filter((p) => !connectedProviders.has(p.provider)).map((p) => (
-            <Card
-              key={p.provider}
-              className={`${stitch.cardMuted} hover:bg-[#1a202c]/90 transition-colors group`}
-            >
-              <CardHeader className="p-5 pb-2">
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-sm font-medium text-[#dde2f3] font-['Manrope',system-ui,sans-serif]">
-                    {p.label}
-                  </CardTitle>
-                  <Badge variant="outline" className="text-xs border-white/10 text-[#9c8f79] bg-transparent">
-                    {p.type}
-                  </Badge>
-                </div>
-              </CardHeader>
-              <CardContent className="p-5 pt-0">
-                <p className="text-[#d3c5ac] text-xs leading-relaxed">{p.description}</p>
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  className="mt-4 w-full rounded-xl text-[#fbbf24] hover:text-[#ffe1a7] hover:bg-[#fbbf24]/10 border border-[#fbbf24]/25"
-                  disabled={!hotelId || (p.provider === 'mews' && mewsConnecting)}
-                  onClick={() => handleConnectProvider(p.provider)}
-                >
-                  <Plug className="w-3.5 h-3.5 mr-1.5" />
-                  Connect
-                </Button>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+        <p className="text-xs text-[#9c8f79] -mt-2 mb-4 max-w-2xl">
+          Each card starts a connection flow: Mews opens a secure form, manual entry enables dashboard and CSV import,
+          Opera shows a coming-soon notice until the integration ships.
+        </p>
+        {connectGridProviders.length === 0 ? (
+          <Card className={stitch.cardMuted}>
+            <CardContent className="py-8 text-center">
+              <CheckCircle2 className="w-8 h-8 text-emerald-400/80 mx-auto mb-2" />
+              <p className="text-[#d3c5ac] text-sm">All listed connection types are already set up for this hotel.</p>
+            </CardContent>
+          </Card>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {connectGridProviders.map((p) => (
+              <Card
+                key={p.provider}
+                className={`${stitch.cardMuted} hover:bg-[#1a202c]/90 transition-colors group`}
+              >
+                <CardHeader className="p-5 pb-2">
+                  <div className="flex items-center justify-between gap-2">
+                    <CardTitle className="text-sm font-medium text-[#dde2f3] font-['Manrope',system-ui,sans-serif]">
+                      {p.label}
+                    </CardTitle>
+                    <Badge variant="outline" className="text-xs border-white/10 text-[#9c8f79] bg-transparent shrink-0">
+                      {p.type === 'pms' ? 'PMS' : p.type === 'accounting' ? 'Accounting' : p.type}
+                    </Badge>
+                  </div>
+                </CardHeader>
+                <CardContent className="p-5 pt-0">
+                  <p className="text-[#d3c5ac] text-xs leading-relaxed">{p.description}</p>
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    className="mt-4 w-full rounded-xl text-[#fbbf24] hover:text-[#ffe1a7] hover:bg-[#fbbf24]/10 border border-[#fbbf24]/25"
+                    disabled={!hotelId || (p.provider === 'mews' && mewsConnecting)}
+                    onClick={() => handleConnectProvider(p.provider)}
+                  >
+                    <Plug className="w-3.5 h-3.5 mr-1.5" />
+                    Connect
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        )}
       </section>
 
       {/* ------------------------------------------------------------------ */}
@@ -1257,9 +1359,16 @@ export default function Integrations() {
                   <div className="text-center">
                     <p className="text-sm font-medium text-[#dde2f3]">
                       Drop a CSV file here, or{' '}
-                      <span className="text-[#fbbf24] hover:text-[#ffe1a7] underline underline-offset-2">
+                      <button
+                        type="button"
+                        className="text-[#fbbf24] hover:text-[#ffe1a7] underline underline-offset-2 font-medium"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          fileInputRef.current?.click()
+                        }}
+                      >
                         browse
-                      </span>
+                      </button>
                     </p>
                     <p className="text-xs text-[#9c8f79] mt-1">Only .csv files are accepted</p>
                   </div>
