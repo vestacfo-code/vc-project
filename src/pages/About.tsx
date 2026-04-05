@@ -83,7 +83,7 @@ const About = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#f5f3ff] via-[#e8e4ff] to-[#ddd6ff] flex flex-col relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-b from-vesta-cream via-vesta-mist/30 to-vesta-mist/50 flex flex-col relative overflow-hidden">
       {/* Decorative blobs */}
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-300/30 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-blue-300/25 rounded-full blur-3xl pointer-events-none" />
@@ -95,7 +95,7 @@ const About = () => {
         <section className="pt-8 sm:pt-16 pb-8 md:pb-12">
           <div className="container mx-auto px-4 md:px-6 max-w-6xl">
             <div className="text-center mb-8 md:mb-12 animate-fade-in">
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 tracking-tight">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-vesta-navy tracking-tight">
                 Governance
               </h1>
             </div>
@@ -106,7 +106,7 @@ const About = () => {
         <section className="py-8 md:py-16">
           <div className="container mx-auto px-4 md:px-6 max-w-7xl">
             <div className="mb-6 md:mb-8 text-center">
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
+              <h2 className="text-2xl md:text-3xl font-bold text-vesta-navy">
                 Executive Leadership
               </h2>
             </div>
@@ -118,8 +118,8 @@ const About = () => {
                       <AvatarImage src={member.image} alt={member.name} className="object-cover" />
                       <AvatarFallback className="bg-white/50 text-purple-600 text-xl md:text-2xl">{member.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
                     </Avatar>
-                    <h3 className="font-bold text-gray-900 text-lg md:text-xl mb-1 md:mb-2">{member.name}</h3>
-                    <p className="text-base md:text-lg text-gray-600 font-medium">{member.role}</p>
+                    <h3 className="font-bold text-vesta-navy text-lg md:text-xl mb-1 md:mb-2">{member.name}</h3>
+                    <p className="text-base md:text-lg text-vesta-navy/80 font-medium">{member.role}</p>
                   </div>
                 ))}
               </div>
@@ -130,8 +130,8 @@ const About = () => {
                       <AvatarImage src={member.image} alt={member.name} className="object-cover" />
                       <AvatarFallback className="bg-white/50 text-purple-600 text-xl md:text-2xl">{member.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
                     </Avatar>
-                    <h3 className="font-bold text-gray-900 text-lg md:text-xl mb-1 md:mb-2">{member.name}</h3>
-                    <p className="text-base md:text-lg text-gray-600 font-medium">{member.role}</p>
+                    <h3 className="font-bold text-vesta-navy text-lg md:text-xl mb-1 md:mb-2">{member.name}</h3>
+                    <p className="text-base md:text-lg text-vesta-navy/80 font-medium">{member.role}</p>
                   </div>
                 ))}
               </div>
@@ -143,7 +143,7 @@ const About = () => {
         <section className="py-8 md:py-16">
           <div className="container mx-auto px-4 md:px-6 max-w-7xl">
             <div className="mb-6 md:mb-8 text-center">
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
+              <h2 className="text-2xl md:text-3xl font-bold text-vesta-navy">
                 Team
               </h2>
             </div>
@@ -151,24 +151,24 @@ const About = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12 mb-8 md:mb-12">
                 {team.slice(0, 3).map((member, index) => (
                   <div key={index} className="text-center group animate-fade-in" style={{animationDelay: `${index * 0.1}s`}}>
-                    <Avatar className="w-32 h-32 md:w-40 md:h-40 mx-auto mb-4 md:mb-6 ring-4 ring-white/50 group-hover:ring-gray-400/30 transition-all duration-300 group-hover:scale-105">
+                    <Avatar className="w-32 h-32 md:w-40 md:h-40 mx-auto mb-4 md:mb-6 ring-4 ring-white/50 group-hover:ring-vesta-navy/30 transition-all duration-300 group-hover:scale-105">
                       <AvatarImage src={member.image} alt={member.name} className="object-cover" />
-                      <AvatarFallback className="bg-white/50 text-gray-600 text-xl md:text-2xl">{member.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                      <AvatarFallback className="bg-white/50 text-vesta-navy/80 text-xl md:text-2xl">{member.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
                     </Avatar>
-                    <h3 className="font-bold text-gray-900 text-lg md:text-xl mb-1 md:mb-2">{member.name}</h3>
-                    <p className="text-base md:text-lg text-gray-600 font-medium">{member.role}</p>
+                    <h3 className="font-bold text-vesta-navy text-lg md:text-xl mb-1 md:mb-2">{member.name}</h3>
+                    <p className="text-base md:text-lg text-vesta-navy/80 font-medium">{member.role}</p>
                   </div>
                 ))}
               </div>
               <div className="flex justify-center gap-8 md:gap-12 flex-wrap">
                 {team.slice(3).map((member, index) => (
                   <div key={index + 3} className="text-center group animate-fade-in w-full md:w-auto" style={{animationDelay: `${(index + 3) * 0.1}s`}}>
-                    <Avatar className="w-32 h-32 md:w-40 md:h-40 mx-auto mb-4 md:mb-6 ring-4 ring-white/50 group-hover:ring-gray-400/30 transition-all duration-300 group-hover:scale-105">
+                    <Avatar className="w-32 h-32 md:w-40 md:h-40 mx-auto mb-4 md:mb-6 ring-4 ring-white/50 group-hover:ring-vesta-navy/30 transition-all duration-300 group-hover:scale-105">
                       <AvatarImage src={member.image} alt={member.name} className="object-cover" />
-                      <AvatarFallback className="bg-white/50 text-gray-600 text-xl md:text-2xl">{member.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                      <AvatarFallback className="bg-white/50 text-vesta-navy/80 text-xl md:text-2xl">{member.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
                     </Avatar>
-                    <h3 className="font-bold text-gray-900 text-lg md:text-xl mb-1 md:mb-2">{member.name}</h3>
-                    <p className="text-base md:text-lg text-gray-600 font-medium">{member.role}</p>
+                    <h3 className="font-bold text-vesta-navy text-lg md:text-xl mb-1 md:mb-2">{member.name}</h3>
+                    <p className="text-base md:text-lg text-vesta-navy/80 font-medium">{member.role}</p>
                   </div>
                 ))}
               </div>
@@ -185,21 +185,21 @@ const About = () => {
                   <img src={teamCollaboration} alt="Team collaboration at Vesta" className="w-full h-full object-cover" />
                 </div>
                 <div className="p-8 md:p-12 flex flex-col justify-center text-center md:text-left">
-                  <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
+                  <h2 className="text-3xl md:text-4xl font-bold text-vesta-navy mb-4 leading-tight">
                     Join Our Growing Team
                   </h2>
-                  <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+                  <p className="text-lg text-vesta-navy/80 mb-8 leading-relaxed">
                     Help us transform how businesses understand their finances. We are looking for passionate individuals who want to make a real impact.
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
                     <Link to="/careers" className="w-full sm:w-auto">
-                      <Button size="lg" className="w-full sm:w-auto bg-gray-900 text-white hover:bg-gray-800 border-none text-base px-8 py-5 rounded-xl font-medium shadow-sm transition-all duration-300 hover:scale-105">
+                      <Button size="lg" className="w-full sm:w-auto bg-vesta-navy text-white hover:bg-vesta-navy-muted/30 border-none text-base px-8 py-5 rounded-xl font-medium shadow-sm transition-all duration-300 hover:scale-105">
                         View Open Positions
                         <ArrowRight className="ml-2 w-4 h-4" />
                       </Button>
                     </Link>
                     <a href="mailto:support@vesta.ai" className="w-full sm:w-auto">
-                      <Button size="lg" variant="outline" className="w-full sm:w-auto bg-white/50 border-white/30 text-gray-700 hover:bg-white/70 text-base px-8 py-5 rounded-xl font-medium transition-all duration-300">
+                      <Button size="lg" variant="outline" className="w-full sm:w-auto bg-white/50 border-white/30 text-vesta-navy/90 hover:bg-white/70 text-base px-8 py-5 rounded-xl font-medium transition-all duration-300">
                         Contact Us
                       </Button>
                     </a>

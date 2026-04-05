@@ -16,9 +16,9 @@ import { cn } from '@/lib/utils';
 const TOTAL_STEPS = 4;
 
 const LIGHT_SELECT_CONTENT =
-  'z-[200] max-h-[min(22rem,70vh)] border border-slate-200 bg-white text-slate-900 shadow-xl';
+  'z-[200] max-h-[min(22rem,70vh)] border border-vesta-navy/10 bg-white text-vesta-navy shadow-xl';
 const LIGHT_SELECT_ITEM =
-  'cursor-pointer py-2.5 pl-8 pr-3 text-slate-900 focus:bg-slate-100 data-[highlighted]:bg-slate-100 data-[state=checked]:bg-slate-50';
+  'cursor-pointer py-2.5 pl-8 pr-3 text-vesta-navy focus:bg-vesta-mist/40 data-[highlighted]:bg-vesta-mist/40 data-[state=checked]:bg-vesta-mist/25';
 
 interface OnboardingFormData {
   hotelName: string;
@@ -268,12 +268,12 @@ const HotelOnboarding = () => {
 
       <div className="mb-6 w-full max-w-lg">
         <div className="mb-3 flex items-center justify-between gap-4">
-          <span className="whitespace-nowrap text-sm font-medium text-slate-600">
+          <span className="whitespace-nowrap text-sm font-medium text-vesta-navy/80">
             Step {step} of {TOTAL_STEPS}
           </span>
-          <span className="truncate text-right text-sm font-medium text-slate-800">{stepTitles[step - 1]}</span>
+          <span className="truncate text-right text-sm font-medium text-vesta-navy">{stepTitles[step - 1]}</span>
         </div>
-        <Progress value={progressValue} className="h-1 bg-slate-200 [&>div]:bg-vesta-gold" />
+        <Progress value={progressValue} className="h-1 bg-vesta-mist/50 [&>div]:bg-vesta-gold" />
       </div>
 
       <Card className="w-full max-w-lg border border-vesta-navy/10 bg-white shadow-xl">
@@ -282,9 +282,9 @@ const HotelOnboarding = () => {
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-vesta-gold/15 text-vesta-gold">
               {stepIcons[step - 1]}
             </div>
-            <CardTitle className="text-xl text-slate-900">{stepTitles[step - 1]}</CardTitle>
+            <CardTitle className="text-xl text-vesta-navy">{stepTitles[step - 1]}</CardTitle>
           </div>
-          <CardDescription className="text-slate-600">
+          <CardDescription className="text-vesta-navy/80">
             {step === 1 && 'Official name, type, and room count for this property.'}
             {step === 2 && 'Where you operate and how we should format numbers.'}
             {step === 3 && 'Helps us prioritize alerts, integrations, and your dashboard.'}
@@ -296,19 +296,19 @@ const HotelOnboarding = () => {
           {step === 1 && (
             <>
               <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-700">Hotel name *</label>
+                <label className="text-sm font-medium text-vesta-navy/90">Hotel name *</label>
                 <Input
                   placeholder="e.g. The Grand Meridian"
                   value={form.hotelName}
                   onChange={(e) => set('hotelName', e.target.value)}
-                  className="border border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus-visible:ring-vesta-gold/35"
+                  className="border border-vesta-navy/10 bg-white text-vesta-navy placeholder:text-vesta-navy-muted focus-visible:ring-vesta-gold/35"
                 />
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-700">Property type *</label>
+                <label className="text-sm font-medium text-vesta-navy/90">Property type *</label>
                 <Select value={form.propertyType} onValueChange={(v) => set('propertyType', v)}>
-                  <SelectTrigger className="border border-slate-200 bg-white text-slate-900 focus:ring-vesta-gold/35 [&>span]:text-slate-900">
+                  <SelectTrigger className="border border-vesta-navy/10 bg-white text-vesta-navy focus:ring-vesta-gold/35 [&>span]:text-vesta-navy">
                     <SelectValue placeholder="Select property type" />
                   </SelectTrigger>
                   <SelectContent className={LIGHT_SELECT_CONTENT}>
@@ -322,14 +322,14 @@ const HotelOnboarding = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-700">Number of keys / rooms *</label>
+                <label className="text-sm font-medium text-vesta-navy/90">Number of keys / rooms *</label>
                 <Input
                   type="number"
                   min={1}
                   placeholder="e.g. 120"
                   value={form.roomCount}
                   onChange={(e) => set('roomCount', e.target.value)}
-                  className="border border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus-visible:ring-vesta-gold/35"
+                  className="border border-vesta-navy/10 bg-white text-vesta-navy placeholder:text-vesta-navy-muted focus-visible:ring-vesta-gold/35"
                 />
               </div>
             </>
@@ -338,59 +338,59 @@ const HotelOnboarding = () => {
           {step === 2 && (
             <>
               <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-700">Street address (optional)</label>
+                <label className="text-sm font-medium text-vesta-navy/90">Street address (optional)</label>
                 <Input
                   placeholder="123 Ocean Drive"
                   value={form.addressLine}
                   onChange={(e) => set('addressLine', e.target.value)}
-                  className="border border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus-visible:ring-vesta-gold/35"
+                  className="border border-vesta-navy/10 bg-white text-vesta-navy placeholder:text-vesta-navy-muted focus-visible:ring-vesta-gold/35"
                 />
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-slate-700">City *</label>
+                  <label className="text-sm font-medium text-vesta-navy/90">City *</label>
                   <Input
                     placeholder="Dubai"
                     value={form.city}
                     onChange={(e) => set('city', e.target.value)}
-                    className="border border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus-visible:ring-vesta-gold/35"
+                    className="border border-vesta-navy/10 bg-white text-vesta-navy placeholder:text-vesta-navy-muted focus-visible:ring-vesta-gold/35"
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-slate-700">State / region (optional)</label>
+                  <label className="text-sm font-medium text-vesta-navy/90">State / region (optional)</label>
                   <Input
                     placeholder="Dubai"
                     value={form.state}
                     onChange={(e) => set('state', e.target.value)}
-                    className="border border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus-visible:ring-vesta-gold/35"
+                    className="border border-vesta-navy/10 bg-white text-vesta-navy placeholder:text-vesta-navy-muted focus-visible:ring-vesta-gold/35"
                   />
                 </div>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-slate-700">Postal code (optional)</label>
+                  <label className="text-sm font-medium text-vesta-navy/90">Postal code (optional)</label>
                   <Input
                     placeholder="00000"
                     value={form.zip}
                     onChange={(e) => set('zip', e.target.value)}
-                    className="border border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus-visible:ring-vesta-gold/35"
+                    className="border border-vesta-navy/10 bg-white text-vesta-navy placeholder:text-vesta-navy-muted focus-visible:ring-vesta-gold/35"
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-slate-700">Country *</label>
+                  <label className="text-sm font-medium text-vesta-navy/90">Country *</label>
                   <Input
                     placeholder="United Arab Emirates"
                     value={form.country}
                     onChange={(e) => set('country', e.target.value)}
-                    className="border border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus-visible:ring-vesta-gold/35"
+                    className="border border-vesta-navy/10 bg-white text-vesta-navy placeholder:text-vesta-navy-muted focus-visible:ring-vesta-gold/35"
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-700">Timezone *</label>
+                <label className="text-sm font-medium text-vesta-navy/90">Timezone *</label>
                 <Select value={form.timezone} onValueChange={(v) => set('timezone', v)}>
-                  <SelectTrigger className="border border-slate-200 bg-white text-slate-900 focus:ring-vesta-gold/35 [&>span]:text-slate-900">
+                  <SelectTrigger className="border border-vesta-navy/10 bg-white text-vesta-navy focus:ring-vesta-gold/35 [&>span]:text-vesta-navy">
                     <SelectValue placeholder="Select timezone" />
                   </SelectTrigger>
                   <SelectContent className={LIGHT_SELECT_CONTENT}>
@@ -404,9 +404,9 @@ const HotelOnboarding = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-700">Reporting currency *</label>
+                <label className="text-sm font-medium text-vesta-navy/90">Reporting currency *</label>
                 <Select value={form.currency} onValueChange={(v) => set('currency', v)}>
-                  <SelectTrigger className="border border-slate-200 bg-white text-slate-900 focus:ring-vesta-gold/35 [&>span]:text-slate-900">
+                  <SelectTrigger className="border border-vesta-navy/10 bg-white text-vesta-navy focus:ring-vesta-gold/35 [&>span]:text-vesta-navy">
                     <SelectValue placeholder="Select currency" />
                   </SelectTrigger>
                   <SelectContent className={LIGHT_SELECT_CONTENT}>
@@ -424,9 +424,9 @@ const HotelOnboarding = () => {
           {step === 3 && (
             <>
               <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-700">Your role *</label>
+                <label className="text-sm font-medium text-vesta-navy/90">Your role *</label>
                 <Select value={form.role} onValueChange={(v) => set('role', v)}>
-                  <SelectTrigger className="border border-slate-200 bg-white text-slate-900 focus:ring-vesta-gold/35 [&>span]:text-slate-900">
+                  <SelectTrigger className="border border-vesta-navy/10 bg-white text-vesta-navy focus:ring-vesta-gold/35 [&>span]:text-vesta-navy">
                     <SelectValue placeholder="Select role" />
                   </SelectTrigger>
                   <SelectContent className={LIGHT_SELECT_CONTENT}>
@@ -440,9 +440,9 @@ const HotelOnboarding = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-700">Portfolio size *</label>
+                <label className="text-sm font-medium text-vesta-navy/90">Portfolio size *</label>
                 <Select value={form.portfolioSize} onValueChange={(v) => set('portfolioSize', v)}>
-                  <SelectTrigger className="border border-slate-200 bg-white text-slate-900 focus:ring-vesta-gold/35 [&>span]:text-slate-900">
+                  <SelectTrigger className="border border-vesta-navy/10 bg-white text-vesta-navy focus:ring-vesta-gold/35 [&>span]:text-vesta-navy">
                     <SelectValue placeholder="How many properties do you oversee?" />
                   </SelectTrigger>
                   <SelectContent className={LIGHT_SELECT_CONTENT}>
@@ -456,7 +456,7 @@ const HotelOnboarding = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-700">Top priorities * (select all that apply)</label>
+                <label className="text-sm font-medium text-vesta-navy/90">Top priorities * (select all that apply)</label>
                 <div className="flex flex-wrap gap-2">
                   {GOAL_OPTIONS.map((g) => {
                     const on = form.primaryGoals.includes(g.id);
@@ -469,7 +469,7 @@ const HotelOnboarding = () => {
                           'rounded-lg border px-3 py-2 text-xs sm:text-sm font-medium transition-colors',
                           on
                             ? 'border-vesta-gold/50 bg-vesta-gold/15 text-vesta-navy'
-                            : 'border-slate-200 bg-slate-50 text-slate-700 hover:border-slate-300 hover:text-slate-900'
+                            : 'border-vesta-navy/10 bg-vesta-mist/25 text-vesta-navy/90 hover:border-vesta-navy/15 hover:text-vesta-navy'
                         )}
                       >
                         {g.label}
@@ -480,9 +480,9 @@ const HotelOnboarding = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-700">How do you get financial / PMS data today? *</label>
+                <label className="text-sm font-medium text-vesta-navy/90">How do you get financial / PMS data today? *</label>
                 <Select value={form.dataApproach} onValueChange={(v) => set('dataApproach', v)}>
-                  <SelectTrigger className="border border-slate-200 bg-white text-slate-900 focus:ring-vesta-gold/35 [&>span]:text-slate-900">
+                  <SelectTrigger className="border border-vesta-navy/10 bg-white text-vesta-navy focus:ring-vesta-gold/35 [&>span]:text-vesta-navy">
                     <SelectValue placeholder="Select the closest option" />
                   </SelectTrigger>
                   <SelectContent className={LIGHT_SELECT_CONTENT}>
@@ -500,9 +500,9 @@ const HotelOnboarding = () => {
           {step === 4 && (
             <>
               <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-700">Primary PMS *</label>
+                <label className="text-sm font-medium text-vesta-navy/90">Primary PMS *</label>
                 <Select value={form.pmsProvider} onValueChange={(v) => set('pmsProvider', v)}>
-                  <SelectTrigger className="border border-slate-200 bg-white text-slate-900 focus:ring-vesta-gold/35 [&>span]:text-slate-900">
+                  <SelectTrigger className="border border-vesta-navy/10 bg-white text-vesta-navy focus:ring-vesta-gold/35 [&>span]:text-vesta-navy">
                     <SelectValue placeholder="Select your system" />
                   </SelectTrigger>
                   <SelectContent className={LIGHT_SELECT_CONTENT}>
@@ -516,18 +516,18 @@ const HotelOnboarding = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-700">Anything else we should know? (optional)</label>
+                <label className="text-sm font-medium text-vesta-navy/90">Anything else we should know? (optional)</label>
                 <Textarea
                   placeholder="e.g. We use a channel manager, fiscal year ends in March, multi-currency deposits…"
                   value={form.notes}
                   onChange={(e) => set('notes', e.target.value)}
                   rows={4}
-                  className="resize-none border border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus-visible:ring-vesta-gold/35"
+                  className="resize-none border border-vesta-navy/10 bg-white text-vesta-navy placeholder:text-vesta-navy-muted focus-visible:ring-vesta-gold/35"
                 />
               </div>
 
               <div className="rounded-lg border border-vesta-gold/25 bg-vesta-gold/10 px-4 py-3">
-                <p className="text-sm leading-relaxed text-slate-700">
+                <p className="text-sm leading-relaxed text-vesta-navy/90">
                   After setup, open <span className="font-medium text-vesta-navy">Integrations</span> to connect your PMS, upload
                   CSVs, or enter manual metrics. You can change PMS in Settings later.
                 </p>
@@ -541,7 +541,7 @@ const HotelOnboarding = () => {
                 type="button"
                 variant="ghost"
                 onClick={() => setStep((s) => s - 1)}
-                className="shrink-0 text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+                className="shrink-0 text-vesta-navy/80 hover:bg-vesta-mist/40 hover:text-vesta-navy"
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Back
@@ -555,7 +555,7 @@ const HotelOnboarding = () => {
                 type="button"
                 onClick={() => setStep((s) => s + 1)}
                 disabled={stepBlocked}
-                className="shrink-0 bg-vesta-gold font-semibold text-slate-950 hover:bg-vesta-gold/90 disabled:opacity-40"
+                className="shrink-0 bg-vesta-gold font-semibold text-vesta-navy hover:bg-vesta-gold/90 disabled:opacity-40"
               >
                 Continue
                 <ArrowRight className="w-4 h-4 ml-2" />
@@ -565,7 +565,7 @@ const HotelOnboarding = () => {
                 type="button"
                 onClick={handleComplete}
                 disabled={isSubmitting || !canComplete}
-                className="shrink-0 bg-vesta-gold font-semibold text-slate-950 hover:bg-vesta-gold/90 disabled:opacity-40"
+                className="shrink-0 bg-vesta-gold font-semibold text-vesta-navy hover:bg-vesta-gold/90 disabled:opacity-40"
               >
                 {isSubmitting ? (
                   <>
@@ -584,7 +584,7 @@ const HotelOnboarding = () => {
         </CardContent>
       </Card>
 
-      <p className="mt-6 text-slate-500 text-xs text-center max-w-md">
+      <p className="mt-6 text-vesta-navy/65 text-xs text-center max-w-md">
         Vesta CFO — encrypted setup. By continuing you confirm information is accurate for your property.
       </p>
     </div>

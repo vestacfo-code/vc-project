@@ -53,7 +53,7 @@ const Pricing = () => {
 
   return (
     <MarketingPageShell>
-      <div className="min-h-screen bg-gradient-to-b from-vesta-cream via-white to-vesta-mist/40 flex flex-col relative overflow-hidden text-slate-900">
+      <div className="min-h-screen bg-gradient-to-b from-vesta-cream via-white to-vesta-mist/40 flex flex-col relative overflow-hidden text-vesta-navy">
         <div className="absolute top-20 left-[10%] w-[28rem] h-[28rem] bg-vesta-navy/[0.06] rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-32 right-[8%] w-80 h-80 bg-vesta-gold/15 rounded-full blur-3xl pointer-events-none" />
 
@@ -66,7 +66,7 @@ const Pricing = () => {
               <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-normal text-vesta-navy leading-tight mb-5 tracking-tight">
                 Pricing built for <span className="text-vesta-gold">properties</span>, not spreadsheets.
               </h1>
-              <p className="text-lg sm:text-xl text-slate-600 leading-relaxed">
+              <p className="text-lg sm:text-xl text-vesta-navy/80 leading-relaxed">
                 Three SaaS tiers from our product roadmap: Starter for independents, Growth for small chains, Enterprise for
                 large portfolios. Add-on revenue comes from the{' '}
                 <span className="text-vesta-navy font-medium">partner marketplace</span> when we help you switch to vetted
@@ -76,7 +76,7 @@ const Pricing = () => {
 
             {session && (
               <div className="max-w-3xl mx-auto mb-10 rounded-2xl border border-vesta-navy/15 bg-white/70 backdrop-blur-md px-5 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 shadow-sm">
-                <p className="text-sm text-slate-600">
+                <p className="text-sm text-vesta-navy/80">
                   Signed in — open your hotel dashboard or legacy assistant billing (if any).
                 </p>
                 <div className="flex flex-wrap gap-2">
@@ -114,14 +114,14 @@ const Pricing = () => {
                   )}
                   <CardHeader className="pb-2 pt-8 px-6">
                     <CardTitle className="text-xl font-semibold text-vesta-navy">{tier.name}</CardTitle>
-                    <p className="text-xs font-medium uppercase tracking-wider text-slate-500 mt-1">{tier.audience}</p>
+                    <p className="text-xs font-medium uppercase tracking-wider text-vesta-navy/65 mt-1">{tier.audience}</p>
                     <div className="mt-5 mb-1">
                       <span className="text-4xl sm:text-5xl font-semibold tracking-tight text-vesta-navy">{tier.price}</span>
                       {tier.priceDetail ? (
-                        <span className="text-slate-600 text-sm font-normal ml-1">{tier.priceDetail}</span>
+                        <span className="text-vesta-navy/80 text-sm font-normal ml-1">{tier.priceDetail}</span>
                       ) : null}
                     </div>
-                    <p className="text-sm text-slate-600 leading-relaxed min-h-[2.75rem]">{tier.description}</p>
+                    <p className="text-sm text-vesta-navy/80 leading-relaxed min-h-[2.75rem]">{tier.description}</p>
                   </CardHeader>
                   <CardContent className="flex-1 flex flex-col px-6 pb-8 pt-2">
                     {tier.external ? (
@@ -149,9 +149,9 @@ const Pricing = () => {
                         <Link to={tier.ctaHref}>{tier.cta}</Link>
                       </Button>
                     )}
-                    <ul className="space-y-3 flex-1 border-t border-slate-200/80 pt-6">
+                    <ul className="space-y-3 flex-1 border-t border-vesta-navy/80 pt-6">
                       {tier.features.map((f) => (
-                        <li key={f} className="flex gap-2.5 text-sm text-slate-600 leading-relaxed">
+                        <li key={f} className="flex gap-2.5 text-sm text-vesta-navy/80 leading-relaxed">
                           <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" strokeWidth={2.5} />
                           <span>{f}</span>
                         </li>
@@ -169,7 +169,7 @@ const Pricing = () => {
               }`}
             >
               <h3 className="font-serif text-2xl text-vesta-navy mb-3">Marketplace & data revenue</h3>
-              <p className="text-slate-600 text-sm leading-relaxed mb-6">
+              <p className="text-vesta-navy/80 text-sm leading-relaxed mb-6">
                 Beyond subscription: our roadmap includes affiliate savings when you switch to vetted partners (linen, F&amp;B,
                 utilities, and more), and long-term anonymized benchmarking insights for the industry. Details in our investor
                 and operator deck — ask on a sales call.
@@ -192,7 +192,7 @@ const Pricing = () => {
                   <AccordionTrigger className="text-left text-vesta-navy hover:no-underline">
                     What&apos;s included in Starter vs Growth?
                   </AccordionTrigger>
-                  <AccordionContent className="text-slate-600 text-sm leading-relaxed">
+                  <AccordionContent className="text-vesta-navy/80 text-sm leading-relaxed">
                     Starter covers one connected PMS, daily AI summary, anomaly alerts, and the core hotel dashboard. Growth adds
                     benchmarking, forecasting, multiple properties and PMS connections, and AI-driven partner recommendations
                     from the marketplace — per our published roadmap.
@@ -202,7 +202,7 @@ const Pricing = () => {
                   <AccordionTrigger className="text-left text-vesta-navy hover:no-underline">
                     Do you replace my accountant?
                   </AccordionTrigger>
-                  <AccordionContent className="text-slate-600 text-sm leading-relaxed">
+                  <AccordionContent className="text-vesta-navy/80 text-sm leading-relaxed">
                     No. Vesta CFO is an operator-facing layer: faster answers from your PMS and financial data, alerts, and
                     exports. Your CPA or corporate finance team still owns tax, audit, and statutory reporting.
                   </AccordionContent>
@@ -211,7 +211,7 @@ const Pricing = () => {
                   <AccordionTrigger className="text-left text-vesta-navy hover:no-underline">
                     Which systems do you integrate with?
                   </AccordionTrigger>
-                  <AccordionContent className="text-slate-600 text-sm leading-relaxed">
+                  <AccordionContent className="text-vesta-navy/80 text-sm leading-relaxed">
                     Priority is PMS (Mews, Cloudbeds, Oracle Opera, and others over time), plus CSV and manual metrics. OTAs,
                     payroll, F&amp;B POS, accounting, and banking are staged on the roadmap — Enterprise customers can prioritize
                     specific adapters.
@@ -221,7 +221,7 @@ const Pricing = () => {
                   <AccordionTrigger className="text-left text-vesta-navy hover:no-underline">
                     How does Enterprise pricing work?
                   </AccordionTrigger>
-                  <AccordionContent className="text-slate-600 text-sm leading-relaxed">
+                  <AccordionContent className="text-vesta-navy/80 text-sm leading-relaxed">
                     For roughly fifteen or more properties, or complex data requirements, we quote custom packages — typically
                     from about $2,000/month — with SLAs, dedicated support, and custom integrations as needed.
                   </AccordionContent>
@@ -230,7 +230,7 @@ const Pricing = () => {
                   <AccordionTrigger className="text-left text-vesta-navy hover:no-underline">
                     Is my data secure?
                   </AccordionTrigger>
-                  <AccordionContent className="text-slate-600 text-sm leading-relaxed">
+                  <AccordionContent className="text-vesta-navy/80 text-sm leading-relaxed">
                     We use encrypted transport and storage, tenant isolation, and industry-standard hosting. Enterprise agreements
                     can include additional security documentation.
                   </AccordionContent>

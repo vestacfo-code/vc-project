@@ -318,8 +318,8 @@ Status: ${(product as any).status || 'neutral'}
     return (
       <div className="flex-1 p-6 pt-16 space-y-6 overflow-y-auto">
         <div>
-          <div className="h-7 w-48 bg-slate-200 rounded animate-pulse" />
-          <div className="h-4 w-64 bg-slate-200/50 rounded animate-pulse mt-2" />
+          <div className="h-7 w-48 bg-vesta-mist/50 rounded animate-pulse" />
+          <div className="h-4 w-64 bg-vesta-mist/50 rounded animate-pulse mt-2" />
         </div>
         <CardsSkeleton count={4} />
         <TableRowsSkeleton rows={8} cols={7} />
@@ -332,8 +332,8 @@ Status: ${(product as any).status || 'neutral'}
       {/* Header */}
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Pricing Intelligence</h1>
-          <p className="text-sm text-zinc-500 mt-0.5">
+          <h1 className="text-2xl font-semibold text-vesta-navy">Pricing Intelligence</h1>
+          <p className="text-sm text-vesta-navy/65 mt-0.5">
             {stats.total} products · {deduplicatedSuppliers.length} supplier{deduplicatedSuppliers.length !== 1 ? 's' : ''}
           </p>
         </div>
@@ -343,7 +343,7 @@ Status: ${(product as any).status || 'neutral'}
             size="sm" 
             onClick={handleRefreshAIPrices}
             disabled={isRefreshing}
-            className="gap-2 relative bg-slate-100 border-slate-200 hover:bg-slate-200 text-slate-900"
+            className="gap-2 relative bg-vesta-mist/40 border-vesta-navy/10 hover:bg-vesta-mist/50 text-vesta-navy"
           >
             {needsRefresh && (
               <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-500 rounded-full" />
@@ -351,11 +351,11 @@ Status: ${(product as any).status || 'neutral'}
             <RefreshCw className={`w-4 h-4 ${isRefreshing ? 'animate-spin' : ''}`} />
             {isRefreshing ? 'Refreshing...' : 'Refresh AI'}
           </Button>
-          <div className="flex items-center border border-slate-200 rounded-lg bg-slate-50">
+          <div className="flex items-center border border-vesta-navy/10 rounded-lg bg-vesta-mist/25">
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button variant="ghost" size="icon" className="h-8 w-8 rounded-l-lg rounded-r-none text-slate-500 hover:text-slate-900 hover:bg-slate-100" onClick={handleExport}>
+                  <Button variant="ghost" size="icon" className="h-8 w-8 rounded-l-lg rounded-r-none text-vesta-navy/65 hover:text-vesta-navy hover:bg-vesta-mist/40" onClick={handleExport}>
                     <Download className="w-4 h-4" />
                   </Button>
                 </TooltipTrigger>
@@ -368,7 +368,7 @@ Status: ${(product as any).status || 'neutral'}
                   <Button 
                     variant={editMode ? "default" : "ghost"} 
                     size="icon" 
-                    className={`h-8 w-8 rounded-none ${editMode ? 'bg-slate-200 text-slate-900' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-100'}`}
+                    className={`h-8 w-8 rounded-none ${editMode ? 'bg-vesta-mist/50 text-vesta-navy' : 'text-vesta-navy/65 hover:text-vesta-navy hover:bg-vesta-mist/40'}`}
                     onClick={() => { setEditMode(!editMode); if (editMode) setSelectedRows(new Set()); }}
                   >
                     <Trash2 className="w-4 h-4" />
@@ -380,7 +380,7 @@ Status: ${(product as any).status || 'neutral'}
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button variant="ghost" size="icon" className="h-8 w-8 rounded-r-lg rounded-l-none text-slate-500 hover:text-slate-900 hover:bg-slate-100" onClick={() => setStrategyModalOpen(true)}>
+                  <Button variant="ghost" size="icon" className="h-8 w-8 rounded-r-lg rounded-l-none text-vesta-navy/65 hover:text-vesta-navy hover:bg-vesta-mist/40" onClick={() => setStrategyModalOpen(true)}>
                     <Settings2 className="w-4 h-4" />
                   </Button>
                 </TooltipTrigger>
@@ -409,19 +409,19 @@ Status: ${(product as any).status || 'neutral'}
       {/* Filters */}
       <div className="flex items-center gap-4">
         <div className="relative flex-1 max-w-sm">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-vesta-navy/65" />
           <Input
             placeholder="Search UPC, product, or brand..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-9 bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-400 focus:ring-0 focus:border-slate-400 focus-visible:ring-0 focus-visible:ring-offset-0"
+            className="pl-9 bg-vesta-mist/25 border-vesta-navy/10 text-vesta-navy placeholder:text-vesta-navy-muted focus:ring-0 focus:border-vesta-navy/12 focus-visible:ring-0 focus-visible:ring-offset-0"
           />
         </div>
         <Select value={selectedBrand} onValueChange={setSelectedBrand}>
-          <SelectTrigger className="w-48 bg-slate-50 border-slate-200 text-slate-600 focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0">
+          <SelectTrigger className="w-48 bg-vesta-mist/25 border-vesta-navy/10 text-vesta-navy/80 focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0">
             <SelectValue placeholder="Filter by Brand" />
           </SelectTrigger>
-          <SelectContent className="border border-slate-200 bg-white">
+          <SelectContent className="border border-vesta-navy/10 bg-white">
             <SelectItem value="all">All Brands</SelectItem>
             {brands.map((brand) => (
               <SelectItem key={brand} value={brand}>{brand}</SelectItem>
@@ -432,63 +432,63 @@ Status: ${(product as any).status || 'neutral'}
 
       {/* Mini Stats Badges */}
       <div className="flex items-center gap-2 flex-wrap">
-        <div className="flex items-center gap-1.5 bg-slate-50 border border-slate-200 rounded-md px-2.5 py-1">
-          <span className="text-xs text-zinc-500">{stats.total}</span>
-          <span className="text-xs text-slate-500">products</span>
+        <div className="flex items-center gap-1.5 bg-vesta-mist/25 border border-vesta-navy/10 rounded-md px-2.5 py-1">
+          <span className="text-xs text-vesta-navy/65">{stats.total}</span>
+          <span className="text-xs text-vesta-navy/65">products</span>
         </div>
-        <div className="flex items-center gap-1.5 bg-slate-50 border border-slate-200 rounded-md px-2.5 py-1">
+        <div className="flex items-center gap-1.5 bg-vesta-mist/25 border border-vesta-navy/10 rounded-md px-2.5 py-1">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-          <span className="text-xs text-slate-500">{stats.competitive}</span>
+          <span className="text-xs text-vesta-navy/65">{stats.competitive}</span>
         </div>
-        <div className="flex items-center gap-1.5 bg-slate-50 border border-slate-200 rounded-md px-2.5 py-1">
+        <div className="flex items-center gap-1.5 bg-vesta-mist/25 border border-vesta-navy/10 rounded-md px-2.5 py-1">
           <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
-          <span className="text-xs text-slate-500">{stats.atRisk}</span>
+          <span className="text-xs text-vesta-navy/65">{stats.atRisk}</span>
         </div>
         {stats.stale > 0 && (
-          <div className="flex items-center gap-1.5 bg-slate-50 border border-slate-200 rounded-md px-2.5 py-1">
+          <div className="flex items-center gap-1.5 bg-vesta-mist/25 border border-vesta-navy/10 rounded-md px-2.5 py-1">
             <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
-            <span className="text-xs text-slate-500">{stats.stale} stale</span>
+            <span className="text-xs text-vesta-navy/65">{stats.stale} stale</span>
           </div>
         )}
       </div>
 
       {/* Table */}
-      <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+      <div className="overflow-hidden rounded-xl border border-vesta-navy/10 bg-white shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-left">
             <thead>
-              <tr className="border-b border-slate-200 bg-slate-50">
+              <tr className="border-b border-vesta-navy/10 bg-vesta-mist/25">
                 {editMode && (
                   <th className="px-3 py-2.5 w-10">
                     <Checkbox 
                       checked={selectedRows.size === enrichedProducts.length && enrichedProducts.length > 0}
                       onCheckedChange={toggleSelectAll}
-                      className="border-slate-400 data-[state=checked]:border-slate-900 data-[state=checked]:bg-slate-900 data-[state=checked]:text-white"
+                      className="border-vesta-navy/12 data-[state=checked]:border-vesta-navy data-[state=checked]:bg-vesta-navy data-[state=checked]:text-white"
                     />
                   </th>
                 )}
-                <th className="px-3 py-2.5 text-[10px] font-semibold text-zinc-500 uppercase tracking-wider">UPC</th>
-                <th className="px-3 py-2.5 text-[10px] font-semibold text-zinc-500 uppercase tracking-wider">Brand</th>
-                <th className="px-3 py-2.5 text-[10px] font-semibold text-zinc-500 uppercase tracking-wider">Description</th>
-                <th className="px-3 py-2.5 text-[10px] font-semibold text-zinc-500 uppercase tracking-wider text-right">COGS</th>
-                <th className="px-3 py-2.5 text-[10px] font-semibold text-zinc-500 uppercase tracking-wider text-right">Your $</th>
+                <th className="px-3 py-2.5 text-[10px] font-semibold text-vesta-navy/65 uppercase tracking-wider">UPC</th>
+                <th className="px-3 py-2.5 text-[10px] font-semibold text-vesta-navy/65 uppercase tracking-wider">Brand</th>
+                <th className="px-3 py-2.5 text-[10px] font-semibold text-vesta-navy/65 uppercase tracking-wider">Description</th>
+                <th className="px-3 py-2.5 text-[10px] font-semibold text-vesta-navy/65 uppercase tracking-wider text-right">COGS</th>
+                <th className="px-3 py-2.5 text-[10px] font-semibold text-vesta-navy/65 uppercase tracking-wider text-right">Your $</th>
                 {deduplicatedSuppliers.map((s) => (
-                  <th key={s.id} className="px-3 py-2.5 text-[10px] font-semibold text-zinc-500 uppercase tracking-wider text-right whitespace-nowrap max-w-[100px]" title={s.name}>
+                  <th key={s.id} className="px-3 py-2.5 text-[10px] font-semibold text-vesta-navy/65 uppercase tracking-wider text-right whitespace-nowrap max-w-[100px]" title={s.name}>
                     {s.name.length > 12 ? s.name.slice(0, 12) + '…' : s.name}
                   </th>
                 ))}
-                <th className="px-3 py-2.5 text-[10px] font-semibold text-zinc-500 uppercase tracking-wider text-right">
+                <th className="px-3 py-2.5 text-[10px] font-semibold text-vesta-navy/65 uppercase tracking-wider text-right">
                   <span className="inline-flex items-center gap-1">
                     <Sparkles className="w-3 h-3 text-amber-500" /> AI
                     <Popover>
                       <PopoverTrigger asChild>
-                        <button className="ml-0.5 text-zinc-600 hover:text-slate-500">
+                        <button className="ml-0.5 text-vesta-navy/80 hover:text-vesta-navy/65">
                           <HelpCircle className="w-3 h-3" />
                         </button>
                       </PopoverTrigger>
-                      <PopoverContent className="w-56 border border-slate-200 bg-white text-xs text-slate-600" side="left">
+                      <PopoverContent className="w-56 border border-vesta-navy/10 bg-white text-xs text-vesta-navy/80" side="left">
                         <div className="space-y-1.5">
-                          <p className="font-medium text-slate-900">Color Legend</p>
+                          <p className="font-medium text-vesta-navy">Color Legend</p>
                           <div className="flex items-center gap-2"><span className="w-2 h-0.5 bg-emerald-400 rounded" /><span>Lowest / Below Market</span></div>
                           <div className="flex items-center gap-2"><span className="w-2 h-0.5 bg-red-400 rounded" /><span>Highest / Above Market</span></div>
                           <div className="flex items-center gap-2"><span className="w-2 h-0.5 bg-amber-400 rounded" /><span>Way Above Market (&gt;50%)</span></div>
@@ -500,15 +500,15 @@ Status: ${(product as any).status || 'neutral'}
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-vesta-navy/8">
               {enrichedProducts.length === 0 ? (
                 <tr>
                   <td colSpan={100} className="p-12 text-center">
-                    <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-slate-50 mb-3">
-                      <Sparkles className="w-7 h-7 text-zinc-600" />
+                    <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-vesta-mist/25 mb-3">
+                      <Sparkles className="w-7 h-7 text-vesta-navy/80" />
                     </div>
-                    <p className="text-sm font-medium text-slate-500 mb-1">No products found</p>
-                    <p className="text-xs text-zinc-600">Upload your catalog to get started.</p>
+                    <p className="text-sm font-medium text-vesta-navy/65 mb-1">No products found</p>
+                    <p className="text-xs text-vesta-navy/80">Upload your catalog to get started.</p>
                   </td>
                 </tr>
               ) : (
@@ -539,14 +539,14 @@ Status: ${(product as any).status || 'neutral'}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
-            className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-slate-200 text-slate-900 rounded-xl shadow-2xl px-6 py-3 flex items-center gap-4 border border-slate-200"
+            className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-vesta-mist/50 text-vesta-navy rounded-xl shadow-2xl px-6 py-3 flex items-center gap-4 border border-vesta-navy/10"
           >
             <span className="text-sm font-medium">{selectedRows.size} selected</span>
             <Button variant="destructive" size="sm" onClick={handleDeleteSelected} disabled={isDeleting} className="gap-1.5">
               {isDeleting ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Trash2 className="w-3.5 h-3.5" />}
               {isDeleting ? 'Deleting...' : 'Delete'}
             </Button>
-            <Button variant="ghost" size="sm" className="text-slate-600 hover:text-slate-900 hover:bg-slate-100" onClick={() => { setSelectedRows(new Set()); setEditMode(false); }}>
+            <Button variant="ghost" size="sm" className="text-vesta-navy/80 hover:text-vesta-navy hover:bg-vesta-mist/40" onClick={() => { setSelectedRows(new Set()); setEditMode(false); }}>
               Cancel
             </Button>
           </motion.div>

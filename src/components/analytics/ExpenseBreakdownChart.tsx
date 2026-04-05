@@ -32,9 +32,9 @@ export const ExpenseBreakdownChart = ({ vendors }: ExpenseBreakdownChartProps) =
   };
   
   return (
-    <Card className="bg-white border border-gray-200 group hover:shadow-md transition-all">
+    <Card className="bg-white border border-vesta-navy/10 group hover:shadow-md transition-all">
       <CardHeader className="flex-row items-start justify-between space-y-0 pb-4">
-        <CardTitle className="text-sm font-medium text-gray-700">Expense Distribution</CardTitle>
+        <CardTitle className="text-sm font-medium text-vesta-navy/90">Expense Distribution</CardTitle>
         <ChatIconButton reference={reference} />
       </CardHeader>
       <CardContent>
@@ -66,7 +66,7 @@ export const ExpenseBreakdownChart = ({ vendors }: ExpenseBreakdownChartProps) =
             <Legend 
               verticalAlign="bottom" 
               height={36}
-              formatter={(value) => <span className="text-sm text-gray-700">{value}</span>}
+              formatter={(value) => <span className="text-sm text-vesta-navy/90">{value}</span>}
               iconType="circle"
             />
           </PieChart>

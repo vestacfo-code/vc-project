@@ -32,12 +32,12 @@ export function MarkdownRenderer({ content, className = '' }: MarkdownRendererPr
             // Block code vs inline code
             const isInline = !className;
             return isInline ? (
-              <code className="bg-zinc-100 px-1 py-0.5 rounded text-sm font-mono">{children}</code>
+              <code className="bg-vesta-mist/40 px-1 py-0.5 rounded text-sm font-mono">{children}</code>
             ) : (
-              <code className={`block bg-zinc-100 p-2 rounded text-sm font-mono overflow-x-auto ${className}`}>{children}</code>
+              <code className={`block bg-vesta-mist/40 p-2 rounded text-sm font-mono overflow-x-auto ${className}`}>{children}</code>
             );
           },
-          pre: ({ children }) => <pre className="bg-zinc-100 p-3 rounded-lg overflow-x-auto mb-2">{children}</pre>,
+          pre: ({ children }) => <pre className="bg-vesta-mist/40 p-3 rounded-lg overflow-x-auto mb-2">{children}</pre>,
         }}
       >
         {content}

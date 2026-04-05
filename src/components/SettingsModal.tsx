@@ -112,21 +112,21 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
       case 'general':
         return (
           <div className="flex-1 p-6 overflow-y-auto scrollbar-hide">
-            <h2 className="font-serif text-2xl text-slate-900 mb-6">General</h2>
+            <h2 className="font-serif text-2xl text-vesta-navy mb-6">General</h2>
             
             <div className="space-y-6">
               {/* Theme */}
               <div className="flex items-center justify-between">
                 <div>
-                  <label className="text-sm font-medium text-slate-900">Theme</label>
+                  <label className="text-sm font-medium text-vesta-navy">Theme</label>
                 </div>
                 <Select value={settings.theme} onValueChange={(value: any) => updateSetting('theme', value)}>
-                  <SelectTrigger className="w-32 h-8 text-sm border-slate-200 bg-white text-slate-900">
+                  <SelectTrigger className="w-32 h-8 text-sm border-vesta-navy/10 bg-white text-vesta-navy">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent className="z-50 border border-slate-200 bg-white shadow-lg">
-                    <SelectItem value="system" className="text-slate-900 focus:bg-slate-100 focus:text-slate-900">System (light)</SelectItem>
-                    <SelectItem value="light" className="text-slate-900 focus:bg-slate-100 focus:text-slate-900">Light</SelectItem>
+                  <SelectContent className="z-50 border border-vesta-navy/10 bg-white shadow-lg">
+                    <SelectItem value="system" className="text-vesta-navy focus:bg-vesta-mist/40 focus:text-vesta-navy">System (light)</SelectItem>
+                    <SelectItem value="light" className="text-vesta-navy focus:bg-vesta-mist/40 focus:text-vesta-navy">Light</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -134,17 +134,17 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
               {/* Accent Color */}
               <div className="flex items-center justify-between">
                 <div>
-                  <label className="text-sm font-medium text-slate-900">Accent color</label>
+                  <label className="text-sm font-medium text-vesta-navy">Accent color</label>
                 </div>
                 <Select value={settings.accentColor} onValueChange={(value: any) => updateSetting('accentColor', value)}>
-                  <SelectTrigger className="w-32 h-8 text-sm border-slate-200 bg-white text-slate-900">
+                  <SelectTrigger className="w-32 h-8 text-sm border-vesta-navy/10 bg-white text-vesta-navy">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent className="z-50 border border-slate-200 bg-white shadow-lg">
-                    <SelectItem value="default" className="text-slate-900 focus:bg-slate-100 focus:text-slate-900">Default</SelectItem>
-                    <SelectItem value="blue" className="text-slate-900 focus:bg-slate-100 focus:text-slate-900">Blue</SelectItem>
-                    <SelectItem value="green" className="text-slate-900 focus:bg-slate-100 focus:text-slate-900">Green</SelectItem>
-                    <SelectItem value="purple" className="text-slate-900 focus:bg-slate-100 focus:text-slate-900">Purple</SelectItem>
+                  <SelectContent className="z-50 border border-vesta-navy/10 bg-white shadow-lg">
+                    <SelectItem value="default" className="text-vesta-navy focus:bg-vesta-mist/40 focus:text-vesta-navy">Default</SelectItem>
+                    <SelectItem value="blue" className="text-vesta-navy focus:bg-vesta-mist/40 focus:text-vesta-navy">Blue</SelectItem>
+                    <SelectItem value="green" className="text-vesta-navy focus:bg-vesta-mist/40 focus:text-vesta-navy">Green</SelectItem>
+                    <SelectItem value="purple" className="text-vesta-navy focus:bg-vesta-mist/40 focus:text-vesta-navy">Purple</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -152,17 +152,17 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
               {/* Language */}
               <div className="flex items-center justify-between">
                 <div>
-                  <label className="text-sm font-medium text-slate-900">Language</label>
+                  <label className="text-sm font-medium text-vesta-navy">Language</label>
                 </div>
                 <Select value={settings.language} onValueChange={(value: any) => updateSetting('language', value)}>
-                  <SelectTrigger className="w-32 h-8 text-sm border-slate-200 bg-white text-slate-900">
+                  <SelectTrigger className="w-32 h-8 text-sm border-vesta-navy/10 bg-white text-vesta-navy">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent className="z-50 border border-slate-200 bg-white shadow-lg">
-                    <SelectItem value="auto" className="text-slate-900 focus:bg-slate-100 focus:text-slate-900">Auto-detect</SelectItem>
-                    <SelectItem value="en" className="text-slate-900 focus:bg-slate-100 focus:text-slate-900">English</SelectItem>
-                    <SelectItem value="es" className="text-slate-900 focus:bg-slate-100 focus:text-slate-900">Spanish</SelectItem>
-                    <SelectItem value="fr" className="text-slate-900 focus:bg-slate-100 focus:text-slate-900">French</SelectItem>
+                  <SelectContent className="z-50 border border-vesta-navy/10 bg-white shadow-lg">
+                    <SelectItem value="auto" className="text-vesta-navy focus:bg-vesta-mist/40 focus:text-vesta-navy">Auto-detect</SelectItem>
+                    <SelectItem value="en" className="text-vesta-navy focus:bg-vesta-mist/40 focus:text-vesta-navy">English</SelectItem>
+                    <SelectItem value="es" className="text-vesta-navy focus:bg-vesta-mist/40 focus:text-vesta-navy">Spanish</SelectItem>
+                    <SelectItem value="fr" className="text-vesta-navy focus:bg-vesta-mist/40 focus:text-vesta-navy">French</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -171,21 +171,21 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <div>
-                    <label className="text-sm font-medium text-slate-900">Spoken language</label>
+                    <label className="text-sm font-medium text-vesta-navy">Spoken language</label>
                   </div>
                   <Select value={settings.spokenLanguage} onValueChange={(value: any) => updateSetting('spokenLanguage', value)}>
-                    <SelectTrigger className="w-32 h-8 text-sm border-slate-200 bg-white text-slate-900">
+                    <SelectTrigger className="w-32 h-8 text-sm border-vesta-navy/10 bg-white text-vesta-navy">
                       <SelectValue />
                     </SelectTrigger>
-                    <SelectContent className="z-50 border border-slate-200 bg-white shadow-lg">
-                      <SelectItem value="auto" className="text-slate-900 focus:bg-slate-100 focus:text-slate-900">Auto-detect</SelectItem>
-                      <SelectItem value="en" className="text-slate-900 focus:bg-slate-100 focus:text-slate-900">English</SelectItem>
-                      <SelectItem value="es" className="text-slate-900 focus:bg-slate-100 focus:text-slate-900">Spanish</SelectItem>
-                      <SelectItem value="fr" className="text-slate-900 focus:bg-slate-100 focus:text-slate-900">French</SelectItem>
+                    <SelectContent className="z-50 border border-vesta-navy/10 bg-white shadow-lg">
+                      <SelectItem value="auto" className="text-vesta-navy focus:bg-vesta-mist/40 focus:text-vesta-navy">Auto-detect</SelectItem>
+                      <SelectItem value="en" className="text-vesta-navy focus:bg-vesta-mist/40 focus:text-vesta-navy">English</SelectItem>
+                      <SelectItem value="es" className="text-vesta-navy focus:bg-vesta-mist/40 focus:text-vesta-navy">Spanish</SelectItem>
+                      <SelectItem value="fr" className="text-vesta-navy focus:bg-vesta-mist/40 focus:text-vesta-navy">French</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-vesta-navy/65">
                   For best results, select the language you mainly speak. If it's not listed, it may still be supported via auto-detection.
                 </p>
               </div>
@@ -193,26 +193,26 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
               {/* Voice */}
               <div className="flex items-center justify-between">
                 <div>
-                  <label className="text-sm font-medium text-slate-900">Voice</label>
+                  <label className="text-sm font-medium text-vesta-navy">Voice</label>
                 </div>
                 <div className="flex items-center gap-2">
                   <Button 
                     variant="ghost" 
                     size="sm" 
-                    className="h-8 px-3 text-sm text-slate-700 hover:bg-slate-100"
+                    className="h-8 px-3 text-sm text-vesta-navy/90 hover:bg-vesta-mist/40"
                     onClick={() => playVoice(settings.voice)}
                   >
                     <Play className="w-3 h-3 mr-1" />
                     Play
                   </Button>
                   <Select value={settings.voice} onValueChange={(value: any) => updateSetting('voice', value)}>
-                    <SelectTrigger className="w-24 h-8 text-sm border-slate-200 bg-white text-slate-900">
+                    <SelectTrigger className="w-24 h-8 text-sm border-vesta-navy/10 bg-white text-vesta-navy">
                       <SelectValue />
                     </SelectTrigger>
-                    <SelectContent className="z-50 border border-slate-200 bg-white shadow-lg">
-                      <SelectItem value="spruce" className="text-slate-900 focus:bg-slate-100 focus:text-slate-900">Spruce</SelectItem>
-                      <SelectItem value="oak" className="text-slate-900 focus:bg-slate-100 focus:text-slate-900">Oak</SelectItem>
-                      <SelectItem value="birch" className="text-slate-900 focus:bg-slate-100 focus:text-slate-900">Birch</SelectItem>
+                    <SelectContent className="z-50 border border-vesta-navy/10 bg-white shadow-lg">
+                      <SelectItem value="spruce" className="text-vesta-navy focus:bg-vesta-mist/40 focus:text-vesta-navy">Spruce</SelectItem>
+                      <SelectItem value="oak" className="text-vesta-navy focus:bg-vesta-mist/40 focus:text-vesta-navy">Oak</SelectItem>
+                      <SelectItem value="birch" className="text-vesta-navy focus:bg-vesta-mist/40 focus:text-vesta-navy">Birch</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -221,7 +221,7 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
               {/* Show Additional Models */}
               <div className="flex items-center justify-between">
                 <div>
-                  <label className="text-sm font-medium text-slate-900">Show additional models</label>
+                  <label className="text-sm font-medium text-vesta-navy">Show additional models</label>
                 </div>
                 <Switch 
                   checked={settings.showAdditionalModels} 
@@ -261,21 +261,21 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
       case 'personalization':
         return (
           <div className="flex-1 p-6 overflow-y-auto scrollbar-hide">
-            <h2 className="font-serif text-2xl text-slate-900 mb-6">Personalization</h2>
+            <h2 className="font-serif text-2xl text-vesta-navy mb-6">Personalization</h2>
             <div className="space-y-6">
               {/* Profile Settings */}
               <div className="space-y-4">
-                <h3 className="text-sm font-medium text-slate-400 uppercase tracking-wider">Profile</h3>
+                <h3 className="text-sm font-medium text-vesta-navy-muted uppercase tracking-wider">Profile</h3>
                 {isLoadingUser ? (
                   <div className="flex justify-center py-8">
-                    <Loader2 className="w-6 h-6 animate-spin text-slate-400" />
+                    <Loader2 className="w-6 h-6 animate-spin text-vesta-navy-muted" />
                   </div>
                 ) : (
                   <>
                     <div className="flex items-center justify-between">
                       <div>
-                        <label className="text-sm font-medium text-slate-900">Custom avatar</label>
-                        <p className="text-xs text-slate-500">Upload a custom profile picture</p>
+                        <label className="text-sm font-medium text-vesta-navy">Custom avatar</label>
+                        <p className="text-xs text-vesta-navy/65">Upload a custom profile picture</p>
                       </div>
                       <input
                         type="file"
@@ -321,7 +321,7 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
                       <Button
                         variant="outline"
                         size="sm"
-                        className="border border-slate-200 bg-white text-slate-900 hover:bg-slate-50"
+                        className="border border-vesta-navy/10 bg-white text-vesta-navy hover:bg-vesta-mist/25"
                         onClick={() => document.getElementById('avatar-upload')?.click()}
                       >
                         <Upload className="w-3 h-3 mr-1" />
@@ -330,21 +330,21 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
                     </div>
                     <div className="flex items-center justify-between">
                       <div>
-                        <label className="text-sm font-medium text-slate-900">Display name</label>
-                        <p className="text-xs text-slate-500">How your name appears to others</p>
+                        <label className="text-sm font-medium text-vesta-navy">Display name</label>
+                        <p className="text-xs text-vesta-navy/65">How your name appears to others</p>
                       </div>
                       {isEditingName ? (
                         <div className="flex items-center gap-2">
                           <Input
                             value={editedName}
                             onChange={(e) => setEditedName(e.target.value)}
-                            className="h-9 w-40 border border-slate-200 bg-white text-slate-900"
+                            className="h-9 w-40 border border-vesta-navy/10 bg-white text-vesta-navy"
                             placeholder="Enter your display name"
                             autoFocus
                           />
                           <Button
                             size="sm"
-                            className="h-9 bg-white text-black hover:bg-slate-200"
+                            className="h-9 bg-white text-black hover:bg-vesta-mist/50"
                             onClick={async () => {
                               if (!editedName.trim()) {
                                 toast({ 
@@ -381,7 +381,7 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
                           <Button
                             variant="outline"
                             size="sm"
-                            className="h-9 border border-slate-200 bg-transparent text-slate-700 hover:bg-slate-50"
+                            className="h-9 border border-vesta-navy/10 bg-transparent text-vesta-navy/90 hover:bg-vesta-mist/25"
                             onClick={() => {
                               setIsEditingName(false);
                               setEditedName(userInfo?.fullName || '');
@@ -392,13 +392,13 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
                         </div>
                       ) : (
                         <div className="flex items-center gap-2">
-                          <span className="text-sm font-medium text-slate-900">
+                          <span className="text-sm font-medium text-vesta-navy">
                             {userInfo?.fullName || 'Not set'}
                           </span>
                           <Button
                             variant="ghost"
                             size="sm"
-                            className="h-7 px-2 text-slate-500 hover:bg-slate-100 hover:text-slate-900"
+                            className="h-7 px-2 text-vesta-navy/65 hover:bg-vesta-mist/40 hover:text-vesta-navy"
                             onClick={() => {
                               setEditedName(userInfo?.fullName || '');
                               setIsEditingName(true);
@@ -414,12 +414,12 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
               </div>
 
               {/* Divider */}
-              <div className="border-t border-slate-200" />
+              <div className="border-t border-vesta-navy/10" />
 
               {/* Business Profile Editor */}
               <div className="space-y-4">
-                <h3 className="text-sm font-medium text-slate-400 uppercase tracking-wider">Business Profile</h3>
-                <p className="text-xs text-slate-500 -mt-2">
+                <h3 className="text-sm font-medium text-vesta-navy-muted uppercase tracking-wider">Business Profile</h3>
+                <p className="text-xs text-vesta-navy/65 -mt-2">
                   Edit the information you provided during onboarding
                 </p>
                 <ProfileDataEditor />
@@ -441,11 +441,11 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
         }
         return (
           <div className="flex-1 p-6 overflow-y-auto scrollbar-hide">
-            <h2 className="font-serif text-2xl text-slate-900 mb-6">Integrations</h2>
-            <p className="text-sm text-slate-400 mb-4 max-w-xl">
+            <h2 className="font-serif text-2xl text-vesta-navy mb-6">Integrations</h2>
+            <p className="text-sm text-vesta-navy-muted mb-4 max-w-xl">
               Vesta CFO connects to your property systems and data you provide—PMS (e.g. Mews, Cloudbeds, Oracle Opera), CSV imports, and manual metrics—not generic small-business accounting tools.
             </p>
-            <p className="text-sm text-slate-500 mb-6 max-w-xl">
+            <p className="text-sm text-vesta-navy/65 mb-6 max-w-xl">
               Add or manage connections on the Integrations page in the app sidebar.
             </p>
             <Button
@@ -455,7 +455,7 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
                 onOpenChange(false);
                 navigate('/integrations');
               }}
-              className="bg-white text-black hover:bg-slate-200 border-transparent font-medium"
+              className="bg-white text-black hover:bg-vesta-mist/50 border-transparent font-medium"
             >
               <ExternalLink className="w-3.5 h-3.5 mr-2" />
               Open Integrations
@@ -476,7 +476,7 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
         }
         return (
           <div className="flex-1 p-6 overflow-y-auto scrollbar-hide">
-            <h2 className="font-serif text-2xl text-slate-900 mb-6">Schedules</h2>
+            <h2 className="font-serif text-2xl text-vesta-navy mb-6">Schedules</h2>
             <div className="space-y-6">
               <WeeklyNotificationReport />
             </div>
@@ -486,31 +486,31 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
       case 'data-controls':
         return (
           <div className="flex-1 p-6 overflow-y-auto scrollbar-hide">
-            <h2 className="font-serif text-2xl text-slate-900 mb-6">Data controls</h2>
+            <h2 className="font-serif text-2xl text-vesta-navy mb-6">Data controls</h2>
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <label className="text-sm font-medium text-slate-900">Export data</label>
-                  <p className="text-xs text-slate-500">Download all your financial data</p>
+                  <label className="text-sm font-medium text-vesta-navy">Export data</label>
+                  <p className="text-xs text-vesta-navy/65">Download all your financial data</p>
                 </div>
-                <Button variant="outline" size="sm" className="border border-slate-200 bg-white text-slate-900 hover:bg-slate-50">
+                <Button variant="outline" size="sm" className="border border-vesta-navy/10 bg-white text-vesta-navy hover:bg-vesta-mist/25">
                   <Download className="w-3 h-3 mr-1" />
                   Export
                 </Button>
               </div>
               <div className="flex items-center justify-between">
                 <div>
-                  <label className="text-sm font-medium text-slate-900">Data retention</label>
-                  <p className="text-xs text-slate-500">How long we keep your data</p>
+                  <label className="text-sm font-medium text-vesta-navy">Data retention</label>
+                  <p className="text-xs text-vesta-navy/65">How long we keep your data</p>
                 </div>
                 <Select defaultValue="indefinite">
-                  <SelectTrigger className="w-32 h-8 text-sm border-slate-200 bg-white text-slate-900">
+                  <SelectTrigger className="w-32 h-8 text-sm border-vesta-navy/10 bg-white text-vesta-navy">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent className="z-50 border border-slate-200 bg-white shadow-lg">
-                    <SelectItem value="1year" className="text-slate-900 focus:bg-slate-100 focus:text-slate-900">1 year</SelectItem>
-                    <SelectItem value="2years" className="text-slate-900 focus:bg-slate-100 focus:text-slate-900">2 years</SelectItem>
-                    <SelectItem value="indefinite" className="text-slate-900 focus:bg-slate-100 focus:text-slate-900">Indefinite</SelectItem>
+                  <SelectContent className="z-50 border border-vesta-navy/10 bg-white shadow-lg">
+                    <SelectItem value="1year" className="text-vesta-navy focus:bg-vesta-mist/40 focus:text-vesta-navy">1 year</SelectItem>
+                    <SelectItem value="2years" className="text-vesta-navy focus:bg-vesta-mist/40 focus:text-vesta-navy">2 years</SelectItem>
+                    <SelectItem value="indefinite" className="text-vesta-navy focus:bg-vesta-mist/40 focus:text-vesta-navy">Indefinite</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -521,12 +521,12 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
       case 'security':
         return (
           <div className="flex-1 p-6 overflow-y-auto scrollbar-hide">
-            <h2 className="font-serif text-2xl text-slate-900 mb-6">Security</h2>
+            <h2 className="font-serif text-2xl text-vesta-navy mb-6">Security</h2>
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <label className="text-sm font-medium text-slate-900">Two-factor authentication</label>
-                  <p className="text-xs text-slate-500">Add an extra layer of security to your account</p>
+                  <label className="text-sm font-medium text-vesta-navy">Two-factor authentication</label>
+                  <p className="text-xs text-vesta-navy/65">Add an extra layer of security to your account</p>
                 </div>
                 <Switch 
                   checked={settings.twoFactorAuth}
@@ -535,17 +535,17 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
               </div>
               <div className="flex items-center justify-between">
                 <div>
-                  <label className="text-sm font-medium text-slate-900">Session timeout</label>
-                  <p className="text-xs text-slate-500">Automatically log out after inactivity</p>
+                  <label className="text-sm font-medium text-vesta-navy">Session timeout</label>
+                  <p className="text-xs text-vesta-navy/65">Automatically log out after inactivity</p>
                 </div>
                 <Select value={settings.sessionTimeout} onValueChange={(value: any) => updateSetting('sessionTimeout', value)}>
-                  <SelectTrigger className="h-8 w-20 border border-slate-200 bg-white text-sm text-slate-900">
+                  <SelectTrigger className="h-8 w-20 border border-vesta-navy/10 bg-white text-sm text-vesta-navy">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent className="z-50 border border-slate-200 bg-white shadow-lg">
-                    <SelectItem value="15" className="text-slate-900 focus:bg-slate-100 focus:text-slate-900">15m</SelectItem>
-                    <SelectItem value="30" className="text-slate-900 focus:bg-slate-100 focus:text-slate-900">30m</SelectItem>
-                    <SelectItem value="60" className="text-slate-900 focus:bg-slate-100 focus:text-slate-900">1h</SelectItem>
+                  <SelectContent className="z-50 border border-vesta-navy/10 bg-white shadow-lg">
+                    <SelectItem value="15" className="text-vesta-navy focus:bg-vesta-mist/40 focus:text-vesta-navy">15m</SelectItem>
+                    <SelectItem value="30" className="text-vesta-navy focus:bg-vesta-mist/40 focus:text-vesta-navy">30m</SelectItem>
+                    <SelectItem value="60" className="text-vesta-navy focus:bg-vesta-mist/40 focus:text-vesta-navy">1h</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -556,34 +556,34 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
       case 'account':
         return (
           <div className="flex-1 p-6 overflow-y-auto scrollbar-hide">
-            <h2 className="font-serif text-2xl text-slate-900 mb-6">Account</h2>
+            <h2 className="font-serif text-2xl text-vesta-navy mb-6">Account</h2>
             {isLoadingUser ? (
               <div className="flex justify-center py-8">
-                <Loader2 className="w-6 h-6 animate-spin text-slate-400" />
+                <Loader2 className="w-6 h-6 animate-spin text-vesta-navy-muted" />
               </div>
             ) : (
               <div className="space-y-6">
                 <div className="flex items-center justify-between">
-                  <label className="text-sm font-medium text-slate-900">Email</label>
-                  <span className="text-sm text-slate-400">{userInfo?.email || 'Not available'}</span>
+                  <label className="text-sm font-medium text-vesta-navy">Email</label>
+                  <span className="text-sm text-vesta-navy-muted">{userInfo?.email || 'Not available'}</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <label className="text-sm font-medium text-slate-900">Plan</label>
-                  <span className="text-sm text-slate-400">
+                  <label className="text-sm font-medium text-vesta-navy">Plan</label>
+                  <span className="text-sm text-vesta-navy-muted">
                     {userInfo?.tier === 'ceo' ? 'CFO' : userInfo?.tier === 'scale' ? 'Scale' : userInfo?.tier === 'founder' ? 'Founder' : 'Free'}
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <label className="text-sm font-medium text-slate-900">Account created</label>
-                  <span className="text-sm text-slate-400">
+                  <label className="text-sm font-medium text-vesta-navy">Account created</label>
+                  <span className="text-sm text-vesta-navy-muted">
                     {userInfo?.createdAt ? new Date(userInfo.createdAt).toLocaleDateString() : 'Not available'}
                   </span>
                 </div>
-                <div className="space-y-3 border-t border-slate-200 pt-4">
+                <div className="space-y-3 border-t border-vesta-navy/10 pt-4">
                   <Button 
                     variant="outline" 
                     size="sm" 
-                    className="w-full border border-slate-200 bg-white text-slate-900 hover:bg-slate-50"
+                    className="w-full border border-vesta-navy/10 bg-white text-vesta-navy hover:bg-vesta-mist/25"
                     onClick={signOut}
                   >
                     <LogOut className="w-3 h-3 mr-2" />
@@ -615,12 +615,12 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
           {/* Custom overlay with blur */}
           <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
         
- <DialogPrimitive.Content className="fixed left-[50%] top-[50%] z-50 mx-4 h-[90vh] max-w-[1100px] translate-x-[-50%] translate-y-[-50%] gap-0 overflow-hidden rounded-xl border border-slate-200 bg-white p-0 shadow-2xl md:mx-0 md:h-[700px] data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=closed]:zoom-out-95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] data-[state=open]:zoom-in-95">
+ <DialogPrimitive.Content className="fixed left-[50%] top-[50%] z-50 mx-4 h-[90vh] max-w-[1100px] translate-x-[-50%] translate-y-[-50%] gap-0 overflow-hidden rounded-xl border border-vesta-navy/10 bg-white p-0 shadow-2xl md:mx-0 md:h-[700px] data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=closed]:zoom-out-95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] data-[state=open]:zoom-in-95">
           {/* Close Button - positioned in sidebar area to avoid overlap with content */}
         <Button
           variant="ghost"
           size="sm"
-          className="absolute left-3 top-3 z-10 h-8 w-8 p-0 text-slate-500 hover:bg-slate-100 hover:text-slate-900 focus:outline-none focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0 md:left-4 md:top-4 md:h-6 md:w-6"
+          className="absolute left-3 top-3 z-10 h-8 w-8 p-0 text-vesta-navy/65 hover:bg-vesta-mist/40 hover:text-vesta-navy focus:outline-none focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0 md:left-4 md:top-4 md:h-6 md:w-6"
           onClick={() => onOpenChange(false)}
         >
           <X className="w-5 h-5 md:w-4 md:h-4" />
@@ -628,7 +628,7 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
 
         <div className="flex flex-col md:flex-row h-full overflow-hidden">
           {/* Sidebar - Horizontal scroll on mobile, vertical on desktop */}
-          <div className="w-full flex-shrink-0 overflow-hidden border-b border-slate-200 bg-vesta-cream md:w-64 md:rounded-l-xl md:border-b-0 md:border-r">
+          <div className="w-full flex-shrink-0 overflow-hidden border-b border-vesta-navy/10 bg-vesta-cream md:w-64 md:rounded-l-xl md:border-b-0 md:border-r">
             <div className="p-3 md:p-4 md:pt-12 overflow-x-auto md:overflow-x-visible">
               <nav className="flex md:flex-col gap-1 md:space-y-1 min-w-max md:min-w-0">
                 {sidebarItems.map((item) => {
@@ -639,8 +639,8 @@ const SettingsModal = ({ open, onOpenChange, defaultTab }: SettingsModalProps) =
                       onClick={() => setActiveTab(item.id)}
                       className={`flex items-center gap-2 whitespace-nowrap rounded-lg px-3 py-2 text-xs font-medium transition-colors md:gap-3 md:text-sm ${
                         activeTab === item.id
-                          ? 'bg-white text-slate-900 shadow-sm ring-1 ring-slate-200'
-                          : 'text-slate-600 hover:bg-white/80 hover:text-slate-900'
+                          ? 'bg-white text-vesta-navy shadow-sm ring-1 ring-vesta-navy/15'
+                          : 'text-vesta-navy/80 hover:bg-white/80 hover:text-vesta-navy'
                       }`}
                     >
                       <Icon className="w-4 h-4 flex-shrink-0" />

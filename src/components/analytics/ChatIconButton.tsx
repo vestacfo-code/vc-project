@@ -21,7 +21,7 @@ export const ChatIconButton = ({ reference }: ChatIconButtonProps) => {
       variant="ghost"
       size="icon"
       onClick={handleClick}
-      className="h-8 w-8 text-gray-500 hover:text-blue-600 hover:bg-blue-50 transition-colors"
+      className="h-8 w-8 text-vesta-navy/65 hover:text-blue-600 hover:bg-blue-50 transition-colors"
       aria-label="Ask questions about this metric"
     >
       <MessageSquare className="h-4 w-4" />

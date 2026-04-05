@@ -8,7 +8,7 @@ interface MarketingPageShellProps {
 
 export function MarketingPageShell({ children }: MarketingPageShellProps) {
   return (
-    <div className="min-h-screen bg-vesta-cream text-slate-900 flex flex-col">
+    <div className="min-h-screen bg-vesta-cream text-vesta-navy flex flex-col">
       <MarketingNav />
       <main className="flex-1 pt-[5.25rem] sm:pt-24">{children}</main>
       <MarketingFooter />

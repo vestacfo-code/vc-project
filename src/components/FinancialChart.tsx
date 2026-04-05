@@ -43,9 +43,9 @@ const FinancialChart = ({ data, chartType, title }: FinancialChartProps) => {
   const renderChart = () => {
     if (!data || data.length === 0) {
       return (
-        <div className="h-48 flex items-center justify-center text-gray-400 bg-gray-50 rounded-lg border-2 border-dashed border-gray-200">
+        <div className="h-48 flex items-center justify-center text-vesta-navy-muted bg-vesta-mist/25 rounded-lg border-2 border-dashed border-vesta-navy/10">
           <div className="text-center">
-            <BarChart3 className="w-8 h-8 mx-auto mb-2 text-gray-300" />
+            <BarChart3 className="w-8 h-8 mx-auto mb-2 text-vesta-navy/60" />
             <p className="text-sm">No financial data available for this period</p>
           </div>
         </div>
@@ -197,10 +197,10 @@ const FinancialChart = ({ data, chartType, title }: FinancialChartProps) => {
   };
 
   return (
-    <Card className="mb-4 border border-gray-200 shadow-sm bg-gradient-to-br from-white to-gray-50/30">
+    <Card className="mb-4 border border-vesta-navy/10 shadow-sm bg-gradient-to-br from-white to-vesta-mist/30">
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
-          <CardTitle className="text-sm font-semibold flex items-center gap-2 text-gray-800">
+          <CardTitle className="text-sm font-semibold flex items-center gap-2 text-vesta-navy">
             <div 
               className="p-1.5 rounded-lg" 
               style={{ 
@@ -216,19 +216,19 @@ const FinancialChart = ({ data, chartType, title }: FinancialChartProps) => {
             variant="ghost"
             size="sm"
             onClick={() => setIsCollapsed(!isCollapsed)}
-            className="h-7 w-7 p-0 hover:bg-gray-100 rounded-full transition-colors"
+            className="h-7 w-7 p-0 hover:bg-vesta-mist/40 rounded-full transition-colors"
           >
             {isCollapsed ? (
-              <ChevronDown className="w-4 h-4 text-gray-500" />
+              <ChevronDown className="w-4 h-4 text-vesta-navy/65" />
             ) : (
-              <ChevronUp className="w-4 h-4 text-gray-500" />
+              <ChevronUp className="w-4 h-4 text-vesta-navy/65" />
             )}
           </Button>
         </div>
       </CardHeader>
       {!isCollapsed && (
         <CardContent className="pt-0 pb-4">
-          <div className="bg-white rounded-lg border border-gray-100 p-4">
+          <div className="bg-white rounded-lg border border-vesta-navy/8 p-4">
             {renderChart()}
           </div>
         </CardContent>

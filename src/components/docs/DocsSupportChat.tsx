@@ -143,8 +143,8 @@ export const DocsSupportChat = ({ isOpen: externalIsOpen, onOpenChange }: DocsSu
         {/* Tooltip pointer */}
         {showTooltip && (
           <div className="absolute bottom-full right-0 mb-3 animate-fade-in">
-            <div className="relative rounded-2xl border border-slate-200 bg-white px-4 py-2.5 shadow-xl">
-              <p className="whitespace-nowrap text-sm font-medium text-slate-900">Need help? Ask Ava! 👋</p>
+            <div className="relative rounded-2xl border border-vesta-navy/10 bg-white px-4 py-2.5 shadow-xl">
+              <p className="whitespace-nowrap text-sm font-medium text-vesta-navy">Need help? Ask Ava! 👋</p>
               {/* Arrow pointing down - proper triangle shape */}
               <div 
                 className="absolute -bottom-2 right-6 h-0 w-0"
@@ -161,9 +161,9 @@ export const DocsSupportChat = ({ isOpen: externalIsOpen, onOpenChange }: DocsSu
         {/* Glassmorphic chat button */}
         <button
           onClick={() => setIsOpen(true)}
-          className="group relative flex h-12 w-12 items-center justify-center rounded-2xl border border-slate-200 bg-white text-slate-700 shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl sm:h-14 sm:w-14"
+          className="group relative flex h-12 w-12 items-center justify-center rounded-2xl border border-vesta-navy/10 bg-white text-vesta-navy/90 shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl sm:h-14 sm:w-14"
         >
-          <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#7ba3e8]/15 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+          <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-vesta-navy-muted/15 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
           <MessageCircle className="relative z-10 h-5 w-5 sm:h-6 sm:w-6" />
         </button>
       </div>
@@ -172,23 +172,23 @@ export const DocsSupportChat = ({ isOpen: externalIsOpen, onOpenChange }: DocsSu
 
   return (
     <div className="fixed bottom-0 right-0 z-50 flex h-[100dvh] w-full animate-in flex-col overflow-hidden duration-300 fade-in-0 zoom-in-95 slide-in-from-bottom-4 sm:bottom-6 sm:right-6 sm:h-[520px] sm:w-[400px]">
-      <div className="absolute inset-0 border-0 bg-white shadow-2xl sm:rounded-3xl sm:border sm:border-slate-200" />
+      <div className="absolute inset-0 border-0 bg-white shadow-2xl sm:rounded-3xl sm:border sm:border-vesta-navy/10" />
 
       <div className="relative z-10 flex h-full flex-col">
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-slate-200 p-4 pt-safe sm:p-5">
+        <div className="flex items-center justify-between border-b border-vesta-navy/10 p-4 pt-safe sm:p-5">
           <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-2xl bg-gradient-to-br from-[#7ba3e8] to-[#5a8ad4] shadow-lg shadow-[#7ba3e8]/20 sm:h-10 sm:w-10">
+            <div className="flex h-9 w-9 items-center justify-center rounded-2xl bg-gradient-to-br from-vesta-navy-muted to-vesta-navy shadow-lg shadow-vesta-navy-muted/25 sm:h-10 sm:w-10">
               <Sparkles className="h-4 w-4 text-white sm:h-5 sm:w-5" />
             </div>
             <div>
-              <h3 className="text-sm font-semibold text-slate-900">Ava from Vesta Support</h3>
-              <p className="text-xs text-slate-500">Ask anything about Vesta</p>
+              <h3 className="text-sm font-semibold text-vesta-navy">Ava from Vesta Support</h3>
+              <p className="text-xs text-vesta-navy/65">Ask anything about Vesta</p>
             </div>
           </div>
           <button 
             onClick={() => setIsOpen(false)}
-            className="flex h-9 w-9 items-center justify-center rounded-xl text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-900"
+            className="flex h-9 w-9 items-center justify-center rounded-xl text-vesta-navy/65 transition-colors hover:bg-vesta-mist/40 hover:text-vesta-navy"
           >
             <X className="h-5 w-5" />
           </button>
@@ -201,22 +201,22 @@ export const DocsSupportChat = ({ isOpen: externalIsOpen, onOpenChange }: DocsSu
               <div key={message.id} className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
                 <div className={`max-w-[85%] rounded-2xl px-4 py-3 ${
                   message.type === 'user' 
-                    ? 'bg-gradient-to-br from-[#7ba3e8] to-[#5a8ad4] text-white shadow-lg shadow-[#7ba3e8]/20' 
-                    : 'border border-slate-200 bg-slate-50 text-slate-800'
+                    ? 'bg-gradient-to-br from-vesta-navy-muted to-vesta-navy text-white shadow-lg shadow-vesta-navy-muted/25' 
+                    : 'border border-vesta-navy/10 bg-vesta-mist/25 text-vesta-navy'
                 }`}>
-                  <div className="prose prose-sm prose-slate max-w-none text-sm leading-relaxed prose-p:my-1 prose-strong:font-semibold prose-strong:text-slate-900 prose-ul:my-2 prose-ul:list-disc prose-ul:pl-4 prose-ol:my-2 prose-ol:list-decimal prose-ol:pl-4 prose-li:my-0.5 prose-li:marker:text-[#7ba3e8]">
+                  <div className="prose prose-sm prose-neutral max-w-none text-sm leading-relaxed prose-p:my-1 prose-strong:font-semibold prose-strong:text-vesta-navy prose-ul:my-2 prose-ul:list-disc prose-ul:pl-4 prose-ol:my-2 prose-ol:list-decimal prose-ol:pl-4 prose-li:my-0.5 prose-li:marker:text-vesta-navy-muted">
                     <ReactMarkdown>{message.content}</ReactMarkdown>
                   </div>
                   
                   {/* Docs Links */}
                   {message.links && message.links.length > 0 && (
-                    <div className="mt-3 space-y-2 border-t border-slate-200 pt-3">
+                    <div className="mt-3 space-y-2 border-t border-vesta-navy/10 pt-3">
                       {message.links.map((link, index) => (
                         <Link
                           key={index}
                           to={link.href}
                           onClick={() => setIsOpen(false)}
-                          className="group flex items-center gap-2 text-xs text-[#5a8ad4] transition-colors hover:text-[#7ba3e8]"
+                          className="group flex items-center gap-2 text-xs text-vesta-navy-muted transition-colors hover:text-vesta-navy"
                         >
                           <ExternalLink className="h-3 w-3 group-hover:scale-110 transition-transform" />
                           {link.title}
@@ -230,7 +230,7 @@ export const DocsSupportChat = ({ isOpen: externalIsOpen, onOpenChange }: DocsSu
             
             {isTyping && (
               <div className="flex justify-start">
-                <div className="max-w-[80%] rounded-2xl border border-slate-200 bg-slate-100 px-4 py-3 text-slate-500">
+                <div className="max-w-[80%] rounded-2xl border border-vesta-navy/10 bg-vesta-mist/40 px-4 py-3 text-vesta-navy/65">
                   <div className="flex items-center gap-1.5">
                     <div className="w-2 h-2 bg-current rounded-full animate-bounce [animation-delay:-0.3s]"></div>
                     <div className="w-2 h-2 bg-current rounded-full animate-bounce [animation-delay:-0.15s]"></div>
@@ -244,10 +244,10 @@ export const DocsSupportChat = ({ isOpen: externalIsOpen, onOpenChange }: DocsSu
         </ScrollArea>
 
         {/* Email Support Banner */}
-        <div className="border-t border-slate-200 bg-slate-50 px-5 py-2.5">
+        <div className="border-t border-vesta-navy/10 bg-vesta-mist/25 px-5 py-2.5">
           <a 
             href="mailto:support@vesta.ai"
-            className="flex items-center justify-center gap-2 text-xs text-slate-500 transition-colors hover:text-[#7ba3e8]"
+            className="flex items-center justify-center gap-2 text-xs text-vesta-navy/65 transition-colors hover:text-vesta-navy-muted"
           >
             <Mail className="h-3.5 w-3.5" />
             Need human support? Email support@vesta.ai
@@ -255,7 +255,7 @@ export const DocsSupportChat = ({ isOpen: externalIsOpen, onOpenChange }: DocsSu
         </div>
 
         {/* Input Area */}
-        <div className="border-t border-slate-200 bg-white p-4">
+        <div className="border-t border-vesta-navy/10 bg-white p-4">
           <div className="flex items-center gap-3">
             <div className="relative flex-1">
               <Input
@@ -264,14 +264,14 @@ export const DocsSupportChat = ({ isOpen: externalIsOpen, onOpenChange }: DocsSu
                 onKeyPress={handleKeyPress}
                 placeholder="Ask about Vesta..."
                 disabled={isTyping}
-                className="h-11 rounded-xl border border-slate-200 bg-white pr-4 text-slate-900 placeholder:text-slate-400 focus-visible:ring-1 focus-visible:ring-[#7ba3e8]/40"
+                className="h-11 rounded-xl border border-vesta-navy/10 bg-white pr-4 text-vesta-navy placeholder:text-vesta-navy-muted focus-visible:ring-1 focus-visible:ring-vesta-navy-muted/40"
               />
             </div>
             <Button
               onClick={handleSendMessage}
               disabled={!inputValue.trim() || isTyping}
               size="icon"
-              className="h-11 w-11 bg-gradient-to-br from-[#7ba3e8] to-[#5a8ad4] hover:from-[#6a92d7] hover:to-[#4a7ac4] text-white rounded-xl shrink-0 shadow-lg shadow-[#7ba3e8]/20 transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:hover:scale-100"
+              className="h-11 w-11 bg-gradient-to-br from-vesta-navy-muted to-vesta-navy text-white rounded-xl shrink-0 shadow-lg shadow-vesta-navy-muted/25 transition-all duration-200 hover:from-vesta-navy-muted/90 hover:to-vesta-navy/90 hover:scale-105 disabled:opacity-50 disabled:hover:scale-100"
             >
               <Send className="h-4 w-4" />
             </Button>

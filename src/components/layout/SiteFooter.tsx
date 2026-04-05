@@ -21,15 +21,15 @@ export function SiteFooter({
   const showBanner = showPricingCallout ?? isLight;
   const year = new Date().getFullYear();
 
-  const linkMuted = isLight ? 'text-slate-600 hover:text-vesta-gold' : 'text-slate-400 hover:text-white';
-  const linkLegal = isLight ? 'text-slate-600 hover:text-vesta-navy' : 'text-slate-400 hover:text-white';
+  const linkMuted = isLight ? 'text-vesta-navy/80 hover:text-vesta-gold' : 'text-vesta-navy-muted hover:text-white';
+  const linkLegal = isLight ? 'text-vesta-navy/80 hover:text-vesta-navy' : 'text-vesta-navy-muted hover:text-white';
   const heading = isLight ? 'font-semibold text-vesta-navy text-sm mb-4' : 'font-semibold text-white mb-4 text-sm';
 
   return (
     <footer
       className={cn(
         isLight
-          ? 'border-t border-slate-200/70 bg-gradient-to-b from-slate-50/80 to-slate-100/90 backdrop-blur-xl text-slate-900'
+          ? 'border-t border-vesta-navy/70 bg-gradient-to-b from-vesta-mist/80 to-vesta-mist/90 backdrop-blur-xl text-vesta-navy'
           : 'border-t border-white/10 bg-black py-10 text-white md:py-16',
         className
       )}
@@ -41,7 +41,7 @@ export function SiteFooter({
               <p className="text-sm font-medium text-vesta-navy">
                 Hotel SaaS from $299/mo · Starter, Growth, Enterprise
               </p>
-              <p className="mt-0.5 text-xs text-slate-500">
+              <p className="mt-0.5 text-xs text-vesta-navy/65">
                 Aligned with our operator roadmap — see tiers and what&apos;s included.
               </p>
             </div>
@@ -60,10 +60,10 @@ export function SiteFooter({
             <p
               className={cn(
                 'mt-4 max-w-xs text-sm leading-relaxed',
-                isLight ? 'text-slate-600' : 'text-slate-400'
+                isLight ? 'text-vesta-navy/80' : 'text-vesta-navy-muted'
               )}
             >
-              <span className={cn('font-semibold', isLight ? 'text-slate-800' : 'text-white')}>
+              <span className={cn('font-semibold', isLight ? 'text-vesta-navy' : 'text-white')}>
                 Vesta CFO
               </span>{' '}
               — AI financial intelligence for independent hotels and boutique chains: KPIs, daily briefings, and
@@ -205,26 +205,26 @@ export function SiteFooter({
         <div
           className={cn(
             'mt-12 flex flex-col items-center justify-between gap-4 border-t pt-8 text-xs sm:flex-row',
-            isLight ? 'border-slate-200 text-slate-500' : 'border-white/10 text-slate-500'
+            isLight ? 'border-vesta-navy/10 text-vesta-navy/65' : 'border-white/10 text-vesta-navy/65'
           )}
         >
           <span>© {year} Vesta · Vesta CFO</span>
           <div className="flex flex-wrap justify-center gap-6">
             <Link
               to="/privacy"
-              className={isLight ? 'transition-colors hover:text-slate-800' : 'transition-colors hover:text-white'}
+              className={isLight ? 'transition-colors hover:text-vesta-navy' : 'transition-colors hover:text-white'}
             >
               Privacy
             </Link>
             <Link
               to="/terms"
-              className={isLight ? 'transition-colors hover:text-slate-800' : 'transition-colors hover:text-white'}
+              className={isLight ? 'transition-colors hover:text-vesta-navy' : 'transition-colors hover:text-white'}
             >
               Terms
             </Link>
             <Link
               to="/security"
-              className={isLight ? 'transition-colors hover:text-slate-800' : 'transition-colors hover:text-white'}
+              className={isLight ? 'transition-colors hover:text-vesta-navy' : 'transition-colors hover:text-white'}
             >
               Security
             </Link>

@@ -98,19 +98,19 @@ export const ModelSelector = ({ selectedModel, onModelChange, disabled }: ModelS
           disabled={disabled}
           className={cn(
             'flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all duration-200',
-            'text-slate-500 hover:bg-slate-100 hover:text-slate-900',
+            'text-vesta-navy/65 hover:bg-vesta-mist/40 hover:text-vesta-navy',
             disabled && 'opacity-50 cursor-not-allowed'
           )}
         >
-          <span className="text-slate-600">{triggerLabel}</span>
-          <ChevronDown className="w-3 h-3 text-slate-500" />
+          <span className="text-vesta-navy/80">{triggerLabel}</span>
+          <ChevronDown className="w-3 h-3 text-vesta-navy/65" />
         </button>
       </PopoverTrigger>
       <PopoverContent
         side="top"
         align="end"
         sideOffset={8}
-        className="w-64 overflow-hidden rounded-xl border border-slate-200 bg-white p-0 shadow-xl"
+        className="w-64 overflow-hidden rounded-xl border border-vesta-navy/10 bg-white p-0 shadow-xl"
       >
         {/* Model list — no header */}
         <div className="py-1">
@@ -126,8 +126,8 @@ export const ModelSelector = ({ selectedModel, onModelChange, disabled }: ModelS
                 className={cn(
                   "w-full flex items-center gap-3 px-3 py-1.5 text-left transition-colors",
                   isSelected
-                    ? "bg-slate-100"
-                    : "hover:bg-slate-50"
+                    ? "bg-vesta-mist/40"
+                    : "hover:bg-vesta-mist/25"
                 )}
               >
                 {/* Check / icon */}
@@ -135,7 +135,7 @@ export const ModelSelector = ({ selectedModel, onModelChange, disabled }: ModelS
                   {isSelected ? (
                     <Check className="w-3.5 h-3.5 text-green-400" />
                   ) : (
-                    <span className="text-slate-600">{model.icon}</span>
+                    <span className="text-vesta-navy/80">{model.icon}</span>
                   )}
                 </div>
 
@@ -144,7 +144,7 @@ export const ModelSelector = ({ selectedModel, onModelChange, disabled }: ModelS
                   <div className="flex items-center gap-1.5">
                     <span className={cn(
                       "text-[13px] font-medium",
-                      isSelected ? 'text-slate-900' : 'text-slate-700'
+                      isSelected ? 'text-vesta-navy' : 'text-vesta-navy/90'
                     )}>
                       {model.displayName}
                     </span>
@@ -155,7 +155,7 @@ export const ModelSelector = ({ selectedModel, onModelChange, disabled }: ModelS
                           model.badge === 'Slow'
                             ? 'bg-amber-100 text-amber-900'
                             : model.badge === 'API'
-                              ? 'bg-slate-100 text-slate-700'
+                              ? 'bg-vesta-mist/40 text-vesta-navy/90'
                               : 'bg-violet-100 text-violet-900'
                         )}
                       >
@@ -163,7 +163,7 @@ export const ModelSelector = ({ selectedModel, onModelChange, disabled }: ModelS
                       </span>
                     )}
                   </div>
-                  <p className="text-[11px] text-slate-500 truncate">
+                  <p className="text-[11px] text-vesta-navy/65 truncate">
                     {model.description}
                   </p>
                 </div>
@@ -171,7 +171,7 @@ export const ModelSelector = ({ selectedModel, onModelChange, disabled }: ModelS
                 {/* Credit cost — hidden for Auto */}
                 {!model.hideCredits && (
                   <div className="flex-shrink-0">
-                    <span className="text-[11px] font-medium text-slate-500">
+                    <span className="text-[11px] font-medium text-vesta-navy/65">
                       {model.credits} cr
                     </span>
                   </div>

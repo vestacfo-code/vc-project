@@ -58,7 +58,7 @@ const StepByStepGuide = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800">
+    <div className="min-h-screen bg-gradient-to-br from-vesta-navy via-blue-900 to-vesta-navy">
       {/* Header */}
       <div className="container mx-auto px-6 py-8">
         <Button 
@@ -74,7 +74,7 @@ const StepByStepGuide = () => {
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
             Getting Started with Vesta
           </h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl text-vesta-navy/60 max-w-3xl mx-auto">
             Follow these simple steps to create your account and start understanding your business like never before
           </p>
         </div>
@@ -96,7 +96,7 @@ const StepByStepGuide = () => {
                   </div>
                   <h3 className="text-2xl font-bold text-white mb-4">{step.title}</h3>
                   <p className="text-primary mb-4 font-medium">{step.description}</p>
-                  <p className="text-gray-300 leading-relaxed">{step.details}</p>
+                  <p className="text-vesta-navy/60 leading-relaxed">{step.details}</p>
                 </div>
                 <div className={`${index % 2 === 0 ? 'order-2' : 'order-1'}`}>
                   <div className="rounded-2xl overflow-hidden shadow-2xl border border-white/20">
@@ -115,7 +115,7 @@ const StepByStepGuide = () => {
         {/* Call to Action */}
         <div className="text-center mt-16 pt-16 border-t border-white/20">
           <h2 className="text-3xl font-bold text-white mb-4">Ready to Get Started?</h2>
-          <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
+          <p className="text-vesta-navy/60 mb-8 max-w-2xl mx-auto">
             Join hundreds of small businesses already using Vesta to gain AI-powered insights from their financial data.
           </p>
           <Button 
@@ -126,7 +126,7 @@ const StepByStepGuide = () => {
           >
             Get Started for Free
           </Button>
-          <p className="text-sm text-gray-400 mt-4">Free Founder plan available forever • Upgrade anytime • 30-day money-back guarantee on annual plans</p>
+          <p className="text-sm text-vesta-navy-muted mt-4">Free Founder plan available forever • Upgrade anytime • 30-day money-back guarantee on annual plans</p>
         </div>
       </div>
     </div>

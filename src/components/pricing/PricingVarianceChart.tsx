@@ -33,15 +33,15 @@ export function PricingVarianceChart({ data }: PricingVarianceChartProps) {
 
   if (data.length === 0) {
     return (
-      <Card className="bg-white border border-zinc-200 shadow-sm">
+      <Card className="bg-white border border-vesta-navy/10 shadow-sm">
         <CardHeader className="pb-3">
           <div className="flex items-center gap-2">
             <BarChart3 className="w-5 h-5 text-blue-600" />
-            <CardTitle className="text-lg font-semibold text-zinc-900">Variance by Brand</CardTitle>
+            <CardTitle className="text-lg font-semibold text-vesta-navy">Variance by Brand</CardTitle>
           </div>
         </CardHeader>
         <CardContent>
-          <div className="text-center py-8 text-zinc-500">
+          <div className="text-center py-8 text-vesta-navy/65">
             <BarChart3 className="w-8 h-8 mx-auto mb-2 opacity-50" />
             <p className="text-sm">No variance data available</p>
           </div>
@@ -51,11 +51,11 @@ export function PricingVarianceChart({ data }: PricingVarianceChartProps) {
   }
 
   return (
-    <Card className="bg-white border border-zinc-200 shadow-sm">
+    <Card className="bg-white border border-vesta-navy/10 shadow-sm">
       <CardHeader className="pb-3">
         <div className="flex items-center gap-2">
           <BarChart3 className="w-5 h-5 text-blue-600" />
-          <CardTitle className="text-lg font-semibold text-zinc-900">Variance by Brand</CardTitle>
+          <CardTitle className="text-lg font-semibold text-vesta-navy">Variance by Brand</CardTitle>
         </div>
       </CardHeader>
       <CardContent className="pt-0">
@@ -63,16 +63,16 @@ export function PricingVarianceChart({ data }: PricingVarianceChartProps) {
           {sortedData.map((item) => (
             <div key={item.brand} className="space-y-1">
               <div className="flex items-center justify-between text-sm">
-                <span className="font-medium text-zinc-700 truncate max-w-[120px]" title={item.brand}>
+                <span className="font-medium text-vesta-navy/90 truncate max-w-[120px]" title={item.brand}>
                   {item.brand}
                 </span>
                 <span className={`font-semibold ${getTextColor(item.variance)}`}>
                   {item.variance > 0 ? '+' : ''}{item.variance.toFixed(1)}%
                 </span>
               </div>
-              <div className="relative h-2 bg-zinc-100 rounded-full overflow-hidden">
+              <div className="relative h-2 bg-vesta-mist/40 rounded-full overflow-hidden">
                 {/* Center line */}
-                <div className="absolute left-1/2 top-0 bottom-0 w-px bg-zinc-300" />
+                <div className="absolute left-1/2 top-0 bottom-0 w-px bg-vesta-mist" />
                 
                 {/* Bar */}
                 <div
@@ -83,7 +83,7 @@ export function PricingVarianceChart({ data }: PricingVarianceChartProps) {
                   }}
                 />
               </div>
-              <div className="text-xs text-zinc-400">
+              <div className="text-xs text-vesta-navy-muted">
                 {item.count} SKU{item.count !== 1 ? 's' : ''}
               </div>
             </div>
@@ -91,18 +91,18 @@ export function PricingVarianceChart({ data }: PricingVarianceChartProps) {
         </div>
         
         {/* Legend */}
-        <div className="flex items-center justify-center gap-4 mt-4 pt-3 border-t border-zinc-100">
+        <div className="flex items-center justify-center gap-4 mt-4 pt-3 border-t border-vesta-navy/8">
           <div className="flex items-center gap-1.5">
             <div className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
-            <span className="text-xs text-zinc-500">Below Market</span>
+            <span className="text-xs text-vesta-navy/65">Below Market</span>
           </div>
           <div className="flex items-center gap-1.5">
             <div className="w-2.5 h-2.5 rounded-full bg-blue-500" />
-            <span className="text-xs text-zinc-500">At Market</span>
+            <span className="text-xs text-vesta-navy/65">At Market</span>
           </div>
           <div className="flex items-center gap-1.5">
             <div className="w-2.5 h-2.5 rounded-full bg-rose-500" />
-            <span className="text-xs text-zinc-500">Above Market</span>
+            <span className="text-xs text-vesta-navy/65">Above Market</span>
           </div>
         </div>
       </CardContent>

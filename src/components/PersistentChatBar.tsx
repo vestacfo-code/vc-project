@@ -36,11 +36,11 @@ export function PersistentChatBar({ onSubmit }: PersistentChatBarProps) {
       />
       <div className="bg-white px-4 pb-4 md:px-6 md:pb-6">
         <div className="mx-auto max-w-2xl">
-          <div className="flex items-center gap-3 rounded-2xl border border-zinc-200 bg-white px-4 py-3 shadow-xl transition-all duration-200">
+          <div className="flex items-center gap-3 rounded-2xl border border-vesta-navy/10 bg-white px-4 py-3 shadow-xl transition-all duration-200">
             <Button
               variant="ghost"
               size="sm"
-              className="h-8 w-8 flex-shrink-0 rounded-full p-0 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-600"
+              className="h-8 w-8 flex-shrink-0 rounded-full p-0 text-vesta-navy-muted hover:bg-vesta-mist/40 hover:text-vesta-navy/80"
             >
               <Plus className="h-4 w-4" />
             </Button>
@@ -52,14 +52,14 @@ export function PersistentChatBar({ onSubmit }: PersistentChatBarProps) {
               onChange={(e) => setText(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder="Ask anything..."
-              className="flex-1 border-0 bg-transparent font-sans text-sm text-zinc-900 outline-none placeholder:text-zinc-400"
+              className="flex-1 border-0 bg-transparent font-sans text-sm text-vesta-navy outline-none placeholder:text-vesta-navy-muted"
             />
 
             <Button
               onClick={handleSubmit}
               disabled={!text.trim()}
               size="sm"
-              className="h-8 w-8 flex-shrink-0 rounded-full border-0 bg-zinc-900 p-0 text-white hover:bg-zinc-800 disabled:opacity-30"
+              className="h-8 w-8 flex-shrink-0 rounded-full border-0 bg-vesta-navy p-0 text-white hover:bg-vesta-navy-muted/30 disabled:opacity-30"
             >
               <ArrowUp className="h-4 w-4" />
             </Button>

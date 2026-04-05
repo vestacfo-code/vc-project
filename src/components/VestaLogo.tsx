@@ -17,7 +17,7 @@ const sizeMap = {
 export const VestaLogo = ({ size = 'md', tone = 'dark', className }: VestaLogoProps) => {
   const s = sizeMap[size];
   const iconClass = tone === 'light' ? 'text-amber-600' : 'text-amber-400';
-  const wordClass = tone === 'light' ? 'text-slate-900' : 'text-amber-400';
+  const wordClass = tone === 'light' ? 'text-vesta-navy' : 'text-amber-400';
   return (
     <div className={cn('flex items-center', s.gap, className)}>
       <div className="relative">

@@ -85,7 +85,7 @@ const BlogPost = () => {
   const formatContent = (content: string) => {
     return content.split('\n').map((paragraph, index) => (
       paragraph.trim() ? (
-        <p key={index} className="mb-4 leading-relaxed text-gray-700">
+        <p key={index} className="mb-4 leading-relaxed text-vesta-navy/90">
           {paragraph}
         </p>
       ) : (
@@ -96,7 +96,7 @@ const BlogPost = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-[#f5f3ff] via-[#e8e4ff] to-[#ddd6ff]">
+      <div className="min-h-screen bg-gradient-to-b from-vesta-cream via-vesta-mist/30 to-vesta-mist/50">
         <Header />
         <div className="container mx-auto px-4 py-16 max-w-4xl">
           <div className="animate-pulse">
@@ -117,24 +117,24 @@ const BlogPost = () => {
 
   if (notFound || !post) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-[#f5f3ff] via-[#e8e4ff] to-[#ddd6ff]">
+      <div className="min-h-screen bg-gradient-to-b from-vesta-cream via-vesta-mist/30 to-vesta-mist/50">
         <Header />
         <div className="container mx-auto px-4 py-16 max-w-4xl">
           <Link 
             to="/blog" 
-            className="inline-flex items-center text-gray-600 hover:text-gray-900 transition-colors mb-8"
+            className="inline-flex items-center text-vesta-navy/80 hover:text-vesta-navy transition-colors mb-8"
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
             Back to Blog
           </Link>
           
           <div className="bg-white/60 backdrop-blur-md rounded-2xl border border-white/30 p-12 text-center shadow-lg">
-            <h1 className="text-2xl font-bold mb-4 text-gray-900">Blog Post Not Found</h1>
-            <p className="text-gray-600 mb-6">
+            <h1 className="text-2xl font-bold mb-4 text-vesta-navy">Blog Post Not Found</h1>
+            <p className="text-vesta-navy/80 mb-6">
               The blog post you're looking for doesn't exist or may have been removed.
             </p>
             <Link to="/blog">
-              <Button className="bg-gray-900 hover:bg-gray-800 text-white">Return to Blog</Button>
+              <Button className="bg-vesta-navy hover:bg-vesta-navy-muted/30 text-white">Return to Blog</Button>
             </Link>
           </div>
         </div>
@@ -144,7 +144,7 @@ const BlogPost = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#f5f3ff] via-[#e8e4ff] to-[#ddd6ff] relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-b from-vesta-cream via-vesta-mist/30 to-vesta-mist/50 relative overflow-hidden">
       {/* Decorative blobs */}
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-300/30 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-blue-300/25 rounded-full blur-3xl pointer-events-none" />
@@ -155,7 +155,7 @@ const BlogPost = () => {
         <div className="mb-8">
           <Link 
             to="/blog" 
-            className="inline-flex items-center text-gray-600 hover:text-gray-900 transition-colors"
+            className="inline-flex items-center text-vesta-navy/80 hover:text-vesta-navy transition-colors"
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
             Back to Blog
@@ -165,22 +165,22 @@ const BlogPost = () => {
         <div className="bg-white/60 backdrop-blur-md rounded-2xl border border-white/30 p-6 sm:p-8 shadow-lg">
           <header className="mb-8">
             <div className="flex items-center gap-2 mb-4">
-              <Badge className={post.status === 'published' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}>
+              <Badge className={post.status === 'published' ? 'bg-green-100 text-green-800' : 'bg-vesta-mist/40 text-vesta-navy'}>
                 {post.status}
               </Badge>
             </div>
             
-            <h1 className="text-3xl sm:text-4xl font-bold mb-4 text-gray-900 leading-tight">
+            <h1 className="text-3xl sm:text-4xl font-bold mb-4 text-vesta-navy leading-tight">
               {post.title}
             </h1>
             
             {post.excerpt && (
-              <p className="text-lg sm:text-xl text-gray-600 mb-6 leading-relaxed">
+              <p className="text-lg sm:text-xl text-vesta-navy/80 mb-6 leading-relaxed">
                 {post.excerpt}
               </p>
             )}
             
-            <div className="flex items-center gap-6 text-gray-600 border-b border-gray-200/50 pb-6 mb-6">
+            <div className="flex items-center gap-6 text-vesta-navy/80 border-b border-vesta-navy/50 pb-6 mb-6">
               <div className="flex items-center gap-2">
                 <User className="h-4 w-4" />
                 <span>{post.author_name}</span>
@@ -207,11 +207,11 @@ const BlogPost = () => {
           </div>
           
           {post.tags && post.tags.length > 0 && (
-            <div className="border-t border-gray-200/50 pt-6">
-              <h3 className="text-sm font-semibold text-gray-600 mb-3">TAGS</h3>
+            <div className="border-t border-vesta-navy/50 pt-6">
+              <h3 className="text-sm font-semibold text-vesta-navy/80 mb-3">TAGS</h3>
               <div className="flex flex-wrap gap-2">
                 {post.tags.map((tag, index) => (
-                  <Badge key={index} variant="outline" className="bg-white/50 border-gray-300">
+                  <Badge key={index} variant="outline" className="bg-white/50 border-vesta-navy/15">
                     {tag}
                   </Badge>
                 ))}

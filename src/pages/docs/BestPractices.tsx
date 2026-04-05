@@ -16,39 +16,39 @@ const BestPractices = () => {
       nextPage={{ href: "/docs/learn/faq", title: "FAQ" }}
     >
       <section id="start" className="mb-12">
-        <h2 className="text-2xl font-semibold text-slate-900 mb-4">Getting Started Right</h2>
-        <ol className="list-decimal list-inside text-slate-400 space-y-3">
-          <li><strong className="text-slate-900">Connect all accounts:</strong> The more data, the better your insights</li>
-          <li><strong className="text-slate-900">Import historical data:</strong> At least 12 months for accurate trends</li>
-          <li><strong className="text-slate-900">Set up your profile:</strong> Industry and business info improves AI accuracy</li>
-          <li><strong className="text-slate-900">Schedule reports:</strong> Automate your weekly financial review</li>
+        <h2 className="text-2xl font-semibold text-vesta-navy mb-4">Getting Started Right</h2>
+        <ol className="list-decimal list-inside text-vesta-navy-muted space-y-3">
+          <li><strong className="text-vesta-navy">Connect all accounts:</strong> The more data, the better your insights</li>
+          <li><strong className="text-vesta-navy">Import historical data:</strong> At least 12 months for accurate trends</li>
+          <li><strong className="text-vesta-navy">Set up your profile:</strong> Industry and business info improves AI accuracy</li>
+          <li><strong className="text-vesta-navy">Schedule reports:</strong> Automate your weekly financial review</li>
         </ol>
       </section>
 
       <section id="daily" className="mb-12">
-        <h2 className="text-2xl font-semibold text-slate-900 mb-4">Daily Habits</h2>
-        <p className="text-slate-400 mb-4">
+        <h2 className="text-2xl font-semibold text-vesta-navy mb-4">Daily Habits</h2>
+        <p className="text-vesta-navy-muted mb-4">
           Quick daily actions for financial awareness:
         </p>
-        <ul className="list-disc list-inside text-slate-400 space-y-2">
+        <ul className="list-disc list-inside text-vesta-navy-muted space-y-2">
           <li>Check your dashboard intelligence cards for key insights</li>
           <li>Review cash balance and recent transactions</li>
           <li>Ask the AI about anything unusual</li>
           <li>Categorize any uncategorized transactions</li>
         </ul>
-        <div className="border border-slate-200 bg-white rounded-xl p-4 mt-4">
-          <p className="text-sm text-slate-400">
-            ⏱️ <strong className="text-slate-900">Time spent:</strong> 2-5 minutes per day
+        <div className="border border-vesta-navy/10 bg-white rounded-xl p-4 mt-4">
+          <p className="text-sm text-vesta-navy-muted">
+            ⏱️ <strong className="text-vesta-navy">Time spent:</strong> 2-5 minutes per day
           </p>
         </div>
       </section>
 
       <section id="monthly" className="mb-12">
-        <h2 className="text-2xl font-semibold text-slate-900 mb-4">Monthly Reviews</h2>
-        <p className="text-slate-400 mb-4">
+        <h2 className="text-2xl font-semibold text-vesta-navy mb-4">Monthly Reviews</h2>
+        <p className="text-vesta-navy-muted mb-4">
           Monthly financial health check:
         </p>
-        <ol className="list-decimal list-inside text-slate-400 space-y-3">
+        <ol className="list-decimal list-inside text-vesta-navy-muted space-y-3">
           <li>Review the monthly P&L report</li>
           <li>Compare to previous month and same month last year</li>
           <li>Check cash flow forecast for next 90 days</li>
@@ -58,11 +58,11 @@ const BestPractices = () => {
       </section>
 
       <section id="team" className="mb-12">
-        <h2 className="text-2xl font-semibold text-slate-900 mb-4">Team Collaboration</h2>
-        <p className="text-slate-400 mb-4">
+        <h2 className="text-2xl font-semibold text-vesta-navy mb-4">Team Collaboration</h2>
+        <p className="text-vesta-navy-muted mb-4">
           Work effectively with your team:
         </p>
-        <ul className="list-disc list-inside text-slate-400 space-y-2">
+        <ul className="list-disc list-inside text-vesta-navy-muted space-y-2">
           <li>Invite team members with appropriate permissions</li>
           <li>Share reports automatically via email</li>
           <li>Use comments to discuss specific transactions</li>

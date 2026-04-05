@@ -79,7 +79,7 @@ export default function CallControls({
           className={`p-3 h-12 w-12 rounded-full ${
             isMuted 
               ? 'bg-red-600 hover:bg-red-700 text-white' 
-              : 'bg-gray-700 hover:bg-gray-600 text-white'
+              : 'bg-vesta-navy-muted/25 hover:bg-vesta-navy-muted/20 text-white'
           }`}
         >
           {isMuted ? <MicOff className="h-5 w-5" /> : <Mic className="h-5 w-5" />}
@@ -98,7 +98,7 @@ export default function CallControls({
         <Button
           variant="ghost"
           size="sm"
-          className="bg-gray-700 hover:bg-gray-600 text-white p-3 h-12 w-12 rounded-full"
+          className="bg-vesta-navy-muted/25 hover:bg-vesta-navy-muted/20 text-white p-3 h-12 w-12 rounded-full"
         >
           <ScreenShare className="h-5 w-5" />
         </Button>
@@ -107,7 +107,7 @@ export default function CallControls({
         <Button
           variant="ghost"
           size="sm"
-          className="bg-gray-700 hover:bg-gray-600 text-white p-3 h-12 w-12 rounded-full"
+          className="bg-vesta-navy-muted/25 hover:bg-vesta-navy-muted/20 text-white p-3 h-12 w-12 rounded-full"
         >
           <MessageSquare className="h-5 w-5" />
         </Button>
@@ -116,7 +116,7 @@ export default function CallControls({
         <Button
           variant="ghost"
           size="sm"
-          className="bg-gray-700 hover:bg-gray-600 text-white p-3 h-12 w-12 rounded-full"
+          className="bg-vesta-navy-muted/25 hover:bg-vesta-navy-muted/20 text-white p-3 h-12 w-12 rounded-full"
         >
           <MoreHorizontal className="h-5 w-5" />
         </Button>

@@ -14,15 +14,15 @@ interface MarketAverageChartProps {
 function CustomTooltip({ active, payload, label }: any) {
   if (!active || !payload?.length) return null;
   return (
-    <div className="bg-white border border-zinc-200 rounded-lg shadow-lg p-3 min-w-[180px]">
-      <p className="text-xs font-semibold text-zinc-500 mb-2">{label}</p>
+    <div className="bg-white border border-vesta-navy/10 rounded-lg shadow-lg p-3 min-w-[180px]">
+      <p className="text-xs font-semibold text-vesta-navy/65 mb-2">{label}</p>
       {payload.map((entry: any, i: number) => (
         <div key={i} className="flex items-center justify-between gap-4 py-0.5">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: entry.color }} />
-            <span className="text-xs text-zinc-700">{entry.name}</span>
+            <span className="text-xs text-vesta-navy/90">{entry.name}</span>
           </div>
-          <span className="text-xs font-semibold text-zinc-900">${Number(entry.value).toFixed(2)}</span>
+          <span className="text-xs font-semibold text-vesta-navy">${Number(entry.value).toFixed(2)}</span>
         </div>
       ))}
     </div>
@@ -43,18 +43,18 @@ export function MarketAverageChart({ data, supplierNames }: MarketAverageChartPr
 
   if (data.length === 0) {
     return (
-      <div className="bg-white rounded-xl border border-zinc-200 p-12 text-center">
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-zinc-100 mb-4">
-          <BarChart3 className="w-8 h-8 text-zinc-400" />
+      <div className="bg-white rounded-xl border border-vesta-navy/10 p-12 text-center">
+        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-vesta-mist/40 mb-4">
+          <BarChart3 className="w-8 h-8 text-vesta-navy-muted" />
         </div>
-        <p className="text-lg font-semibold text-zinc-700 mb-1">No market data yet</p>
-        <p className="text-sm text-zinc-400">Import supplier price lists to see market trends</p>
+        <p className="text-lg font-semibold text-vesta-navy/90 mb-1">No market data yet</p>
+        <p className="text-sm text-vesta-navy-muted">Import supplier price lists to see market trends</p>
       </div>
     );
   }
 
   return (
-    <div className="bg-gradient-to-b from-zinc-50/50 to-white rounded-xl border border-zinc-200 p-6">
+    <div className="bg-gradient-to-b from-vesta-mist/50 to-white rounded-xl border border-vesta-navy/10 p-6">
       <ResponsiveContainer width="100%" height={400}>
         <AreaChart data={data} margin={{ top: 10, right: 30, left: 10, bottom: 0 }}>
           <defs>

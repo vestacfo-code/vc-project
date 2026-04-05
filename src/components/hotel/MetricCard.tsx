@@ -33,9 +33,9 @@ const MetricCard: React.FC<MetricCardProps> = ({
     return (
       <Card className="border border-vesta-navy/10 bg-white shadow-sm">
         <CardContent className="p-5">
-          <Skeleton className="mb-3 h-4 w-24 bg-slate-200" />
-          <Skeleton className="mb-2 h-8 w-32 bg-slate-200" />
-          <Skeleton className="h-4 w-16 bg-slate-200" />
+          <Skeleton className="mb-3 h-4 w-24 bg-vesta-mist/50" />
+          <Skeleton className="mb-2 h-8 w-32 bg-vesta-mist/50" />
+          <Skeleton className="h-4 w-16 bg-vesta-mist/50" />
         </CardContent>
       </Card>
     );
@@ -63,12 +63,12 @@ const MetricCard: React.FC<MetricCardProps> = ({
     <Card className="h-full border border-vesta-navy/10 bg-white shadow-sm transition-all duration-300 hover:border-vesta-gold/35 hover:shadow-md">
       <CardContent className="p-5">
         <div className="mb-2 flex items-start justify-between">
-          <p className="text-sm font-medium text-slate-600">{label}</p>
+          <p className="text-sm font-medium text-vesta-navy/80">{label}</p>
           {icon && (
             <span className="text-vesta-gold">{icon}</span>
           )}
         </div>
-        <p className="text-2xl font-bold tracking-tight text-slate-900">
+        <p className="text-2xl font-bold tracking-tight text-vesta-navy">
           {displayValue === '—' ? '—' : `${prefix}${displayValue}${suffix}`}
         </p>
 
@@ -81,7 +81,7 @@ const MetricCard: React.FC<MetricCardProps> = ({
                 ? 'bg-emerald-50 text-emerald-600'
                 : isNegative
                 ? 'bg-red-50 text-red-500'
-                : 'bg-gray-100 text-gray-500'
+                : 'bg-vesta-mist/40 text-vesta-navy/65'
             }`}
           >
             {isPositive ? (

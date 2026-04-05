@@ -112,7 +112,7 @@ interface VarianceRowProps {
 function VarianceRow({ label, actual, target, variancePct: vPct }: VarianceRowProps) {
   const hasData = vPct !== null
 
-  let badgeClass = 'border border-slate-200 bg-slate-100 text-slate-600'
+  let badgeClass = 'border border-vesta-navy/10 bg-vesta-mist/40 text-vesta-navy/80'
   let Icon = Minus
 
   if (hasData) {
@@ -126,16 +126,16 @@ function VarianceRow({ label, actual, target, variancePct: vPct }: VarianceRowPr
   }
 
   return (
-    <div className="flex items-center justify-between border-b border-slate-200 py-3 last:border-0">
-      <span className="w-36 shrink-0 text-sm text-slate-600">{label}</span>
+    <div className="flex items-center justify-between border-b border-vesta-navy/10 py-3 last:border-0">
+      <span className="w-36 shrink-0 text-sm text-vesta-navy/80">{label}</span>
       <div className="flex flex-1 items-center justify-end gap-4">
         <div className="text-right">
-          <p className="mb-0.5 text-xs text-slate-500">Actual</p>
-          <p className="text-sm font-medium text-slate-900">{actual}</p>
+          <p className="mb-0.5 text-xs text-vesta-navy/65">Actual</p>
+          <p className="text-sm font-medium text-vesta-navy">{actual}</p>
         </div>
         <div className="text-right">
-          <p className="mb-0.5 text-xs text-slate-500">Target</p>
-          <p className="text-sm font-medium text-slate-700">{target}</p>
+          <p className="mb-0.5 text-xs text-vesta-navy/65">Target</p>
+          <p className="text-sm font-medium text-vesta-navy/90">{target}</p>
         </div>
         <Badge className={`text-xs border flex items-center gap-1 min-w-[68px] justify-center ${badgeClass}`}>
           <Icon className="h-3 w-3" />
@@ -326,13 +326,13 @@ export default function Budget() {
 
   // ── Render ─────────────────────────────────────────────────────────────────
   return (
-    <div className="min-h-full space-y-8 p-6 text-slate-900">
+    <div className="min-h-full space-y-8 p-6 text-vesta-navy">
 
       {/* Header */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Budget Targets</h1>
-          <p className="mt-1 text-slate-600">
+          <h1 className="text-2xl font-semibold text-vesta-navy">Budget Targets</h1>
+          <p className="mt-1 text-vesta-navy/80">
             Set monthly KPI targets and track actuals vs budget
             {hotel?.name ? ` for ${hotel.name}` : ''}.
           </p>
@@ -343,20 +343,20 @@ export default function Budget() {
           <Button
             variant="outline"
             size="icon"
-            className="h-9 w-9 border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
+            className="h-9 w-9 border-vesta-navy/10 bg-white text-vesta-navy/90 hover:bg-vesta-mist/25"
             onClick={prevMonth}
           >
             <ChevronLeft className="h-4 w-4" />
           </Button>
           <div className="min-w-[130px] text-center">
-            <p className="text-sm font-semibold text-slate-900">
+            <p className="text-sm font-semibold text-vesta-navy">
               {format(selectedDate, 'MMMM yyyy')}
             </p>
           </div>
           <Button
             variant="outline"
             size="icon"
-            className="h-9 w-9 border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
+            className="h-9 w-9 border-vesta-navy/10 bg-white text-vesta-navy/90 hover:bg-vesta-mist/25"
             onClick={nextMonth}
           >
             <ChevronRight className="h-4 w-4" />
@@ -367,9 +367,9 @@ export default function Budget() {
       {!hotelId && !hotelLoading && (
         <Card className="border border-vesta-navy/10 bg-white shadow-sm">
           <CardContent className="py-10 text-center">
-            <Target className="mx-auto mb-3 h-8 w-8 text-slate-400" />
-            <p className="text-slate-600">No hotel linked to your account.</p>
-            <p className="text-slate-500 text-sm mt-1">Ask your administrator to add you to a hotel.</p>
+            <Target className="mx-auto mb-3 h-8 w-8 text-vesta-navy-muted" />
+            <p className="text-vesta-navy/80">No hotel linked to your account.</p>
+            <p className="text-vesta-navy/65 text-sm mt-1">Ask your administrator to add you to a hotel.</p>
           </CardContent>
         </Card>
       )}
@@ -380,11 +380,11 @@ export default function Budget() {
           {/* ── Target Form ───────────────────────────────────────────────── */}
           <Card className="border border-vesta-navy/10 bg-white shadow-sm">
             <CardHeader className="pb-4">
-              <CardTitle className="flex items-center gap-2 text-base font-semibold text-slate-900">
+              <CardTitle className="flex items-center gap-2 text-base font-semibold text-vesta-navy">
                 <Target className="h-4 w-4 text-vesta-gold" />
                 Set Targets — {format(selectedDate, 'MMMM yyyy')}
               </CardTitle>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-vesta-navy/65">
                 {budgetTarget ? 'Update existing targets for this month.' : 'No targets set yet for this month.'}
               </p>
             </CardHeader>
@@ -392,14 +392,14 @@ export default function Budget() {
               {isLoading ? (
                 <div className="space-y-3">
                   {[1, 2, 3, 4, 5, 6].map((i) => (
-                    <div key={i} className="h-10 rounded-md bg-slate-200 animate-pulse" />
+                    <div key={i} className="h-10 rounded-md bg-vesta-mist/50 animate-pulse" />
                   ))}
                 </div>
               ) : (
                 <>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-1.5">
-                      <label className="text-xs font-medium text-slate-600">RevPAR Target ($)</label>
+                      <label className="text-xs font-medium text-vesta-navy/80">RevPAR Target ($)</label>
                       <Input
                         type="number"
                         min="0"
@@ -407,11 +407,11 @@ export default function Budget() {
                         placeholder="e.g. 120.00"
                         value={form.target_revpar}
                         onChange={(e) => handleChange('target_revpar', e.target.value)}
-                        className="border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus:border-vesta-gold/50 focus:ring-vesta-gold/20"
+                        className="border-vesta-navy/10 bg-white text-vesta-navy placeholder:text-vesta-navy-muted focus:border-vesta-gold/50 focus:ring-vesta-gold/20"
                       />
                     </div>
                     <div className="space-y-1.5">
-                      <label className="text-xs font-medium text-slate-600">ADR Target ($)</label>
+                      <label className="text-xs font-medium text-vesta-navy/80">ADR Target ($)</label>
                       <Input
                         type="number"
                         min="0"
@@ -419,11 +419,11 @@ export default function Budget() {
                         placeholder="e.g. 185.00"
                         value={form.target_adr}
                         onChange={(e) => handleChange('target_adr', e.target.value)}
-                        className="border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus:border-vesta-gold/50 focus:ring-vesta-gold/20"
+                        className="border-vesta-navy/10 bg-white text-vesta-navy placeholder:text-vesta-navy-muted focus:border-vesta-gold/50 focus:ring-vesta-gold/20"
                       />
                     </div>
                     <div className="space-y-1.5">
-                      <label className="text-xs font-medium text-slate-600">Occupancy Target (%)</label>
+                      <label className="text-xs font-medium text-vesta-navy/80">Occupancy Target (%)</label>
                       <Input
                         type="number"
                         min="0"
@@ -432,11 +432,11 @@ export default function Budget() {
                         placeholder="e.g. 72.5"
                         value={form.target_occupancy}
                         onChange={(e) => handleChange('target_occupancy', e.target.value)}
-                        className="border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus:border-vesta-gold/50 focus:ring-vesta-gold/20"
+                        className="border-vesta-navy/10 bg-white text-vesta-navy placeholder:text-vesta-navy-muted focus:border-vesta-gold/50 focus:ring-vesta-gold/20"
                       />
                     </div>
                     <div className="space-y-1.5">
-                      <label className="text-xs font-medium text-slate-600">Revenue Target ($)</label>
+                      <label className="text-xs font-medium text-vesta-navy/80">Revenue Target ($)</label>
                       <Input
                         type="number"
                         min="0"
@@ -444,11 +444,11 @@ export default function Budget() {
                         placeholder="e.g. 250000"
                         value={form.target_revenue}
                         onChange={(e) => handleChange('target_revenue', e.target.value)}
-                        className="border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus:border-vesta-gold/50 focus:ring-vesta-gold/20"
+                        className="border-vesta-navy/10 bg-white text-vesta-navy placeholder:text-vesta-navy-muted focus:border-vesta-gold/50 focus:ring-vesta-gold/20"
                       />
                     </div>
                     <div className="space-y-1.5">
-                      <label className="text-xs font-medium text-slate-600">GOP Target ($)</label>
+                      <label className="text-xs font-medium text-vesta-navy/80">GOP Target ($)</label>
                       <Input
                         type="number"
                         min="0"
@@ -456,11 +456,11 @@ export default function Budget() {
                         placeholder="e.g. 90000"
                         value={form.target_gop}
                         onChange={(e) => handleChange('target_gop', e.target.value)}
-                        className="border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus:border-vesta-gold/50 focus:ring-vesta-gold/20"
+                        className="border-vesta-navy/10 bg-white text-vesta-navy placeholder:text-vesta-navy-muted focus:border-vesta-gold/50 focus:ring-vesta-gold/20"
                       />
                     </div>
                     <div className="space-y-1.5">
-                      <label className="text-xs font-medium text-slate-600">Labor Cost Ratio Target (%)</label>
+                      <label className="text-xs font-medium text-vesta-navy/80">Labor Cost Ratio Target (%)</label>
                       <Input
                         type="number"
                         min="0"
@@ -469,13 +469,13 @@ export default function Budget() {
                         placeholder="e.g. 28.0"
                         value={form.target_labor_ratio}
                         onChange={(e) => handleChange('target_labor_ratio', e.target.value)}
-                        className="border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus:border-vesta-gold/50 focus:ring-vesta-gold/20"
+                        className="border-vesta-navy/10 bg-white text-vesta-navy placeholder:text-vesta-navy-muted focus:border-vesta-gold/50 focus:ring-vesta-gold/20"
                       />
                     </div>
                   </div>
 
                   <Button
-                    className="w-full bg-vesta-gold font-semibold text-slate-950 hover:bg-vesta-gold/90"
+                    className="w-full bg-vesta-gold font-semibold text-vesta-navy hover:bg-vesta-gold/90"
                     onClick={() => saveMutation.mutate()}
                     disabled={saveMutation.isPending || !hotelId}
                   >
@@ -493,11 +493,11 @@ export default function Budget() {
           {/* ── Actuals vs Budget ─────────────────────────────────────────── */}
           <Card className="border border-vesta-navy/10 bg-white shadow-sm">
             <CardHeader className="pb-4">
-              <CardTitle className="flex items-center gap-2 text-base font-semibold text-slate-900">
+              <CardTitle className="flex items-center gap-2 text-base font-semibold text-vesta-navy">
                 <TrendingUp className="h-4 w-4 text-vesta-gold" />
                 Month Actuals vs Budget
               </CardTitle>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-vesta-navy/65">
                 {format(selectedDate, 'MMMM yyyy')} —&nbsp;
                 {metricsLoading
                   ? 'loading…'
@@ -510,14 +510,14 @@ export default function Budget() {
               {metricsLoading ? (
                 <div className="space-y-3">
                   {[1, 2, 3, 4, 5, 6].map((i) => (
-                    <div key={i} className="h-10 rounded-md bg-slate-200 animate-pulse" />
+                    <div key={i} className="h-10 rounded-md bg-vesta-mist/50 animate-pulse" />
                   ))}
                 </div>
               ) : !hasMetricsData ? (
                 <div className="flex flex-col items-center justify-center py-10 text-center">
-                  <Target className="mb-3 h-8 w-8 text-slate-400" />
-                  <p className="text-sm font-medium text-slate-600">No data synced for this month yet</p>
-                  <p className="mt-1 text-xs text-slate-500">
+                  <Target className="mb-3 h-8 w-8 text-vesta-navy-muted" />
+                  <p className="text-sm font-medium text-vesta-navy/80">No data synced for this month yet</p>
+                  <p className="mt-1 text-xs text-vesta-navy/65">
                     Connect a PMS or sync data to see actuals here.
                   </p>
                 </div>

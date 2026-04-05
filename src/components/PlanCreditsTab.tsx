@@ -330,7 +330,7 @@ export const PlanCreditsTab = () => {
     return (
       <div className="flex-1 p-6 overflow-y-auto">
         <div className="flex items-center justify-center h-full">
-          <Loader2 className="w-8 h-8 animate-spin text-slate-400" />
+          <Loader2 className="w-8 h-8 animate-spin text-vesta-navy-muted" />
         </div>
       </div>
     );
@@ -346,23 +346,23 @@ export const PlanCreditsTab = () => {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="font-serif text-2xl text-slate-900">Plans & credits</h1>
-          <p className="text-sm text-slate-600">Manage your subscription and credit balance.</p>
+          <h1 className="font-serif text-2xl text-vesta-navy">Plans & credits</h1>
+          <p className="text-sm text-vesta-navy/80">Manage your subscription and credit balance.</p>
         </div>
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
-             <Button variant="ghost" size="icon" className="text-slate-400 hover:text-slate-900 hover:bg-slate-100">
+             <Button variant="ghost" size="icon" className="text-vesta-navy-muted hover:text-vesta-navy hover:bg-vesta-mist/40">
                 <HelpCircle className="w-5 h-5" />
               </Button>
             </TooltipTrigger>
-            <TooltipContent side="left" className="max-w-xs border border-slate-200 bg-white shadow-lg p-3">
-              <p className="text-sm font-medium text-slate-900 mb-2">How credits work:</p>
-              <ul className="space-y-1 text-xs text-slate-600">
-                <li>• <strong className="text-slate-900">AI Chat:</strong> 1 credit per message</li>
-                <li>• <strong className="text-slate-900">Document Analysis:</strong> 1 credit per document</li>
+            <TooltipContent side="left" className="max-w-xs border border-vesta-navy/10 bg-white shadow-lg p-3">
+              <p className="text-sm font-medium text-vesta-navy mb-2">How credits work:</p>
+              <ul className="space-y-1 text-xs text-vesta-navy/80">
+                <li>• <strong className="text-vesta-navy">AI Chat:</strong> 1 credit per message</li>
+                <li>• <strong className="text-vesta-navy">Document Analysis:</strong> 1 credit per document</li>
               </ul>
-              <p className="text-xs text-slate-500 mt-2">Credits reset monthly based on your billing cycle.</p>
+              <p className="text-xs text-vesta-navy/65 mt-2">Credits reset monthly based on your billing cycle.</p>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
@@ -374,17 +374,17 @@ export const PlanCreditsTab = () => {
           <VestaBrand size="md" />
         </div>
         <div className="flex-1">
-          <p className="font-medium text-slate-900">You're on {getTierDisplayName(currentTier)}</p>
-          <p className="text-sm text-slate-600">
+          <p className="font-medium text-vesta-navy">You're on {getTierDisplayName(currentTier)}</p>
+          <p className="text-sm text-vesta-navy/80">
             {subscriptionInfo?.is_trial ? 'Trial ends' : 'Renews'} {getRenewalDate()}
           </p>
         </div>
         <div className="text-right">
-          <p className="text-2xl font-bold text-slate-900">{creditsRemaining}</p>
-          <p className="text-xs text-slate-500">of {totalCredits} credits</p>
+          <p className="text-2xl font-bold text-vesta-navy">{creditsRemaining}</p>
+          <p className="text-xs text-vesta-navy/65">of {totalCredits} credits</p>
         </div>
         {currentTier !== 'founder' && !isCustomSolution && (
-        <Button variant="outline" size="sm" onClick={handleManageSubscription} className="bg-slate-50 hover:bg-slate-100 text-slate-900 border-slate-200">
+        <Button variant="outline" size="sm" onClick={handleManageSubscription} className="bg-vesta-mist/25 hover:bg-vesta-mist/40 text-vesta-navy border-vesta-navy/10">
             Manage
           </Button>
         )}
@@ -393,28 +393,28 @@ export const PlanCreditsTab = () => {
       {/* Custom Solution User - Simplified View */}
       {isCustomSolution ? (
         <div className="space-y-6">
-          <Card className="border border-slate-200 bg-white shadow-sm ring-2 ring-vesta-gold/25">
+          <Card className="border border-vesta-navy/10 bg-white shadow-sm ring-2 ring-vesta-gold/25">
             <CardHeader className="pb-2">
-              <CardTitle className="text-lg text-slate-900">Custom Solution</CardTitle>
-              <CardDescription className="text-sm text-slate-600">
+              <CardTitle className="text-lg text-vesta-navy">Custom Solution</CardTitle>
+              <CardDescription className="text-sm text-vesta-navy/80">
                 Your personalized Vesta configuration
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               {customPricing && (
-                <div className="space-y-2 rounded-lg border border-slate-100 bg-vesta-cream/50 p-4">
+                <div className="space-y-2 rounded-lg border border-vesta-navy/8 bg-vesta-cream/50 p-4">
                   {customPricing.monthly_amount && customPricing.monthly_amount > 0 && (
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-slate-600">Monthly Fee</span>
-                      <span className="font-semibold text-slate-900">
+                      <span className="text-sm text-vesta-navy/80">Monthly Fee</span>
+                      <span className="font-semibold text-vesta-navy">
                         ${customPricing.monthly_amount.toFixed(2)}/mo
                       </span>
                     </div>
                   )}
                   {customPricing.fixed_amount && customPricing.fixed_amount > 0 && (
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-slate-600">Setup Fee (paid)</span>
-                      <span className="font-medium text-slate-700">
+                      <span className="text-sm text-vesta-navy/80">Setup Fee (paid)</span>
+                      <span className="font-medium text-vesta-navy/90">
                         ${customPricing.fixed_amount.toFixed(2)}
                       </span>
                     </div>
@@ -424,14 +424,14 @@ export const PlanCreditsTab = () => {
 
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-slate-600">Credits Remaining</span>
-                  <span className="font-semibold text-slate-900">
+                  <span className="text-sm text-vesta-navy/80">Credits Remaining</span>
+                  <span className="font-semibold text-vesta-navy">
                     {creditsRemaining >= 999999 ? 'Unlimited' : creditsRemaining}
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-slate-600">Monthly Allocation</span>
-                  <span className="font-medium text-slate-800">
+                  <span className="text-sm text-vesta-navy/80">Monthly Allocation</span>
+                  <span className="font-medium text-vesta-navy">
                     {totalCredits >= 999999 ? 'Unlimited' : `${totalCredits} credits`}
                   </span>
                 </div>
@@ -440,10 +440,10 @@ export const PlanCreditsTab = () => {
                 )}
               </div>
 
-              <div className="pt-4 border-t border-slate-200">
+              <div className="pt-4 border-t border-vesta-navy/10">
                 <Button 
                   variant="outline"
-                  className="w-full bg-transparent text-slate-900 border-slate-300 hover:bg-slate-100"
+                  className="w-full bg-transparent text-vesta-navy border-vesta-navy/15 hover:bg-vesta-mist/40"
                   onClick={() => window.open('mailto:support@vesta.ai?subject=Custom Solution Support', '_blank')}
                 >
                   Contact Support
@@ -457,19 +457,19 @@ export const PlanCreditsTab = () => {
           {/* Plan Cards - Standard Users */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Founder (Free) */}
-        <Card className={`border bg-white shadow-sm ${currentTier === 'founder' ? 'border-vesta-navy/20 ring-2 ring-vesta-gold/30' : 'border-slate-200'}`}>
+        <Card className={`border bg-white shadow-sm ${currentTier === 'founder' ? 'border-vesta-navy/20 ring-2 ring-vesta-gold/30' : 'border-vesta-navy/10'}`}>
           <CardHeader className="pb-2">
-            <CardTitle className="text-base text-slate-900">Founder</CardTitle>
-            <CardDescription className="text-xs text-slate-600">
+            <CardTitle className="text-base text-vesta-navy">Founder</CardTitle>
+            <CardDescription className="text-xs text-vesta-navy/80">
               Get started with essential insights.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
-              <span className="text-2xl font-bold text-slate-900">Free</span>
+              <span className="text-2xl font-bold text-vesta-navy">Free</span>
             </div>
             
-            <div className="text-sm font-medium text-slate-700">30 credits / month</div>
+            <div className="text-sm font-medium text-vesta-navy/90">30 credits / month</div>
 
             {currentTier === 'founder' ? (
               <div className="rounded-md bg-vesta-mist/50 py-2 text-center text-sm font-medium text-vesta-navy">
@@ -478,7 +478,7 @@ export const PlanCreditsTab = () => {
             ) : (
               <Button 
                 variant="outline" 
-                className="w-full bg-transparent hover:bg-slate-100 text-slate-900 border-slate-300 hover:text-slate-900"
+                className="w-full bg-transparent hover:bg-vesta-mist/40 text-vesta-navy border-vesta-navy/15 hover:text-vesta-navy"
                 onClick={handleDowngradeToFree}
                 disabled={isDowngrading}
               >
@@ -487,10 +487,10 @@ export const PlanCreditsTab = () => {
               </Button>
             )}
 
-            <div className="pt-3 border-t border-slate-200 space-y-1.5">
+            <div className="pt-3 border-t border-vesta-navy/10 space-y-1.5">
               {['30 monthly credits', '5 daily credits', '5 downloads/month'].map((feature) => (
-                <div key={feature} className="flex items-center gap-2 text-xs text-slate-600">
-                  <Check className="h-3 w-3 shrink-0 text-slate-500" />
+                <div key={feature} className="flex items-center gap-2 text-xs text-vesta-navy/80">
+                  <Check className="h-3 w-3 shrink-0 text-vesta-navy/65" />
                   <span>{feature}</span>
                 </div>
               ))}
@@ -499,33 +499,33 @@ export const PlanCreditsTab = () => {
         </Card>
 
         {/* Scale */}
-        <Card className={`border bg-white shadow-sm ${currentTier === 'scale' ? 'border-vesta-navy/20 ring-2 ring-vesta-gold/30' : 'border-slate-200'}`}>
+        <Card className={`border bg-white shadow-sm ${currentTier === 'scale' ? 'border-vesta-navy/20 ring-2 ring-vesta-gold/30' : 'border-vesta-navy/10'}`}>
           <CardHeader className="pb-2">
-            <CardTitle className="text-base text-slate-900">Scale</CardTitle>
-            <CardDescription className="text-xs text-slate-600">
+            <CardTitle className="text-base text-vesta-navy">Scale</CardTitle>
+            <CardDescription className="text-xs text-vesta-navy/80">
               For growing teams.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex items-baseline gap-1">
-              <span className="text-2xl font-bold text-slate-900">
+              <span className="text-2xl font-bold text-vesta-navy">
                 {isAnnualScale ? '$23.39' : '$25.99'}
               </span>
-              <span className="text-sm text-slate-500">/ month</span>
+              <span className="text-sm text-vesta-navy/65">/ month</span>
             </div>
             
-            <div className="text-sm font-medium text-slate-700">150 credits / month</div>
+            <div className="text-sm font-medium text-vesta-navy/90">150 credits / month</div>
 
             <Select 
               value={isAnnualScale ? "annual" : "monthly"}
               onValueChange={(value) => setIsAnnualScale(value === "annual")}
             >
-              <SelectTrigger className="h-8 w-full border-slate-200 bg-white text-xs text-slate-900">
+              <SelectTrigger className="h-8 w-full border-vesta-navy/10 bg-white text-xs text-vesta-navy">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent className="bg-white border-slate-200 shadow-lg z-50">
-                <SelectItem value="monthly" className="text-slate-700 focus:bg-slate-100 focus:text-slate-900">Monthly</SelectItem>
-                <SelectItem value="annual" className="text-slate-700 focus:bg-slate-100 focus:text-slate-900">Annual (10% off)</SelectItem>
+              <SelectContent className="bg-white border-vesta-navy/10 shadow-lg z-50">
+                <SelectItem value="monthly" className="text-vesta-navy/90 focus:bg-vesta-mist/40 focus:text-vesta-navy">Monthly</SelectItem>
+                <SelectItem value="annual" className="text-vesta-navy/90 focus:bg-vesta-mist/40 focus:text-vesta-navy">Annual (10% off)</SelectItem>
               </SelectContent>
             </Select>
 
@@ -544,8 +544,8 @@ export const PlanCreditsTab = () => {
 
             {/* Extra Credits (only for current tier with active Stripe subscription) */}
             {currentTier === 'scale' && hasActiveStripeSubscription && (
-              <div className="border-t border-slate-200 pt-2">
-                <div className="mb-2 flex items-center justify-between text-xs text-slate-600">
+              <div className="border-t border-vesta-navy/10 pt-2">
+                <div className="mb-2 flex items-center justify-between text-xs text-vesta-navy/80">
                   <span>Extra credits</span>
                   <span className="font-medium">${(addonCredits * 0.10).toFixed(0)}/mo</span>
                 </div>
@@ -553,12 +553,12 @@ export const PlanCreditsTab = () => {
                   value={addonCredits.toString()}
                   onValueChange={(value) => setAddonCredits(parseInt(value))}
                 >
-                  <SelectTrigger className="h-8 w-full border-slate-200 bg-white text-xs text-slate-900">
+                  <SelectTrigger className="h-8 w-full border-vesta-navy/10 bg-white text-xs text-vesta-navy">
                     <SelectValue placeholder="Select credits" />
                   </SelectTrigger>
-                  <SelectContent className="z-50 border border-slate-200 bg-white shadow-lg">
+                  <SelectContent className="z-50 border border-vesta-navy/10 bg-white shadow-lg">
                     {CREDIT_OPTIONS.map((credits) => (
-                      <SelectItem key={credits} value={credits.toString()} className="text-slate-700 focus:bg-slate-100 focus:text-slate-900">
+                      <SelectItem key={credits} value={credits.toString()} className="text-vesta-navy/90 focus:bg-vesta-mist/40 focus:text-vesta-navy">
                         {credits} credits (+${(credits * 0.10).toFixed(0)}/mo)
                       </SelectItem>
                     ))}
@@ -567,7 +567,7 @@ export const PlanCreditsTab = () => {
                 <Button
                   size="sm"
                   variant="outline"
-                  className="mt-2 h-7 w-full border-slate-200 bg-white text-xs text-slate-900 hover:bg-slate-50"
+                  className="mt-2 h-7 w-full border-vesta-navy/10 bg-white text-xs text-vesta-navy hover:bg-vesta-mist/25"
                   onClick={() => handleManageAddon(currentAddon ? 'update' : 'add')}
                   disabled={isManagingAddon || (currentAddon && addonCredits === currentAddon.credits_per_month)}
                 >
@@ -577,7 +577,7 @@ export const PlanCreditsTab = () => {
                   <Button
                     size="sm"
                     variant="ghost"
-                    className="mt-1 h-6 w-full text-xs text-slate-500 hover:bg-slate-100"
+                    className="mt-1 h-6 w-full text-xs text-vesta-navy/65 hover:bg-vesta-mist/40"
                     onClick={() => handleManageAddon('remove')}
                     disabled={isManagingAddon}
                   >
@@ -587,11 +587,11 @@ export const PlanCreditsTab = () => {
               </div>
             )}
 
-            <div className="space-y-1.5 border-t border-slate-200 pt-3">
-              <p className="mb-1 text-xs font-medium text-slate-700">All Founder features, plus:</p>
+            <div className="space-y-1.5 border-t border-vesta-navy/10 pt-3">
+              <p className="mb-1 text-xs font-medium text-vesta-navy/90">All Founder features, plus:</p>
               {['150 monthly credits', '30 daily credits', '25 downloads', '2 collaborators'].map((feature) => (
-                <div key={feature} className="flex items-center gap-2 text-xs text-slate-600">
-                  <Check className="h-3 w-3 shrink-0 text-slate-500" />
+                <div key={feature} className="flex items-center gap-2 text-xs text-vesta-navy/80">
+                  <Check className="h-3 w-3 shrink-0 text-vesta-navy/65" />
                   <span>{feature}</span>
                 </div>
               ))}
@@ -600,33 +600,33 @@ export const PlanCreditsTab = () => {
         </Card>
 
         {/* CFO */}
-        <Card className={`border bg-white shadow-sm ${currentTier === 'ceo' ? 'border-vesta-navy/20 ring-2 ring-vesta-gold/30' : 'border-slate-200'}`}>
+        <Card className={`border bg-white shadow-sm ${currentTier === 'ceo' ? 'border-vesta-navy/20 ring-2 ring-vesta-gold/30' : 'border-vesta-navy/10'}`}>
           <CardHeader className="pb-2">
-            <CardTitle className="text-base text-slate-900">CFO</CardTitle>
-            <CardDescription className="text-xs text-slate-600">
+            <CardTitle className="text-base text-vesta-navy">CFO</CardTitle>
+            <CardDescription className="text-xs text-vesta-navy/80">
               Advanced controls.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex items-baseline gap-1">
-              <span className="text-2xl font-bold text-slate-900">
+              <span className="text-2xl font-bold text-vesta-navy">
                 {isAnnualCeo ? '$35.99' : '$39.99'}
               </span>
-              <span className="text-sm text-slate-500">/ month</span>
+              <span className="text-sm text-vesta-navy/65">/ month</span>
             </div>
             
-            <div className="text-sm font-medium text-slate-700">250 credits / month</div>
+            <div className="text-sm font-medium text-vesta-navy/90">250 credits / month</div>
 
             <Select 
               value={isAnnualCeo ? "annual" : "monthly"}
               onValueChange={(value) => setIsAnnualCeo(value === "annual")}
             >
-              <SelectTrigger className="h-8 w-full border-slate-200 bg-white text-xs text-slate-900">
+              <SelectTrigger className="h-8 w-full border-vesta-navy/10 bg-white text-xs text-vesta-navy">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent className="bg-white border-slate-200 shadow-lg z-50">
-                <SelectItem value="monthly" className="text-slate-700 focus:bg-slate-100 focus:text-slate-900">Monthly</SelectItem>
-                <SelectItem value="annual" className="text-slate-700 focus:bg-slate-100 focus:text-slate-900">Annual (10% off)</SelectItem>
+              <SelectContent className="bg-white border-vesta-navy/10 shadow-lg z-50">
+                <SelectItem value="monthly" className="text-vesta-navy/90 focus:bg-vesta-mist/40 focus:text-vesta-navy">Monthly</SelectItem>
+                <SelectItem value="annual" className="text-vesta-navy/90 focus:bg-vesta-mist/40 focus:text-vesta-navy">Annual (10% off)</SelectItem>
               </SelectContent>
             </Select>
 
@@ -645,8 +645,8 @@ export const PlanCreditsTab = () => {
 
             {/* Extra Credits (only for current tier with active Stripe subscription) */}
             {currentTier === 'ceo' && hasActiveStripeSubscription && (
-              <div className="border-t border-slate-200 pt-2">
-                <div className="mb-2 flex items-center justify-between text-xs text-slate-600">
+              <div className="border-t border-vesta-navy/10 pt-2">
+                <div className="mb-2 flex items-center justify-between text-xs text-vesta-navy/80">
                   <span>Extra credits</span>
                   <span className="font-medium">${(addonCredits * 0.10).toFixed(0)}/mo</span>
                 </div>
@@ -654,12 +654,12 @@ export const PlanCreditsTab = () => {
                   value={addonCredits.toString()}
                   onValueChange={(value) => setAddonCredits(parseInt(value))}
                 >
-                  <SelectTrigger className="h-8 w-full border-slate-200 bg-white text-xs text-slate-900">
+                  <SelectTrigger className="h-8 w-full border-vesta-navy/10 bg-white text-xs text-vesta-navy">
                     <SelectValue placeholder="Select credits" />
                   </SelectTrigger>
-                  <SelectContent className="z-50 border border-slate-200 bg-white shadow-lg">
+                  <SelectContent className="z-50 border border-vesta-navy/10 bg-white shadow-lg">
                     {CREDIT_OPTIONS.map((credits) => (
-                      <SelectItem key={credits} value={credits.toString()} className="text-slate-700 focus:bg-slate-100 focus:text-slate-900">
+                      <SelectItem key={credits} value={credits.toString()} className="text-vesta-navy/90 focus:bg-vesta-mist/40 focus:text-vesta-navy">
                         {credits} credits (+${(credits * 0.10).toFixed(0)}/mo)
                       </SelectItem>
                     ))}
@@ -668,7 +668,7 @@ export const PlanCreditsTab = () => {
                 <Button
                   size="sm"
                   variant="outline"
-                  className="mt-2 h-7 w-full border-slate-200 bg-white text-xs text-slate-900 hover:bg-slate-50"
+                  className="mt-2 h-7 w-full border-vesta-navy/10 bg-white text-xs text-vesta-navy hover:bg-vesta-mist/25"
                   onClick={() => handleManageAddon(currentAddon ? 'update' : 'add')}
                   disabled={isManagingAddon || (currentAddon && addonCredits === currentAddon.credits_per_month)}
                 >
@@ -678,7 +678,7 @@ export const PlanCreditsTab = () => {
                   <Button
                     size="sm"
                     variant="ghost"
-                    className="mt-1 h-6 w-full text-xs text-slate-500 hover:bg-slate-100"
+                    className="mt-1 h-6 w-full text-xs text-vesta-navy/65 hover:bg-vesta-mist/40"
                     onClick={() => handleManageAddon('remove')}
                     disabled={isManagingAddon}
                   >
@@ -688,11 +688,11 @@ export const PlanCreditsTab = () => {
               </div>
             )}
 
-            <div className="space-y-1.5 border-t border-slate-200 pt-3">
-              <p className="mb-1 text-xs font-medium text-slate-700">All Scale features, plus:</p>
+            <div className="space-y-1.5 border-t border-vesta-navy/10 pt-3">
+              <p className="mb-1 text-xs font-medium text-vesta-navy/90">All Scale features, plus:</p>
               {['250 monthly credits', 'Unlimited downloads', '6 collaborators', 'SSO'].map((feature) => (
-                <div key={feature} className="flex items-center gap-2 text-xs text-slate-600">
-                  <Check className="h-3 w-3 shrink-0 text-slate-500" />
+                <div key={feature} className="flex items-center gap-2 text-xs text-vesta-navy/80">
+                  <Check className="h-3 w-3 shrink-0 text-vesta-navy/65" />
                   <span>{feature}</span>
                 </div>
               ))}
@@ -704,13 +704,13 @@ export const PlanCreditsTab = () => {
         {/* Enterprise CTA */}
         <div className="vesta-surface-card mt-6 flex items-center justify-between p-4">
           <div>
-            <p className="text-sm font-medium text-slate-900">Need more?</p>
-            <p className="text-xs text-slate-600">Custom plans for large organizations.</p>
+            <p className="text-sm font-medium text-vesta-navy">Need more?</p>
+            <p className="text-xs text-vesta-navy/80">Custom plans for large organizations.</p>
           </div>
           <Button 
             variant="outline"
             size="sm"
-            className="border-slate-200 bg-white text-slate-900 hover:bg-slate-50"
+            className="border-vesta-navy/10 bg-white text-vesta-navy hover:bg-vesta-mist/25"
             onClick={() => window.open('https://calendar.app.google/PWqhmizMxqUnRNpP9', '_blank')}
           >
             Contact Sales

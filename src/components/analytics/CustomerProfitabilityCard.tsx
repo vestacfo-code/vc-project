@@ -22,23 +22,23 @@ export const CustomerProfitabilityCard = ({ data }: CustomerProfitabilityCardPro
   const hasHighConcentration = data.concentration > 60;
 
   return (
-    <Card className="bg-white border border-gray-200 group hover:shadow-md transition-all">
+    <Card className="bg-white border border-vesta-navy/10 group hover:shadow-md transition-all">
       <CardHeader className="flex-row items-start justify-between space-y-0 pb-4">
-        <CardTitle className="text-sm font-medium text-gray-700">Customer Profitability</CardTitle>
+        <CardTitle className="text-sm font-medium text-vesta-navy/90">Customer Profitability</CardTitle>
         <ChatIconButton reference={reference} />
       </CardHeader>
       <CardContent className="space-y-6">
         {/* Revenue Concentration */}
         <div>
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs text-gray-500">Revenue Concentration</span>
+            <span className="text-xs text-vesta-navy/65">Revenue Concentration</span>
             {hasHighConcentration && (
               <AlertCircle className="h-4 w-4 text-red-600" />
             )}
           </div>
           <div className="flex items-baseline gap-2">
-            <span className="text-3xl font-medium text-gray-900">{data.concentration}%</span>
-            <span className="text-xs text-gray-600">from top customers</span>
+            <span className="text-3xl font-medium text-vesta-navy">{data.concentration}%</span>
+            <span className="text-xs text-vesta-navy/80">from top customers</span>
           </div>
         </div>
 
@@ -47,17 +47,17 @@ export const CustomerProfitabilityCard = ({ data }: CustomerProfitabilityCardPro
           {data.topCustomers.slice(0, 4).map((customer, idx) => (
             <div 
               key={idx} 
-              className="flex items-center justify-between py-3 border-b border-gray-50 last:border-0"
+              className="flex items-center justify-between py-3 border-b border-vesta-mist/50 last:border-0"
             >
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="text-xs text-gray-400">#{idx + 1}</span>
-                  <span className="text-sm font-medium text-gray-900 truncate">{customer.name}</span>
+                  <span className="text-xs text-vesta-navy-muted">#{idx + 1}</span>
+                  <span className="text-sm font-medium text-vesta-navy truncate">{customer.name}</span>
                   {customer.status === 'at-risk' && (
                     <TrendingDown className="h-3 w-3 text-red-600 flex-shrink-0" />
                   )}
                 </div>
-                <div className="flex items-center gap-4 text-xs text-gray-500">
+                <div className="flex items-center gap-4 text-xs text-vesta-navy/65">
                   <span>{formatCurrency(customer.totalRevenue)}</span>
                   <span>•</span>
                   <span>{customer.invoiceCount} invoices</span>
@@ -75,8 +75,8 @@ export const CustomerProfitabilityCard = ({ data }: CustomerProfitabilityCardPro
 
         {/* Top Insight Only */}
         {data.insights && data.insights.length > 0 && (
-          <div className="pt-4 border-t border-gray-100">
-            <p className="text-xs text-gray-700 leading-relaxed">{data.insights[0].action}</p>
+          <div className="pt-4 border-t border-vesta-navy/8">
+            <p className="text-xs text-vesta-navy/90 leading-relaxed">{data.insights[0].action}</p>
           </div>
         )}
       </CardContent>

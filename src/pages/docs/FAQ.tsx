@@ -41,17 +41,17 @@ const FAQItem = ({ question, answer }: { question: string; answer: string }) => 
   const [isOpen, setIsOpen] = useState(false);
   
   return (
-    <div className="overflow-hidden rounded-xl border border-slate-200">
+    <div className="overflow-hidden rounded-xl border border-vesta-navy/10">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex w-full items-center justify-between bg-white p-4 text-left transition-colors hover:bg-slate-50"
+        className="flex w-full items-center justify-between bg-white p-4 text-left transition-colors hover:bg-vesta-mist/25"
       >
-        <span className="font-medium text-slate-900">{question}</span>
-        <ChevronDown className={`h-5 w-5 text-slate-500 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+        <span className="font-medium text-vesta-navy">{question}</span>
+        <ChevronDown className={`h-5 w-5 text-vesta-navy/65 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
       </button>
       {isOpen && (
-        <div className="border-t border-slate-200 bg-slate-50 p-4">
-          <p className="text-slate-600">{answer}</p>
+        <div className="border-t border-vesta-navy/10 bg-vesta-mist/25 p-4">
+          <p className="text-vesta-navy/80">{answer}</p>
         </div>
       )}
     </div>
@@ -70,12 +70,12 @@ const FAQ = () => {
         ))}
       </div>
 
-      <div className="mt-12 border border-slate-200 bg-white rounded-xl p-6 text-center">
-        <h3 className="mb-2 font-semibold text-slate-900">Still have questions?</h3>
-        <p className="mb-4 text-slate-600">Our support team is here to help.</p>
+      <div className="mt-12 border border-vesta-navy/10 bg-white rounded-xl p-6 text-center">
+        <h3 className="mb-2 font-semibold text-vesta-navy">Still have questions?</h3>
+        <p className="mb-4 text-vesta-navy/80">Our support team is here to help.</p>
         <a 
           href="mailto:support@vesta.ai" 
-          className="inline-block rounded-lg bg-vesta-gold px-6 py-2 font-medium text-slate-950 transition-colors hover:bg-vesta-gold/90"
+          className="inline-block rounded-lg bg-vesta-gold px-6 py-2 font-medium text-vesta-navy transition-colors hover:bg-vesta-gold/90"
         >
           Contact Support
         </a>

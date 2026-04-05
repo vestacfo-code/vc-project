@@ -62,7 +62,7 @@ export default function Company() {
       <div className="relative overflow-hidden bg-white">
         <div
           aria-hidden
-          className="pointer-events-none absolute top-20 left-1/2 -translate-x-1/2 w-[120%] max-w-4xl h-64 bg-slate-100 blur-3xl rounded-full opacity-70"
+          className="pointer-events-none absolute top-20 left-1/2 -translate-x-1/2 w-[120%] max-w-4xl h-64 bg-vesta-mist/40 blur-3xl rounded-full opacity-70"
         />
 
         <section className="relative max-w-6xl mx-auto px-6 pt-10 sm:pt-16 pb-12 grid lg:grid-cols-2 gap-12 items-center">
@@ -71,7 +71,7 @@ export default function Company() {
               initial={{ opacity: 0, y: 20, filter: 'blur(6px)' }}
               animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
               transition={morphSpringSoft}
-              className="font-serif text-4xl sm:text-5xl text-slate-900 font-normal leading-tight"
+              className="font-serif text-4xl sm:text-5xl text-vesta-navy font-normal leading-tight"
             >
               Built for hoteliers who{' '}
               <span className="text-vesta-gold">outgrew spreadsheets.</span>
@@ -80,7 +80,7 @@ export default function Company() {
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ ...morphSpringSoft, delay: 0.08 }}
-              className="mt-6 text-lg text-slate-600 leading-relaxed"
+              className="mt-6 text-lg text-vesta-navy/80 leading-relaxed"
             >
               Vesta is an AI-native financial intelligence platform focused on hotels — combining live KPIs, daily
               briefings, and anomaly detection so you always know what changed and what to do next.
@@ -89,7 +89,7 @@ export default function Company() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ ...morphSpringSoft, delay: 0.14 }}
-              className="mt-4 text-slate-600 leading-relaxed"
+              className="mt-4 text-vesta-navy/80 leading-relaxed"
             >
               We don’t publish a public headcount or revenue — if you’re evaluating us for procurement or press, email{' '}
               <a href="mailto:support@vesta.ai" className="text-vesta-navy font-medium hover:underline">
@@ -117,7 +117,7 @@ export default function Company() {
           </motion.div>
         </section>
 
-        <section className="relative border-t border-slate-100 py-16 sm:py-20 bg-white/90">
+        <section className="relative border-t border-vesta-navy/8 py-16 sm:py-20 bg-white/90">
           <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-8">
             {pillars.map((p, i) => {
               const Icon = p.icon;
@@ -128,20 +128,20 @@ export default function Company() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-40px' }}
                   transition={{ ...morphSpringSoft, delay: i * 0.1 }}
-                  className="rounded-2xl border border-slate-200 bg-slate-50 p-8 shadow-sm hover:shadow-md transition-shadow"
+                  className="rounded-2xl border border-vesta-navy/10 bg-vesta-mist/25 p-8 shadow-sm hover:shadow-md transition-shadow"
                 >
                   <div className={`w-11 h-11 rounded-xl ${p.ring} flex items-center justify-center mb-5`}>
-                    <Icon className="w-5 h-5 text-slate-800" strokeWidth={1.5} />
+                    <Icon className="w-5 h-5 text-vesta-navy" strokeWidth={1.5} />
                   </div>
-                  <h2 className="font-serif text-xl text-slate-900 mb-3">{p.title}</h2>
-                  <p className="text-slate-600 text-sm leading-relaxed">{p.body}</p>
+                  <h2 className="font-serif text-xl text-vesta-navy mb-3">{p.title}</h2>
+                  <p className="text-vesta-navy/80 text-sm leading-relaxed">{p.body}</p>
                 </motion.div>
               );
             })}
           </div>
         </section>
 
-        <section className="py-14 px-6 bg-slate-50 border-y border-slate-100">
+        <section className="py-14 px-6 bg-vesta-mist/25 border-y border-vesta-navy/8">
           <div className="max-w-5xl mx-auto grid sm:grid-cols-2 gap-6">
             {extras.map(({ icon: Icon, title, body, color, bg }, i) => (
               <motion.div
@@ -153,8 +153,8 @@ export default function Company() {
                 className={`rounded-2xl ${bg} border border-white p-6 shadow-sm`}
               >
                 <Icon className={`w-8 h-8 ${color} mb-3`} strokeWidth={1.5} />
-                <h3 className="font-semibold text-slate-900 mb-2">{title}</h3>
-                <p className="text-sm text-slate-600 leading-relaxed">{body}</p>
+                <h3 className="font-semibold text-vesta-navy mb-2">{title}</h3>
+                <p className="text-sm text-vesta-navy/80 leading-relaxed">{body}</p>
               </motion.div>
             ))}
           </div>
@@ -162,22 +162,22 @@ export default function Company() {
 
         <TellUsMoreSection className="bg-white" />
 
-        <section className="relative py-16 px-6 bg-white border-t border-slate-100">
+        <section className="relative py-16 px-6 bg-white border-t border-vesta-navy/8">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="font-serif text-2xl sm:text-3xl text-slate-900 mb-4">Learn more</h2>
-            <p className="text-slate-600 mb-10">
+            <h2 className="font-serif text-2xl sm:text-3xl text-vesta-navy mb-4">Learn more</h2>
+            <p className="text-vesta-navy/80 mb-10">
               Meet our leadership, explore open roles, or get in touch with the team.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 to="/about"
-                className="inline-flex items-center justify-center gap-2 rounded-xl border-2 border-slate-200 hover:border-vesta-gold/50 hover:bg-vesta-mist/40 px-6 py-3 text-sm font-medium text-slate-800 transition-colors"
+                className="inline-flex items-center justify-center gap-2 rounded-xl border-2 border-vesta-navy/10 hover:border-vesta-gold/50 hover:bg-vesta-mist/40 px-6 py-3 text-sm font-medium text-vesta-navy transition-colors"
               >
                 Leadership <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
                 to="/careers"
-                className="inline-flex items-center justify-center gap-2 rounded-xl border-2 border-slate-200 hover:border-amber-300 hover:bg-amber-50 px-6 py-3 text-sm font-medium text-slate-800 transition-colors"
+                className="inline-flex items-center justify-center gap-2 rounded-xl border-2 border-vesta-navy/10 hover:border-amber-300 hover:bg-amber-50 px-6 py-3 text-sm font-medium text-vesta-navy transition-colors"
               >
                 Careers <ArrowRight className="w-4 h-4" />
               </Link>

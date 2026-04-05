@@ -43,12 +43,12 @@ export function PricingInsightsCard({ brands = [], onAskAI }: PricingInsightsCar
   };
 
   return (
-    <Card className="bg-white border border-zinc-200 shadow-sm">
+    <Card className="bg-white border border-vesta-navy/10 shadow-sm">
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Search className="w-5 h-5 text-blue-600" />
-            <CardTitle className="text-lg font-semibold text-zinc-900">Market Intelligence</CardTitle>
+            <CardTitle className="text-lg font-semibold text-vesta-navy">Market Intelligence</CardTitle>
           </div>
           <Button
             variant="ghost"
@@ -75,7 +75,7 @@ export function PricingInsightsCard({ brands = [], onAskAI }: PricingInsightsCar
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                 activeType === type
                   ? 'bg-blue-100 text-blue-700'
-                  : 'text-zinc-600 hover:bg-zinc-100'
+                  : 'text-vesta-navy/80 hover:bg-vesta-mist/40'
               }`}
             >
               <Icon className="w-3.5 h-3.5" />
@@ -89,16 +89,16 @@ export function PricingInsightsCard({ brands = [], onAskAI }: PricingInsightsCar
         {loading && !research ? (
           <div className="flex items-center justify-center py-8">
             <Loader2 className="w-6 h-6 animate-spin text-blue-600" />
-            <span className="ml-2 text-sm text-zinc-500">Researching market data...</span>
+            <span className="ml-2 text-sm text-vesta-navy/65">Researching market data...</span>
           </div>
         ) : research?.content ? (
           <div className="space-y-3">
-            <div className="prose prose-sm max-w-none text-zinc-700 [&>ul]:space-y-2 [&>ul]:mt-2 [&>p]:text-sm [&>ul>li]:text-sm">
+            <div className="prose prose-sm max-w-none text-vesta-navy/90 [&>ul]:space-y-2 [&>ul]:mt-2 [&>p]:text-sm [&>ul>li]:text-sm">
               <ReactMarkdown>{research.content}</ReactMarkdown>
             </div>
             
-            <div className="flex items-center justify-between pt-3 border-t border-zinc-100">
-              <span className="text-xs text-zinc-400">
+            <div className="flex items-center justify-between pt-3 border-t border-vesta-navy/8">
+              <span className="text-xs text-vesta-navy-muted">
                 Updated {new Date(research.generatedAt).toLocaleTimeString()}
               </span>
               {onAskAI && (
@@ -115,7 +115,7 @@ export function PricingInsightsCard({ brands = [], onAskAI }: PricingInsightsCar
             </div>
           </div>
         ) : (
-          <div className="text-center py-6 text-zinc-500">
+          <div className="text-center py-6 text-vesta-navy/65">
             <Search className="w-8 h-8 mx-auto mb-2 opacity-50" />
             <p className="text-sm">Click refresh to load market intelligence</p>
           </div>

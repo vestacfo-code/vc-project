@@ -18,15 +18,15 @@ const COLORS = ['#3b82f6', '#8b5cf6', '#f59e0b', '#10b981', '#ef4444'];
 function ChartTooltip({ active, payload, label }: any) {
   if (!active || !payload?.length) return null;
   return (
-    <div className="bg-white border border-zinc-200 rounded-lg shadow-lg p-3 min-w-[160px]">
-      <p className="text-xs font-semibold text-zinc-500 mb-2">{label}</p>
+    <div className="bg-white border border-vesta-navy/10 rounded-lg shadow-lg p-3 min-w-[160px]">
+      <p className="text-xs font-semibold text-vesta-navy/65 mb-2">{label}</p>
       {payload.map((entry: any, i: number) => (
         <div key={i} className="flex items-center justify-between gap-3 py-0.5">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: entry.color }} />
-            <span className="text-xs text-zinc-700">{entry.name}</span>
+            <span className="text-xs text-vesta-navy/90">{entry.name}</span>
           </div>
-          <span className="text-xs font-semibold text-zinc-900">${Number(entry.value).toFixed(2)}</span>
+          <span className="text-xs font-semibold text-vesta-navy">${Number(entry.value).toFixed(2)}</span>
         </div>
       ))}
     </div>
@@ -95,7 +95,7 @@ export function PriceHistoryChart({ productId, productName, suppliers, yourPrice
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-48">
-        <Loader2 className="w-5 h-5 animate-spin text-zinc-400" />
+        <Loader2 className="w-5 h-5 animate-spin text-vesta-navy-muted" />
       </div>
     );
   }
@@ -103,18 +103,18 @@ export function PriceHistoryChart({ productId, productName, suppliers, yourPrice
   if (chartData.length === 0) {
     return (
       <div className="text-center py-10">
-        <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-zinc-100 mb-3">
-          <BarChart3 className="w-6 h-6 text-zinc-400" />
+        <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-vesta-mist/40 mb-3">
+          <BarChart3 className="w-6 h-6 text-vesta-navy-muted" />
         </div>
-        <p className="text-sm font-medium text-zinc-600 mb-1">No price history yet</p>
-        <p className="text-xs text-zinc-400">Price history builds as you import data over time.</p>
+        <p className="text-sm font-medium text-vesta-navy/80 mb-1">No price history yet</p>
+        <p className="text-xs text-vesta-navy-muted">Price history builds as you import data over time.</p>
       </div>
     );
   }
 
   return (
     <div>
-      <h4 className="text-sm font-medium text-zinc-700 mb-4">
+      <h4 className="text-sm font-medium text-vesta-navy/90 mb-4">
         Price History — {productName}
       </h4>
       <ResponsiveContainer width="100%" height={220}>

@@ -57,7 +57,7 @@ const Careers = () => {
       {/* Gradient section wrapper */}
       <div className="relative flex-1">
         {/* Purple gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#f5f3ff] via-[#e8e4ff] to-[#ddd6ff]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-vesta-cream via-vesta-mist/30 to-vesta-mist/50" />
         {/* Decorative gradient blobs */}
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-300/30 rounded-full blur-3xl" />
         <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-blue-300/25 rounded-full blur-3xl" />
@@ -69,33 +69,33 @@ const Careers = () => {
           <div className="container mx-auto px-4 py-16 max-w-6xl">
             {/* Hero Section */}
             <div className="text-center mb-12 md:mb-16">
-              <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-normal text-gray-900 leading-tight mb-4 md:mb-6 tracking-tight">
+              <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-normal text-vesta-navy leading-tight mb-4 md:mb-6 tracking-tight">
                 Join Our Team
               </h1>
-              <p className="text-gray-600 text-lg md:text-xl max-w-3xl mx-auto mb-4">
+              <p className="text-vesta-navy/80 text-lg md:text-xl max-w-3xl mx-auto mb-4">
                 We're building the future of financial intelligence. Join our team of innovators, 
                 engineers, and visionaries who are passionate about transforming how businesses 
                 understand their financial performance.
               </p>
-              <p className="text-gray-500 text-base md:text-lg">
+              <p className="text-vesta-navy/65 text-base md:text-lg">
                 At Vesta, every role matters. Every contribution shapes the future of AI-powered finance.
               </p>
             </div>
 
             {loading ? (
               <div className="text-center py-16">
-                <div className="text-lg text-gray-600">Loading opportunities...</div>
+                <div className="text-lg text-vesta-navy/80">Loading opportunities...</div>
               </div>
             ) : jobRoles.length === 0 ? (
               <div className="text-center py-16">
                 <div className="bg-white/70 backdrop-blur-xl border border-white/60 rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
-                  <h2 className="text-2xl font-semibold mb-4 text-gray-900">No Open Positions</h2>
-                  <p className="text-gray-600 mb-6">
+                  <h2 className="text-2xl font-semibold mb-4 text-vesta-navy">No Open Positions</h2>
+                  <p className="text-vesta-navy/80 mb-6">
                     We don't have any open positions at the moment, but we're always looking for talented individuals.
                   </p>
-                  <p className="text-gray-600">
+                  <p className="text-vesta-navy/80">
                     Feel free to reach out to us directly at{' '}
-                    <a href="mailto:careers@vesta.ai" className="text-gray-900 font-medium hover:underline">
+                    <a href="mailto:careers@vesta.ai" className="text-vesta-navy font-medium hover:underline">
                       careers@vesta.ai
                     </a>
                   </p>
@@ -104,8 +104,8 @@ const Careers = () => {
             ) : (
               <div className="space-y-8">
                 <div className="text-center mb-8">
-                  <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-2">Open Positions</h2>
-                  <p className="text-gray-600">
+                  <h2 className="text-2xl md:text-3xl font-semibold text-vesta-navy mb-2">Open Positions</h2>
+                  <p className="text-vesta-navy/80">
                     {jobRoles.length} {jobRoles.length === 1 ? 'opportunity' : 'opportunities'} available
                   </p>
                 </div>
@@ -120,10 +120,10 @@ const Careers = () => {
                         {/* Job Info */}
                         <div className="flex-1 space-y-4">
                           <div>
-                            <h3 className="text-xl md:text-2xl font-semibold text-gray-900 mb-3">
+                            <h3 className="text-xl md:text-2xl font-semibold text-vesta-navy mb-3">
                               {job.title}
                             </h3>
-                            <div className="flex flex-wrap gap-4 text-sm text-gray-600">
+                            <div className="flex flex-wrap gap-4 text-sm text-vesta-navy/80">
                               <div className="flex items-center">
                                 <Briefcase className="w-4 h-4 mr-2" />
                                 {job.department}
@@ -139,7 +139,7 @@ const Careers = () => {
                             </div>
                             {job.salary_range && (
                               <div className="mt-3">
-                                <Badge variant="secondary" className="text-sm font-medium bg-gray-100 text-gray-900">
+                                <Badge variant="secondary" className="text-sm font-medium bg-vesta-mist/40 text-vesta-navy">
                                   {job.salary_range}
                                 </Badge>
                               </div>
@@ -153,7 +153,7 @@ const Careers = () => {
                             <Button 
                               variant="outline"
                               size="lg"
-                              className="w-full sm:w-auto px-6 py-3 text-sm font-medium bg-transparent border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white"
+                              className="w-full sm:w-auto px-6 py-3 text-sm font-medium bg-transparent border-vesta-navy text-vesta-navy hover:bg-vesta-navy hover:text-white"
                             >
                               View Details
                             </Button>
@@ -161,7 +161,7 @@ const Careers = () => {
                           <Button 
                             onClick={() => handleApply(job)}
                             size="lg"
-                            className="w-full sm:w-auto px-8 py-3 text-sm font-medium bg-gray-900 hover:bg-gray-800 text-white"
+                            className="w-full sm:w-auto px-8 py-3 text-sm font-medium bg-vesta-navy hover:bg-vesta-navy-muted/30 text-white"
                           >
                             Apply Now
                           </Button>
@@ -174,10 +174,10 @@ const Careers = () => {
             )}
 
             {/* Admin Link */}
-            <div className="mt-16 pt-8 text-center border-t border-gray-200/50">
+            <div className="mt-16 pt-8 text-center border-t border-vesta-navy/50">
               <Link 
                 to="/careers-admin" 
-                className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
+                className="text-sm text-vesta-navy/65 hover:text-vesta-navy/90 transition-colors"
               >
                 Admin Access
               </Link>

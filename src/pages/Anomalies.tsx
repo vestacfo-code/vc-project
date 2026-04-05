@@ -110,7 +110,7 @@ function formatMetricValue(value: number | null, metric: string): string {
 
 function SkeletonCard() {
   return (
-    <div className="h-36 animate-pulse rounded-xl border border-slate-200 bg-slate-200" />
+    <div className="h-36 animate-pulse rounded-xl border border-vesta-navy/10 bg-vesta-mist/50" />
   )
 }
 
@@ -208,22 +208,22 @@ export default function Anomalies() {
   ).length
 
   return (
-    <div className="min-h-full space-y-8 p-6 text-slate-900">
+    <div className="min-h-full space-y-8 p-6 text-vesta-navy">
       {/* Header */}
       <div className="flex items-start justify-between gap-4">
         <div>
-          <h1 className="flex items-center gap-2 text-2xl font-semibold text-slate-900">
+          <h1 className="flex items-center gap-2 text-2xl font-semibold text-vesta-navy">
             <ShieldAlert className="h-6 w-6 text-vesta-gold" />
             Anomaly Detection
           </h1>
-          <p className="mt-1 text-slate-600">
+          <p className="mt-1 text-vesta-navy/80">
             Monitor and resolve unusual patterns detected in your hotel's performance metrics.
           </p>
         </div>
         <div className="flex items-center gap-3 shrink-0">
           {!isLoading && openCount > 0 && (
             <>
-              <Badge className="border border-slate-200 bg-slate-100 px-3 py-1 text-sm text-slate-700">
+              <Badge className="border border-vesta-navy/10 bg-vesta-mist/40 px-3 py-1 text-sm text-vesta-navy/90">
                 {openCount} open
               </Badge>
               {criticalCount > 0 && (
@@ -236,7 +236,7 @@ export default function Anomalies() {
           <Button
             onClick={handleScan}
             disabled={isScanning || !hotelId}
-            className="bg-vesta-gold font-medium text-slate-950 hover:bg-vesta-gold/90"
+            className="bg-vesta-gold font-medium text-vesta-navy hover:bg-vesta-gold/90"
           >
             <ScanLine className="w-4 h-4 mr-2" />
             {isScanning ? 'Scanning…' : 'Scan for Anomalies'}
@@ -247,8 +247,8 @@ export default function Anomalies() {
       {/* Filters */}
       <div className="flex flex-col sm:flex-row gap-4">
         <div className="flex items-center gap-2">
-          <Filter className="w-4 h-4 text-slate-500 shrink-0" />
-          <div className="flex items-center gap-1 rounded-lg border border-slate-200 bg-white p-1">
+          <Filter className="w-4 h-4 text-vesta-navy/65 shrink-0" />
+          <div className="flex items-center gap-1 rounded-lg border border-vesta-navy/10 bg-white p-1">
             {STATUS_FILTERS.map((f) => (
               <button
                 key={f.value}
@@ -256,7 +256,7 @@ export default function Anomalies() {
                 className={`rounded-md px-3 py-1 text-sm font-medium transition-colors ${
                   statusFilter === f.value
                     ? 'border border-vesta-gold/35 bg-vesta-gold/15 text-vesta-navy'
-                    : 'text-slate-600 hover:bg-slate-100'
+                    : 'text-vesta-navy/80 hover:bg-vesta-mist/40'
                 }`}
               >
                 {f.label}
@@ -265,7 +265,7 @@ export default function Anomalies() {
           </div>
         </div>
 
-        <div className="flex items-center gap-1 rounded-lg border border-slate-200 bg-white p-1">
+        <div className="flex items-center gap-1 rounded-lg border border-vesta-navy/10 bg-white p-1">
           {SEVERITY_FILTERS.map((f) => {
             const cfg = f.value !== 'all' ? SEVERITY_CONFIG[f.value as Severity] : null
             return (
@@ -277,7 +277,7 @@ export default function Anomalies() {
                     ? cfg
                       ? `${cfg.badgeClass}`
                       : 'border border-vesta-gold/35 bg-vesta-gold/15 text-vesta-navy'
-                    : 'text-slate-600 hover:bg-slate-100'
+                    : 'text-vesta-navy/80 hover:bg-vesta-mist/40'
                 }`}
               >
                 {f.label}
@@ -298,8 +298,8 @@ export default function Anomalies() {
         <Card className="border border-vesta-navy/10 bg-white shadow-sm">
           <CardContent className="py-16 text-center">
             <CheckCircle2 className="mx-auto mb-3 h-10 w-10 text-emerald-600" />
-            <p className="text-lg font-medium text-slate-900">No anomalies detected</p>
-            <p className="text-slate-500 text-sm mt-1">
+            <p className="text-lg font-medium text-vesta-navy">No anomalies detected</p>
+            <p className="text-vesta-navy/65 text-sm mt-1">
               {statusFilter !== 'all' || severityFilter !== 'all'
                 ? 'No anomalies match the current filters.'
                 : 'All metrics are within expected ranges.'}
@@ -322,7 +322,7 @@ export default function Anomalies() {
             return (
               <Card
                 key={anomaly.id}
-                className={`border border-slate-200 bg-white shadow-sm border-l-4 ${cfg.borderColor} transition-opacity ${
+                className={`border border-vesta-navy/10 bg-white shadow-sm border-l-4 ${cfg.borderColor} transition-opacity ${
                   isResolved ? 'opacity-60' : ''
                 }`}
               >
@@ -331,7 +331,7 @@ export default function Anomalies() {
                     {/* Left: content */}
                     <div className="flex-1 min-w-0">
                       <div className="flex flex-wrap items-center gap-2 mb-1.5">
-                        <span className="text-base font-semibold leading-tight text-slate-900">
+                        <span className="text-base font-semibold leading-tight text-vesta-navy">
                           {anomaly.title}
                         </span>
                         <Badge className={`text-xs border shrink-0 ${cfg.badgeClass}`}>
@@ -339,20 +339,20 @@ export default function Anomalies() {
                         </Badge>
                         <Badge
                           variant="outline"
-                          className="shrink-0 border-slate-200 text-xs text-slate-600"
+                          className="shrink-0 border-vesta-navy/10 text-xs text-vesta-navy/80"
                         >
                           {anomaly.metric}
                         </Badge>
                       </div>
 
-                      <p className="mb-3 text-sm leading-snug text-slate-600">
+                      <p className="mb-3 text-sm leading-snug text-vesta-navy/80">
                         {anomaly.description}
                       </p>
 
                       {hasValueRange && (
                         <div className="flex items-center gap-2 mb-3">
                           <AlertTriangle className={`w-3.5 h-3.5 shrink-0 ${cfg.textColor}`} />
-                          <span className="text-sm text-slate-700">
+                          <span className="text-sm text-vesta-navy/90">
                             <span className="font-medium">{anomaly.metric}:</span>{' '}
                             {anomaly.current_value !== null ? (
                               <>
@@ -360,7 +360,7 @@ export default function Anomalies() {
                                   {formatMetricValue(anomaly.current_value, anomaly.metric)}
                                 </span>
                                 {(anomaly.expected_min !== null || anomaly.expected_max !== null) && (
-                                  <span className="text-slate-500">
+                                  <span className="text-vesta-navy/65">
                                     {' '}(expected{' '}
                                     {anomaly.expected_min !== null
                                       ? formatMetricValue(anomaly.expected_min, anomaly.metric)
@@ -374,7 +374,7 @@ export default function Anomalies() {
                                 )}
                               </>
                             ) : (
-                              <span className="text-slate-500">
+                              <span className="text-vesta-navy/65">
                                 Expected{' '}
                                 {anomaly.expected_min !== null
                                   ? formatMetricValue(anomaly.expected_min, anomaly.metric)
@@ -389,16 +389,16 @@ export default function Anomalies() {
                         </div>
                       )}
 
-                      <div className="flex items-center gap-3 text-xs text-slate-500">
+                      <div className="flex items-center gap-3 text-xs text-vesta-navy/65">
                         <span className="flex items-center gap-1">
                           <Clock className="w-3 h-3" />
                           {formatDistanceToNow(new Date(anomaly.detected_at), { addSuffix: true })}
                         </span>
-                        <span className="text-slate-600">·</span>
+                        <span className="text-vesta-navy/80">·</span>
                         <span>{format(new Date(anomaly.date), 'MMM d, yyyy')}</span>
                         {isAcknowledged && anomaly.acknowledged_at && (
                           <>
-                            <span className="text-slate-600">·</span>
+                            <span className="text-vesta-navy/80">·</span>
                             <span className="text-amber-800">
                               Acknowledged{' '}
                               {formatDistanceToNow(new Date(anomaly.acknowledged_at), {
@@ -409,7 +409,7 @@ export default function Anomalies() {
                         )}
                         {isResolved && anomaly.resolved_at && (
                           <>
-                            <span className="text-slate-600">·</span>
+                            <span className="text-vesta-navy/80">·</span>
                             <span className="text-emerald-800">
                               Resolved{' '}
                               {formatDistanceToNow(new Date(anomaly.resolved_at), {

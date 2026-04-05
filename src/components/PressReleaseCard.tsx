@@ -28,7 +28,7 @@ const PressReleaseCard = ({
     });
   };
   return <Link to={`/press/${release.slug}`} className="block">
-      <Card className="hover:shadow-md transition-shadow cursor-pointer h-full flex flex-col bg-gray-100">
+      <Card className="hover:shadow-md transition-shadow cursor-pointer h-full flex flex-col bg-vesta-mist/40">
         <CardContent className="p-0">
           {release.featured_image_url && <div className="w-full h-48 overflow-hidden rounded-t-lg">
               <img src={release.featured_image_url} alt={release.title} className="w-full h-full object-cover transition-transform hover:scale-105" />
@@ -36,16 +36,16 @@ const PressReleaseCard = ({
           
           <div className="p-6 flex-1 flex flex-col">
             
-            <h3 className="text-xl font-semibold mb-3 text-gray-900 hover:text-primary transition-colors">
+            <h3 className="text-xl font-semibold mb-3 text-vesta-navy hover:text-primary transition-colors">
               {release.title}
             </h3>
             
-            {release.excerpt && <p className="text-gray-700 mb-4 line-clamp-3 leading-relaxed flex-1">
+            {release.excerpt && <p className="text-vesta-navy/90 mb-4 line-clamp-3 leading-relaxed flex-1">
                 {release.excerpt}
               </p>}
             
             <div className="mt-auto space-y-4">
-              <div className="flex items-center gap-4 text-sm text-gray-600">
+              <div className="flex items-center gap-4 text-sm text-vesta-navy/80">
                 <div className="flex items-center gap-1">
                   <User className="h-4 w-4" />
                   <span>{release.author_name}</span>

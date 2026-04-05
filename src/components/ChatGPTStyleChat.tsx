@@ -176,41 +176,41 @@ User Question: ${userMessage.content}`;
   if (!integration) {
     return <div className="flex-1 flex items-center justify-center p-8">
         <div className="text-center max-w-md">
-          <Building2 className="w-12 h-12 text-zinc-400 mx-auto mb-4" />
-          <h3 className="text-lg font-medium mb-2 text-zinc-900">Vesta Not Connected</h3>
-          <p className="text-zinc-600 text-sm leading-relaxed">
+          <Building2 className="w-12 h-12 text-vesta-navy-muted mx-auto mb-4" />
+          <h3 className="text-lg font-medium mb-2 text-vesta-navy">Vesta Not Connected</h3>
+          <p className="text-vesta-navy/80 text-sm leading-relaxed">
             Connect your QuickBooks account to start using Vesta for financial analysis.
           </p>
         </div>
       </div>;
   }
-  return <div className="flex-1 flex flex-col h-screen bg-zinc-50 text-zinc-900">
+  return <div className="flex-1 flex flex-col h-screen bg-vesta-mist/25 text-vesta-navy">
       {/* Messages Area */}
       <div className="flex-1 overflow-y-auto">
         {messages.length === 0 ? (/* Welcome Screen */
       <div className="flex flex-col items-center justify-center min-h-screen px-8 pb-32">
             <div className="text-center mb-16">
               <div className="flex items-center justify-center gap-3 mb-6">
-                <VestaBrand size="lg" className="text-zinc-900" />
-                <Sparkles className="w-6 h-6 text-zinc-700" />
+                <VestaBrand size="lg" className="text-vesta-navy" />
+                <Sparkles className="w-6 h-6 text-vesta-navy/90" />
               </div>
-              <h2 className="text-3xl font-medium mb-6 text-zinc-900 min-h-[3rem]">
-                <TypingAnimation messages={cfoQuestions} className="text-zinc-900" />
+              <h2 className="text-3xl font-medium mb-6 text-vesta-navy min-h-[3rem]">
+                <TypingAnimation messages={cfoQuestions} className="text-vesta-navy" />
               </h2>
-              <p className="text-zinc-600 text-base max-w-xl mx-auto leading-relaxed">
+              <p className="text-vesta-navy/80 text-base max-w-xl mx-auto leading-relaxed">
                 I'm Vesta, your AI financial analyst with access to your complete QuickBooks data for{' '}
-                <span className="text-zinc-900 font-medium">{integration.company_name}</span>
+                <span className="text-vesta-navy font-medium">{integration.company_name}</span>
               </p>
             </div>
 
             {/* Input Area - Centered */}
             <div className="w-full max-w-3xl">
-              <div className="bg-white rounded-xl border border-zinc-200 shadow-sm">
+              <div className="bg-white rounded-xl border border-vesta-navy/10 shadow-sm">
                 <div className="flex items-center p-4">
                   {/* Model Selector */}
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" size="sm" className="text-zinc-600 hover:text-zinc-900 hover:bg-zinc-50 rounded-lg px-2 py-1 h-auto mr-3">
+                      <Button variant="ghost" size="sm" className="text-vesta-navy/80 hover:text-vesta-navy hover:bg-vesta-mist/25 rounded-lg px-2 py-1 h-auto mr-3">
                         <span className="text-sm">
                           {models.find(m => m.id === selectedModel)?.icon}
                         </span>
@@ -218,7 +218,7 @@ User Question: ${userMessage.content}`;
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="start" className="w-48">
-                      {models.map(model => <DropdownMenuItem key={model.id} onClick={() => setSelectedModel(model.id)} className={selectedModel === model.id ? 'bg-zinc-100' : ''}>
+                      {models.map(model => <DropdownMenuItem key={model.id} onClick={() => setSelectedModel(model.id)} className={selectedModel === model.id ? 'bg-vesta-mist/40' : ''}>
                           <span className="mr-2">{model.icon}</span>
                           <span className="font-medium">{model.name}</span>
                         </DropdownMenuItem>)}
@@ -227,23 +227,23 @@ User Question: ${userMessage.content}`;
 
                   {/* Input Field */}
                   <div className="flex-1 relative">
-                    <Textarea ref={textareaRef} value={input} onChange={e => setInput(e.target.value)} onKeyDown={handleKeyPress} placeholder="Message Vesta..." disabled={loading} className="min-h-[20px] max-h-[120px] resize-none border-0 bg-transparent text-zinc-900 placeholder:text-zinc-400 focus:ring-0 focus:outline-none focus:border-0 focus:shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 p-0 leading-6 shadow-none" rows={1} />
+                    <Textarea ref={textareaRef} value={input} onChange={e => setInput(e.target.value)} onKeyDown={handleKeyPress} placeholder="Message Vesta..." disabled={loading} className="min-h-[20px] max-h-[120px] resize-none border-0 bg-transparent text-vesta-navy placeholder:text-vesta-navy-muted focus:ring-0 focus:outline-none focus:border-0 focus:shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 p-0 leading-6 shadow-none" rows={1} />
                   </div>
                   
                   {/* Right Side Actions */}
                   <div className="flex items-center gap-2 ml-3">
-                    <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-zinc-100 text-zinc-400 hover:text-zinc-600" disabled>
+                    <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-vesta-mist/40 text-vesta-navy-muted hover:text-vesta-navy/80" disabled>
                       <Mic className="w-4 h-4" />
                     </Button>
                     
-                    <Button onClick={handleSendMessage} disabled={loading || !input.trim()} size="sm" className="h-8 w-8 rounded-lg bg-slate-900 p-0 text-white hover:bg-slate-800 disabled:opacity-50">
+                    <Button onClick={handleSendMessage} disabled={loading || !input.trim()} size="sm" className="h-8 w-8 rounded-lg bg-vesta-navy p-0 text-white hover:bg-vesta-navy-muted/30 disabled:opacity-50">
                       <Send className="w-4 h-4" />
                     </Button>
                   </div>
                 </div>
               </div>
               
-              <div className="text-xs text-zinc-500 mt-3 text-center">
+              <div className="text-xs text-vesta-navy/65 mt-3 text-center">
                 Vesta can make mistakes. Always verify important information.
               </div>
             </div>
@@ -251,24 +251,24 @@ User Question: ${userMessage.content}`;
       <div className="max-w-4xl mx-auto px-4 py-8">
             {messages.map(message => <div key={message.id} className="mb-8">
                 {message.role === 'user' ? <div className="flex gap-4">
-                    <div className="w-8 h-8 rounded-full bg-zinc-700 flex items-center justify-center text-white text-sm font-medium flex-shrink-0">Y</div>
+                    <div className="w-8 h-8 rounded-full bg-vesta-navy-muted/25 flex items-center justify-center text-white text-sm font-medium flex-shrink-0">Y</div>
                     <div className="flex-1">
-                      <div className="text-sm font-medium mb-2 text-zinc-700">You</div>
-                      <div className="text-zinc-900">
+                      <div className="text-sm font-medium mb-2 text-vesta-navy/90">You</div>
+                      <div className="text-vesta-navy">
                         {message.content}
                       </div>
                     </div>
                   </div> : <div className="flex gap-4">
-                    <div className="w-8 h-8 rounded-full bg-zinc-800 flex items-center justify-center flex-shrink-0">
+                    <div className="w-8 h-8 rounded-full bg-vesta-navy-muted/30 flex items-center justify-center flex-shrink-0">
                       <VestaBrand size="sm" className="text-white" inline />
                     </div>
                     <div className="flex-1">
-                      <div className="text-sm font-medium mb-2 text-zinc-700">Vesta</div>
+                      <div className="text-sm font-medium mb-2 text-vesta-navy/90">Vesta</div>
                       
                       {/* Financial Chart */}
                       {message.chartData && <FinancialChart data={message.chartData.data} chartType={message.chartData.type} title={message.chartData.title} />}
                       
-                      <div className="text-zinc-900 prose prose-sm max-w-none">
+                      <div className="text-vesta-navy prose prose-sm max-w-none">
                         <ReactMarkdown>{message.content}</ReactMarkdown>
                       </div>
                     </div>
@@ -283,12 +283,12 @@ User Question: ${userMessage.content}`;
       {/* Input Area for Chat Mode */}
       {messages.length > 0 && <div className="p-4">
           <div className="max-w-4xl mx-auto">
-            <div className="bg-white rounded-xl border border-zinc-200 shadow-sm">
+            <div className="bg-white rounded-xl border border-vesta-navy/10 shadow-sm">
               <div className="flex items-center p-3">
                 {/* Model Selector */}
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size="sm" className="text-zinc-600 hover:text-zinc-900 hover:bg-zinc-50 rounded-lg px-2 py-1 h-auto mr-2">
+                    <Button variant="ghost" size="sm" className="text-vesta-navy/80 hover:text-vesta-navy hover:bg-vesta-mist/25 rounded-lg px-2 py-1 h-auto mr-2">
                       <span className="text-sm">
                         {models.find(m => m.id === selectedModel)?.icon}
                       </span>
@@ -296,7 +296,7 @@ User Question: ${userMessage.content}`;
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="start" className="w-48">
-                    {models.map(model => <DropdownMenuItem key={model.id} onClick={() => setSelectedModel(model.id)} className={selectedModel === model.id ? 'bg-zinc-100' : ''}>
+                    {models.map(model => <DropdownMenuItem key={model.id} onClick={() => setSelectedModel(model.id)} className={selectedModel === model.id ? 'bg-vesta-mist/40' : ''}>
                         <span className="mr-2">{model.icon}</span>
                         <span className="font-medium">{model.name}</span>
                       </DropdownMenuItem>)}
@@ -305,23 +305,23 @@ User Question: ${userMessage.content}`;
 
                 {/* Input Field */}
                 <div className="flex-1 relative">
-                  <Textarea ref={textareaRef} value={input} onChange={e => setInput(e.target.value)} onKeyDown={handleKeyPress} placeholder="Message Vesta..." disabled={loading} className="min-h-[20px] max-h-[120px] resize-none border-0 bg-transparent text-zinc-900 placeholder:text-zinc-400 focus:ring-0 focus:outline-none focus:border-0 focus:shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 p-0 leading-6 shadow-none" rows={1} />
+                  <Textarea ref={textareaRef} value={input} onChange={e => setInput(e.target.value)} onKeyDown={handleKeyPress} placeholder="Message Vesta..." disabled={loading} className="min-h-[20px] max-h-[120px] resize-none border-0 bg-transparent text-vesta-navy placeholder:text-vesta-navy-muted focus:ring-0 focus:outline-none focus:border-0 focus:shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 p-0 leading-6 shadow-none" rows={1} />
                 </div>
                 
                 {/* Right Side Actions */}
                 <div className="flex items-center gap-1 ml-2">
-                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-zinc-100 text-zinc-400 hover:text-zinc-600" disabled>
+                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-vesta-mist/40 text-vesta-navy-muted hover:text-vesta-navy/80" disabled>
                     <Mic className="w-4 h-4" />
                   </Button>
                   
-                  <Button onClick={handleSendMessage} disabled={loading || !input.trim()} size="sm" className="h-8 w-8 rounded-lg bg-slate-900 p-0 text-white hover:bg-slate-800 disabled:opacity-50">
+                  <Button onClick={handleSendMessage} disabled={loading || !input.trim()} size="sm" className="h-8 w-8 rounded-lg bg-vesta-navy p-0 text-white hover:bg-vesta-navy-muted/30 disabled:opacity-50">
                     <Send className="w-4 h-4" />
                   </Button>
                 </div>
               </div>
             </div>
             
-            <div className="text-xs text-zinc-500 mt-2 text-center">
+            <div className="text-xs text-vesta-navy/65 mt-2 text-center">
               Vesta can make mistakes. Always verify important information.
             </div>
           </div>

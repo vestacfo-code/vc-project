@@ -61,7 +61,7 @@ export const OnboardingPaywall = ({ open, onOpenChange, onContinueFree }: Onboar
       period: 'forever',
       description: 'Perfect for getting started',
       icon: <Star className="h-6 w-6" />,
-      gradient: 'from-gray-400 to-gray-600',
+      gradient: 'from-vesta-navy-muted to-vesta-navy',
       features: [
         '5 AI credits daily (30/month max)',
         '5 report downloads per month',
@@ -128,7 +128,7 @@ export const OnboardingPaywall = ({ open, onOpenChange, onContinueFree }: Onboar
             <DialogTitle className="text-4xl font-bold text-center bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
               Choose Your Plan to Continue ✨
             </DialogTitle>
-            <p className="text-center text-gray-600 text-lg mt-2">
+            <p className="text-center text-vesta-navy/80 text-lg mt-2">
               Complete your setup by selecting a plan that fits your needs
             </p>
           </motion.div>
@@ -174,13 +174,13 @@ export const OnboardingPaywall = ({ open, onOpenChange, onContinueFree }: Onboar
                         {tier.icon}
                       </div>
                     </motion.div>
-                    <CardTitle className="text-2xl font-bold text-gray-800">{tier.name}</CardTitle>
-                    <p className="text-sm text-gray-600 mt-1">{tier.description}</p>
+                    <CardTitle className="text-2xl font-bold text-vesta-navy">{tier.name}</CardTitle>
+                    <p className="text-sm text-vesta-navy/80 mt-1">{tier.description}</p>
                     
                     <div className="mt-6">
-                      <div className="text-4xl font-bold text-gray-800">
+                      <div className="text-4xl font-bold text-vesta-navy">
                         {tier.price}
-                        <span className="text-lg font-normal text-gray-600">
+                        <span className="text-lg font-normal text-vesta-navy/80">
                           {tier.period}
                         </span>
                       </div>
@@ -198,7 +198,7 @@ export const OnboardingPaywall = ({ open, onOpenChange, onContinueFree }: Onboar
                           className="flex items-center gap-3 text-sm"
                         >
                           <Check className="h-5 w-5 text-green-600 flex-shrink-0" />
-                          <span className="text-gray-700 font-medium">{feature}</span>
+                          <span className="text-vesta-navy/90 font-medium">{feature}</span>
                         </motion.li>
                       ))}
                     </ul>
@@ -214,7 +214,7 @@ export const OnboardingPaywall = ({ open, onOpenChange, onContinueFree }: Onboar
                       disabled={loading}
                       className={`w-full py-6 text-base font-semibold rounded-xl transition-all duration-300 ${
                         tier.id === 'founder'
-                          ? 'bg-white/50 text-gray-800 hover:bg-white/70 border-2 border-gray-300'
+                          ? 'bg-white/50 text-vesta-navy hover:bg-white/70 border-2 border-vesta-navy/15'
                           : `bg-gradient-to-r ${tier.gradient} text-white hover:shadow-2xl hover:scale-105`
                       }`}
                       variant={tier.id === 'founder' ? 'outline' : 'default'}
@@ -235,7 +235,7 @@ export const OnboardingPaywall = ({ open, onOpenChange, onContinueFree }: Onboar
             transition={{ delay: 0.5, duration: 0.5 }}
             className="text-center space-y-6 glass-card rounded-3xl p-8"
           >
-            <h3 className="font-bold text-2xl text-gray-800">Why upgrade? 🚀</h3>
+            <h3 className="font-bold text-2xl text-vesta-navy">Why upgrade? 🚀</h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {[
                 { icon: Zap, label: 'More AI Credits', color: 'text-yellow-600' },
@@ -252,7 +252,7 @@ export const OnboardingPaywall = ({ open, onOpenChange, onContinueFree }: Onboar
                   className="flex flex-col items-center gap-3"
                 >
                   <benefit.icon className={`h-8 w-8 ${benefit.color}`} />
-                  <span className="text-sm font-medium text-gray-700">{benefit.label}</span>
+                  <span className="text-sm font-medium text-vesta-navy/90">{benefit.label}</span>
                 </motion.div>
               ))}
             </div>
@@ -263,7 +263,7 @@ export const OnboardingPaywall = ({ open, onOpenChange, onContinueFree }: Onboar
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.7, duration: 0.5 }}
-            className="text-center text-sm text-gray-600 space-y-2"
+            className="text-center text-sm text-vesta-navy/80 space-y-2"
           >
             <p className="font-medium">✓ Cancel anytime • ✓ No long-term commitments • ✓ Secure payment processing</p>
             <p>Questions? Contact us at <span className="font-semibold text-blue-600">support@vesta.ai</span></p>

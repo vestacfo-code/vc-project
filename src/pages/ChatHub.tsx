@@ -210,7 +210,7 @@ const ChatHubContent = ({
   };
   
   return (
-    <div className="flex h-[100dvh] w-full bg-vesta-cream text-zinc-900">
+    <div className="flex h-[100dvh] w-full bg-vesta-cream text-vesta-navy">
       {/* Always show main layout - walkthrough will guide users */}
       <>
         <IntegrationLayoutSidebar
@@ -223,7 +223,7 @@ const ChatHubContent = ({
           
           <div className="relative flex flex-1 flex-col overflow-hidden">
             {/* Mobile Header */}
-            <div className="sticky top-0 z-40 flex items-center justify-between border-b border-slate-200 bg-white px-4 py-3 md:hidden">
+            <div className="sticky top-0 z-40 flex items-center justify-between border-b border-vesta-navy/10 bg-white px-4 py-3 md:hidden">
               <Button
                 variant="ghost"
                 size="sm"
@@ -253,21 +253,21 @@ const ChatHubContent = ({
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="h-8 w-8 rounded-full border border-gray-200 bg-white p-0 text-gray-600 shadow-sm transition-all duration-150 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900"
+                      className="h-8 w-8 rounded-full border border-vesta-navy/10 bg-white p-0 text-vesta-navy/80 shadow-sm transition-all duration-150 hover:border-vesta-navy/15 hover:bg-vesta-mist/25 hover:text-vesta-navy"
                     >
                       <User className="w-4 h-4" />
                     </Button>
                   </DropdownMenuTrigger>
-                 <DropdownMenuContent align="end" className="w-48 border border-gray-200 bg-white text-gray-700">
-                    <DropdownMenuItem onClick={() => navigate('/dashboard')} className="text-gray-700 hover:bg-gray-100 focus:bg-gray-100">
+                 <DropdownMenuContent align="end" className="w-48 border border-vesta-navy/10 bg-white text-vesta-navy/90">
+                    <DropdownMenuItem onClick={() => navigate('/dashboard')} className="text-vesta-navy/90 hover:bg-vesta-mist/40 focus:bg-vesta-mist/40">
                       <ArrowLeft className="w-4 h-4 mr-2" />
                       Back to Dashboard
                     </DropdownMenuItem>
-                    <DropdownMenuSeparator className="bg-gray-200" />
+                    <DropdownMenuSeparator className="bg-vesta-mist/50" />
                     <DropdownMenuItem onClick={() => {
                       setSettingsDefaultTab('general');
                       setSettingsOpen(true);
-                    }} className="text-gray-700 hover:bg-gray-100 focus:bg-gray-100">
+                    }} className="text-vesta-navy/90 hover:bg-vesta-mist/40 focus:bg-vesta-mist/40">
                       <Settings className="w-4 h-4 mr-2" />
                       Settings
                     </DropdownMenuItem>
@@ -297,43 +297,43 @@ const ChatHubContent = ({
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="h-8 w-8 rounded-full border border-gray-200 bg-white p-0 text-gray-600 shadow-sm transition-all duration-150 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900"
+                      className="h-8 w-8 rounded-full border border-vesta-navy/10 bg-white p-0 text-vesta-navy/80 shadow-sm transition-all duration-150 hover:border-vesta-navy/15 hover:bg-vesta-mist/25 hover:text-vesta-navy"
                     >
                     <User className="w-4 h-4" />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-48 border border-gray-200 bg-white text-gray-700">
-                  <DropdownMenuItem onClick={() => navigate('/dashboard')} className="text-gray-700 hover:bg-gray-100 focus:bg-gray-100">
+                <DropdownMenuContent align="end" className="w-48 border border-vesta-navy/10 bg-white text-vesta-navy/90">
+                  <DropdownMenuItem onClick={() => navigate('/dashboard')} className="text-vesta-navy/90 hover:bg-vesta-mist/40 focus:bg-vesta-mist/40">
                     <ArrowLeft className="w-4 h-4 mr-2" />
                     Back to Dashboard
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => setCurrentView('chat')} className="text-gray-700 hover:bg-gray-100 focus:bg-gray-100">
+                  <DropdownMenuItem onClick={() => setCurrentView('chat')} className="text-vesta-navy/90 hover:bg-vesta-mist/40 focus:bg-vesta-mist/40">
                     <MessageSquare className="w-4 h-4 mr-2" />
                     Chat View
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => setCurrentView('dashboard')} className="text-gray-700 hover:bg-gray-100 focus:bg-gray-100">
+                  <DropdownMenuItem onClick={() => setCurrentView('dashboard')} className="text-vesta-navy/90 hover:bg-vesta-mist/40 focus:bg-vesta-mist/40">
                     <Database className="w-4 h-4 mr-2" />
                     Dashboard View
                   </DropdownMenuItem>
-                  <DropdownMenuSeparator className="bg-gray-200" />
+                  <DropdownMenuSeparator className="bg-vesta-mist/50" />
                   <DropdownMenuItem onClick={() => {
                     setSettingsDefaultTab('collaborators');
                     setSettingsOpen(true);
-                  }} className="text-gray-700 hover:bg-gray-100 focus:bg-gray-100">
+                  }} className="text-vesta-navy/90 hover:bg-vesta-mist/40 focus:bg-vesta-mist/40">
                     <Users className="w-4 h-4 mr-2" />
                     Collaborators
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => {
                     setSettingsDefaultTab('plan-credits');
                     setSettingsOpen(true);
-                  }} className="text-gray-700 hover:bg-gray-100 focus:bg-gray-100">
+                  }} className="text-vesta-navy/90 hover:bg-vesta-mist/40 focus:bg-vesta-mist/40">
                     <CreditCard className="w-4 h-4 mr-2" />
                     Billing
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => {
                     setSettingsDefaultTab('general');
                     setSettingsOpen(true);
-                  }} className="text-gray-700 hover:bg-gray-100 focus:bg-gray-100">
+                  }} className="text-vesta-navy/90 hover:bg-vesta-mist/40 focus:bg-vesta-mist/40">
                     <Settings className="w-4 h-4 mr-2" />
                     Settings
                   </DropdownMenuItem>

@@ -36,16 +36,16 @@ export function SupplierComparisonTable({ suppliers }: SupplierComparisonTablePr
   });
 
   if (suppliers.length === 0) {
-    return <div className="text-center py-8 text-zinc-400 text-sm">No supplier data</div>;
+    return <div className="text-center py-8 text-vesta-navy-muted text-sm">No supplier data</div>;
   }
 
   const SortHeader = ({ label, field }: { label: string; field: SortKey }) => (
     <button
       onClick={() => handleSort(field)}
-      className="inline-flex items-center gap-1 hover:text-zinc-900 transition-colors"
+      className="inline-flex items-center gap-1 hover:text-vesta-navy transition-colors"
     >
       {label}
-      <ArrowUpDown className={cn('w-3 h-3', sortKey === field ? 'text-zinc-700' : 'text-zinc-300')} />
+      <ArrowUpDown className={cn('w-3 h-3', sortKey === field ? 'text-vesta-navy/90' : 'text-vesta-navy/60')} />
     </button>
   );
 
@@ -63,25 +63,25 @@ export function SupplierComparisonTable({ suppliers }: SupplierComparisonTablePr
     <div>
       {/* Search filter */}
       <div className="relative max-w-xs mb-3">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-zinc-400" />
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-vesta-navy-muted" />
         <Input
           placeholder="Search suppliers..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="pl-8 h-8 text-sm bg-white border-zinc-200 focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0"
+          className="pl-8 h-8 text-sm bg-white border-vesta-navy/10 focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0"
         />
       </div>
 
-      <div className="border border-zinc-200 rounded-xl overflow-hidden bg-white">
+      <div className="border border-vesta-navy/10 rounded-xl overflow-hidden bg-white">
         <Table>
           <TableHeader>
-            <TableRow className="bg-zinc-50 hover:bg-zinc-50">
-              <TableHead className="font-semibold text-zinc-700"><SortHeader label="Supplier" field="name" /></TableHead>
-              <TableHead className="font-semibold text-zinc-700 text-right"><SortHeader label="Avg Price" field="avgPrice" /></TableHead>
-              <TableHead className="font-semibold text-zinc-700 text-right"><SortHeader label="Products" field="productCount" /></TableHead>
-              <TableHead className="font-semibold text-zinc-700 text-right"><SortHeader label="Last Updated" field="lastUpdated" /></TableHead>
-              <TableHead className="font-semibold text-zinc-700 text-right"><SortHeader label="3M Trend" field="trendPercent" /></TableHead>
-              <TableHead className="font-semibold text-zinc-700 text-right">Price Range</TableHead>
+            <TableRow className="bg-vesta-mist/25 hover:bg-vesta-mist/25">
+              <TableHead className="font-semibold text-vesta-navy/90"><SortHeader label="Supplier" field="name" /></TableHead>
+              <TableHead className="font-semibold text-vesta-navy/90 text-right"><SortHeader label="Avg Price" field="avgPrice" /></TableHead>
+              <TableHead className="font-semibold text-vesta-navy/90 text-right"><SortHeader label="Products" field="productCount" /></TableHead>
+              <TableHead className="font-semibold text-vesta-navy/90 text-right"><SortHeader label="Last Updated" field="lastUpdated" /></TableHead>
+              <TableHead className="font-semibold text-vesta-navy/90 text-right"><SortHeader label="3M Trend" field="trendPercent" /></TableHead>
+              <TableHead className="font-semibold text-vesta-navy/90 text-right">Price Range</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -89,14 +89,14 @@ export function SupplierComparisonTable({ suppliers }: SupplierComparisonTablePr
               <TableRow
                 key={s.id}
                 className={cn(
-                  'transition-colors duration-150 hover:bg-zinc-50',
-                  'border-l-2 border-l-transparent hover:border-l-zinc-300'
+                  'transition-colors duration-150 hover:bg-vesta-mist/25',
+                  'border-l-2 border-l-transparent hover:border-l-vesta-mist'
                 )}
               >
-                <TableCell className="font-medium text-zinc-800">{s.name}</TableCell>
-                <TableCell className="text-right text-zinc-700">${s.avgPrice.toFixed(2)}</TableCell>
-                <TableCell className="text-right text-zinc-600">{s.productCount}</TableCell>
-                <TableCell className="text-right text-zinc-500 text-sm">
+                <TableCell className="font-medium text-vesta-navy">{s.name}</TableCell>
+                <TableCell className="text-right text-vesta-navy/90">${s.avgPrice.toFixed(2)}</TableCell>
+                <TableCell className="text-right text-vesta-navy/80">{s.productCount}</TableCell>
+                <TableCell className="text-right text-vesta-navy/65 text-sm">
                   {s.lastUpdated ? new Date(s.lastUpdated).toLocaleDateString() : '—'}
                 </TableCell>
                 <TableCell className="text-right">
@@ -119,7 +119,7 @@ export function SupplierComparisonTable({ suppliers }: SupplierComparisonTablePr
                       'inline-flex items-center gap-1 text-sm font-medium',
                       s.trend3m === 'up' && 'text-red-500',
                       s.trend3m === 'down' && 'text-emerald-600',
-                      s.trend3m === 'stable' && 'text-zinc-400',
+                      s.trend3m === 'stable' && 'text-vesta-navy-muted',
                     )}>
                       {s.trend3m === 'up' && <TrendingUp className="w-3.5 h-3.5" />}
                       {s.trend3m === 'down' && <TrendingDown className="w-3.5 h-3.5" />}
@@ -128,7 +128,7 @@ export function SupplierComparisonTable({ suppliers }: SupplierComparisonTablePr
                     </span>
                   </div>
                 </TableCell>
-                <TableCell className="text-right text-zinc-500 text-sm">
+                <TableCell className="text-right text-vesta-navy/65 text-sm">
                   ${s.priceRange[0].toFixed(2)} – ${s.priceRange[1].toFixed(2)}
                 </TableCell>
               </TableRow>

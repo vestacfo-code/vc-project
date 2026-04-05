@@ -43,7 +43,7 @@ export function MarketOverviewCards({ overview, marketData = [] }: MarketOvervie
       value: `${overview.priceMovement > 0 ? '+' : ''}${overview.priceMovement}%`,
       sub: priceTrend === 'up' ? 'Prices rising' : priceTrend === 'down' ? 'Prices falling' : 'Stable',
       change: `${overview.priceMovement > 0 ? '↗' : overview.priceMovement < 0 ? '↘' : '→'} ${Math.abs(overview.priceMovement)}%`,
-      changeColor: overview.priceMovement > 0 ? 'text-red-400' : overview.priceMovement < 0 ? 'text-emerald-400' : 'text-zinc-500',
+      changeColor: overview.priceMovement > 0 ? 'text-red-400' : overview.priceMovement < 0 ? 'text-emerald-400' : 'text-vesta-navy/65',
       sparkColor: overview.priceMovement > 0 ? '#f87171' : overview.priceMovement < 0 ? '#34d399' : '#71717a',
       sparkData: movementSparkline,
     },
@@ -76,22 +76,22 @@ export function MarketOverviewCards({ overview, marketData = [] }: MarketOvervie
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: i * 0.05, duration: 0.3 }}
         >
-          <Card className="overflow-hidden border border-slate-200 bg-white transition-all duration-200 hover:border-slate-300">
+          <Card className="overflow-hidden border border-vesta-navy/10 bg-white transition-all duration-200 hover:border-vesta-navy/15">
             <CardContent className="p-4 pb-0">
               <div className="flex items-start justify-between mb-1">
-                <p className="text-xs text-zinc-500 font-medium">{card.label}</p>
+                <p className="text-xs text-vesta-navy/65 font-medium">{card.label}</p>
                 {card.change && (
                   <span className={`text-xs font-semibold ${card.changeColor}`}>{card.change}</span>
                 )}
               </div>
-              <p className="text-xl font-bold text-slate-900">{card.value}</p>
-              <p className="text-[11px] text-zinc-600 mt-0.5">{card.sub}</p>
+              <p className="text-xl font-bold text-vesta-navy">{card.value}</p>
+              <p className="text-[11px] text-vesta-navy/80 mt-0.5">{card.sub}</p>
             </CardContent>
             {/* Sparkline at bottom — real data */}
             <div className="h-12 mt-2 relative">
               {card.sparkData.length > 1 ? (
                 <>
-                  <div className="absolute inset-x-0 h-px border-t border-dashed border-slate-200/50" style={{ top: '50%' }} />
+                  <div className="absolute inset-x-0 h-px border-t border-dashed border-vesta-navy/50" style={{ top: '50%' }} />
                   <ResponsiveContainer width="100%" height="100%">
                     <AreaChart data={card.sparkData} margin={{ top: 4, right: 0, left: 0, bottom: 0 }}>
                       <defs>
@@ -114,7 +114,7 @@ export function MarketOverviewCards({ overview, marketData = [] }: MarketOvervie
                 </>
               ) : (
                 <div className="flex items-center justify-center h-full">
-                  <span className="text-[10px] text-zinc-600">No trend data</span>
+                  <span className="text-[10px] text-vesta-navy/80">No trend data</span>
                 </div>
               )}
             </div>

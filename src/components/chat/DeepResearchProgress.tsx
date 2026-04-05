@@ -28,26 +28,26 @@ export const DeepResearchProgress = (props: DeepResearchProgressProps) => {
 
   return (
     <div className="flex gap-3 md:gap-4">
-      <div className="mt-0.5 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-zinc-200 md:h-8 md:w-8">
-        <div className="h-2 w-2 animate-pulse rounded-full bg-zinc-700" />
+      <div className="mt-0.5 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-vesta-mist/50 md:h-8 md:w-8">
+        <div className="h-2 w-2 animate-pulse rounded-full bg-vesta-navy-muted/25" />
       </div>
       <div className="min-w-0 flex-1">
         <div className="mb-3 flex items-center gap-2">
-          <span className="text-sm font-semibold text-zinc-800">Deep Research</span>
-          <span className="text-xs text-zinc-400">{formatTime(elapsedSeconds)}</span>
+          <span className="text-sm font-semibold text-vesta-navy">Deep Research</span>
+          <span className="text-xs text-vesta-navy-muted">{formatTime(elapsedSeconds)}</span>
         </div>
 
         <div className="space-y-2.5">
           {completedSteps.map((step, i) => (
             <div key={i} className="flex items-start gap-2.5">
               <div className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-emerald-400" />
-              <span className="text-sm leading-relaxed text-zinc-400">{step.label}</span>
+              <span className="text-sm leading-relaxed text-vesta-navy-muted">{step.label}</span>
             </div>
           ))}
           {activeStep && (
             <div className="flex items-start gap-2.5">
               <div className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 animate-pulse rounded-full bg-cyan-400" />
-              <span className="text-sm leading-relaxed text-zinc-600">{activeStep.label}</span>
+              <span className="text-sm leading-relaxed text-vesta-navy/80">{activeStep.label}</span>
             </div>
           )}
         </div>

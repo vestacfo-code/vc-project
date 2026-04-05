@@ -24,9 +24,9 @@ export const CashFlowChart = ({ data }: CashFlowChartProps) => {
   };
 
   return (
-    <Card className="bg-white border border-gray-200 group hover:shadow-md transition-all">
+    <Card className="bg-white border border-vesta-navy/10 group hover:shadow-md transition-all">
       <CardHeader className="flex-row items-start justify-between space-y-0 pb-4">
-        <CardTitle className="text-sm font-medium text-gray-700">Cash Flow Projection</CardTitle>
+        <CardTitle className="text-sm font-medium text-vesta-navy/90">Cash Flow Projection</CardTitle>
         <ChatIconButton reference={reference} />
       </CardHeader>
       <CardContent>

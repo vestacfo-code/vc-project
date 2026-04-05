@@ -22,7 +22,7 @@ import { TellUsMoreSection } from '@/components/marketing/TellUsMoreSection';
 import { marketingImages } from '@/lib/marketing-images';
 import { morphSpringSoft } from '@/lib/motion';
 
-const accentRings = ['bg-vesta-mist/90', 'bg-vesta-gold/20', 'bg-emerald-100', 'bg-slate-100', 'bg-rose-100', 'bg-cyan-100'] as const;
+const accentRings = ['bg-vesta-mist/90', 'bg-vesta-gold/20', 'bg-emerald-100', 'bg-vesta-mist/40', 'bg-rose-100', 'bg-cyan-100'] as const;
 
 const capabilityGroups = [
   {
@@ -177,7 +177,7 @@ export default function Features() {
   return (
     <MarketingPageShell>
       <div className="relative overflow-hidden bg-white">
-        <div aria-hidden className="pointer-events-none absolute top-0 right-0 w-[min(100%,480px)] h-96 bg-slate-100 rounded-full blur-3xl opacity-80" />
+        <div aria-hidden className="pointer-events-none absolute top-0 right-0 w-[min(100%,480px)] h-96 bg-vesta-mist/40 rounded-full blur-3xl opacity-80" />
 
         <section className="relative max-w-6xl mx-auto px-6 pt-10 sm:pt-14 pb-12">
           <div className="lg:grid lg:grid-cols-2 lg:gap-12 lg:items-center">
@@ -194,7 +194,7 @@ export default function Features() {
                 initial={{ opacity: 0, y: 20, filter: 'blur(8px)' }}
                 animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                 transition={{ ...morphSpringSoft, delay: 0.05 }}
-                className="font-serif text-4xl sm:text-5xl lg:text-6xl font-normal text-slate-900 leading-tight"
+                className="font-serif text-4xl sm:text-5xl lg:text-6xl font-normal text-vesta-navy leading-tight"
               >
                 Run hotel finance with{' '}
                 <span className="text-vesta-gold">confidence.</span>
@@ -203,7 +203,7 @@ export default function Features() {
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ ...morphSpringSoft, delay: 0.12 }}
-                className="mt-6 text-lg text-slate-600 max-w-xl mx-auto lg:mx-0 leading-relaxed"
+                className="mt-6 text-lg text-vesta-navy/80 max-w-xl mx-auto lg:mx-0 leading-relaxed"
               >
                 Dashboards, AI briefings, anomaly detection, and team workflows — in one platform shaped around how hotels
                 actually operate. Below is a detailed map of what you get; if something is missing for your stack, tell us — we
@@ -253,9 +253,9 @@ export default function Features() {
           </div>
         </section>
 
-        <section className="relative border-y border-slate-100 bg-white/80 py-14 sm:py-16">
+        <section className="relative border-y border-vesta-navy/8 bg-white/80 py-14 sm:py-16">
           <div className="max-w-6xl mx-auto px-6">
-            <h2 className="font-serif text-2xl sm:text-3xl text-slate-900 text-center mb-10">Why teams choose Vesta</h2>
+            <h2 className="font-serif text-2xl sm:text-3xl text-vesta-navy text-center mb-10">Why teams choose Vesta</h2>
             <ul className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-6xl mx-auto">
               {highlights.map((text, i) => (
                 <motion.li
@@ -264,7 +264,7 @@ export default function Features() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-40px' }}
                   transition={{ ...morphSpringSoft, delay: i * 0.06 }}
-                  className="rounded-2xl border border-slate-200 bg-slate-50 p-5 text-sm text-slate-600 leading-relaxed shadow-sm"
+                  className="rounded-2xl border border-vesta-navy/10 bg-vesta-mist/25 p-5 text-sm text-vesta-navy/80 leading-relaxed shadow-sm"
                 >
                   <span className="text-vesta-navy font-mono text-xs tracking-wider uppercase block mb-2">0{i + 1}</span>
                   {text}
@@ -274,14 +274,14 @@ export default function Features() {
           </div>
         </section>
 
-        <section className="relative py-14 sm:py-16 border-t border-slate-100 bg-white">
+        <section className="relative py-14 sm:py-16 border-t border-vesta-navy/8 bg-white">
           <div className="max-w-6xl mx-auto px-6">
-            <h2 className="font-serif text-2xl sm:text-3xl text-slate-900 text-center mb-4">Everything in one workspace</h2>
-            <p className="text-center text-slate-600 text-sm max-w-2xl mx-auto mb-10">
+            <h2 className="font-serif text-2xl sm:text-3xl text-vesta-navy text-center mb-4">Everything in one workspace</h2>
+            <p className="text-center text-vesta-navy/80 text-sm max-w-2xl mx-auto mb-10">
               If it ships in the hotel app or on the marketing site today, it is represented below — including the partner
               marketplace and admin tooling for your team.
             </p>
-            <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-3 text-sm text-slate-700">
+            <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-3 text-sm text-vesta-navy/90">
               {platformChecklist.map((line) => (
                 <li key={line} className="flex gap-2 items-start">
                   <span className="text-amber-600 font-bold mt-0.5" aria-hidden>
@@ -300,7 +300,7 @@ export default function Features() {
             className={
               gi % 2 === 0
                 ? 'relative py-16 sm:py-20 bg-white'
-                : 'relative py-16 sm:py-20 border-t border-slate-100 bg-slate-50'
+                : 'relative py-16 sm:py-20 border-t border-vesta-navy/8 bg-vesta-mist/25'
             }
           >
             <div className="max-w-6xl mx-auto px-6">
@@ -311,8 +311,8 @@ export default function Features() {
                 transition={morphSpringSoft}
                 className="max-w-2xl mb-12 sm:mb-14"
               >
-                <h2 className="font-serif text-3xl sm:text-4xl text-slate-900 font-normal mb-3">{group.title}</h2>
-                <p className="text-slate-600 text-lg leading-relaxed">{group.blurb}</p>
+                <h2 className="font-serif text-3xl sm:text-4xl text-vesta-navy font-normal mb-3">{group.title}</h2>
+                <p className="text-vesta-navy/80 text-lg leading-relaxed">{group.blurb}</p>
               </motion.div>
               <div className="grid md:grid-cols-3 gap-6">
                 {group.items.map((item, ii) => {
@@ -325,13 +325,13 @@ export default function Features() {
                       viewport={{ once: true, margin: '-30px' }}
                       transition={{ ...morphSpringSoft, delay: ii * 0.06 }}
                       whileHover={{ y: -4, boxShadow: '0 16px 40px -12px rgba(27, 58, 92, 0.12)' }}
-                      className="rounded-2xl border border-slate-200 bg-white p-7 flex flex-col gap-4 shadow-sm hover:border-vesta-gold/35"
+                      className="rounded-2xl border border-vesta-navy/10 bg-white p-7 flex flex-col gap-4 shadow-sm hover:border-vesta-gold/35"
                     >
                       <div className={`w-12 h-12 rounded-xl ${ring} flex items-center justify-center`}>
-                        <item.icon className="w-6 h-6 text-slate-800" strokeWidth={1.5} />
+                        <item.icon className="w-6 h-6 text-vesta-navy" strokeWidth={1.5} />
                       </div>
-                      <h3 className="font-serif text-xl text-slate-900 font-normal">{item.title}</h3>
-                      <p className="text-slate-600 text-sm leading-relaxed flex-1">{item.description}</p>
+                      <h3 className="font-serif text-xl text-vesta-navy font-normal">{item.title}</h3>
+                      <p className="text-vesta-navy/80 text-sm leading-relaxed flex-1">{item.description}</p>
                     </motion.div>
                   );
                 })}
@@ -340,8 +340,8 @@ export default function Features() {
           </section>
         ))}
 
-        <section className="relative py-12 px-6 bg-slate-50 border-t border-slate-100">
-          <div className="max-w-5xl mx-auto rounded-2xl overflow-hidden shadow-lg border border-slate-200 flex flex-col md:flex-row">
+        <section className="relative py-12 px-6 bg-vesta-mist/25 border-t border-vesta-navy/8">
+          <div className="max-w-5xl mx-auto rounded-2xl overflow-hidden shadow-lg border border-vesta-navy/10 flex flex-col md:flex-row">
             <img
               src={marketingImages.analytics.src}
               alt={marketingImages.analytics.alt}
@@ -351,8 +351,8 @@ export default function Features() {
               loading="lazy"
             />
             <div className="md:w-1/2 p-8 flex flex-col justify-center bg-white">
-              <h3 className="font-serif text-2xl text-slate-900 mb-3">Still unsure where to start?</h3>
-              <p className="text-slate-600 text-sm leading-relaxed mb-4">
+              <h3 className="font-serif text-2xl text-vesta-navy mb-3">Still unsure where to start?</h3>
+              <p className="text-vesta-navy/80 text-sm leading-relaxed mb-4">
                 Send us a short note about your property type, room count, and PMS. We&apos;ll point you to the fastest path in
                 docs — or schedule a walkthrough if you prefer a live tour.
               </p>
@@ -363,7 +363,7 @@ export default function Features() {
           </div>
         </section>
 
-        <TellUsMoreSection className="bg-white border-t border-slate-100" />
+        <TellUsMoreSection className="bg-white border-t border-vesta-navy/8" />
 
         <section className="relative py-16 px-6 bg-vesta-navy">
           <motion.div

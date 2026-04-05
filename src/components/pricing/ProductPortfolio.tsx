@@ -97,9 +97,9 @@ Suppliers: ${stats.supplierCount}
       label: 'Market Avg',
       value: stats.avgMarket > 0 ? `$${stats.avgMarket.toFixed(2)}` : '—',
       icon: Package,
-      accent: 'border-t-zinc-400',
-      iconBg: 'bg-zinc-100',
-      iconColor: 'text-zinc-500',
+      accent: 'border-t-vesta-navy-muted',
+      iconBg: 'bg-vesta-mist/40',
+      iconColor: 'text-vesta-navy/65',
     },
     {
       label: 'Variance',
@@ -120,7 +120,7 @@ Suppliers: ${stats.supplierCount}
   ];
 
   return (
-    <div className="flex-1 p-6 pt-16 space-y-6 overflow-y-auto bg-zinc-50">
+    <div className="flex-1 p-6 pt-16 space-y-6 overflow-y-auto bg-vesta-mist/25">
       {/* Header */}
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div className="flex items-center gap-3">
@@ -128,10 +128,10 @@ Suppliers: ${stats.supplierCount}
             <ArrowLeft className="w-4 h-4" />
           </Button>
           <div>
-            <h1 className="text-2xl font-semibold text-zinc-900">
+            <h1 className="text-2xl font-semibold text-vesta-navy">
               {product.description || product.upc}
             </h1>
-            <div className="flex items-center gap-3 mt-1 text-sm text-zinc-500">
+            <div className="flex items-center gap-3 mt-1 text-sm text-vesta-navy/65">
               <span className="flex items-center gap-1"><Hash className="w-3 h-3" />{product.upc}</span>
               {product.brand && <span>• {product.brand}</span>}
               {product.gender && <span>• {product.gender}</span>}
@@ -162,12 +162,12 @@ Suppliers: ${stats.supplierCount}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.05, duration: 0.3 }}
           >
-            <Card className={`bg-white border-zinc-200 border-t-2 ${card.accent} transition-all duration-200 hover:shadow-md`}>
+            <Card className={`bg-white border-vesta-navy/10 border-t-2 ${card.accent} transition-all duration-200 hover:shadow-md`}>
               <CardContent className="p-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-xs text-zinc-500 font-medium">{card.label}</p>
-                    <p className="text-2xl font-bold text-zinc-900 mt-1">{card.value}</p>
+                    <p className="text-xs text-vesta-navy/65 font-medium">{card.label}</p>
+                    <p className="text-2xl font-bold text-vesta-navy mt-1">{card.value}</p>
                   </div>
                   <div className={`w-10 h-10 rounded-lg ${card.iconBg} flex items-center justify-center`}>
                     <card.icon className={`w-5 h-5 ${card.iconColor}`} />
@@ -180,7 +180,7 @@ Suppliers: ${stats.supplierCount}
       </div>
 
       {/* Price History Chart */}
-      <Card className="bg-white border-zinc-200">
+      <Card className="bg-white border-vesta-navy/10">
         <CardContent className="p-6">
           <PriceHistoryChart
             productId={product.id}
@@ -192,31 +192,31 @@ Suppliers: ${stats.supplierCount}
       </Card>
 
       {/* Supplier Breakdown */}
-      <Card className="bg-white border-zinc-200">
+      <Card className="bg-white border-vesta-navy/10">
         <CardContent className="p-6">
-          <h3 className="text-sm font-semibold text-zinc-700 mb-4">Supplier Breakdown</h3>
+          <h3 className="text-sm font-semibold text-vesta-navy/90 mb-4">Supplier Breakdown</h3>
           {supplierBreakdown.length === 0 ? (
-            <p className="text-sm text-zinc-400 text-center py-6">No supplier prices available</p>
+            <p className="text-sm text-vesta-navy-muted text-center py-6">No supplier prices available</p>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b border-zinc-100">
-                    <th className="text-left py-2 text-xs font-medium text-zinc-500">Supplier</th>
-                    <th className="text-right py-2 text-xs font-medium text-zinc-500">Price</th>
-                    <th className="text-right py-2 text-xs font-medium text-zinc-500">Availability</th>
-                    <th className="text-right py-2 text-xs font-medium text-zinc-500">Date</th>
+                  <tr className="border-b border-vesta-navy/8">
+                    <th className="text-left py-2 text-xs font-medium text-vesta-navy/65">Supplier</th>
+                    <th className="text-right py-2 text-xs font-medium text-vesta-navy/65">Price</th>
+                    <th className="text-right py-2 text-xs font-medium text-vesta-navy/65">Availability</th>
+                    <th className="text-right py-2 text-xs font-medium text-vesta-navy/65">Date</th>
                   </tr>
                 </thead>
                 <tbody>
                   {supplierBreakdown.map((sp) => (
-                    <tr key={sp.id} className="border-b border-zinc-50 last:border-0 hover:bg-zinc-50/50 transition-colors">
-                      <td className="py-2.5 font-medium text-zinc-900">{sp.name}</td>
-                      <td className="py-2.5 text-right text-zinc-700">${sp.price.toFixed(2)}</td>
-                      <td className="py-2.5 text-right text-zinc-500">
+                    <tr key={sp.id} className="border-b border-vesta-mist/50 last:border-0 hover:bg-vesta-mist/50 transition-colors">
+                      <td className="py-2.5 font-medium text-vesta-navy">{sp.name}</td>
+                      <td className="py-2.5 text-right text-vesta-navy/90">${sp.price.toFixed(2)}</td>
+                      <td className="py-2.5 text-right text-vesta-navy/65">
                         {sp.availability != null ? sp.availability.toLocaleString() : '—'}
                       </td>
-                      <td className="py-2.5 text-right text-zinc-400">
+                      <td className="py-2.5 text-right text-vesta-navy-muted">
                         {new Date(sp.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                       </td>
                     </tr>
@@ -230,13 +230,13 @@ Suppliers: ${stats.supplierCount}
 
       {/* AI Recommendation */}
       {aiRec?.reasoning && (
-        <Card className="bg-white border-zinc-200 border-l-4 border-l-violet-500">
+        <Card className="bg-white border-vesta-navy/10 border-l-4 border-l-violet-500">
           <CardContent className="p-6">
             <div className="flex items-center gap-2 mb-2">
               <Sparkles className="w-4 h-4 text-violet-500" />
-              <h3 className="text-sm font-semibold text-zinc-700">AI Recommendation</h3>
+              <h3 className="text-sm font-semibold text-vesta-navy/90">AI Recommendation</h3>
             </div>
-            <p className="text-sm text-zinc-600 leading-relaxed">{aiRec.reasoning}</p>
+            <p className="text-sm text-vesta-navy/80 leading-relaxed">{aiRec.reasoning}</p>
           </CardContent>
         </Card>
       )}

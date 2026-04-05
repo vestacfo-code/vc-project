@@ -128,7 +128,7 @@ const HowItWorks = () => {
             {/* Left side - Morphing Title + Step */}
             <div className="flex items-center space-x-6">
               <h2 
-                className="font-bold text-gray-900 transition-all duration-500"
+                className="font-bold text-vesta-navy transition-all duration-500"
                 style={{
                   fontSize: `${2 - scrollProgress * 0.5}rem`,
                   transform: `skew(${scrollProgress * 5}deg)`
@@ -146,7 +146,7 @@ const HowItWorks = () => {
                 }}
               >
                 <div 
-                  className="w-12 h-12 bg-white text-gray-900 rounded-full flex items-center justify-center text-xl font-bold shadow-lg"
+                  className="w-12 h-12 bg-white text-vesta-navy rounded-full flex items-center justify-center text-xl font-bold shadow-lg"
                   style={{ transform: `rotate(${-cardRotation}deg)` }}
                 >
                   {activeStep + 1}
@@ -204,7 +204,7 @@ const HowItWorks = () => {
             className="md:hidden mt-3 text-center transition-all duration-300"
             style={{ transform: `translateY(${scrollProgress * 10}px)` }}
           >
-            <span className="text-lg font-semibold text-gray-900">
+            <span className="text-lg font-semibold text-vesta-navy">
               {currentStep?.title}
             </span>
           </div>

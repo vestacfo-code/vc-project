@@ -44,7 +44,7 @@ export default function ConversationTranscript({ messages, isCallActive }: Conve
           Conversation Transcript
         </CardTitle>
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
-          <div className={`w-2 h-2 rounded-full ${isCallActive ? 'bg-green-500 animate-pulse' : 'bg-gray-400'}`}></div>
+          <div className={`w-2 h-2 rounded-full ${isCallActive ? 'bg-green-500 animate-pulse' : 'bg-vesta-navy-muted'}`}></div>
           {isCallActive ? 'Live' : 'Call ended'}
         </div>
       </CardHeader>

@@ -461,12 +461,12 @@ export const CareersAdminSection = ({
         <TabsContent value="applications" className="space-y-6">
           {loading ? (
             <div className="text-center py-16">
-              <div className="text-lg text-gray-600">Loading...</div>
+              <div className="text-lg text-vesta-navy/80">Loading...</div>
             </div>
           ) : applicationsByRole.length === 0 ? (
-            <Card className="bg-white border border-gray-200 rounded-xl shadow-sm">
+            <Card className="bg-white border border-vesta-navy/10 rounded-xl shadow-sm">
               <CardContent className="text-center py-16">
-                <div className="text-gray-600">No applications yet</div>
+                <div className="text-vesta-navy/80">No applications yet</div>
               </CardContent>
             </Card>
           ) : (

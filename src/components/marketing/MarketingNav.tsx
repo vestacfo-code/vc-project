@@ -62,7 +62,7 @@ export function MarketingNav({ variant = 'light' }: MarketingNavProps) {
     barBase,
     'border shadow-2xl',
     scrolled
-      ? 'bg-zinc-950/80 backdrop-blur-2xl border-white/20 shadow-black/50'
+      ? 'bg-vesta-navy/80 backdrop-blur-2xl border-white/20 shadow-black/50'
       : 'bg-black/55 backdrop-blur-2xl border-white/15 shadow-black/40'
   );
 
@@ -76,12 +76,12 @@ export function MarketingNav({ variant = 'light' }: MarketingNavProps) {
           : 'text-white/90 hover:text-white hover:bg-white/10 hover:shadow-[0_8px_24px_-8px_rgba(0,0,0,0.5)]'
         : active
           ? 'text-vesta-navy bg-vesta-mist/90 ring-1 ring-vesta-navy/15 shadow-sm'
-          : 'text-slate-600 hover:text-vesta-navy hover:bg-vesta-mist/55 hover:shadow-sm'
+          : 'text-vesta-navy/80 hover:text-vesta-navy hover:bg-vesta-mist/55 hover:shadow-sm'
     );
 
   const signInClass = isDark
     ? 'text-white/90 hover:text-white px-2 sm:px-3 py-2 text-xs sm:text-sm font-medium rounded-xl transition-all hover:bg-white/10 hover:-translate-y-0.5'
-    : 'text-slate-600 hover:text-vesta-navy px-2 sm:px-3 py-2 text-xs sm:text-sm font-medium rounded-xl transition-all hover:bg-vesta-mist/50 hover:-translate-y-0.5';
+    : 'text-vesta-navy/80 hover:text-vesta-navy px-2 sm:px-3 py-2 text-xs sm:text-sm font-medium rounded-xl transition-all hover:bg-vesta-mist/50 hover:-translate-y-0.5';
 
   return (
     <motion.header
@@ -118,7 +118,7 @@ export function MarketingNav({ variant = 'light' }: MarketingNavProps) {
                 'flex items-center gap-1 px-2.5 sm:px-3 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 hover:-translate-y-0.5',
                 isDark
                   ? 'text-white/90 hover:text-white hover:bg-white/10'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-vesta-mist/55 hover:shadow-sm'
+                  : 'text-vesta-navy/80 hover:text-vesta-navy hover:bg-vesta-mist/55 hover:shadow-sm'
               )}
               aria-expanded={moreOpen}
               aria-haspopup="menu"
@@ -136,7 +136,7 @@ export function MarketingNav({ variant = 'light' }: MarketingNavProps) {
                   className={cn(
                     'absolute right-0 top-full mt-1 py-2 min-w-[11rem] rounded-xl border shadow-xl z-50',
                     isDark
-                      ? 'bg-zinc-950/90 backdrop-blur-2xl border-white/15'
+                      ? 'bg-vesta-navy/90 backdrop-blur-2xl border-white/15'
                       : 'border-vesta-navy/10 bg-vesta-cream/95 backdrop-blur-2xl'
                   )}
                   role="menu"
@@ -156,7 +156,7 @@ export function MarketingNav({ variant = 'light' }: MarketingNavProps) {
                               : 'text-white/80 hover:text-white hover:bg-white/10'
                             : active
                               ? 'text-vesta-navy bg-vesta-mist/70'
-                              : 'text-slate-700 hover:bg-vesta-mist/40'
+                              : 'text-vesta-navy/90 hover:bg-vesta-mist/40'
                         )}
                       >
                         {label}
@@ -196,7 +196,7 @@ export function MarketingNav({ variant = 'light' }: MarketingNavProps) {
             'lg:hidden p-2 rounded-xl transition-all',
             isDark
               ? 'text-white/80 hover:text-white hover:bg-white/10'
-              : 'text-slate-700 hover:bg-vesta-mist/60'
+              : 'text-vesta-navy/90 hover:bg-vesta-mist/60'
           )}
           aria-expanded={open}
           aria-label={open ? 'Close menu' : 'Open menu'}
@@ -216,7 +216,7 @@ export function MarketingNav({ variant = 'light' }: MarketingNavProps) {
             className={cn(
               'lg:hidden overflow-hidden mt-2 rounded-2xl border',
               isDark
-                ? 'bg-zinc-950/92 backdrop-blur-2xl border-white/12 shadow-2xl'
+                ? 'bg-vesta-navy/92 backdrop-blur-2xl border-white/12 shadow-2xl'
                 : 'border border-vesta-navy/10 bg-vesta-cream/95 backdrop-blur-2xl shadow-lg shadow-vesta-navy/[0.06]'
             )}
           >
@@ -230,7 +230,7 @@ export function MarketingNav({ variant = 'light' }: MarketingNavProps) {
                     'py-3 px-3 rounded-xl text-sm font-medium transition-all hover:-translate-y-px',
                     isDark
                       ? 'text-white/85 hover:text-white hover:bg-white/10'
-                      : 'text-slate-800 hover:text-vesta-navy hover:bg-vesta-mist/50'
+                      : 'text-vesta-navy hover:text-vesta-navy hover:bg-vesta-mist/50'
                   )}
                 >
                   {label}
@@ -250,7 +250,7 @@ export function MarketingNav({ variant = 'light' }: MarketingNavProps) {
                   }}
                   className={cn(
                     'text-left py-2 px-3 text-sm font-medium rounded-xl transition-colors',
-                    isDark ? 'text-white/90 hover:text-white hover:bg-white/10' : 'text-slate-600 hover:bg-vesta-mist/40'
+                    isDark ? 'text-white/90 hover:text-white hover:bg-white/10' : 'text-vesta-navy/80 hover:bg-vesta-mist/40'
                   )}
                 >
                   Sign in

@@ -13,7 +13,9 @@
     "deploy:resend-functions": "bash scripts/deploy-resend-functions.sh",
     "wrap:sentry-edge": "node scripts/wrap-sentry-edge-functions.mjs",
     "deploy:edge-functions": "bash scripts/deploy-all-edge-functions.sh",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "brand:classes": "node scripts/apply-vesta-brand-classes.mjs",
+    "brand:fix-opacity": "node scripts/fix-vesta-double-opacity.mjs"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",

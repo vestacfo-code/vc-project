@@ -287,7 +287,7 @@ export default function AICfoCall() {
   };
 
   return (
-    <div className="h-screen w-full bg-gradient-to-br from-slate-400 via-slate-500 to-slate-600 relative overflow-hidden">
+    <div className="h-screen w-full bg-gradient-to-br from-vesta-navy-muted via-vesta-navy to-vesta-navy-muted relative overflow-hidden">
       {/* Main call area with centered avatar */}
       <div className="absolute inset-0 flex items-center justify-center">
         <AICfoAvatar 

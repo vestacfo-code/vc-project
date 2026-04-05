@@ -150,7 +150,7 @@ export const ProfileDataEditor = () => {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-12">
-        <Loader2 className="w-6 h-6 animate-spin text-slate-400" />
+        <Loader2 className="w-6 h-6 animate-spin text-vesta-navy-muted" />
       </div>
     );
   }
@@ -165,19 +165,19 @@ export const ProfileDataEditor = () => {
 
         <div className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="companyName" className="text-sm text-slate-300">Company Name</Label>
+            <Label htmlFor="companyName" className="text-sm text-vesta-navy/60">Company Name</Label>
             <Input
               id="companyName"
               value={data.companyName}
               onChange={(e) => updateField('companyName', e.target.value)}
               placeholder="Your company name"
-              className="bg-white/5 border-white/10 text-white placeholder:text-slate-500"
+              className="bg-white/5 border-white/10 text-white placeholder:text-vesta-navy/65"
             />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label className="text-sm text-slate-300">Industry</Label>
+              <Label className="text-sm text-vesta-navy/60">Industry</Label>
               <Select value={data.industry} onValueChange={(value) => updateField('industry', value)}>
                 <SelectTrigger className="bg-white/5 border-white/10 text-white">
                   <SelectValue placeholder="Select industry" />
@@ -193,7 +193,7 @@ export const ProfileDataEditor = () => {
             </div>
 
             <div className="space-y-2">
-              <Label className="text-sm text-slate-300">Company Size</Label>
+              <Label className="text-sm text-vesta-navy/60">Company Size</Label>
               <Select value={data.companySize} onValueChange={(value) => updateField('companySize', value)}>
                 <SelectTrigger className="bg-white/5 border-white/10 text-white">
                   <SelectValue placeholder="Select size" />
@@ -210,7 +210,7 @@ export const ProfileDataEditor = () => {
           </div>
 
           <div className="space-y-2">
-            <Label className="text-sm text-slate-300">Business Type</Label>
+            <Label className="text-sm text-vesta-navy/60">Business Type</Label>
             <Select value={data.businessType} onValueChange={(value) => updateField('businessType', value)}>
               <SelectTrigger className="bg-white/5 border-white/10 text-white">
                 <SelectValue placeholder="Select business type" />
@@ -226,15 +226,15 @@ export const ProfileDataEditor = () => {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="description" className="text-sm text-slate-300">Business Description</Label>
+            <Label htmlFor="description" className="text-sm text-vesta-navy/60">Business Description</Label>
             <Textarea
               id="description"
               value={data.description}
               onChange={(e) => updateField('description', e.target.value)}
               placeholder="Describe what your business does..."
-              className="bg-white/5 border-white/10 text-white placeholder:text-slate-500 min-h-[100px] resize-none"
+              className="bg-white/5 border-white/10 text-white placeholder:text-vesta-navy/65 min-h-[100px] resize-none"
             />
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-vesta-navy/65">
               This helps our AI provide more relevant insights for your business.
             </p>
           </div>
@@ -244,7 +244,7 @@ export const ProfileDataEditor = () => {
           <Button
             onClick={handleSave}
             disabled={isSaving}
-            className="bg-white text-black hover:bg-slate-200"
+            className="bg-white text-black hover:bg-vesta-mist/50"
           >
             {isSaving ? (
               <>
@@ -280,7 +280,7 @@ export const ProfileDataEditor = () => {
                     <Check className="w-3 h-3 mr-1" />
                     Accepted
                   </Badge>
-                  <span className="text-xs text-slate-500">
+                  <span className="text-xs text-vesta-navy/65">
                     on {new Date(data.termsAcceptedAt).toLocaleDateString()}
                   </span>
                 </div>

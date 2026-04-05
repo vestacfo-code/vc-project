@@ -79,7 +79,7 @@ const PressRelease = () => {
   const formatContent = (content: string) => {
     return content.split('\n').map((paragraph, index) => (
       paragraph.trim() ? (
-        <p key={index} className="mb-4 leading-relaxed text-gray-700">
+        <p key={index} className="mb-4 leading-relaxed text-vesta-navy/90">
           {paragraph}
         </p>
       ) : (
@@ -90,7 +90,7 @@ const PressRelease = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-[#f5f3ff] via-[#e8e4ff] to-[#ddd6ff]">
+      <div className="min-h-screen bg-gradient-to-b from-vesta-cream via-vesta-mist/30 to-vesta-mist/50">
         <Header />
         <div className="container mx-auto px-4 py-16 max-w-4xl">
           <div className="animate-pulse">
@@ -111,24 +111,24 @@ const PressRelease = () => {
 
   if (notFound || !release) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-[#f5f3ff] via-[#e8e4ff] to-[#ddd6ff]">
+      <div className="min-h-screen bg-gradient-to-b from-vesta-cream via-vesta-mist/30 to-vesta-mist/50">
         <Header />
         <div className="container mx-auto px-4 py-16 max-w-4xl">
           <Link 
             to="/press" 
-            className="inline-flex items-center text-gray-600 hover:text-gray-900 transition-colors mb-8"
+            className="inline-flex items-center text-vesta-navy/80 hover:text-vesta-navy transition-colors mb-8"
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
             Back to Press
           </Link>
           
           <div className="bg-white/60 backdrop-blur-md rounded-2xl border border-white/30 p-12 text-center shadow-lg">
-            <h1 className="text-2xl font-bold mb-4 text-gray-900">Press Release Not Found</h1>
-            <p className="text-gray-600 mb-6">
+            <h1 className="text-2xl font-bold mb-4 text-vesta-navy">Press Release Not Found</h1>
+            <p className="text-vesta-navy/80 mb-6">
               The press release you're looking for doesn't exist or may have been removed.
             </p>
             <Link to="/press">
-              <Button className="bg-gray-900 hover:bg-gray-800 text-white">Return to Press</Button>
+              <Button className="bg-vesta-navy hover:bg-vesta-navy-muted/30 text-white">Return to Press</Button>
             </Link>
           </div>
         </div>
@@ -138,7 +138,7 @@ const PressRelease = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#f5f3ff] via-[#e8e4ff] to-[#ddd6ff] relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-b from-vesta-cream via-vesta-mist/30 to-vesta-mist/50 relative overflow-hidden">
       {/* Decorative blobs */}
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-300/30 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-blue-300/25 rounded-full blur-3xl pointer-events-none" />
@@ -149,7 +149,7 @@ const PressRelease = () => {
         <div className="mb-8">
           <Link 
             to="/press" 
-            className="inline-flex items-center text-gray-600 hover:text-gray-900 transition-colors"
+            className="inline-flex items-center text-vesta-navy/80 hover:text-vesta-navy transition-colors"
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
             Back to Press
@@ -164,17 +164,17 @@ const PressRelease = () => {
               </Badge>
             </div>
             
-            <h1 className="text-3xl sm:text-4xl font-bold mb-4 text-gray-900 leading-tight">
+            <h1 className="text-3xl sm:text-4xl font-bold mb-4 text-vesta-navy leading-tight">
               {release.title}
             </h1>
             
             {release.excerpt && (
-              <p className="text-lg sm:text-xl text-gray-600 mb-6 leading-relaxed">
+              <p className="text-lg sm:text-xl text-vesta-navy/80 mb-6 leading-relaxed">
                 {release.excerpt}
               </p>
             )}
             
-            <div className="flex items-center gap-2 text-gray-600 border-b border-gray-200/50 pb-6 mb-6">
+            <div className="flex items-center gap-2 text-vesta-navy/80 border-b border-vesta-navy/50 pb-6 mb-6">
               <Calendar className="h-4 w-4" />
               <span>{formatDate(release.release_date || release.published_at || release.created_at)}</span>
             </div>
@@ -195,9 +195,9 @@ const PressRelease = () => {
           </div>
           
           {release.press_contact && (
-            <div className="border-t border-gray-200/50 pt-6 mt-8">
-              <h3 className="text-sm font-semibold text-gray-600 mb-3">MEDIA CONTACT</h3>
-              <div className="flex items-center gap-2 text-gray-900">
+            <div className="border-t border-vesta-navy/50 pt-6 mt-8">
+              <h3 className="text-sm font-semibold text-vesta-navy/80 mb-3">MEDIA CONTACT</h3>
+              <div className="flex items-center gap-2 text-vesta-navy">
                 <Mail className="h-4 w-4" />
                 <a 
                   href={`mailto:${release.press_contact}`} 

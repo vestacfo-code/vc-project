@@ -48,7 +48,7 @@ export function AIPricingStrategyModal({ open, onOpenChange, onSave, initialStra
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="bg-white border-slate-200 text-slate-900 max-w-lg">
+      <DialogContent className="bg-white border-vesta-navy/10 text-vesta-navy max-w-lg">
         <DialogHeader>
           <DialogTitle className="text-xl font-serif">
             AI Pricing Strategy
@@ -56,48 +56,48 @@ export function AIPricingStrategyModal({ open, onOpenChange, onSave, initialStra
         </DialogHeader>
 
         <div className="space-y-5 pt-2">
-          <p className="text-sm text-slate-400">
+          <p className="text-sm text-vesta-navy-muted">
             Configure how the AI should calculate optimal prices based on your business goals.
           </p>
 
           {/* Target Margin */}
           <div className="space-y-2">
-            <Label className="text-slate-900">Target Margin Above COGS (%)</Label>
+            <Label className="text-vesta-navy">Target Margin Above COGS (%)</Label>
             <Input
               type="number"
               value={strategy.targetMarginPercent}
               onChange={(e) => setStrategy({ ...strategy, targetMarginPercent: Number(e.target.value) })}
-              className="bg-white border-slate-200 text-slate-900 focus:border-zinc-500 focus:ring-0"
+              className="bg-white border-vesta-navy/10 text-vesta-navy focus:border-vesta-navy/15 focus:ring-0"
               placeholder="15"
             />
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-vesta-navy/65">
               The ideal profit margin you want to maintain above your cost of goods.
             </p>
           </div>
 
           {/* Competitor Strategy */}
           <div className="space-y-2">
-            <Label className="text-slate-900">Competitor Pricing Strategy</Label>
+            <Label className="text-vesta-navy">Competitor Pricing Strategy</Label>
             <Select
               value={strategy.competitorStrategy}
               onValueChange={(value: PricingStrategy['competitorStrategy']) => 
                 setStrategy({ ...strategy, competitorStrategy: value })
               }
             >
-              <SelectTrigger className="bg-white border-slate-200 text-slate-900 focus:ring-0">
+              <SelectTrigger className="bg-white border-vesta-navy/10 text-vesta-navy focus:ring-0">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent className="bg-white border-slate-200">
-                <SelectItem value="beat-all" className="text-slate-900 focus:bg-white focus:text-black">
+              <SelectContent className="bg-white border-vesta-navy/10">
+                <SelectItem value="beat-all" className="text-vesta-navy focus:bg-white focus:text-black">
                   Beat All Suppliers
                 </SelectItem>
-                <SelectItem value="beat-lowest" className="text-slate-900 focus:bg-white focus:text-black">
+                <SelectItem value="beat-lowest" className="text-vesta-navy focus:bg-white focus:text-black">
                   Beat Lowest Supplier Only
                 </SelectItem>
-                <SelectItem value="match-average" className="text-slate-900 focus:bg-white focus:text-black">
+                <SelectItem value="match-average" className="text-vesta-navy focus:bg-white focus:text-black">
                   Match Market Average
                 </SelectItem>
-                <SelectItem value="premium" className="text-slate-900 focus:bg-white focus:text-black">
+                <SelectItem value="premium" className="text-vesta-navy focus:bg-white focus:text-black">
                   Premium Positioning (+5% Above Average)
                 </SelectItem>
               </SelectContent>
@@ -106,29 +106,29 @@ export function AIPricingStrategyModal({ open, onOpenChange, onSave, initialStra
 
           {/* Minimum Margin Floor */}
           <div className="space-y-2">
-            <Label className="text-slate-900">Minimum Margin Floor (%)</Label>
+            <Label className="text-vesta-navy">Minimum Margin Floor (%)</Label>
             <Input
               type="number"
               value={strategy.minMarginFloor}
               onChange={(e) => setStrategy({ ...strategy, minMarginFloor: Number(e.target.value) })}
-              className="bg-white border-slate-200 text-slate-900 focus:border-zinc-500 focus:ring-0"
+              className="bg-white border-vesta-navy/10 text-vesta-navy focus:border-vesta-navy/15 focus:ring-0"
               placeholder="10"
             />
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-vesta-navy/65">
               Never recommend a price below this margin, even to beat competitors.
             </p>
           </div>
 
           {/* Custom Prompt */}
           <div className="space-y-2">
-            <Label className="text-slate-900">Custom AI Instructions (Optional)</Label>
+            <Label className="text-vesta-navy">Custom AI Instructions (Optional)</Label>
             <Textarea
               value={strategy.customPrompt}
               onChange={(e) => setStrategy({ ...strategy, customPrompt: e.target.value })}
-              className="bg-white border-slate-200 text-slate-900 focus:border-zinc-500 focus:ring-0 min-h-[100px] resize-none"
+              className="bg-white border-vesta-navy/10 text-vesta-navy focus:border-vesta-navy/15 focus:ring-0 min-h-[100px] resize-none"
               placeholder="E.g., 'Prioritize volume over margin for clearance items' or 'Always maintain at least $2 profit per unit on fragrances under $20 COGS'"
             />
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-vesta-navy/65">
               Add any specific rules or considerations for the AI to follow.
             </p>
           </div>
@@ -138,13 +138,13 @@ export function AIPricingStrategyModal({ open, onOpenChange, onSave, initialStra
             <Button
               variant="outline"
               onClick={() => onOpenChange(false)}
-              className="border-white text-slate-900 hover:bg-white hover:text-black bg-transparent"
+              className="border-white text-vesta-navy hover:bg-white hover:text-black bg-transparent"
             >
               Cancel
             </Button>
             <Button
               onClick={handleSave}
-              className="bg-white text-black hover:bg-slate-200"
+              className="bg-white text-black hover:bg-vesta-mist/50"
             >
               Save Strategy
             </Button>

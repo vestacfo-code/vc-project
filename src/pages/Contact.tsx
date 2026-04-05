@@ -60,12 +60,12 @@ export default function Contact() {
       <div className="relative overflow-hidden bg-white">
         <div
           aria-hidden
-          className="pointer-events-none absolute -top-24 right-0 w-96 h-96 rounded-full bg-slate-100 blur-3xl opacity-80"
+          className="pointer-events-none absolute -top-24 right-0 w-96 h-96 rounded-full bg-vesta-mist/40 blur-3xl opacity-80"
         />
 
         <section className="relative">
           <div className="max-w-6xl mx-auto px-6 grid lg:grid-cols-2 gap-0 lg:gap-10 items-stretch min-h-[320px]">
-            <div className="relative hidden lg:block rounded-3xl overflow-hidden shadow-xl border border-slate-200 m-6 mb-0 lg:m-0 lg:rounded-r-none lg:my-8">
+            <div className="relative hidden lg:block rounded-3xl overflow-hidden shadow-xl border border-vesta-navy/10 m-6 mb-0 lg:m-0 lg:rounded-r-none lg:my-8">
               <img
                 src={marketingImages.contact.src}
                 alt={marketingImages.contact.alt}
@@ -81,7 +81,7 @@ export default function Contact() {
                 initial={{ opacity: 0, y: 18, filter: 'blur(6px)' }}
                 animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                 transition={morphSpringSoft}
-                className="font-serif text-4xl sm:text-5xl text-slate-900 font-normal leading-tight"
+                className="font-serif text-4xl sm:text-5xl text-vesta-navy font-normal leading-tight"
               >
                 Let&apos;s{' '}
                 <span className="text-vesta-gold">talk.</span>
@@ -90,7 +90,7 @@ export default function Contact() {
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ ...morphSpringSoft, delay: 0.06 }}
-                className="mt-5 text-lg text-slate-600 leading-relaxed max-w-xl mx-auto lg:mx-0"
+                className="mt-5 text-lg text-vesta-navy/80 leading-relaxed max-w-xl mx-auto lg:mx-0"
               >
                 Reach the Vesta team for support, press, partnerships, or general questions. We typically reply within one
                 business day. If your request is urgent, say so in the subject line.
@@ -99,7 +99,7 @@ export default function Contact() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ ...morphSpringSoft, delay: 0.12 }}
-                className="mt-8 lg:hidden rounded-2xl overflow-hidden border border-slate-200 shadow-md max-w-md mx-auto"
+                className="mt-8 lg:hidden rounded-2xl overflow-hidden border border-vesta-navy/10 shadow-md max-w-md mx-auto"
               >
                 <img
                   src={marketingImages.contact.src}
@@ -123,13 +123,13 @@ export default function Contact() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-30px' }}
                 transition={{ ...morphSpringSoft, delay: i * 0.06 }}
-                className={`rounded-2xl border border-slate-200 bg-white ${c.border} p-7 flex flex-col shadow-sm hover:shadow-md transition-shadow`}
+                className={`rounded-2xl border border-vesta-navy/10 bg-white ${c.border} p-7 flex flex-col shadow-sm hover:shadow-md transition-shadow`}
               >
                 <div className={`w-11 h-11 rounded-xl ${c.iconBg} flex items-center justify-center mb-4`}>
                   <c.icon className="w-5 h-5" strokeWidth={1.5} />
                 </div>
-                <h2 className="font-serif text-xl text-slate-900 mb-2">{c.title}</h2>
-                <p className="text-slate-600 text-sm leading-relaxed flex-1 mb-5">{c.description}</p>
+                <h2 className="font-serif text-xl text-vesta-navy mb-2">{c.title}</h2>
+                <p className="text-vesta-navy/80 text-sm leading-relaxed flex-1 mb-5">{c.description}</p>
                 {c.href ? (
                   c.external ? (
                     <a
@@ -149,7 +149,7 @@ export default function Contact() {
                     </Link>
                   )
                 ) : (
-                  <span className="text-slate-500 text-sm font-mono">{c.action}</span>
+                  <span className="text-vesta-navy/65 text-sm font-mono">{c.action}</span>
                 )}
               </motion.div>
             ))}
@@ -162,7 +162,7 @@ export default function Contact() {
             className="mt-10 rounded-2xl border-2 border-dashed border-vesta-navy/20 bg-vesta-mist/40 p-8 text-center"
           >
             <Calendar className="w-10 h-10 text-vesta-navy mx-auto mb-3" />
-            <p className="text-slate-700 text-sm max-w-lg mx-auto font-medium">
+            <p className="text-vesta-navy/90 text-sm max-w-lg mx-auto font-medium">
               Prefer a live walkthrough?{' '}
               <a
                 href="https://calendar.app.google/PWqhmizMxqUnRNpP9"
@@ -177,7 +177,7 @@ export default function Contact() {
           </motion.div>
         </section>
 
-        <TellUsMoreSection className="bg-white border-t border-slate-100" />
+        <TellUsMoreSection className="bg-white border-t border-vesta-navy/8" />
       </div>
     </MarketingPageShell>
   );

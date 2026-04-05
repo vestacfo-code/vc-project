@@ -168,20 +168,20 @@ const IntegrationDashboard = () => {
   if (isAutoSyncing) {
     return (
       <div className="dashboard-light flex items-center justify-center min-h-full p-8 bg-white">
-        <Card className="max-w-md w-full bg-white border border-gray-200">
+        <Card className="max-w-md w-full bg-white border border-vesta-navy/10">
           <CardContent className="pt-12 pb-12 text-center">
             <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
               <Loader2 className="h-8 w-8 text-primary animate-spin" />
             </div>
-            <h2 className="text-2xl font-medium text-gray-900 mb-3">
+            <h2 className="text-2xl font-medium text-vesta-navy mb-3">
               Importing Your Data
             </h2>
-            <p className="text-gray-600 mb-6">
+            <p className="text-vesta-navy/80 mb-6">
               We're syncing your financial data from {providerName}. This usually takes about 30 seconds.
             </p>
             <div className="space-y-2">
               <Progress value={syncProgress} className="h-2" />
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-vesta-navy/65">
                 {syncProgress < 30 ? 'Connecting to ' + providerName + '...' : 
                  syncProgress < 60 ? 'Fetching customers & invoices...' :
                  syncProgress < 90 ? 'Processing financial data...' :
@@ -204,24 +204,24 @@ const IntegrationDashboard = () => {
       <div className="dashboard-light space-y-8 p-8 bg-white min-h-full">
         <div className="flex items-center justify-between">
           <div className="flex-1">
-            <h1 className="text-4xl font-normal text-gray-900">
+            <h1 className="text-4xl font-normal text-vesta-navy">
               {companyName}
             </h1>
-            <p className="text-sm text-gray-600 mt-2">
+            <p className="text-sm text-vesta-navy/80 mt-2">
               {providerName} • Connected
             </p>
           </div>
         </div>
 
-        <Card className="bg-white border border-gray-200">
+        <Card className="bg-white border border-vesta-navy/10">
           <CardContent className="pt-12 pb-12 text-center">
             <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
               <Database className="h-8 w-8 text-primary" />
             </div>
-            <h2 className="text-2xl font-medium text-gray-900 mb-3">
+            <h2 className="text-2xl font-medium text-vesta-navy mb-3">
               {isSyncing ? 'Syncing Your Data...' : 'Ready to Sync Your Data'}
             </h2>
-            <p className="text-gray-600 mb-6 max-w-md mx-auto">
+            <p className="text-vesta-navy/80 mb-6 max-w-md mx-auto">
               {isSyncing 
                 ? `We're importing your financial data from ${providerName}. This may take a minute.`
                 : `Your ${providerName} account is connected! Click below to import your financial data and see your analytics dashboard.`
@@ -256,10 +256,10 @@ const IntegrationDashboard = () => {
       {/* Clean Header */}
       <div className="flex items-center justify-between">
         <div className="flex-1">
-          <h1 className="text-4xl font-normal text-gray-900">
+          <h1 className="text-4xl font-normal text-vesta-navy">
             {companyName}
           </h1>
-          <p className="text-sm text-gray-600 mt-2">
+          <p className="text-sm text-vesta-navy/80 mt-2">
             {providerName} • Predictive analytics & actionable insights
           </p>
         </div>
@@ -271,7 +271,7 @@ const IntegrationDashboard = () => {
           onClick={isSyncing ? undefined : handleSync} 
           variant="outline" 
           size="sm" 
-          className="bg-white border-gray-300 hover:bg-gray-50 text-gray-700"
+          className="bg-white border-vesta-navy/15 hover:bg-vesta-mist/25 text-vesta-navy/90"
           disabled={isSyncing}
         >
           {isSyncing ? (
@@ -285,7 +285,7 @@ const IntegrationDashboard = () => {
 
       {/* Runway Alert - Only show if critical or warning */}
       {analytics.cashFlowForecast?.runway != null && analytics.cashFlowForecast.runway < 6 && (
-        <Card className="bg-white border border-gray-200">
+        <Card className="bg-white border border-vesta-navy/10">
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
@@ -299,9 +299,9 @@ const IntegrationDashboard = () => {
                   </div>
                 )}
                 <div>
-                  <p className="text-xs text-gray-600 font-medium uppercase tracking-wide">Cash Runway</p>
-                  <p className="text-3xl font-medium text-gray-900 mt-1">
-                    {analytics.cashFlowForecast.runway.toFixed(1)} <span className="text-lg text-gray-500 font-normal">months</span>
+                  <p className="text-xs text-vesta-navy/80 font-medium uppercase tracking-wide">Cash Runway</p>
+                  <p className="text-3xl font-medium text-vesta-navy mt-1">
+                    {analytics.cashFlowForecast.runway.toFixed(1)} <span className="text-lg text-vesta-navy/65 font-normal">months</span>
                   </p>
                 </div>
               </div>
@@ -349,7 +349,7 @@ const IntegrationDashboard = () => {
 
       {/* Timestamp */}
       {analytics.generatedAt && (
-        <p className="text-xs text-gray-500 text-center">
+        <p className="text-xs text-vesta-navy/65 text-center">
           Updated {new Date(analytics.generatedAt).toLocaleString()}
         </p>
       )}

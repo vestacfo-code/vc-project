@@ -93,9 +93,9 @@ const UnderlineInput = ({
     value={value}
     onChange={onChange}
     required={required}
-    className="w-full h-12 bg-transparent border-0 border-b-2 border-gray-200 rounded-none 
-      focus:border-gray-900 focus:ring-0 focus:outline-none
-      text-gray-900 placeholder:text-gray-400 transition-colors px-0"
+    className="w-full h-12 bg-transparent border-0 border-b-2 border-vesta-navy/10 rounded-none 
+      focus:border-vesta-navy focus:ring-0 focus:outline-none
+      text-vesta-navy placeholder:text-vesta-navy-muted transition-colors px-0"
   />
 );
 
@@ -412,7 +412,7 @@ export default function ConsumerJoin() {
   return (
     <div className="min-h-[100dvh] flex flex-col lg:flex-row overflow-hidden">
       {/* Left Panel - Blue - Hidden on mobile */}
-      <div className="hidden lg:flex w-[55%] bg-gradient-to-b from-[#2563eb] to-[#1e40af] relative overflow-hidden">
+      <div className="hidden lg:flex w-[55%] bg-gradient-to-b from-vesta-navy-muted to-vesta-navy relative overflow-hidden">
         {/* Heavy grainy noise texture overlay */}
         <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ opacity: 0.35 }}>
           <filter id="grainyNoise">
@@ -462,7 +462,7 @@ export default function ConsumerJoin() {
         <div className="flex items-center justify-between w-full">
           <button
             onClick={() => navigate('/')}
-            className="flex items-center gap-2 text-gray-400 hover:text-gray-900 hover:bg-gray-100 rounded-lg px-3 py-2 transition-colors -ml-3"
+            className="flex items-center gap-2 text-vesta-navy-muted hover:text-vesta-navy hover:bg-vesta-mist/40 rounded-lg px-3 py-2 transition-colors -ml-3"
           >
             <ArrowLeft className="w-4 h-4" />
             <span className="text-sm">Back</span>
@@ -487,10 +487,10 @@ export default function ConsumerJoin() {
                   <AlertCircle className="h-8 w-8 text-red-600" />
                 </div>
                 <div>
-                  <h1 className="text-2xl lg:text-3xl font-serif text-gray-900 mb-2">
+                  <h1 className="text-2xl lg:text-3xl font-serif text-vesta-navy mb-2">
                     Invalid Invite Link
                   </h1>
-                  <p className="text-gray-500">
+                  <p className="text-vesta-navy/65">
                     {error}
                   </p>
                 </div>
@@ -502,10 +502,10 @@ export default function ConsumerJoin() {
               /* Resume Payment State */
               <div className="space-y-8">
                 <div>
-                  <h1 className="text-3xl lg:text-4xl font-serif text-gray-900 mb-2">
+                  <h1 className="text-3xl lg:text-4xl font-serif text-vesta-navy mb-2">
                     Complete Your Payment
                   </h1>
-                  <p className="text-gray-400 text-sm">
+                  <p className="text-vesta-navy-muted text-sm">
                     Your account has been created. Complete payment to activate your access.
                   </p>
                 </div>
@@ -514,15 +514,15 @@ export default function ConsumerJoin() {
                 {invite && hasPricing(invite) && (
                   <div className="space-y-4 py-2">
                     {invite.fixed_amount && invite.fixed_amount > 0 && (
-                      <div className="flex items-center justify-between border-b border-gray-100 pb-3">
-                        <span className="text-gray-500 text-sm">One-time setup</span>
-                        <span className="text-gray-900 font-medium">{formatCurrency(invite.fixed_amount)}</span>
+                      <div className="flex items-center justify-between border-b border-vesta-navy/8 pb-3">
+                        <span className="text-vesta-navy/65 text-sm">One-time setup</span>
+                        <span className="text-vesta-navy font-medium">{formatCurrency(invite.fixed_amount)}</span>
                       </div>
                     )}
                     {invite.monthly_amount && invite.monthly_amount > 0 && (
-                      <div className="flex items-center justify-between border-b border-gray-100 pb-3">
-                        <span className="text-gray-500 text-sm">Monthly</span>
-                        <span className="text-gray-900 font-medium">{formatCurrency(invite.monthly_amount)}<span className="text-gray-400 text-sm font-normal">/mo</span></span>
+                      <div className="flex items-center justify-between border-b border-vesta-navy/8 pb-3">
+                        <span className="text-vesta-navy/65 text-sm">Monthly</span>
+                        <span className="text-vesta-navy font-medium">{formatCurrency(invite.monthly_amount)}<span className="text-vesta-navy-muted text-sm font-normal">/mo</span></span>
                       </div>
                     )}
                   </div>
@@ -530,7 +530,7 @@ export default function ConsumerJoin() {
 
                 <Button 
                   onClick={handleContinueToPayment}
-                  className="w-full h-12 bg-gray-900 hover:bg-gray-800 text-white font-medium rounded-lg"
+                  className="w-full h-12 bg-vesta-navy hover:bg-vesta-navy-muted/30 text-white font-medium rounded-lg"
                   disabled={submitting}
                 >
                   {submitting ? (
@@ -544,24 +544,24 @@ export default function ConsumerJoin() {
               /* Normal Registration Form */
               <div className="space-y-6">
                 <div>
-                  <h1 className="text-3xl lg:text-4xl font-serif text-gray-900 mb-2">
+                  <h1 className="text-3xl lg:text-4xl font-serif text-vesta-navy mb-2">
                     Set Up Your Account
                   </h1>
-                  <p className="text-gray-400 text-sm">
+                  <p className="text-vesta-navy-muted text-sm">
                     Welcome, {invite.first_name || invite.email}! Create a password to get started.
                   </p>
                 </div>
 
                 {/* Pre-filled info - Clean minimal style */}
                 <div className="space-y-3 py-2">
-                  <div className="flex items-center justify-between border-b border-gray-100 pb-3">
-                    <span className="text-gray-500 text-sm">Email</span>
-                    <span className="text-gray-900">{invite.email}</span>
+                  <div className="flex items-center justify-between border-b border-vesta-navy/8 pb-3">
+                    <span className="text-vesta-navy/65 text-sm">Email</span>
+                    <span className="text-vesta-navy">{invite.email}</span>
                   </div>
                   {invite.first_name && (
-                    <div className="flex items-center justify-between border-b border-gray-100 pb-3">
-                      <span className="text-gray-500 text-sm">Name</span>
-                      <span className="text-gray-900">
+                    <div className="flex items-center justify-between border-b border-vesta-navy/8 pb-3">
+                      <span className="text-vesta-navy/65 text-sm">Name</span>
+                      <span className="text-vesta-navy">
                         {invite.first_name} {invite.last_name}
                       </span>
                     </div>
@@ -572,19 +572,19 @@ export default function ConsumerJoin() {
                 {hasPricing(invite) && (
                   <div className="space-y-3 py-2">
                     {invite.fixed_amount && invite.fixed_amount > 0 && (
-                      <div className="flex items-center justify-between border-b border-gray-100 pb-3">
-                        <span className="text-gray-500 text-sm">One-time setup</span>
-                        <span className="text-gray-900 font-medium">{formatCurrency(invite.fixed_amount)}</span>
+                      <div className="flex items-center justify-between border-b border-vesta-navy/8 pb-3">
+                        <span className="text-vesta-navy/65 text-sm">One-time setup</span>
+                        <span className="text-vesta-navy font-medium">{formatCurrency(invite.fixed_amount)}</span>
                       </div>
                     )}
                     {invite.monthly_amount && invite.monthly_amount > 0 && (
-                      <div className="flex items-center justify-between border-b border-gray-100 pb-3">
-                        <span className="text-gray-500 text-sm">Monthly</span>
-                        <span className="text-gray-900 font-medium">{formatCurrency(invite.monthly_amount)}<span className="text-gray-400 text-sm font-normal">/mo</span></span>
+                      <div className="flex items-center justify-between border-b border-vesta-navy/8 pb-3">
+                        <span className="text-vesta-navy/65 text-sm">Monthly</span>
+                        <span className="text-vesta-navy font-medium">{formatCurrency(invite.monthly_amount)}<span className="text-vesta-navy-muted text-sm font-normal">/mo</span></span>
                       </div>
                     )}
                     {invite.pricing_description && (
-                      <p className="text-xs text-gray-400 pt-1">
+                      <p className="text-xs text-vesta-navy-muted pt-1">
                         {invite.pricing_description}
                       </p>
                     )}
@@ -595,8 +595,8 @@ export default function ConsumerJoin() {
                 {getFeaturesArray(invite.features).length > 0 && (
                   <div className="flex flex-wrap gap-2 py-2">
                     {getFeatureNames(invite.features).map((name) => (
-                      <span key={name} className="inline-flex items-center text-xs text-gray-500">
-                        <Check className="h-3 w-3 mr-1 text-gray-400" />
+                      <span key={name} className="inline-flex items-center text-xs text-vesta-navy/65">
+                        <Check className="h-3 w-3 mr-1 text-vesta-navy-muted" />
                         {name}
                       </span>
                     ))}
@@ -623,7 +623,7 @@ export default function ConsumerJoin() {
 
                   <Button 
                     type="submit" 
-                    className="w-full h-12 bg-gray-900 hover:bg-gray-800 text-white font-medium rounded-lg mt-2" 
+                    className="w-full h-12 bg-vesta-navy hover:bg-vesta-navy-muted/30 text-white font-medium rounded-lg mt-2" 
                     disabled={submitting}
                   >
                     {submitting ? (
@@ -636,7 +636,7 @@ export default function ConsumerJoin() {
                   </Button>
                 </form>
 
-                <p className="text-xs text-center text-gray-400">
+                <p className="text-xs text-center text-vesta-navy-muted">
                   By creating an account, you agree to our Terms of Service and Privacy Policy.
                 </p>
               </div>

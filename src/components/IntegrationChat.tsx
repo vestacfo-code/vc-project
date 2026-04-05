@@ -85,7 +85,7 @@ const SourcesSection = ({ sources }: { sources: { url: string; title: string }[]
             href={source.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 pl-1.5 pr-2.5 py-1 rounded-full text-xs transition-colors bg-zinc-100 hover:bg-zinc-200 text-zinc-500 hover:text-zinc-700"
+            className="inline-flex items-center gap-1.5 pl-1.5 pr-2.5 py-1 rounded-full text-xs transition-colors bg-vesta-mist/40 hover:bg-vesta-mist/50 text-vesta-navy/65 hover:text-vesta-navy/90"
             title={source.title}
           >
             <img src={getFavicon(source.url) || ''} alt="" className="w-3.5 h-3.5 rounded-full" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
@@ -95,7 +95,7 @@ const SourcesSection = ({ sources }: { sources: { url: string; title: string }[]
         {(remaining > 0 || sources.length > 0) && (
           <button
             onClick={() => setExpanded(!expanded)}
-            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium transition-colors bg-zinc-100 hover:bg-zinc-200 text-zinc-500 hover:text-zinc-700"
+            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium transition-colors bg-vesta-mist/40 hover:bg-vesta-mist/50 text-vesta-navy/65 hover:text-vesta-navy/90"
           >
             {expanded ? 'Hide' : remaining > 0 ? `+${remaining} more` : 'View all'}
             <ChevronDown className={`w-3 h-3 transition-transform ${expanded ? 'rotate-180' : ''}`} />
@@ -112,14 +112,14 @@ const SourcesSection = ({ sources }: { sources: { url: string; title: string }[]
               href={source.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-start gap-2.5 p-2.5 rounded-lg text-sm transition-colors group bg-zinc-50 hover:bg-zinc-100 border border-zinc-200/80"
+              className="flex items-start gap-2.5 p-2.5 rounded-lg text-sm transition-colors group bg-vesta-mist/25 hover:bg-vesta-mist/40 border border-vesta-navy/80"
             >
               <img src={getFavicon(source.url) || ''} alt="" className="w-4 h-4 rounded mt-0.5 flex-shrink-0" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
               <div className="min-w-0 flex-1">
-                <p className="text-xs leading-snug line-clamp-2 text-zinc-700 group-hover:text-zinc-900">{source.title}</p>
+                <p className="text-xs leading-snug line-clamp-2 text-vesta-navy/90 group-hover:text-vesta-navy">{source.title}</p>
                 <div className="flex items-center gap-1 mt-1">
-                  <span className="text-[10px] text-zinc-400">{getDomain(source.url)}</span>
-                  <ExternalLink className="w-2.5 h-2.5 text-zinc-400" />
+                  <span className="text-[10px] text-vesta-navy-muted">{getDomain(source.url)}</span>
+                  <ExternalLink className="w-2.5 h-2.5 text-vesta-navy-muted" />
                 </div>
               </div>
             </a>
@@ -161,23 +161,23 @@ const MessageActionBar = ({ content, sources }: { content: string; sources?: { u
 
   return (
     <>
-      <div className="flex items-center justify-between mt-3 text-zinc-400">
+      <div className="flex items-center justify-between mt-3 text-vesta-navy-muted">
         <div className="flex items-center gap-1">
-          <button onClick={handleCopy} className="p-1.5 rounded-md transition-colors hover:text-zinc-600 hover:bg-zinc-100" title="Copy">
+          <button onClick={handleCopy} className="p-1.5 rounded-md transition-colors hover:text-vesta-navy/80 hover:bg-vesta-mist/40" title="Copy">
             {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
           </button>
-          <button onClick={handleDownload} className="p-1.5 rounded-md transition-colors hover:text-zinc-600 hover:bg-zinc-100" title="Download">
+          <button onClick={handleDownload} className="p-1.5 rounded-md transition-colors hover:text-vesta-navy/80 hover:bg-vesta-mist/40" title="Download">
             <Download className="w-3.5 h-3.5" />
           </button>
         </div>
         <div className="flex items-center gap-1">
-          <button onClick={() => setLiked(liked === 'up' ? null : 'up')} className={`p-1.5 rounded-md transition-colors hover:text-zinc-600 hover:bg-zinc-100 ${liked === 'up' ? 'text-zinc-700' : ''}`} title="Helpful">
+          <button onClick={() => setLiked(liked === 'up' ? null : 'up')} className={`p-1.5 rounded-md transition-colors hover:text-vesta-navy/80 hover:bg-vesta-mist/40 ${liked === 'up' ? 'text-vesta-navy/90' : ''}`} title="Helpful">
             <ThumbsUp className="w-3.5 h-3.5" />
           </button>
-          <button onClick={() => setLiked(liked === 'down' ? null : 'down')} className={`p-1.5 rounded-md transition-colors hover:text-zinc-600 hover:bg-zinc-100 ${liked === 'down' ? 'text-zinc-700' : ''}`} title="Not helpful">
+          <button onClick={() => setLiked(liked === 'down' ? null : 'down')} className={`p-1.5 rounded-md transition-colors hover:text-vesta-navy/80 hover:bg-vesta-mist/40 ${liked === 'down' ? 'text-vesta-navy/90' : ''}`} title="Not helpful">
             <ThumbsDown className="w-3.5 h-3.5" />
           </button>
-          <button className="p-1.5 rounded-md transition-colors hover:text-zinc-600 hover:bg-zinc-100" title="More">
+          <button className="p-1.5 rounded-md transition-colors hover:text-vesta-navy/80 hover:bg-vesta-mist/40" title="More">
             <MoreHorizontal className="w-3.5 h-3.5" />
           </button>
         </div>
@@ -202,21 +202,21 @@ const FollowUpSuggestions = ({
   if (loading || suggestions.length === 0) {
     return (
       <div className="mt-4">
-        <span className="text-xs font-semibold mb-2 block text-zinc-400">Follow-ups</span>
-        <div className="text-sm text-zinc-400">Generating suggestions...</div>
+        <span className="text-xs font-semibold mb-2 block text-vesta-navy-muted">Follow-ups</span>
+        <div className="text-sm text-vesta-navy-muted">Generating suggestions...</div>
       </div>
     );
   }
 
   return (
     <div className="mt-4">
-      <span className="text-xs font-semibold mb-2 block text-zinc-400">Follow-ups</span>
+      <span className="text-xs font-semibold mb-2 block text-vesta-navy-muted">Follow-ups</span>
       <div className="space-y-2">
         {suggestions.map((s, i) => (
           <button
             key={i}
             onClick={() => onSelect(s)}
-            className="flex items-center gap-2 text-sm w-full text-left px-2 py-1.5 rounded-lg transition-colors text-zinc-500 hover:text-zinc-700 hover:bg-zinc-50"
+            className="flex items-center gap-2 text-sm w-full text-left px-2 py-1.5 rounded-lg transition-colors text-vesta-navy/65 hover:text-vesta-navy/90 hover:bg-vesta-mist/25"
           >
             <CornerDownRight className="w-3.5 h-3.5 flex-shrink-0" />
             <span>{s}</span>
@@ -765,7 +765,7 @@ const IntegrationChat = ({ conversationId, variant = 'default' }: IntegrationCha
 
   return (
     <div
-      className={`flex flex-col overflow-hidden ${isHotelShell ? 'flex-1 min-h-0 h-full' : 'flex-1 h-full'} bg-white text-zinc-900`}
+      className={`flex flex-col overflow-hidden ${isHotelShell ? 'flex-1 min-h-0 h-full' : 'flex-1 h-full'} bg-white text-vesta-navy`}
     >
       {isHotelShell && (
         <header className="flex shrink-0 items-center gap-3 border-b border-vesta-navy/10 bg-white px-4 py-3 sm:px-6">
@@ -773,9 +773,9 @@ const IntegrationChat = ({ conversationId, variant = 'default' }: IntegrationCha
           <VestaLogo size="sm" tone="light" />
           <div className="min-w-0 flex-1">
             <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-vesta-navy-muted">Vesta CFO</p>
-            <h1 className="text-sm font-semibold tracking-tight text-slate-900">Assistant</h1>
+            <h1 className="text-sm font-semibold tracking-tight text-vesta-navy">Assistant</h1>
           </div>
-          <p className="hidden max-w-xs text-right text-xs leading-snug text-slate-600 md:block">
+          <p className="hidden max-w-xs text-right text-xs leading-snug text-vesta-navy/80 md:block">
             Plain-language answers over your metrics, uploads, and connected data.
           </p>
         </header>
@@ -791,24 +791,24 @@ const IntegrationChat = ({ conversationId, variant = 'default' }: IntegrationCha
             <div className="text-center mb-6 md:mb-10 max-w-xl">
               {isHotelShell ? (
                 <>
-                  <p className="mb-3 text-xs font-medium text-slate-600">Start with a question</p>
-                  <h2 className="mb-4 font-serif text-2xl leading-snug text-slate-900 sm:text-3xl">
+                  <p className="mb-3 text-xs font-medium text-vesta-navy/80">Start with a question</p>
+                  <h2 className="mb-4 font-serif text-2xl leading-snug text-vesta-navy sm:text-3xl">
                     What should we look at first?
                   </h2>
-                  <div className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3">
-                    <TypingAnimation messages={cfoQuestions} className="text-base text-slate-600 md:text-lg" />
+                  <div className="rounded-xl border border-vesta-navy/10 bg-vesta-mist/25 px-4 py-3">
+                    <TypingAnimation messages={cfoQuestions} className="text-base text-vesta-navy/80 md:text-lg" />
                   </div>
                 </>
               ) : (
                 <h2 className="text-3xl md:text-[2.6rem] font-light min-h-[2.5rem] md:min-h-[3.5rem] tracking-tight leading-tight">
-                  <TypingAnimation messages={cfoQuestions} className="text-zinc-500" />
+                  <TypingAnimation messages={cfoQuestions} className="text-vesta-navy/65" />
                 </h2>
               )}
             </div>
 
             {/* Input Area - Centered */}
             <div className="w-full max-w-2xl px-2 md:px-0">
-              <div className="relative rounded-xl transition-all duration-200 bg-white/80 backdrop-blur-sm border border-zinc-200/60 shadow-xl">
+              <div className="relative rounded-xl transition-all duration-200 bg-white/80 backdrop-blur-sm border border-vesta-navy/60 shadow-xl">
                 {/* Attached & Pending Documents */}
                 {(attachedDocuments.length > 0 || pendingDocuments.length > 0) && (
                   <div className={`px-6 pt-4 pb-2 flex flex-wrap gap-2`}>
@@ -845,7 +845,7 @@ const IntegrationChat = ({ conversationId, variant = 'default' }: IntegrationCha
                 
                 {/* Reference Tags */}
                 {addedReferences.length > 0 && (
-                  <div className="px-6 pt-4 pb-2 flex flex-wrap gap-2 border-b border-zinc-100">
+                  <div className="px-6 pt-4 pb-2 flex flex-wrap gap-2 border-b border-vesta-navy/8">
                     {addedReferences.map((ref) => (
                       <ReferenceTag 
                         key={ref.id} 
@@ -866,14 +866,14 @@ const IntegrationChat = ({ conversationId, variant = 'default' }: IntegrationCha
                       onKeyDown={handleKeyPress}
                       placeholder={selectedModel === 'deep-research' ? "What would you like me to research?" : selectedModel === 'gpt-4o-search' ? "Search the web..." : "Ask anything..."}
                       disabled={loading || agentState.isRunning}
-                      className="min-h-[44px] max-h-[120px] resize-none border-0 bg-transparent focus:ring-0 focus:outline-none focus:border-0 focus:shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 p-0 leading-6 shadow-none text-base font-sans disabled:opacity-50 text-zinc-900 placeholder:text-zinc-400"
+                      className="min-h-[44px] max-h-[120px] resize-none border-0 bg-transparent focus:ring-0 focus:outline-none focus:border-0 focus:shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 p-0 leading-6 shadow-none text-base font-sans disabled:opacity-50 text-vesta-navy placeholder:text-vesta-navy-muted"
                       rows={1}
                     />
                   </div>
                 </div>
 
                 {/* Bottom toolbar row */}
-                <div className="flex items-center justify-between px-4 md:px-5 py-3 border-t border-zinc-100">
+                <div className="flex items-center justify-between px-4 md:px-5 py-3 border-t border-vesta-navy/8">
                   {/* Left: file upload */}
                   <div className="flex items-center">
                     <FileUploadButton 
@@ -903,7 +903,7 @@ const IntegrationChat = ({ conversationId, variant = 'default' }: IntegrationCha
                           setIsStreaming(false);
                         }}
                         size="sm" 
-                        className="h-8 w-8 p-0 rounded-full border-0 bg-zinc-900 hover:bg-zinc-800 text-white"
+                        className="h-8 w-8 p-0 rounded-full border-0 bg-vesta-navy hover:bg-vesta-navy-muted/30 text-white"
                       >
                         <Square className="w-3.5 h-3.5" />
                       </Button>
@@ -912,7 +912,7 @@ const IntegrationChat = ({ conversationId, variant = 'default' }: IntegrationCha
                         onClick={handleSendMessage}
                         disabled={!input.trim() || loading || agentState.isRunning}
                         size="sm" 
-                        className="h-8 w-8 p-0 rounded-full disabled:opacity-30 border-0 bg-zinc-900 hover:bg-zinc-800 text-white"
+                        className="h-8 w-8 p-0 rounded-full disabled:opacity-30 border-0 bg-vesta-navy hover:bg-vesta-navy-muted/30 text-white"
                       >
                         {(loading || agentState.isRunning) ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
                       </Button>
@@ -933,14 +933,14 @@ const IntegrationChat = ({ conversationId, variant = 'default' }: IntegrationCha
                 {message.role === 'user' ? (
                   /* Right-aligned user bubble, no avatar — inline-block so it shrink-wraps */
                   <div className="flex justify-end">
-                    <div data-message-id={message.id} data-message-role="user" className="inline-block rounded-2xl px-4 py-2 text-sm bg-zinc-100 text-zinc-900">
+                    <div data-message-id={message.id} data-message-role="user" className="inline-block rounded-2xl px-4 py-2 text-sm bg-vesta-mist/40 text-vesta-navy">
                       {message.content}
                     </div>
                   </div>
                 ) : (
                   /* AI response — no avatar, full width */
                   <div>
-                    <div className="prose prose-sm max-w-none leading-relaxed font-serif text-zinc-900 [&>p]:mb-4 [&>h2]:mt-6 [&>h2]:mb-3 [&>h2]:text-base [&>h2]:font-semibold [&>h3]:mt-4 [&>h3]:mb-2 [&>h3]:text-sm [&>h3]:font-semibold [&_ul]:mb-4 [&_ol]:mb-4 [&_ul]:space-y-2 [&_ol]:space-y-2 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:pl-1 [&>table]:mb-4 [&>table]:mt-2">
+                    <div className="prose prose-sm max-w-none leading-relaxed font-serif text-vesta-navy [&>p]:mb-4 [&>h2]:mt-6 [&>h2]:mb-3 [&>h2]:text-base [&>h2]:font-semibold [&>h3]:mt-4 [&>h3]:mb-2 [&>h3]:text-sm [&>h3]:font-semibold [&_ul]:mb-4 [&_ol]:mb-4 [&_ul]:space-y-2 [&_ol]:space-y-2 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:pl-1 [&>table]:mb-4 [&>table]:mt-2">
                       {message.role === 'assistant' && isStreaming && index === messages.length - 1 ? (
                         <TypewriterText 
                           text={message.sources?.length ? stripInlineCitations(message.content) : message.content} 
@@ -1004,7 +1004,7 @@ const IntegrationChat = ({ conversationId, variant = 'default' }: IntegrationCha
         <div className={`relative shrink-0 bg-white ${isHotelShell ? 'border-t border-vesta-navy/10' : ''}`}>
           <div className="px-3 md:px-4 pb-3 md:pb-4 bg-white" style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}>
           <div className="max-w-2xl mx-auto">
-            <div className="relative rounded-2xl transition-all duration-200 bg-white ring-1 ring-zinc-200 shadow-xl">
+            <div className="relative rounded-2xl transition-all duration-200 bg-white ring-1 ring-vesta-navy/15 shadow-xl">
               {/* Attached Documents */}
               {attachedDocuments.length > 0 && (
                 <div className={`px-4 pt-3 pb-2 flex flex-wrap gap-2`}>
@@ -1027,7 +1027,7 @@ const IntegrationChat = ({ conversationId, variant = 'default' }: IntegrationCha
               
               {/* Reference Tags */}
               {addedReferences.length > 0 && (
-                <div className="px-4 pt-3 pb-2 flex flex-wrap gap-2 border-b border-zinc-100">
+                <div className="px-4 pt-3 pb-2 flex flex-wrap gap-2 border-b border-vesta-navy/8">
                   {addedReferences.map((ref) => (
                     <ReferenceTag 
                       key={ref.id} 
@@ -1047,7 +1047,7 @@ const IntegrationChat = ({ conversationId, variant = 'default' }: IntegrationCha
                   onKeyDown={handleKeyPress}
                   placeholder={selectedModel === 'gpt-4o-search' ? "Search the web..." : "Ask a follow-up..."}
                   disabled={false}
-                  className="min-h-[40px] max-h-[100px] md:max-h-[120px] resize-none border-0 bg-transparent focus:ring-0 focus:outline-none focus:border-0 focus:shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 p-0 leading-6 shadow-none text-base font-sans text-zinc-900 placeholder:text-zinc-400"
+                  className="min-h-[40px] max-h-[100px] md:max-h-[120px] resize-none border-0 bg-transparent focus:ring-0 focus:outline-none focus:border-0 focus:shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 p-0 leading-6 shadow-none text-base font-sans text-vesta-navy placeholder:text-vesta-navy-muted"
                   rows={1}
                 />
               </div>
@@ -1080,7 +1080,7 @@ const IntegrationChat = ({ conversationId, variant = 'default' }: IntegrationCha
                     <Button 
                       onClick={() => { setLoading(false); setIsStreaming(false); }}
                       size="sm" 
-                      className="h-8 w-8 p-0 rounded-full border-0 bg-zinc-900 hover:bg-zinc-800 text-white"
+                      className="h-8 w-8 p-0 rounded-full border-0 bg-vesta-navy hover:bg-vesta-navy-muted/30 text-white"
                     >
                       <Square className="w-3.5 h-3.5" />
                     </Button>
@@ -1089,7 +1089,7 @@ const IntegrationChat = ({ conversationId, variant = 'default' }: IntegrationCha
                       onClick={handleSendMessage}
                       disabled={!input.trim()}
                       size="sm" 
-                      className="h-8 w-8 p-0 rounded-full disabled:opacity-30 border-0 bg-zinc-900 hover:bg-zinc-800 text-white"
+                      className="h-8 w-8 p-0 rounded-full disabled:opacity-30 border-0 bg-vesta-navy hover:bg-vesta-navy-muted/30 text-white"
                     >
                       <Send className="w-4 h-4" />
                     </Button>

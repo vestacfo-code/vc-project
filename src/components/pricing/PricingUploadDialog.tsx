@@ -544,13 +544,13 @@ export function PricingUploadDialog({ open, onOpenChange, onSuccess }: PricingUp
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-white border-slate-200 text-slate-900 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-slate-100 [&::-webkit-scrollbar-thumb]:bg-slate-300 [&::-webkit-scrollbar-thumb]:rounded-full">
+      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-white border-vesta-navy/10 text-vesta-navy [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-vesta-mist/40 [&::-webkit-scrollbar-thumb]:bg-vesta-navy/25 [&::-webkit-scrollbar-thumb]:rounded-full">
         <DialogHeader>
-          <DialogTitle className="text-slate-900 font-[Georgia] text-xl">
+          <DialogTitle className="text-vesta-navy font-[Georgia] text-xl">
             {step === 0 ? 'Import Data' : uploadType === 'catalog' ? 'Import Catalog' : 'Import Supplier Prices'}
-            {step > 0 && <Badge variant="outline" className="ml-2 border-slate-200 text-slate-500">Step {step}/3</Badge>}
+            {step > 0 && <Badge variant="outline" className="ml-2 border-vesta-navy/10 text-vesta-navy/65">Step {step}/3</Badge>}
           </DialogTitle>
-          <DialogDescription className="text-slate-400">
+          <DialogDescription className="text-vesta-navy-muted">
             {step === 0 && 'Choose what type of data you want to import'}
             {step === 1 && (uploadType === 'catalog' ? 'Upload your product catalog with your prices and COGS' : 'Upload supplier pricing and select the supplier')}
             {step === 2 && 'Map your spreadsheet columns to the system fields'}
@@ -564,7 +564,7 @@ export function PricingUploadDialog({ open, onOpenChange, onSuccess }: PricingUp
             <div className="grid grid-cols-2 gap-4">
               <button
                 onClick={() => handleSelectUploadType('catalog')}
-                className="relative p-6 rounded-xl border-2 border-slate-200 hover:border-blue-500/50 transition-all text-left group overflow-hidden"
+                className="relative p-6 rounded-xl border-2 border-vesta-navy/10 hover:border-blue-500/50 transition-all text-left group overflow-hidden"
               >
                 {/* Layered background */}
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-900/40 via-blue-800/20 to-transparent" />
@@ -576,8 +576,8 @@ export function PricingUploadDialog({ open, onOpenChange, onSuccess }: PricingUp
                   <div className="w-10 h-10 rounded-lg bg-blue-500/20 border border-blue-500/30 flex items-center justify-center mb-4 group-hover:bg-blue-500/30 transition-all">
                     <div className="w-5 h-5 rounded bg-blue-400/60" />
                   </div>
-                  <h3 className="font-semibold text-slate-900 mb-1 text-lg">My Catalog</h3>
-                  <p className="text-sm text-slate-400">
+                  <h3 className="font-semibold text-vesta-navy mb-1 text-lg">My Catalog</h3>
+                  <p className="text-sm text-vesta-navy-muted">
                     Your products with prices, COGS, and target margins
                   </p>
                 </div>
@@ -585,7 +585,7 @@ export function PricingUploadDialog({ open, onOpenChange, onSuccess }: PricingUp
 
               <button
                 onClick={() => handleSelectUploadType('supplier')}
-                className="relative p-6 rounded-xl border-2 border-slate-200 hover:border-purple-500/50 transition-all text-left group overflow-hidden"
+                className="relative p-6 rounded-xl border-2 border-vesta-navy/10 hover:border-purple-500/50 transition-all text-left group overflow-hidden"
               >
                 {/* Layered background */}
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-900/40 via-purple-800/20 to-transparent" />
@@ -598,8 +598,8 @@ export function PricingUploadDialog({ open, onOpenChange, onSuccess }: PricingUp
                     <div className="w-3 h-5 rounded-sm bg-purple-400/60 mr-1" />
                     <div className="w-3 h-5 rounded-sm bg-purple-400/40" />
                   </div>
-                  <h3 className="font-semibold text-slate-900 mb-1 text-lg">Supplier Price List</h3>
-                  <p className="text-sm text-slate-400">
+                  <h3 className="font-semibold text-vesta-navy mb-1 text-lg">Supplier Price List</h3>
+                  <p className="text-sm text-vesta-navy-muted">
                     Competitor or supplier pricing for comparison
                   </p>
                 </div>
@@ -614,7 +614,7 @@ export function PricingUploadDialog({ open, onOpenChange, onSuccess }: PricingUp
             {/* File Drop Zone */}
             <div
               className={`border-2 border-dashed rounded-xl p-8 text-center transition-colors cursor-pointer
-                ${file ? 'border-primary/50 bg-primary/10' : 'border-slate-200 hover:border-white/20 bg-white/5'}`}
+                ${file ? 'border-primary/50 bg-primary/10' : 'border-vesta-navy/10 hover:border-white/20 bg-white/5'}`}
               onDragOver={(e) => e.preventDefault()}
               onDrop={handleFileDrop}
               onClick={() => fileInputRef.current?.click()}
@@ -632,18 +632,18 @@ export function PricingUploadDialog({ open, onOpenChange, onSuccess }: PricingUp
                   <div className="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mx-auto">
                     <Check className="w-6 h-6 text-primary" />
                   </div>
-                  <p className="font-medium text-slate-900">{file.name}</p>
-                  <p className="text-sm text-slate-400">
+                  <p className="font-medium text-vesta-navy">{file.name}</p>
+                  <p className="text-sm text-vesta-navy-muted">
                     {parsedData ? `${parsedData.rows.length} rows detected` : 'Parsing...'}
                   </p>
                 </div>
               ) : (
                 <div className="space-y-2">
                   <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mx-auto">
-                    <Upload className="w-6 h-6 text-slate-400" />
+                    <Upload className="w-6 h-6 text-vesta-navy-muted" />
                   </div>
-                  <p className="font-medium text-slate-900">Drop your Excel or CSV file here</p>
-                  <p className="text-sm text-slate-400">or click to browse</p>
+                  <p className="font-medium text-vesta-navy">Drop your Excel or CSV file here</p>
+                  <p className="text-sm text-vesta-navy-muted">or click to browse</p>
                 </div>
               )}
             </div>
@@ -651,7 +651,7 @@ export function PricingUploadDialog({ open, onOpenChange, onSuccess }: PricingUp
             {/* Supplier Selection (only for supplier uploads) */}
             {uploadType === 'supplier' && (
               <div className="space-y-3">
-                <Label className="text-slate-300">Supplier</Label>
+                <Label className="text-vesta-navy/60">Supplier</Label>
                 
                 {showNewSupplier ? (
                   <div className="flex gap-2">
@@ -660,34 +660,34 @@ export function PricingUploadDialog({ open, onOpenChange, onSuccess }: PricingUp
                       value={newSupplierName}
                       onChange={(e) => setNewSupplierName(e.target.value)}
                       autoFocus
-                      className="bg-white/5 border-slate-200 text-slate-900 placeholder:text-slate-500"
+                      className="bg-white/5 border-vesta-navy/10 text-vesta-navy placeholder:text-vesta-navy/65"
                     />
                     <Button 
                       onClick={handleCreateSupplier}
                       disabled={!newSupplierName.trim() || createSupplier.isPending}
-                      className="bg-white text-black hover:bg-slate-200"
+                      className="bg-white text-black hover:bg-vesta-mist/50"
                     >
                       {createSupplier.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Add'}
                     </Button>
-                    <Button variant="ghost" onClick={() => setShowNewSupplier(false)} className="text-slate-400 hover:text-slate-900 hover:bg-white/10">
+                    <Button variant="ghost" onClick={() => setShowNewSupplier(false)} className="text-vesta-navy-muted hover:text-vesta-navy hover:bg-white/10">
                       Cancel
                     </Button>
                   </div>
                 ) : (
                   <div className="flex gap-2">
                     <Select value={selectedSupplier} onValueChange={setSelectedSupplier}>
-                      <SelectTrigger className="flex-1 bg-white/5 border-slate-200 text-slate-900">
+                      <SelectTrigger className="flex-1 bg-white/5 border-vesta-navy/10 text-vesta-navy">
                         <SelectValue placeholder="Select a supplier" />
                       </SelectTrigger>
-                      <SelectContent className="bg-white border-slate-200">
+                      <SelectContent className="bg-white border-vesta-navy/10">
                         {suppliers.map((supplier) => (
-                          <SelectItem key={supplier.id} value={supplier.id} className="text-slate-300 focus:bg-white/10 focus:text-slate-900">
+                          <SelectItem key={supplier.id} value={supplier.id} className="text-vesta-navy/60 focus:bg-white/10 focus:text-vesta-navy">
                             {supplier.name}
                           </SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
-                    <Button variant="outline" onClick={() => setShowNewSupplier(true)} className="border-slate-200 text-slate-300 hover:bg-white/10 bg-transparent">
+                    <Button variant="outline" onClick={() => setShowNewSupplier(true)} className="border-vesta-navy/10 text-vesta-navy/60 hover:bg-white/10 bg-transparent">
                       <Plus className="w-4 h-4 mr-1" />
                       New
                     </Button>
@@ -698,20 +698,20 @@ export function PricingUploadDialog({ open, onOpenChange, onSuccess }: PricingUp
 
             {/* Effective Date */}
             <div className="space-y-3">
-              <Label className="text-slate-300">Effective Date</Label>
+              <Label className="text-vesta-navy/60">Effective Date</Label>
               <Popover>
                 <PopoverTrigger asChild>
                   <Button
                     variant="outline"
                     className={cn(
-                      "w-full justify-start text-left font-normal bg-white/5 border-slate-200 text-slate-900 hover:bg-white/10 hover:text-slate-900",
+                      "w-full justify-start text-left font-normal bg-white/5 border-vesta-navy/10 text-vesta-navy hover:bg-white/10 hover:text-vesta-navy",
                     )}
                   >
-                    <CalendarIcon className="mr-2 h-4 w-4 text-slate-400" />
+                    <CalendarIcon className="mr-2 h-4 w-4 text-vesta-navy-muted" />
                     {format(effectiveDate, "PPP")}
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-auto p-0 bg-white border-slate-200" align="start">
+                <PopoverContent className="w-auto p-0 bg-white border-vesta-navy/10" align="start">
                   <Calendar
                     mode="single"
                     selected={effectiveDate}
@@ -721,18 +721,18 @@ export function PricingUploadDialog({ open, onOpenChange, onSuccess }: PricingUp
                   />
                 </PopoverContent>
               </Popover>
-              <p className="text-xs text-slate-500">The date these prices are effective. Defaults to today.</p>
+              <p className="text-xs text-vesta-navy/65">The date these prices are effective. Defaults to today.</p>
             </div>
 
             <div className="flex justify-between">
-              <Button variant="outline" onClick={() => setStep(0)} className="border-slate-200 text-slate-300 hover:bg-white/10 bg-transparent">
+              <Button variant="outline" onClick={() => setStep(0)} className="border-vesta-navy/10 text-vesta-navy/60 hover:bg-white/10 bg-transparent">
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Back
               </Button>
               <Button 
                 onClick={() => setStep(2)} 
                 disabled={!canProceedToStep2}
-                className="bg-white text-black hover:bg-slate-200"
+                className="bg-white text-black hover:bg-vesta-mist/50"
               >
                 Continue
                 <ArrowRight className="w-4 h-4 ml-2" />
@@ -744,7 +744,7 @@ export function PricingUploadDialog({ open, onOpenChange, onSuccess }: PricingUp
         {/* Step 2: Column Mapping */}
         {step === 2 && parsedData && (
           <div className="space-y-6 py-4">
-            <p className="text-sm text-slate-400">
+            <p className="text-sm text-vesta-navy-muted">
               Match each field to a column from your file:
             </p>
 
@@ -752,10 +752,10 @@ export function PricingUploadDialog({ open, onOpenChange, onSuccess }: PricingUp
               {fieldMappings.map((field) => (
                 <div 
                   key={field.systemField}
-                  className="grid grid-cols-3 gap-4 items-center p-3 rounded-lg border border-slate-200 bg-white/5"
+                  className="grid grid-cols-3 gap-4 items-center p-3 rounded-lg border border-vesta-navy/10 bg-white/5"
                 >
                   <div>
-                    <p className="font-medium text-sm text-slate-900">
+                    <p className="font-medium text-sm text-vesta-navy">
                       {field.label}
                       {field.required && <span className="text-red-400 ml-1">*</span>}
                     </p>
@@ -765,20 +765,20 @@ export function PricingUploadDialog({ open, onOpenChange, onSuccess }: PricingUp
                     value={field.mappedColumn || 'unmapped'}
                     onValueChange={(v) => handleMappingChange(field.systemField, v === 'unmapped' ? null : v)}
                   >
-                    <SelectTrigger className="bg-white/5 border-slate-200 text-slate-900">
+                    <SelectTrigger className="bg-white/5 border-vesta-navy/10 text-vesta-navy">
                       <SelectValue placeholder="Select column" />
                     </SelectTrigger>
-                    <SelectContent className="bg-white border-slate-200">
-                      <SelectItem value="unmapped" className="text-slate-400 focus:bg-white/10 focus:text-slate-900">-- Not mapped --</SelectItem>
+                    <SelectContent className="bg-white border-vesta-navy/10">
+                      <SelectItem value="unmapped" className="text-vesta-navy-muted focus:bg-white/10 focus:text-vesta-navy">-- Not mapped --</SelectItem>
                       {parsedData.headers.map((header, index) => (
-                        <SelectItem key={index} value={String(index)} className="text-slate-300 focus:bg-white/10 focus:text-slate-900">
+                        <SelectItem key={index} value={String(index)} className="text-vesta-navy/60 focus:bg-white/10 focus:text-vesta-navy">
                           {header || `Column ${index + 1}`}
                         </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
 
-                  <div className="text-sm text-slate-500 truncate">
+                  <div className="text-sm text-vesta-navy/65 truncate">
                     {getPreviewValue(field.mappedColumn)}
                   </div>
                 </div>
@@ -792,21 +792,21 @@ export function PricingUploadDialog({ open, onOpenChange, onSuccess }: PricingUp
                   onCheckedChange={(checked) => setSaveMapping(checked === true)}
                   className="border-white/20"
                 />
-                <span className="text-sm text-slate-400">
+                <span className="text-sm text-vesta-navy-muted">
                   Save this mapping for future imports
                 </span>
               </label>
             )}
 
             <div className="flex justify-between">
-              <Button variant="outline" onClick={() => setStep(1)} className="border-slate-200 text-slate-300 hover:bg-white/10 bg-transparent">
+              <Button variant="outline" onClick={() => setStep(1)} className="border-vesta-navy/10 text-vesta-navy/60 hover:bg-white/10 bg-transparent">
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Back
               </Button>
               <Button 
                 onClick={handleImport}
                 disabled={!canProceedToStep3 || importing}
-                className="bg-white text-black hover:bg-slate-200"
+                className="bg-white text-black hover:bg-vesta-mist/50"
               >
                 {importing ? (
                   <>
@@ -825,7 +825,7 @@ export function PricingUploadDialog({ open, onOpenChange, onSuccess }: PricingUp
             {importing && (
               <div className="space-y-2">
                 <Progress value={importProgress} className="bg-white/10" />
-                <p className="text-xs text-center text-slate-500">
+                <p className="text-xs text-center text-vesta-navy/65">
                   {importProgress}% complete
                 </p>
               </div>
@@ -840,7 +840,7 @@ export function PricingUploadDialog({ open, onOpenChange, onSuccess }: PricingUp
               <div className="w-16 h-16 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto">
                 <Check className="w-8 h-8 text-emerald-400" />
               </div>
-              <h3 className="text-lg font-semibold text-slate-900">Import Complete!</h3>
+              <h3 className="text-lg font-semibold text-vesta-navy">Import Complete!</h3>
             </div>
 
             <div className="grid grid-cols-3 gap-4">
@@ -852,17 +852,17 @@ export function PricingUploadDialog({ open, onOpenChange, onSuccess }: PricingUp
                 <p className="text-2xl font-bold text-blue-400">{importStats.updated}</p>
                 <p className="text-sm text-blue-300/70">Updated</p>
               </div>
-              <div className="bg-white/5 p-4 rounded-xl text-center border border-slate-200">
-                <p className="text-2xl font-bold text-slate-400">{importStats.errors}</p>
-                <p className="text-sm text-slate-500">Errors</p>
+              <div className="bg-white/5 p-4 rounded-xl text-center border border-vesta-navy/10">
+                <p className="text-2xl font-bold text-vesta-navy-muted">{importStats.errors}</p>
+                <p className="text-sm text-vesta-navy/65">Errors</p>
               </div>
             </div>
 
             <div className="flex justify-end gap-3">
-              <Button variant="outline" onClick={resetDialog} className="border-slate-200 text-slate-300 hover:bg-white/10 bg-transparent">
+              <Button variant="outline" onClick={resetDialog} className="border-vesta-navy/10 text-vesta-navy/60 hover:bg-white/10 bg-transparent">
                 Import Another
               </Button>
-              <Button onClick={() => { handleClose(); onSuccess(); }} className="bg-white text-black hover:bg-slate-200">
+              <Button onClick={() => { handleClose(); onSuccess(); }} className="bg-white text-black hover:bg-vesta-mist/50">
                 Done
               </Button>
             </div>

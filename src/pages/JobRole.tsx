@@ -105,7 +105,7 @@ const JobRole = () => {
   const formatRequirements = (requirements: string) => {
     return requirements.split('\n').filter(req => req.trim()).map((req, index) => (
       <li key={index} className="flex items-start">
-        <span className="w-1.5 h-1.5 rounded-full bg-gray-900 mt-2.5 mr-3 flex-shrink-0"></span>
+        <span className="w-1.5 h-1.5 rounded-full bg-vesta-navy mt-2.5 mr-3 flex-shrink-0"></span>
         <span className="leading-relaxed">{req.replace('• ', '')}</span>
       </li>
     ));
@@ -113,11 +113,11 @@ const JobRole = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-[#f5f3ff] via-[#e8e4ff] to-[#ddd6ff]">
+      <div className="min-h-screen bg-gradient-to-b from-vesta-cream via-vesta-mist/30 to-vesta-mist/50">
         <Header />
         <div className="max-w-4xl mx-auto px-6 py-16">
           <div className="text-center py-16">
-            <div className="text-lg text-gray-600">Loading job details...</div>
+            <div className="text-lg text-vesta-navy/80">Loading job details...</div>
           </div>
         </div>
         <Footer />
@@ -130,7 +130,7 @@ const JobRole = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#f5f3ff] via-[#e8e4ff] to-[#ddd6ff] relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-b from-vesta-cream via-vesta-mist/30 to-vesta-mist/50 relative overflow-hidden">
       {/* Decorative blobs */}
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-300/30 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-blue-300/25 rounded-full blur-3xl pointer-events-none" />
@@ -142,7 +142,7 @@ const JobRole = () => {
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 sm:mb-8">
           <Link 
             to="/careers" 
-            className="inline-flex items-center text-gray-600 hover:text-gray-900 transition-colors group text-sm sm:text-base"
+            className="inline-flex items-center text-vesta-navy/80 hover:text-vesta-navy transition-colors group text-sm sm:text-base"
           >
             <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
             Back to Careers
@@ -153,7 +153,7 @@ const JobRole = () => {
               variant="outline"
               size="lg"
               onClick={handleShare}
-              className="px-4 sm:px-6 py-3 text-sm sm:text-base font-medium bg-white/50 backdrop-blur-sm border-gray-300 text-gray-900 hover:bg-white hover:text-gray-900"
+              className="px-4 sm:px-6 py-3 text-sm sm:text-base font-medium bg-white/50 backdrop-blur-sm border-vesta-navy/15 text-vesta-navy hover:bg-white hover:text-vesta-navy"
             >
               <Share2 className="h-4 w-4 mr-2" />
               Share
@@ -162,7 +162,7 @@ const JobRole = () => {
             <Button 
               onClick={() => setShowApplication(true)}
               size="lg"
-              className="px-6 sm:px-8 py-3 text-sm sm:text-base font-medium bg-gray-900 text-white hover:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-all"
+              className="px-6 sm:px-8 py-3 text-sm sm:text-base font-medium bg-vesta-navy text-white hover:bg-vesta-navy-muted/30 rounded-lg shadow-md hover:shadow-lg transition-all"
             >
               Apply Now
             </Button>
@@ -171,11 +171,11 @@ const JobRole = () => {
         
         {/* Job Header Card */}
         <div className="bg-white/60 backdrop-blur-md rounded-2xl border border-white/30 p-6 sm:p-8 mb-8 shadow-lg">
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-vesta-navy mb-4">
             {jobRole.title}
           </h1>
           
-          <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3 sm:gap-6 mb-4 text-sm sm:text-base text-gray-600">
+          <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3 sm:gap-6 mb-4 text-sm sm:text-base text-vesta-navy/80">
             <div className="flex items-center">
               <Briefcase className="w-4 sm:w-5 h-4 sm:h-5 mr-2" />
               {jobRole.department}
@@ -203,19 +203,19 @@ const JobRole = () => {
         {/* Job Content */}
         <div className="space-y-8">
           <div className="bg-white/60 backdrop-blur-md rounded-2xl border border-white/30 p-6 sm:p-8 shadow-lg">
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">
+            <h2 className="text-xl sm:text-2xl font-bold text-vesta-navy mb-4">
               About This Role
             </h2>
-            <p className="text-base sm:text-lg leading-relaxed text-gray-600">
+            <p className="text-base sm:text-lg leading-relaxed text-vesta-navy/80">
               {jobRole.description}
             </p>
           </div>
           
           <div className="bg-white/60 backdrop-blur-md rounded-2xl border border-white/30 p-6 sm:p-8 shadow-lg">
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">
+            <h2 className="text-xl sm:text-2xl font-bold text-vesta-navy mb-4">
               What We're Looking For
             </h2>
-            <ul className="space-y-3 sm:space-y-4 text-base sm:text-lg text-gray-600">
+            <ul className="space-y-3 sm:space-y-4 text-base sm:text-lg text-vesta-navy/80">
               {formatRequirements(jobRole.requirements)}
             </ul>
           </div>
@@ -226,7 +226,7 @@ const JobRole = () => {
           <Button 
             onClick={() => setShowApplication(true)}
             size="lg"
-            className="w-full sm:w-auto px-8 sm:px-12 py-4 text-base sm:text-lg font-medium bg-gray-900 text-white hover:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-all"
+            className="w-full sm:w-auto px-8 sm:px-12 py-4 text-base sm:text-lg font-medium bg-vesta-navy text-white hover:bg-vesta-navy-muted/30 rounded-lg shadow-md hover:shadow-lg transition-all"
           >
             Apply for This Position
           </Button>

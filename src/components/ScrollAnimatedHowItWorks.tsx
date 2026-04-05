@@ -146,7 +146,7 @@ const ScrollAnimatedHowItWorks = () => {
         >
           <div className="h-full flex items-center justify-center bg-white">
             <div className="container mx-auto px-4 max-w-6xl">
-              <Card className="mx-auto border border-gray-200 bg-white rounded-2xl shadow-lg w-full max-w-5xl h-[400px]">
+              <Card className="mx-auto border border-vesta-navy/10 bg-white rounded-2xl shadow-lg w-full max-w-5xl h-[400px]">
                 <CardContent className="p-6 md:p-8 h-full flex items-center">
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center w-full">
                     {/* Left side - Text content */}

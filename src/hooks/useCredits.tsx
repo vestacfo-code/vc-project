@@ -309,7 +309,7 @@ export const useCredits = () => {
         dailyCredits: 5,
         downloads: 5,
         collaborators: 0,
-        color: "bg-gradient-to-r from-slate-500 to-slate-600"
+        color: "bg-gradient-to-r from-vesta-navy-muted to-vesta-navy"
       },
       scale: {
         name: "Scale Plan",

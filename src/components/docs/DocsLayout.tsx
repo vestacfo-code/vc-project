@@ -100,7 +100,7 @@ const SidebarNavSection = ({ section, currentPath, onLinkClick }: { section: Nav
 
   return (
     <Collapsible open={isOpen} onOpenChange={setIsOpen}>
-      <CollapsibleTrigger className="flex items-center justify-between w-full py-2 text-xs uppercase tracking-wider text-slate-500 hover:text-slate-800 transition-colors">
+      <CollapsibleTrigger className="flex items-center justify-between w-full py-2 text-xs uppercase tracking-wider text-vesta-navy/65 hover:text-vesta-navy transition-colors">
         <span>{section.title}</span>
         {isOpen ? <ChevronDown className="h-3 w-3" /> : <ChevronRight className="h-3 w-3" />}
       </CollapsibleTrigger>
@@ -113,13 +113,13 @@ const SidebarNavSection = ({ section, currentPath, onLinkClick }: { section: Nav
                 onClick={onLinkClick}
                 className={`flex items-center justify-between px-3 py-1.5 text-sm rounded-md transition-all ${
                   currentPath === item.href
-                    ? "bg-[#7ba3e8]/10 text-[#7ba3e8] border-l-2 border-[#7ba3e8] -ml-[2px]"
-                    : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+                    ? "bg-vesta-navy-muted/10 text-vesta-navy-muted border-l-2 border-vesta-navy-muted -ml-[2px]"
+                    : "text-vesta-navy/80 hover:bg-vesta-mist/40 hover:text-vesta-navy"
                 }`}
               >
                 <span>{item.title}</span>
                 {item.badge && (
-                  <span className="rounded bg-slate-100 px-1.5 py-0.5 text-[10px] text-slate-600">
+                  <span className="rounded bg-vesta-mist/40 px-1.5 py-0.5 text-[10px] text-vesta-navy/80">
                     {item.badge}
                   </span>
                 )}
@@ -144,25 +144,25 @@ const DocsLayout = ({ children, title, description, tableOfContents = [], nextPa
   }, [currentPath]);
 
   return (
-    <div className="min-h-screen bg-vesta-cream text-slate-900">
+    <div className="min-h-screen bg-vesta-cream text-vesta-navy">
       {/* Global Header */}
-      <div className="border-b border-slate-200 bg-white">
+      <div className="border-b border-vesta-navy/10 bg-white">
         <Header variant="light" />
       </div>
 
       {/* Docs Sub-header */}
-      <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur-xl">
+      <header className="sticky top-0 z-40 border-b border-vesta-navy/10 bg-white/95 backdrop-blur-xl">
         <div className="mx-auto flex max-w-[1600px] items-center justify-between px-4 py-3 md:px-6">
           <div className="flex items-center gap-4">
             {/* Mobile Menu Button */}
             <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
               <SheetTrigger asChild>
-                <button className="-ml-2 p-2 text-slate-600 transition-colors hover:text-slate-900 lg:hidden">
+                <button className="-ml-2 p-2 text-vesta-navy/80 transition-colors hover:text-vesta-navy lg:hidden">
                   <Menu className="h-5 w-5" />
                 </button>
               </SheetTrigger>
-              <SheetContent side="left" className="w-72 border-r border-slate-200 bg-white p-0">
-                <div className="border-b border-slate-200 p-4">
+              <SheetContent side="left" className="w-72 border-r border-vesta-navy/10 bg-white p-0">
+                <div className="border-b border-vesta-navy/10 p-4">
                   <Link to="/" className="flex items-center" onClick={() => setMobileMenuOpen(false)}>
                     <VestaLogo size="sm" tone="light" />
                   </Link>
@@ -183,13 +183,13 @@ const DocsLayout = ({ children, title, description, tableOfContents = [], nextPa
             </Sheet>
 
             <Link to="/docs" className="flex items-center gap-2">
-              <span className="text-sm font-medium text-slate-700">Documentation</span>
+              <span className="text-sm font-medium text-vesta-navy/90">Documentation</span>
             </Link>
           </div>
 
           <button 
             onClick={() => setChatOpen(true)}
-            className="flex items-center gap-2 text-sm text-slate-600 transition-colors hover:text-slate-900"
+            className="flex items-center gap-2 text-sm text-vesta-navy/80 transition-colors hover:text-vesta-navy"
           >
             <Sparkles className="h-4 w-4" />
             <span className="hidden sm:inline">Ask AI</span>
@@ -199,7 +199,7 @@ const DocsLayout = ({ children, title, description, tableOfContents = [], nextPa
 
       <div className="flex">
         {/* Left Sidebar - Desktop only */}
-        <aside className="fixed hidden h-[calc(100vh-65px)] w-60 overflow-y-auto border-r border-slate-200 bg-white lg:block">
+        <aside className="fixed hidden h-[calc(100vh-65px)] w-60 overflow-y-auto border-r border-vesta-navy/10 bg-white lg:block">
           <ScrollArea className="h-full">
             <nav className="p-4">
               {navigation.map((section) => (
@@ -216,7 +216,7 @@ const DocsLayout = ({ children, title, description, tableOfContents = [], nextPa
             {currentPath !== "/docs" && (
               <Link 
                 to="/docs" 
-                className="mb-6 inline-flex items-center gap-2 text-sm text-slate-600 transition-colors hover:text-slate-900"
+                className="mb-6 inline-flex items-center gap-2 text-sm text-vesta-navy/80 transition-colors hover:text-vesta-navy"
               >
                 <ArrowLeft className="h-4 w-4" />
                 Back to Documentation
@@ -224,16 +224,16 @@ const DocsLayout = ({ children, title, description, tableOfContents = [], nextPa
             )}
 
             {/* Page Title */}
-            <h1 className="mb-4 font-serif text-4xl font-normal text-slate-900 md:text-5xl">
+            <h1 className="mb-4 font-serif text-4xl font-normal text-vesta-navy md:text-5xl">
               {title}
             </h1>
             
             {description && (
-              <p className="mb-8 text-lg text-slate-600">{description}</p>
+              <p className="mb-8 text-lg text-vesta-navy/80">{description}</p>
             )}
 
             {/* Page Content */}
-            <div className="prose prose-slate max-w-none">
+            <div className="prose prose-neutral max-w-none">
               {children}
             </div>
 
@@ -246,15 +246,15 @@ const DocsLayout = ({ children, title, description, tableOfContents = [], nextPa
 
         {/* Right Sidebar - Table of Contents */}
         {tableOfContents.length > 0 && (
-          <aside className="fixed right-0 hidden h-[calc(100vh-65px)] w-52 overflow-y-auto border-l border-slate-200 bg-white xl:block">
+          <aside className="fixed right-0 hidden h-[calc(100vh-65px)] w-52 overflow-y-auto border-l border-vesta-navy/10 bg-white xl:block">
             <div className="p-6">
-              <h4 className="mb-4 text-xs uppercase tracking-wider text-slate-500">On this page</h4>
+              <h4 className="mb-4 text-xs uppercase tracking-wider text-vesta-navy/65">On this page</h4>
               <ul className="space-y-2">
                 {tableOfContents.map((item) => (
                   <li key={item.href}>
                     <a
                       href={item.href}
-                      className="text-sm text-slate-600 transition-colors hover:text-slate-900"
+                      className="text-sm text-vesta-navy/80 transition-colors hover:text-vesta-navy"
                     >
                       {item.title}
                     </a>
@@ -266,7 +266,7 @@ const DocsLayout = ({ children, title, description, tableOfContents = [], nextPa
         )}
       </div>
 
-      <SiteFooter variant="light" className="border-t border-slate-200 lg:ml-60" />
+      <SiteFooter variant="light" className="border-t border-vesta-navy/10 lg:ml-60" />
 
       {/* AI Support Chat */}
       <DocsSupportChat isOpen={chatOpen} onOpenChange={setChatOpen} />

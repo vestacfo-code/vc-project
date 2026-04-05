@@ -29,7 +29,7 @@ export default function Partners() {
             initial={{ opacity: 0, y: 20, filter: 'blur(8px)' }}
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
             transition={{ ...morphSpringSoft, delay: 0.05 }}
-            className="font-serif text-4xl sm:text-5xl font-normal text-slate-900 leading-tight max-w-3xl"
+            className="font-serif text-4xl sm:text-5xl font-normal text-vesta-navy leading-tight max-w-3xl"
           >
             Partner marketplace for hotel operations
           </motion.h1>
@@ -37,7 +37,7 @@ export default function Partners() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ ...morphSpringSoft, delay: 0.1 }}
-            className="mt-6 text-lg text-slate-600 max-w-2xl leading-relaxed"
+            className="mt-6 text-lg text-vesta-navy/80 max-w-2xl leading-relaxed"
           >
             We onboard vetted partners so you can discover supplies, technology, and services without leaving Vesta. Our first
             featured partner is{' '}
@@ -62,7 +62,7 @@ export default function Partners() {
           />
         </section>
 
-        <TellUsMoreSection className="bg-slate-50 border-t border-slate-100" />
+        <TellUsMoreSection className="bg-vesta-mist/25 border-t border-vesta-navy/8" />
       </div>
     </MarketingPageShell>
   );

@@ -16,46 +16,46 @@ const Reports = () => {
       nextPage={{ href: "/docs/features/expenses", title: "Expense Analysis" }}
     >
       <section id="types" className="mb-12">
-        <h2 className="text-2xl font-semibold text-slate-900 mb-4">Report Types</h2>
+        <h2 className="text-2xl font-semibold text-vesta-navy mb-4">Report Types</h2>
         <div className="grid gap-4">
-          <div className="border border-slate-200 bg-white rounded-xl p-4">
-            <h4 className="text-slate-900 font-medium mb-2">Weekly Summary</h4>
-            <p className="text-sm text-slate-400">Overview of the past week's financial activity</p>
+          <div className="border border-vesta-navy/10 bg-white rounded-xl p-4">
+            <h4 className="text-vesta-navy font-medium mb-2">Weekly Summary</h4>
+            <p className="text-sm text-vesta-navy-muted">Overview of the past week's financial activity</p>
           </div>
-          <div className="border border-slate-200 bg-white rounded-xl p-4">
-            <h4 className="text-slate-900 font-medium mb-2">Monthly P&L</h4>
-            <p className="text-sm text-slate-400">Profit and loss statement for the month</p>
+          <div className="border border-vesta-navy/10 bg-white rounded-xl p-4">
+            <h4 className="text-vesta-navy font-medium mb-2">Monthly P&L</h4>
+            <p className="text-sm text-vesta-navy-muted">Profit and loss statement for the month</p>
           </div>
-          <div className="border border-slate-200 bg-white rounded-xl p-4">
-            <h4 className="text-slate-900 font-medium mb-2">Cash Flow Report</h4>
-            <p className="text-sm text-slate-400">Detailed cash inflows and outflows</p>
+          <div className="border border-vesta-navy/10 bg-white rounded-xl p-4">
+            <h4 className="text-vesta-navy font-medium mb-2">Cash Flow Report</h4>
+            <p className="text-sm text-vesta-navy-muted">Detailed cash inflows and outflows</p>
           </div>
-          <div className="border border-slate-200 bg-white rounded-xl p-4">
-            <h4 className="text-slate-900 font-medium mb-2">Expense Report</h4>
-            <p className="text-sm text-slate-400">Breakdown of expenses by category</p>
+          <div className="border border-vesta-navy/10 bg-white rounded-xl p-4">
+            <h4 className="text-vesta-navy font-medium mb-2">Expense Report</h4>
+            <p className="text-sm text-vesta-navy-muted">Breakdown of expenses by category</p>
           </div>
         </div>
       </section>
 
       <section id="scheduling" className="mb-12">
-        <h2 className="text-2xl font-semibold text-slate-900 mb-4">Scheduling Options</h2>
-        <p className="text-slate-400 mb-4">
+        <h2 className="text-2xl font-semibold text-vesta-navy mb-4">Scheduling Options</h2>
+        <p className="text-vesta-navy-muted mb-4">
           Set up automatic report generation:
         </p>
-        <ul className="list-disc list-inside text-slate-400 space-y-2">
-          <li><strong className="text-slate-900">Daily:</strong> Sent every morning</li>
-          <li><strong className="text-slate-900">Weekly:</strong> Sent on your chosen day</li>
-          <li><strong className="text-slate-900">Monthly:</strong> Sent on the 1st of each month</li>
-          <li><strong className="text-slate-900">Quarterly:</strong> Sent at the end of each quarter</li>
+        <ul className="list-disc list-inside text-vesta-navy-muted space-y-2">
+          <li><strong className="text-vesta-navy">Daily:</strong> Sent every morning</li>
+          <li><strong className="text-vesta-navy">Weekly:</strong> Sent on your chosen day</li>
+          <li><strong className="text-vesta-navy">Monthly:</strong> Sent on the 1st of each month</li>
+          <li><strong className="text-vesta-navy">Quarterly:</strong> Sent at the end of each quarter</li>
         </ul>
       </section>
 
       <section id="email" className="mb-12">
-        <h2 className="text-2xl font-semibold text-slate-900 mb-4">Email Delivery</h2>
-        <p className="text-slate-400 mb-4">
+        <h2 className="text-2xl font-semibold text-vesta-navy mb-4">Email Delivery</h2>
+        <p className="text-vesta-navy-muted mb-4">
           Configure who receives your reports:
         </p>
-        <ul className="list-disc list-inside text-slate-400 space-y-2">
+        <ul className="list-disc list-inside text-vesta-navy-muted space-y-2">
           <li>Add multiple email recipients</li>
           <li>Choose PDF or HTML format</li>
           <li>Include or exclude specific sections</li>
@@ -64,11 +64,11 @@ const Reports = () => {
       </section>
 
       <section id="custom" className="mb-12">
-        <h2 className="text-2xl font-semibold text-slate-900 mb-4">Customization</h2>
-        <p className="text-slate-400 mb-4">
+        <h2 className="text-2xl font-semibold text-vesta-navy mb-4">Customization</h2>
+        <p className="text-vesta-navy-muted mb-4">
           Personalize your reports:
         </p>
-        <ul className="list-disc list-inside text-slate-400 space-y-2">
+        <ul className="list-disc list-inside text-vesta-navy-muted space-y-2">
           <li>Add your company logo</li>
           <li>Choose color themes</li>
           <li>Select which metrics to include</li>

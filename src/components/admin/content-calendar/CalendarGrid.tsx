@@ -122,7 +122,7 @@ export const CalendarGrid = ({ posts, onPostClick }: CalendarGridProps) => {
                   {dayPosts.slice(0, 2).map((post) => {
                     const platformColor = post.platforms[0] 
                       ? PLATFORM_COLORS[post.platforms[0] as keyof typeof PLATFORM_COLORS]
-                      : 'border-l-gray-400';
+                      : 'border-l-vesta-navy-muted';
 
                     return (
                       <button

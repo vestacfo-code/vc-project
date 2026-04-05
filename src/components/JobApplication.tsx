@@ -65,7 +65,7 @@ const JobApplication: React.FC<JobApplicationProps> = ({ jobRole, onClose }) => 
 
   const renderCustomQuestion = (question: CustomQuestion) => {
     const value = customAnswers[question.id] || '';
-    const customInputClass = "mt-1 bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-[#7ba3e8]/50 focus:ring-[#7ba3e8]/50";
+    const customInputClass = "mt-1 bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-vesta-navy-muted/50 focus:ring-vesta-navy-muted/50";
 
     switch (question.type) {
       case 'text':
@@ -106,7 +106,7 @@ const JobApplication: React.FC<JobApplicationProps> = ({ jobRole, onClose }) => 
             <SelectTrigger className="mt-1 bg-white/10 border-white/20 text-white">
               <SelectValue placeholder={question.placeholder || 'Select an option'} />
             </SelectTrigger>
-            <SelectContent className="border-slate-200 bg-white text-slate-900">
+            <SelectContent className="border-vesta-navy/10 bg-white text-vesta-navy">
               {(question.options || []).map((option) => (
                 <SelectItem key={option} value={option} className="text-white hover:bg-white/10 focus:bg-white/10">
                   {option}
@@ -129,7 +129,7 @@ const JobApplication: React.FC<JobApplicationProps> = ({ jobRole, onClose }) => 
                   checked={value === option}
                   onChange={(e) => handleCustomAnswer(question.id, e.target.value)}
                   required={question.required}
-                  className="h-4 w-4 accent-[#7ba3e8]"
+                  className="h-4 w-4 accent-vesta-navy-muted"
                 />
                 <Label htmlFor={`${question.id}_${option}`} className="font-normal text-white/80">
                   {option}
@@ -146,7 +146,7 @@ const JobApplication: React.FC<JobApplicationProps> = ({ jobRole, onClose }) => 
               id={question.id}
               checked={value === true}
               onCheckedChange={(checked) => handleCustomAnswer(question.id, checked)}
-              className="border-white/30 data-[state=checked]:bg-[#7ba3e8] data-[state=checked]:border-[#7ba3e8]"
+              className="border-white/30 data-[state=checked]:bg-vesta-navy-muted data-[state=checked]:border-vesta-navy-muted"
             />
             <Label htmlFor={question.id} className="font-normal text-white/80">
               {question.placeholder || 'Yes'}
@@ -326,7 +326,7 @@ const JobApplication: React.FC<JobApplicationProps> = ({ jobRole, onClose }) => 
     }
   };
 
-  const inputClassName = "mt-1 bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-[#7ba3e8]/50 focus:ring-[#7ba3e8]/50";
+  const inputClassName = "mt-1 bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-vesta-navy-muted/50 focus:ring-vesta-navy-muted/50";
   const selectClassName = "mt-1 bg-white/10 border-white/20 text-white";
 
   return (
@@ -488,7 +488,7 @@ const JobApplication: React.FC<JobApplicationProps> = ({ jobRole, onClose }) => 
                 <SelectTrigger className={selectClassName}>
                   <SelectValue placeholder="Select your work authorization status" />
                 </SelectTrigger>
-                <SelectContent className="border-slate-200 bg-white text-slate-900">
+                <SelectContent className="border-vesta-navy/10 bg-white text-vesta-navy">
                   <SelectItem value="us-citizen" className="text-white hover:bg-white/10 focus:bg-white/10">US Citizen</SelectItem>
                   <SelectItem value="us-permanent-resident" className="text-white hover:bg-white/10 focus:bg-white/10">US Permanent Resident</SelectItem>
                   <SelectItem value="canadian-citizen" className="text-white hover:bg-white/10 focus:bg-white/10">Canadian Citizen</SelectItem>
@@ -573,7 +573,7 @@ const JobApplication: React.FC<JobApplicationProps> = ({ jobRole, onClose }) => 
                   id="backgroundCheck"
                   checked={formData.backgroundCheckConsent}
                   onCheckedChange={(checked) => handleCheckboxChange('backgroundCheckConsent', checked as boolean)}
-                  className="border-white/30 data-[state=checked]:bg-[#7ba3e8] data-[state=checked]:border-[#7ba3e8]"
+                  className="border-white/30 data-[state=checked]:bg-vesta-navy-muted data-[state=checked]:border-vesta-navy-muted"
                 />
                 <Label htmlFor="backgroundCheck" className="text-sm leading-5 text-white/80">
                   I consent to a background check being conducted as part of the employment process *
@@ -584,7 +584,7 @@ const JobApplication: React.FC<JobApplicationProps> = ({ jobRole, onClose }) => 
                   id="privacyPolicy"
                   checked={formData.privacyPolicyConsent}
                   onCheckedChange={(checked) => handleCheckboxChange('privacyPolicyConsent', checked as boolean)}
-                  className="border-white/30 data-[state=checked]:bg-[#7ba3e8] data-[state=checked]:border-[#7ba3e8]"
+                  className="border-white/30 data-[state=checked]:bg-vesta-navy-muted data-[state=checked]:border-vesta-navy-muted"
                 />
                 <Label htmlFor="privacyPolicy" className="text-sm leading-5 text-white/80">
                   I agree to the Privacy Policy and consent to the collection and processing of my personal data *
@@ -596,7 +596,7 @@ const JobApplication: React.FC<JobApplicationProps> = ({ jobRole, onClose }) => 
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="flex-1 order-2 sm:order-1 bg-gradient-to-br from-[#7ba3e8] to-[#5a8ad4] hover:from-[#6a92d7] hover:to-[#4a7ac4] text-white py-3 rounded-xl font-medium shadow-lg shadow-[#7ba3e8]/20"
+                className="flex-1 order-2 sm:order-1 bg-gradient-to-br from-vesta-gold to-vesta-gold/85 text-vesta-navy py-3 rounded-xl font-medium shadow-lg shadow-vesta-navy/15 hover:from-vesta-gold/95 hover:to-vesta-gold/75"
                 size="lg"
               >
                 {isSubmitting ? 'Submitting Application...' : 'Submit Application'}

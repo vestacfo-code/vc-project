@@ -35,13 +35,13 @@ interface ChartDataPoint {
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
     return (
-      <div className="rounded-lg border border-slate-200 bg-white p-3 shadow-lg">
-        <p className="mb-2 text-xs text-slate-500">{label}</p>
+      <div className="rounded-lg border border-vesta-navy/10 bg-white p-3 shadow-lg">
+        <p className="mb-2 text-xs text-vesta-navy/65">{label}</p>
         {payload.map((entry: any) => (
           <div key={entry.dataKey} className="flex items-center gap-2 text-sm">
             <span className="inline-block h-2.5 w-2.5 rounded-full" style={{ backgroundColor: entry.color }} />
-            <span className="text-slate-600">{entry.name}:</span>
-            <span className="font-semibold text-slate-900">
+            <span className="text-vesta-navy/80">{entry.name}:</span>
+            <span className="font-semibold text-vesta-navy">
               {entry.dataKey === 'revpar'
                 ? `$${Number(entry.value).toFixed(2)}`
                 : `${(Number(entry.value) * 100).toFixed(1)}%`}
@@ -85,17 +85,17 @@ const RevParChart: React.FC<RevParChartProps> = ({ hotelId }) => {
   return (
     <Card className="border border-vesta-navy/10 bg-white shadow-sm">
       <CardHeader className="pb-2">
-        <CardTitle className="text-base font-semibold text-slate-900">
+        <CardTitle className="text-base font-semibold text-vesta-navy">
           30-Day RevPAR &amp; Occupancy Trend
         </CardTitle>
       </CardHeader>
       <CardContent>
         {isLoading ? (
           <div className="space-y-3">
-            <Skeleton className="h-64 w-full rounded-lg bg-slate-200" />
+            <Skeleton className="h-64 w-full rounded-lg bg-vesta-mist/50" />
           </div>
         ) : chartData.length === 0 ? (
-          <div className="flex items-center justify-center h-64 text-slate-500">
+          <div className="flex items-center justify-center h-64 text-vesta-navy/65">
             <p className="text-sm">No data available for the last 30 days</p>
           </div>
         ) : (

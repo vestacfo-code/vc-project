@@ -93,7 +93,7 @@ function SectionHeading({ kicker, title }: { kicker: string; title: string }) {
   return (
     <div className="mb-4">
       <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-vesta-gold">{kicker}</p>
-      <h2 className="mt-1 text-lg font-semibold tracking-tight text-slate-900">{title}</h2>
+      <h2 className="mt-1 text-lg font-semibold tracking-tight text-vesta-navy">{title}</h2>
     </div>
   );
 }
@@ -165,8 +165,8 @@ function PropertySnapshot({
             <li key={r.label} className="flex items-start gap-3">
               <span className="mt-0.5 shrink-0">{r.icon}</span>
               <div className="min-w-0">
-                <p className="text-xs text-slate-500">{r.label}</p>
-                <p className="truncate text-sm font-medium text-slate-900">{r.value}</p>
+                <p className="text-xs text-vesta-navy/65">{r.label}</p>
+                <p className="truncate text-sm font-medium text-vesta-navy">{r.value}</p>
               </div>
             </li>
           ))}
@@ -193,7 +193,7 @@ const NoDataBanner = () => {
         </div>
         <div>
           <p className="text-sm font-semibold text-vesta-navy">No KPI data for today yet</p>
-          <p className="mt-1 max-w-md text-xs text-slate-600">
+          <p className="mt-1 max-w-md text-xs text-vesta-navy/80">
             Connect a PMS or upload sample CSVs so RevPAR, ADR, and occupancy populate automatically.
           </p>
         </div>
@@ -259,7 +259,7 @@ const Dashboard = () => {
   const locationLine = [hotel?.city, hotel?.country].filter(Boolean).join(', ');
 
   return (
-    <div className="relative min-h-full text-slate-900">
+    <div className="relative min-h-full text-vesta-navy">
       {/* Brand-aligned backdrop */}
       <div
         className="pointer-events-none fixed inset-0 opacity-50 transform-gpu"
@@ -279,10 +279,10 @@ const Dashboard = () => {
           />
           <div className="relative flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div>
-              <h1 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
+              <h1 className="text-2xl font-bold tracking-tight text-vesta-navy sm:text-3xl">
                 {getGreeting()}, {userName}
               </h1>
-              <p className="mt-1.5 text-sm text-slate-600">{format(new Date(), 'EEEE, MMMM d, yyyy')}</p>
+              <p className="mt-1.5 text-sm text-vesta-navy/80">{format(new Date(), 'EEEE, MMMM d, yyyy')}</p>
             </div>
             <div className="flex flex-col items-start gap-2 lg:items-end">
               <div className="flex flex-wrap items-center gap-2">
@@ -292,8 +292,8 @@ const Dashboard = () => {
                 </span>
               </div>
               {locationLine ? (
-                <p className="flex items-center gap-1.5 text-sm text-slate-600">
-                  <Globe2 className="h-3.5 w-3.5 text-slate-400" />
+                <p className="flex items-center gap-1.5 text-sm text-vesta-navy/80">
+                  <Globe2 className="h-3.5 w-3.5 text-vesta-navy-muted" />
                   {locationLine}
                 </p>
               ) : null}
@@ -318,10 +318,10 @@ const Dashboard = () => {
                   <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-vesta-gold/15 text-vesta-gold ring-1 ring-vesta-gold/25">
                     <Icon className="h-4 w-4" />
                   </span>
-                  <ChevronRight className="mt-1 h-4 w-4 shrink-0 text-slate-400 transition-colors group-hover:text-vesta-gold" />
+                  <ChevronRight className="mt-1 h-4 w-4 shrink-0 text-vesta-navy-muted transition-colors group-hover:text-vesta-gold" />
                 </div>
-                <span className="text-sm font-semibold text-slate-900">{label}</span>
-                <span className="text-xs text-slate-500 mt-0.5 leading-snug">{hint}</span>
+                <span className="text-sm font-semibold text-vesta-navy">{label}</span>
+                <span className="text-xs text-vesta-navy/65 mt-0.5 leading-snug">{hint}</span>
               </Link>
             ))}
           </div>
@@ -383,14 +383,14 @@ const Dashboard = () => {
           </section>
         ) : !hotelLoading ? (
           <div className="rounded-2xl border border-vesta-navy/10 bg-white p-10 text-center shadow-sm">
-            <Building2 className="mx-auto mb-4 h-12 w-12 text-slate-400" />
-            <p className="text-lg font-semibold text-slate-900">No hotel linked yet</p>
-            <p className="mx-auto mt-2 max-w-sm text-sm text-slate-600">
+            <Building2 className="mx-auto mb-4 h-12 w-12 text-vesta-navy-muted" />
+            <p className="text-lg font-semibold text-vesta-navy">No hotel linked yet</p>
+            <p className="mx-auto mt-2 max-w-sm text-sm text-vesta-navy/80">
               Finish onboarding to attach a property. You will then see KPIs, briefings, and charts here.
             </p>
             <Button
               asChild
-              className="mt-6 bg-vesta-gold font-semibold text-slate-950 hover:bg-vesta-gold/90"
+              className="mt-6 bg-vesta-gold font-semibold text-vesta-navy hover:bg-vesta-gold/90"
             >
               <Link to="/onboarding">Start onboarding</Link>
             </Button>

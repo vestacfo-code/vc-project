@@ -41,7 +41,7 @@ const ROLE_CONFIG = {
   viewer: {
     label: 'Viewer',
     icon: Eye,
-    badge: 'border border-slate-200 bg-slate-100 text-slate-700',
+    badge: 'border border-vesta-navy/10 bg-vesta-mist/40 text-vesta-navy/90',
   },
 } as const
 
@@ -61,13 +61,13 @@ function MemberSkeleton() {
   return (
     <div className="flex items-center justify-between p-4 animate-pulse">
       <div className="flex items-center gap-3">
-        <div className="h-9 w-9 rounded-full bg-slate-200" />
+        <div className="h-9 w-9 rounded-full bg-vesta-mist/50" />
         <div className="space-y-2">
-          <div className="h-3.5 w-32 rounded bg-slate-200" />
-          <div className="h-3 w-24 rounded bg-slate-100" />
+          <div className="h-3.5 w-32 rounded bg-vesta-mist/50" />
+          <div className="h-3 w-24 rounded bg-vesta-mist/40" />
         </div>
       </div>
-      <div className="h-6 w-20 rounded-full bg-slate-200" />
+      <div className="h-6 w-20 rounded-full bg-vesta-mist/50" />
     </div>
   )
 }
@@ -152,25 +152,25 @@ export default function Team() {
 
   // ─────────────────────────────────────────────────────────────────────────
   return (
-    <div className="min-h-full space-y-8 p-6 text-slate-900">
+    <div className="min-h-full space-y-8 p-6 text-vesta-navy">
 
       {/* ── Header ──────────────────────────────────────────────────────────── */}
       <div>
-        <h1 className="text-2xl font-semibold text-slate-900">Team</h1>
-        <p className="mt-1 text-slate-600">
+        <h1 className="text-2xl font-semibold text-vesta-navy">Team</h1>
+        <p className="mt-1 text-vesta-navy/80">
           Manage who has access to your hotel's Vesta workspace.
         </p>
       </div>
 
       {/* ── Section 1: Current Members ──────────────────────────────────────── */}
       <div>
-        <h2 className="mb-4 flex items-center gap-2 text-sm font-medium uppercase tracking-wider text-slate-600">
+        <h2 className="mb-4 flex items-center gap-2 text-sm font-medium uppercase tracking-wider text-vesta-navy/80">
           <Users className="h-4 w-4" />
           Members
         </h2>
 
         {membersLoading ? (
-          <Card className="divide-y divide-slate-200 border border-vesta-navy/10 bg-white shadow-sm">
+          <Card className="divide-y divide-vesta-navy/10 border border-vesta-navy/10 bg-white shadow-sm">
             {[1, 2, 3].map((i) => (
               <MemberSkeleton key={i} />
             ))}
@@ -178,16 +178,16 @@ export default function Team() {
         ) : members.length === 0 ? (
           <Card className="border border-vesta-navy/10 bg-white shadow-sm">
             <CardContent className="py-10 text-center">
-              <Users className="mx-auto mb-3 h-8 w-8 text-slate-400" />
-              <p className="text-slate-600">No team members found.</p>
-              <p className="text-slate-500 text-sm mt-1">
+              <Users className="mx-auto mb-3 h-8 w-8 text-vesta-navy-muted" />
+              <p className="text-vesta-navy/80">No team members found.</p>
+              <p className="text-vesta-navy/65 text-sm mt-1">
                 Invite someone below to get started.
               </p>
             </CardContent>
           </Card>
         ) : (
           <Card className="overflow-hidden border border-vesta-navy/10 bg-white shadow-sm">
-            <div className="divide-y divide-slate-200">
+            <div className="divide-y divide-vesta-navy/10">
               {members.map((member) => {
                 const cfg = getRoleConfig(member.role)
                 const RoleIcon = cfg.icon
@@ -197,23 +197,23 @@ export default function Team() {
                 return (
                   <div
                     key={member.id}
-                    className="flex items-center justify-between px-5 py-4 transition-colors hover:bg-slate-50"
+                    className="flex items-center justify-between px-5 py-4 transition-colors hover:bg-vesta-mist/25"
                   >
                     {/* Left: avatar + info */}
                     <div className="flex items-center gap-3 min-w-0">
-                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-slate-100">
-                        <RoleIcon className="h-4 w-4 text-slate-600" />
+                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-vesta-navy/10 bg-vesta-mist/40">
+                        <RoleIcon className="h-4 w-4 text-vesta-navy/80" />
                       </div>
                       <div className="min-w-0">
                         <div className="flex items-center gap-2 flex-wrap">
-                          <span className="font-mono text-sm font-medium text-slate-900">
+                          <span className="font-mono text-sm font-medium text-vesta-navy">
                             …{abbreviateUuid(member.user_id)}
                           </span>
                           {isCurrentUser && (
-                            <span className="text-xs text-slate-500">(you)</span>
+                            <span className="text-xs text-vesta-navy/65">(you)</span>
                           )}
                         </div>
-                        <p className="text-xs text-slate-500 mt-0.5">
+                        <p className="text-xs text-vesta-navy/65 mt-0.5">
                           Joined {format(new Date(member.created_at), 'MMM d, yyyy')}
                         </p>
                       </div>
@@ -249,17 +249,17 @@ export default function Team() {
 
       {/* ── Section 2: Invite New Member ────────────────────────────────────── */}
       <div>
-        <h2 className="mb-4 flex items-center gap-2 text-sm font-medium uppercase tracking-wider text-slate-600">
+        <h2 className="mb-4 flex items-center gap-2 text-sm font-medium uppercase tracking-wider text-vesta-navy/80">
           <UserPlus className="h-4 w-4" />
           Invite New Member
         </h2>
 
         <Card className="border border-vesta-navy/10 bg-white shadow-sm">
           <CardHeader className="px-5 pb-3 pt-5">
-            <CardTitle className="text-base font-medium text-slate-900">
+            <CardTitle className="text-base font-medium text-vesta-navy">
               Send an invitation
             </CardTitle>
-            <p className="mt-0.5 text-sm text-slate-600">
+            <p className="mt-0.5 text-sm text-vesta-navy/80">
               The recipient will receive an email with a link to join your workspace.
             </p>
           </CardHeader>
@@ -270,7 +270,7 @@ export default function Team() {
                 placeholder="colleague@example.com"
                 value={inviteEmail}
                 onChange={(e) => setInviteEmail(e.target.value)}
-                className="flex-1 border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus:border-vesta-gold/50 focus:ring-vesta-gold/20"
+                className="flex-1 border-vesta-navy/10 bg-white text-vesta-navy placeholder:text-vesta-navy-muted focus:border-vesta-gold/50 focus:ring-vesta-gold/20"
                 required
                 disabled={inviteMutation.isPending}
               />
@@ -280,14 +280,14 @@ export default function Team() {
                 onValueChange={(val) => setInviteRole(val as InviteRole)}
                 disabled={inviteMutation.isPending}
               >
-                <SelectTrigger className="w-full border-slate-200 bg-white text-slate-900 sm:w-36 focus:border-vesta-gold/50">
+                <SelectTrigger className="w-full border-vesta-navy/10 bg-white text-vesta-navy sm:w-36 focus:border-vesta-gold/50">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent className="border-slate-200 bg-white text-slate-900">
-                  <SelectItem value="manager" className="focus:bg-slate-100 focus:text-slate-900">
+                <SelectContent className="border-vesta-navy/10 bg-white text-vesta-navy">
+                  <SelectItem value="manager" className="focus:bg-vesta-mist/40 focus:text-vesta-navy">
                     Manager
                   </SelectItem>
-                  <SelectItem value="viewer" className="focus:bg-slate-100 focus:text-slate-900">
+                  <SelectItem value="viewer" className="focus:bg-vesta-mist/40 focus:text-vesta-navy">
                     Viewer
                   </SelectItem>
                 </SelectContent>
@@ -296,7 +296,7 @@ export default function Team() {
               <Button
                 type="submit"
                 disabled={inviteMutation.isPending || !inviteEmail.trim() || !hotelId}
-                className="shrink-0 bg-vesta-gold font-semibold text-slate-950 hover:bg-vesta-gold/90 disabled:opacity-50"
+                className="shrink-0 bg-vesta-gold font-semibold text-vesta-navy hover:bg-vesta-gold/90 disabled:opacity-50"
               >
                 <UserPlus className="w-4 h-4 mr-1.5" />
                 {inviteMutation.isPending ? 'Sending…' : 'Send Invite'}
@@ -308,7 +308,7 @@ export default function Team() {
 
       {/* ── Section 3: Role Guide ────────────────────────────────────────────── */}
       <div>
-        <h2 className="mb-4 text-sm font-medium uppercase tracking-wider text-slate-600">
+        <h2 className="mb-4 text-sm font-medium uppercase tracking-wider text-vesta-navy/80">
           Role Guide
         </h2>
 
@@ -322,8 +322,8 @@ export default function Team() {
                   <Crown className="h-4 w-4 text-vesta-gold" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-slate-900">Owner</p>
-                  <p className="mt-1 text-xs leading-relaxed text-slate-600">
+                  <p className="text-sm font-medium text-vesta-navy">Owner</p>
+                  <p className="mt-1 text-xs leading-relaxed text-vesta-navy/80">
                     Full access to all features including billing management and hotel deletion.
                     Automatically assigned to the account creator.
                   </p>
@@ -336,8 +336,8 @@ export default function Team() {
                   <Shield className="h-4 w-4 text-blue-700" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-slate-900">Manager</p>
-                  <p className="mt-1 text-xs leading-relaxed text-slate-600">
+                  <p className="text-sm font-medium text-vesta-navy">Manager</p>
+                  <p className="mt-1 text-xs leading-relaxed text-vesta-navy/80">
                     Can view and edit all data, manage integrations, and invite new members.
                     Cannot access billing or delete the hotel.
                   </p>
@@ -346,12 +346,12 @@ export default function Team() {
 
               {/* Viewer */}
               <div className="flex gap-3">
-                <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-slate-100">
-                  <Eye className="h-4 w-4 text-slate-600" />
+                <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-vesta-mist/40">
+                  <Eye className="h-4 w-4 text-vesta-navy/80" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-slate-900">Viewer</p>
-                  <p className="mt-1 text-xs leading-relaxed text-slate-600">
+                  <p className="text-sm font-medium text-vesta-navy">Viewer</p>
+                  <p className="mt-1 text-xs leading-relaxed text-vesta-navy/80">
                     Read-only access to the dashboard and reports. Cannot edit data or
                     change any settings.
                   </p>

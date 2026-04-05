@@ -145,7 +145,7 @@ export default function Landing() {
   const isLastChapter = activeChapter?.headline === 'Ready when you are.';
 
   return (
-    <main className="min-h-screen bg-vesta-cream text-slate-900">
+    <main className="min-h-screen bg-vesta-cream text-vesta-navy">
       <MarketingNav variant="light" />
 
       {/* ── Scroll-scrubbed video section ── */}
@@ -210,15 +210,15 @@ export default function Landing() {
             )}
           </div>
 
-          <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-px bg-slate-200/80">
+          <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-px bg-vesta-mist/80">
             <div className="h-full bg-vesta-gold/80 transition-all duration-100" style={{ width: `${progress * 100}%` }} />
           </div>
 
           <div
-            className={`pointer-events-none absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-slate-500 transition-opacity duration-700 ${progress > 0.04 ? 'opacity-0' : 'opacity-100'}`}
+            className={`pointer-events-none absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-vesta-navy/65 transition-opacity duration-700 ${progress > 0.04 ? 'opacity-0' : 'opacity-100'}`}
           >
             <span className="text-xs uppercase tracking-widest">Scroll</span>
-            <div className="h-6 w-px animate-pulse bg-slate-400/60" />
+            <div className="h-6 w-px animate-pulse bg-vesta-navy-muted/50" />
           </div>
         </div>
       </div>
@@ -260,7 +260,7 @@ export default function Landing() {
                     <Icon className="h-5 w-5 text-vesta-gold" strokeWidth={1.5} />
                   </div>
                   <h3 className="mb-2 text-lg font-semibold text-vesta-navy">{title}</h3>
-                  <p className="mb-4 text-sm leading-relaxed text-slate-600">{desc}</p>
+                  <p className="mb-4 text-sm leading-relaxed text-vesta-navy/80">{desc}</p>
                   <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-vesta-gold">
                     Learn more
                     <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
@@ -285,16 +285,16 @@ export default function Landing() {
                   className="flex h-full flex-col rounded-2xl border border-vesta-navy/10 bg-vesta-mist/35 p-6 shadow-sm md:p-8"
                 >
                   <Quote className="mb-4 h-8 w-8 text-vesta-gold/70" aria-hidden strokeWidth={1.25} />
-                  <p className="flex-1 text-sm leading-relaxed text-slate-700">&ldquo;{t.quote}&rdquo;</p>
+                  <p className="flex-1 text-sm leading-relaxed text-vesta-navy/90">&ldquo;{t.quote}&rdquo;</p>
                   <footer className="mt-6 border-t border-vesta-navy/10 pt-5">
                     <p className="text-sm font-semibold text-vesta-navy">{t.name}</p>
-                    <p className="text-xs text-slate-600">{t.role}</p>
+                    <p className="text-xs text-vesta-navy/80">{t.role}</p>
                     <p className="text-xs text-vesta-navy-muted">{t.detail}</p>
                   </footer>
                 </blockquote>
               ))}
             </div>
-            <p className="mt-10 text-center text-xs text-slate-500">
+            <p className="mt-10 text-center text-xs text-vesta-navy/65">
               Quotes reflect pilot feedback and composite operator feedback; names anonymized.
             </p>
           </div>
@@ -308,7 +308,7 @@ export default function Landing() {
               <h2 className="mb-4 font-serif text-3xl font-light leading-tight text-vesta-navy md:text-4xl">
                 See your numbers in one calm place.
               </h2>
-              <p className="mx-auto mb-10 max-w-md text-sm leading-relaxed text-slate-600">
+              <p className="mx-auto mb-10 max-w-md text-sm leading-relaxed text-vesta-navy/80">
                 Create an account to explore the dashboard, or talk to us if you are rolling out across several properties.
               </p>
               <div className="flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
@@ -329,7 +329,7 @@ export default function Landing() {
                 <button
                   type="button"
                   onClick={() => navigate('/dashboard')}
-                  className="w-full rounded-full border border-transparent px-10 py-3.5 text-sm font-medium uppercase tracking-widest text-slate-500 transition-all hover:text-vesta-navy sm:w-auto"
+                  className="w-full rounded-full border border-transparent px-10 py-3.5 text-sm font-medium uppercase tracking-widest text-vesta-navy/65 transition-all hover:text-vesta-navy sm:w-auto"
                 >
                   Dashboard
                 </button>

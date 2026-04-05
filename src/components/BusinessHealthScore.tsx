@@ -80,7 +80,7 @@ const BusinessHealthScore = ({ score, previousScore = 85, insights }: HealthScor
   return (
     <div className="space-y-4">
       {/* Main Score Card */}
-      <Card className="bg-white border border-gray-200">
+      <Card className="bg-white border border-vesta-navy/10">
         <CardHeader className="pb-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -89,7 +89,7 @@ const BusinessHealthScore = ({ score, previousScore = 85, insights }: HealthScor
             </div>
             <Badge 
               variant={isImproving ? "default" : "secondary"} 
-              className={`gap-1 text-sm ${isImproving ? 'bg-green-100 text-green-800 border-0' : 'bg-gray-100 text-gray-800 border-0'}`}
+              className={`gap-1 text-sm ${isImproving ? 'bg-green-100 text-green-800 border-0' : 'bg-vesta-mist/40 text-vesta-navy border-0'}`}
             >
               {isImproving ? (
                 <TrendingUp className="w-3 h-3" />
@@ -106,15 +106,15 @@ const BusinessHealthScore = ({ score, previousScore = 85, insights }: HealthScor
           <div className="text-center space-y-4">
             <div className={`text-7xl font-medium ${getScoreColor(score)}`}>
               {score}
-              <span className="text-2xl text-gray-500 font-normal">/100</span>
+              <span className="text-2xl text-vesta-navy/65 font-normal">/100</span>
             </div>
             
             <div className="space-y-2">
               <Progress 
                 value={score} 
-                className="h-3 bg-gray-100"
+                className="h-3 bg-vesta-mist/40"
               />
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-vesta-navy/80">
                 {score >= 80 ? 'Excellent' : score >= 60 ? 'Good' : 'Needs Attention'} • 
                 <span className={`ml-1 font-medium ${getScoreColor(score)}`}>
                   {score >= 80 ? 'Strong financial health' : score >= 60 ? 'Moderate performance' : 'Requires immediate action'}
@@ -130,7 +130,7 @@ const BusinessHealthScore = ({ score, previousScore = 85, insights }: HealthScor
         <Button 
           variant="outline" 
           onClick={() => setShowBreakdown(!showBreakdown)}
-          className="gap-2 bg-white border-gray-300 text-gray-700 hover:bg-gray-50"
+          className="gap-2 bg-white border-vesta-navy/15 text-vesta-navy/90 hover:bg-vesta-mist/25"
         >
           Learn How Your Score is Calculated
           {showBreakdown ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
@@ -139,7 +139,7 @@ const BusinessHealthScore = ({ score, previousScore = 85, insights }: HealthScor
 
       {/* Score Breakdown Card - Collapsible */}
       {showBreakdown && (
-        <Card className="bg-white border border-gray-200">
+        <Card className="bg-white border border-vesta-navy/10">
           <CardHeader className="pb-3">
             <div className="flex items-center gap-2">
               <Info className="w-4 h-4 text-primary" />
@@ -173,7 +173,7 @@ const BusinessHealthScore = ({ score, previousScore = 85, insights }: HealthScor
             ))}
             
             <div className="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
-              <p className="text-xs text-gray-700">
+              <p className="text-xs text-vesta-navy/90">
                 <strong className="font-medium">Algorithm:</strong> Each factor is weighted based on its impact on business sustainability. 
                 Revenue Growth (30%) + Profit Margins (25%) + Cash Runway (25%) + Expense Control (20%) = Your Score
               </p>

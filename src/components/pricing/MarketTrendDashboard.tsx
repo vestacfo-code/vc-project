@@ -23,8 +23,8 @@ export function MarketTrendDashboard() {
     <div className="flex-1 p-6 pt-16 space-y-6 overflow-y-auto">
       {/* Header + Date Range as full-width segmented control */}
       <div>
-        <h1 className="text-2xl font-semibold text-zinc-900">Market Trends</h1>
-        <p className="text-sm text-zinc-500 mt-1">
+        <h1 className="text-2xl font-semibold text-vesta-navy">Market Trends</h1>
+        <p className="text-sm text-vesta-navy/65 mt-1">
           {overview.supplierCount} supplier{overview.supplierCount !== 1 ? 's' : ''} • {overview.productCount} products tracked
           {overview.dateRange.from && overview.dateRange.to && (
             <> • {new Date(overview.dateRange.from).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} – {new Date(overview.dateRange.to).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</>
@@ -32,7 +32,7 @@ export function MarketTrendDashboard() {
         </p>
 
         {/* Full-width segmented control */}
-        <div className="flex items-center gap-1 bg-white border border-zinc-200 rounded-lg p-1 mt-4 w-fit">
+        <div className="flex items-center gap-1 bg-white border border-vesta-navy/10 rounded-lg p-1 mt-4 w-fit">
           {DATE_RANGES.map((r) => (
             <Button
               key={r.value}
@@ -43,7 +43,7 @@ export function MarketTrendDashboard() {
                 'h-8 px-5 text-xs font-semibold rounded-md transition-all duration-200',
                 dateRange === r.value
                   ? 'bg-vesta-gold/20 text-vesta-navy shadow-sm ring-1 ring-vesta-gold/35 hover:bg-vesta-gold/25'
-                  : 'text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700'
+                  : 'text-vesta-navy/65 hover:bg-vesta-mist/25 hover:text-vesta-navy/90'
               )}
             >
               {r.label}

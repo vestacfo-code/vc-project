@@ -44,16 +44,16 @@ export const AgentProgressIndicator = ({
 
   return (
     <div className="flex gap-3 md:gap-4">
-      <div className="w-7 h-7 md:w-8 md:h-8 rounded-full bg-zinc-800 flex items-center justify-center flex-shrink-0 mt-0.5">
+      <div className="w-7 h-7 md:w-8 md:h-8 rounded-full bg-vesta-navy-muted/30 flex items-center justify-center flex-shrink-0 mt-0.5">
         <div className="w-2 h-2 rounded-full bg-white animate-pulse" />
       </div>
       <div className="flex-1 min-w-0">
         {/* Header */}
         <div className="flex items-center justify-between mb-3">
-          <span className="text-sm font-semibold text-zinc-900">Thinking</span>
+          <span className="text-sm font-semibold text-vesta-navy">Thinking</span>
           <button
             onClick={onCancel}
-            className="text-xs text-zinc-400 hover:text-red-500 flex items-center gap-1 transition-colors"
+            className="text-xs text-vesta-navy-muted hover:text-red-500 flex items-center gap-1 transition-colors"
           >
             <X className="w-3.5 h-3.5" />
           </button>
@@ -67,14 +67,14 @@ export const AgentProgressIndicator = ({
                 "w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0",
                 i === thoughts.length - 1 ? "bg-cyan-400 animate-pulse" : "bg-emerald-400"
               )} />
-              <span className="text-sm text-zinc-600 leading-relaxed">{thought}</span>
+              <span className="text-sm text-vesta-navy/80 leading-relaxed">{thought}</span>
             </div>
           ))}
           {/* Current label as live entry */}
           {currentLabel && (
             <div className="flex items-start gap-2.5">
               <div className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0 bg-cyan-400 animate-pulse" />
-              <span className="text-sm text-zinc-600 leading-relaxed">{currentLabel}</span>
+              <span className="text-sm text-vesta-navy/80 leading-relaxed">{currentLabel}</span>
             </div>
           )}
         </div>
@@ -87,9 +87,9 @@ export const AgentProgressIndicator = ({
               {searchQueries.map((query, i) => (
                 <div
                   key={i}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-zinc-100 rounded-full text-xs text-zinc-600"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-vesta-mist/40 rounded-full text-xs text-vesta-navy/80"
                 >
-                  <Search className="w-3 h-3 text-zinc-400" />
+                  <Search className="w-3 h-3 text-vesta-navy-muted" />
                   {query}
                 </div>
               ))}
@@ -101,15 +101,15 @@ export const AgentProgressIndicator = ({
         {sources.length > 0 && (
           <div>
             <span className="text-xs font-medium text-cyan-600 mb-2 block">Reviewing sources</span>
-            <div className="bg-zinc-50 rounded-xl border border-zinc-100 divide-y divide-zinc-100 overflow-hidden">
+            <div className="bg-vesta-mist/25 rounded-xl border border-vesta-navy/8 divide-y divide-vesta-navy/8 overflow-hidden">
               {sources.map((source, i) => (
                 <div key={i} className="flex items-center justify-between px-4 py-2.5 gap-3">
                   <div className="flex items-center gap-2.5 min-w-0">
-                    <Globe className="w-4 h-4 text-zinc-400 flex-shrink-0" />
-                    <span className="text-sm text-zinc-700 truncate">{source.title}</span>
+                    <Globe className="w-4 h-4 text-vesta-navy-muted flex-shrink-0" />
+                    <span className="text-sm text-vesta-navy/90 truncate">{source.title}</span>
                   </div>
                   {source.domain && (
-                    <span className="text-xs text-zinc-400 flex-shrink-0">{source.domain}</span>
+                    <span className="text-xs text-vesta-navy-muted flex-shrink-0">{source.domain}</span>
                   )}
                 </div>
               ))}
@@ -121,7 +121,7 @@ export const AgentProgressIndicator = ({
         {completedSteps.length > 0 && thoughts.length === 0 && searchQueries.length === 0 && (
           <div className="space-y-1.5 mt-2">
             {completedSteps.map((s) => (
-              <div key={s.step} className="flex items-center gap-2 text-xs text-zinc-400">
+              <div key={s.step} className="flex items-center gap-2 text-xs text-vesta-navy-muted">
                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" />
                 <span className="truncate">{s.label}</span>
               </div>

@@ -146,7 +146,7 @@ export const FileUploadButton = ({
         size="icon"
         onClick={() => fileInputRef.current?.click()}
         disabled={disabled || isUploading}
-        className="h-8 w-8 rounded-full bg-zinc-800 hover:bg-zinc-700 text-white border-0"
+        className="h-8 w-8 rounded-full bg-vesta-navy-muted/30 hover:bg-vesta-navy-muted/25 text-white border-0"
       >
         {isUploading ? (
           <Loader2 className="h-4 w-4 animate-spin" />

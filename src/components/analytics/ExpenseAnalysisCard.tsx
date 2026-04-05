@@ -24,9 +24,9 @@ export const ExpenseAnalysisCard = ({ data }: ExpenseAnalysisCardProps) => {
   };
 
   return (
-    <Card className="bg-white border border-gray-200 group hover:shadow-md transition-all">
+    <Card className="bg-white border border-vesta-navy/10 group hover:shadow-md transition-all">
       <CardHeader className="flex-row items-start justify-between space-y-0 pb-4">
-        <CardTitle className="text-sm font-medium text-gray-700">Expense Intelligence</CardTitle>
+        <CardTitle className="text-sm font-medium text-vesta-navy/90">Expense Intelligence</CardTitle>
         <ChatIconButton reference={reference} />
       </CardHeader>
       <CardContent className="space-y-6">
@@ -51,22 +51,22 @@ export const ExpenseAnalysisCard = ({ data }: ExpenseAnalysisCardProps) => {
 
         {/* Top Vendors - Clean List */}
         <div className="space-y-1">
-          <p className="text-xs text-gray-500 mb-3">Top Spending</p>
+          <p className="text-xs text-vesta-navy/65 mb-3">Top Spending</p>
           {data.topVendors.slice(0, 5).map((vendor, idx) => (
-            <div key={vendor.name} className="flex items-center justify-between py-2 border-b border-gray-50 last:border-0">
+            <div key={vendor.name} className="flex items-center justify-between py-2 border-b border-vesta-mist/50 last:border-0">
               <div className="flex items-center gap-3 flex-1 min-w-0">
-                <span className="text-xs text-gray-400 w-4">{idx + 1}</span>
-                <span className="text-sm text-gray-900 truncate">{vendor.name}</span>
+                <span className="text-xs text-vesta-navy-muted w-4">{idx + 1}</span>
+                <span className="text-sm text-vesta-navy truncate">{vendor.name}</span>
               </div>
-              <span className="text-sm font-medium text-gray-900 ml-4">{formatCurrency(vendor.amount)}</span>
+              <span className="text-sm font-medium text-vesta-navy ml-4">{formatCurrency(vendor.amount)}</span>
             </div>
           ))}
         </div>
 
         {/* Top Insight Only */}
         {data.insights && data.insights.length > 0 && (
-          <div className="pt-4 border-t border-gray-100">
-            <p className="text-xs text-gray-700 leading-relaxed">{data.insights[0].action}</p>
+          <div className="pt-4 border-t border-vesta-navy/8">
+            <p className="text-xs text-vesta-navy/90 leading-relaxed">{data.insights[0].action}</p>
           </div>
         )}
       </CardContent>

@@ -225,8 +225,8 @@
          <Card>
            <CardContent className="pt-4">
              <div className="flex items-center gap-3">
-               <div className="p-2 rounded-lg bg-gray-100">
-                 <User className="h-5 w-5 text-gray-600" />
+               <div className="p-2 rounded-lg bg-vesta-mist/40">
+                 <User className="h-5 w-5 text-vesta-navy/80" />
                </div>
                <div>
                  <p className="text-sm text-muted-foreground">Total</p>

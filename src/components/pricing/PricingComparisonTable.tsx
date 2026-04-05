@@ -48,12 +48,12 @@ export function PricingComparisonTable({ products, suppliers, onAskAI }: Pricing
 
   if (products.length === 0) {
     return (
-      <div className="text-center py-16 text-zinc-500 bg-white rounded-xl border border-zinc-200">
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-zinc-100 mb-4">
-          <TrendingUp className="w-8 h-8 text-slate-500" />
+      <div className="text-center py-16 text-vesta-navy/65 bg-white rounded-xl border border-vesta-navy/10">
+        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-vesta-mist/40 mb-4">
+          <TrendingUp className="w-8 h-8 text-vesta-navy/65" />
         </div>
-        <p className="text-lg font-semibold text-zinc-700 mb-1">No products yet</p>
-        <p className="text-sm text-slate-500">Upload a price list to get started</p>
+        <p className="text-lg font-semibold text-vesta-navy/90 mb-1">No products yet</p>
+        <p className="text-sm text-vesta-navy/65">Upload a price list to get started</p>
       </div>
     );
   }
@@ -65,7 +65,7 @@ export function PricingComparisonTable({ products, suppliers, onAskAI }: Pricing
     <div>
       {/* Segmented supplier tabs when 2-3 suppliers */}
       {useSegmented && (
-        <div className="flex items-center gap-1 bg-white border border-zinc-200 rounded-lg p-1 mb-3 w-fit">
+        <div className="flex items-center gap-1 bg-white border border-vesta-navy/10 rounded-lg p-1 mb-3 w-fit">
           {suppliers.map((supplier, index) => (
             <Button
               key={supplier.id}
@@ -76,7 +76,7 @@ export function PricingComparisonTable({ products, suppliers, onAskAI }: Pricing
                 'h-7 px-4 text-xs font-medium rounded-md transition-all duration-200',
                 selectedSupplierIndex === index
                   ? 'bg-vesta-gold/20 text-vesta-navy shadow-sm ring-1 ring-vesta-gold/35 hover:bg-vesta-gold/25'
-                  : 'text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700'
+                  : 'text-vesta-navy/65 hover:bg-vesta-mist/25 hover:text-vesta-navy/90'
               )}
             >
               {supplier.name}
@@ -85,23 +85,23 @@ export function PricingComparisonTable({ products, suppliers, onAskAI }: Pricing
         </div>
       )}
 
-      <div className="border border-zinc-200 rounded-xl overflow-hidden bg-white">
+      <div className="border border-vesta-navy/10 rounded-xl overflow-hidden bg-white">
         <Table>
           <TableHeader>
-            <TableRow className="bg-zinc-50 hover:bg-zinc-50">
-              <TableHead className="font-semibold text-zinc-700">UPC</TableHead>
-              <TableHead className="font-semibold text-zinc-700">Brand</TableHead>
-              <TableHead className="font-semibold text-zinc-700">Description</TableHead>
-              <TableHead className="font-semibold text-zinc-700 text-right">Your Price</TableHead>
+            <TableRow className="bg-vesta-mist/25 hover:bg-vesta-mist/25">
+              <TableHead className="font-semibold text-vesta-navy/90">UPC</TableHead>
+              <TableHead className="font-semibold text-vesta-navy/90">Brand</TableHead>
+              <TableHead className="font-semibold text-vesta-navy/90">Description</TableHead>
+              <TableHead className="font-semibold text-vesta-navy/90 text-right">Your Price</TableHead>
               {suppliers.length > 0 && (
-                <TableHead className="font-semibold text-zinc-700 text-right">
+                <TableHead className="font-semibold text-vesta-navy/90 text-right">
                   {!useSegmented && suppliers.length > 1 ? (
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
                         <Button 
                           variant="ghost" 
                           size="sm" 
-                          className="h-auto p-1 px-2 font-semibold text-zinc-700 hover:bg-zinc-100 hover:text-zinc-900 rounded-md"
+                          className="h-auto p-1 px-2 font-semibold text-vesta-navy/90 hover:bg-vesta-mist/40 hover:text-vesta-navy rounded-md"
                         >
                           {selectedSupplier?.name || 'Supplier'}
                           <ChevronDown className="w-3 h-3 ml-1" />
@@ -109,17 +109,17 @@ export function PricingComparisonTable({ products, suppliers, onAskAI }: Pricing
                       </DropdownMenuTrigger>
                       <DropdownMenuContent 
                         align="end" 
-                        className="bg-white border border-zinc-200 shadow-lg z-50 min-w-[200px]"
+                        className="bg-white border border-vesta-navy/10 shadow-lg z-50 min-w-[200px]"
                       >
                         {suppliers.map((supplier, index) => (
                           <DropdownMenuItem 
                             key={supplier.id}
                             onClick={() => setSelectedSupplierIndex(index)}
-                            className={`cursor-pointer ${selectedSupplierIndex === index ? 'bg-zinc-100 font-medium' : 'hover:bg-zinc-50'}`}
+                            className={`cursor-pointer ${selectedSupplierIndex === index ? 'bg-vesta-mist/40 font-medium' : 'hover:bg-vesta-mist/25'}`}
                           >
                             {supplier.name}
                             {selectedSupplierIndex === index && (
-                              <span className="ml-auto text-slate-500">✓</span>
+                              <span className="ml-auto text-vesta-navy/65">✓</span>
                             )}
                           </DropdownMenuItem>
                         ))}
@@ -130,8 +130,8 @@ export function PricingComparisonTable({ products, suppliers, onAskAI }: Pricing
                   )}
                 </TableHead>
               )}
-              <TableHead className="font-semibold text-zinc-700 text-right">Variance</TableHead>
-              <TableHead className="font-semibold text-zinc-700 text-right">Avail.</TableHead>
+              <TableHead className="font-semibold text-vesta-navy/90 text-right">Variance</TableHead>
+              <TableHead className="font-semibold text-vesta-navy/90 text-right">Avail.</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -149,26 +149,26 @@ export function PricingComparisonTable({ products, suppliers, onAskAI }: Pricing
                   key={product.id}
                   className={cn(
                     'transition-colors duration-150',
-                    rowIndex % 2 === 1 ? 'bg-zinc-50/50' : 'bg-white',
-                    'hover:bg-zinc-100/50'
+                    rowIndex % 2 === 1 ? 'bg-vesta-mist/50' : 'bg-white',
+                    'hover:bg-vesta-mist/50'
                   )}
                 >
-                  <TableCell className="font-mono text-sm text-zinc-600">
+                  <TableCell className="font-mono text-sm text-vesta-navy/80">
                     {product.upc}
                   </TableCell>
                   <TableCell>
-                    <Badge variant="outline" className="font-medium text-zinc-800 bg-zinc-50 border-zinc-300">
+                    <Badge variant="outline" className="font-medium text-vesta-navy bg-vesta-mist/25 border-vesta-navy/15">
                       {product.brand || 'Unknown'}
                     </Badge>
                   </TableCell>
-                  <TableCell className="max-w-[200px] truncate text-zinc-700">
+                  <TableCell className="max-w-[200px] truncate text-vesta-navy/90">
                     {product.description || '-'}
                   </TableCell>
                   <TableCell className="text-right font-medium">
                     {yourPrice > 0 ? formatCurrency(yourPrice) : '-'}
                   </TableCell>
                   {suppliers.length > 0 && (
-                    <TableCell className="text-right text-zinc-600">
+                    <TableCell className="text-right text-vesta-navy/80">
                       {theirPrice > 0 ? formatCurrency(theirPrice) : '-'}
                     </TableCell>
                   )}
@@ -176,7 +176,7 @@ export function PricingComparisonTable({ products, suppliers, onAskAI }: Pricing
                     {theirPrice > 0 && yourPrice > 0 ? (
                       <div className="flex items-center justify-end gap-2">
                         {/* Inline variance bar */}
-                        <div className="w-12 h-1.5 rounded-full bg-zinc-100 overflow-hidden">
+                        <div className="w-12 h-1.5 rounded-full bg-vesta-mist/40 overflow-hidden">
                           <div
                             className={`h-full rounded-full ${getVarianceBarColor(variance)}`}
                             style={{ width: `${(absVariance / 30) * 100}%` }}
@@ -187,10 +187,10 @@ export function PricingComparisonTable({ products, suppliers, onAskAI }: Pricing
                         </span>
                       </div>
                     ) : (
-                      <span className="text-slate-500">-</span>
+                      <span className="text-vesta-navy/65">-</span>
                     )}
                   </TableCell>
-                  <TableCell className="text-right text-zinc-600">
+                  <TableCell className="text-right text-vesta-navy/80">
                     {supplierPrice?.availability?.toLocaleString() || '-'}
                   </TableCell>
                 </TableRow>
@@ -203,7 +203,7 @@ export function PricingComparisonTable({ products, suppliers, onAskAI }: Pricing
       {/* Last updated timestamp */}
       {suppliers.length > 0 && selectedSupplier?.last_updated && (
         <div className="flex justify-end mt-2">
-          <span className="text-[11px] text-slate-500">
+          <span className="text-[11px] text-vesta-navy/65">
             Last updated {new Date(selectedSupplier.last_updated).toLocaleDateString()}
           </span>
         </div>

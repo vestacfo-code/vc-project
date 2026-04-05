@@ -341,7 +341,7 @@ export default function ValuationEstimatorDialog({ isOpen, onClose }: Props) {
     const pageHeight = pdf.internal.pageSize.getHeight();
 
     // Header branding
-    pdf.setFillColor(30, 41, 59); // slate-800 bar
+    pdf.setFillColor(27, 58, 92); // vesta-navy bar (#1B3A5C)
     pdf.rect(0, 0, pageWidth, 40, 'F');
     pdf.setTextColor(255, 255, 255);
     pdf.setFontSize(14);

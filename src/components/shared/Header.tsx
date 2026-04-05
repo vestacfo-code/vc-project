@@ -26,8 +26,8 @@ const Header = ({ variant = 'light' }: HeaderProps) => {
 
   const isDark = variant === 'dark';
   const logoVariant = isDark ? 'dark' : 'light';
-  const textColor = isDark ? 'text-slate-300 hover:text-white' : 'text-gray-700 hover:text-gray-900';
-  const activeTextColor = isDark ? 'text-white' : 'text-gray-900';
+  const textColor = isDark ? 'text-vesta-navy/60 hover:text-white' : 'text-vesta-navy/90 hover:text-vesta-navy';
+  const activeTextColor = isDark ? 'text-white' : 'text-vesta-navy';
 
   const openSettingsToTab = (tab: string) => {
     setSettingsDefaultTab(tab);
@@ -133,21 +133,21 @@ const Header = ({ variant = 'light' }: HeaderProps) => {
             {/* Mega Menu Dropdown */}
             {isProductDropdownOpen && (
               <div className="absolute top-full left-1/2 -translate-x-1/2 pt-4 z-50">
-                <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-6 w-[680px] animate-in fade-in-0 zoom-in-95 duration-200">
+                <div className="bg-white rounded-2xl shadow-xl border border-vesta-navy/8 p-6 w-[680px] animate-in fade-in-0 zoom-in-95 duration-200">
                   <div className="flex gap-8">
                     {/* Left Column - Featured */}
-                    <div className="w-[240px] bg-gradient-to-br from-slate-900 to-slate-800 rounded-xl p-5 flex flex-col">
+                    <div className="w-[240px] bg-gradient-to-br from-vesta-navy to-vesta-navy rounded-xl p-5 flex flex-col">
                       <div className="flex items-center gap-2 mb-3">
                         <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
                           <Sparkles className="w-4 h-4 text-white" />
                         </div>
                         <span className="text-white font-semibold text-sm">AI Financial Assistant</span>
                       </div>
-                      <p className="text-slate-400 text-xs leading-relaxed mb-4">
+                      <p className="text-vesta-navy-muted text-xs leading-relaxed mb-4">
                         Your intelligent CFO that understands your business data and delivers actionable insights.
                       </p>
                       <button 
-                        className="mt-auto text-slate-300 hover:text-white text-xs flex items-center gap-2 py-2 transition-colors"
+                        className="mt-auto text-vesta-navy/60 hover:text-white text-xs flex items-center gap-2 py-2 transition-colors"
                         onClick={() => handleFeatureClick('dashboard-preview')}
                       >
                         See it in action
@@ -160,83 +160,83 @@ const Header = ({ variant = 'light' }: HeaderProps) => {
                       <Link 
                         to="/features"
                         onClick={() => setIsProductDropdownOpen(false)}
-                        className="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer col-span-2 border-b border-gray-100 mb-1 pb-3"
+                        className="flex items-start gap-3 p-3 rounded-lg hover:bg-vesta-mist/40 transition-colors cursor-pointer col-span-2 border-b border-vesta-navy/8 mb-1 pb-3"
                       >
                         <Sparkles className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
                         <div>
-                          <p className="font-medium text-gray-900 text-sm">All features</p>
-                          <p className="text-gray-500 text-xs leading-relaxed">Hotel KPIs, AI briefings, alerts &amp; more</p>
+                          <p className="font-medium text-vesta-navy text-sm">All features</p>
+                          <p className="text-vesta-navy/65 text-xs leading-relaxed">Hotel KPIs, AI briefings, alerts &amp; more</p>
                         </div>
                       </Link>
                       <Link 
                         to="/docs/features/ai-chat"
                         onClick={() => setIsProductDropdownOpen(false)}
-                        className="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer"
+                        className="flex items-start gap-3 p-3 rounded-lg hover:bg-vesta-mist/40 transition-colors cursor-pointer"
                       >
-                        <Sparkles className="w-5 h-5 text-[#1a237e] flex-shrink-0 mt-0.5" />
+                        <Sparkles className="w-5 h-5 text-vesta-navy flex-shrink-0 mt-0.5" />
                         <div>
-                          <p className="font-medium text-gray-900 text-sm">AI Insights</p>
-                          <p className="text-gray-500 text-xs leading-relaxed">Instant answers about your financial data</p>
+                          <p className="font-medium text-vesta-navy text-sm">AI Insights</p>
+                          <p className="text-vesta-navy/65 text-xs leading-relaxed">Instant answers about your financial data</p>
                         </div>
                       </Link>
                       
                       <Link 
                         to="/docs/features/analytics"
                         onClick={() => setIsProductDropdownOpen(false)}
-                        className="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer"
+                        className="flex items-start gap-3 p-3 rounded-lg hover:bg-vesta-mist/40 transition-colors cursor-pointer"
                       >
-                        <BarChart3 className="w-5 h-5 text-[#1a237e] flex-shrink-0 mt-0.5" />
+                        <BarChart3 className="w-5 h-5 text-vesta-navy flex-shrink-0 mt-0.5" />
                         <div>
-                          <p className="font-medium text-gray-900 text-sm">Analytics</p>
-                          <p className="text-gray-500 text-xs leading-relaxed">Visual dashboards and trend analysis</p>
+                          <p className="font-medium text-vesta-navy text-sm">Analytics</p>
+                          <p className="text-vesta-navy/65 text-xs leading-relaxed">Visual dashboards and trend analysis</p>
                         </div>
                       </Link>
                       
                       <Link 
                         to="/docs/connect"
                         onClick={() => setIsProductDropdownOpen(false)}
-                        className="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer"
+                        className="flex items-start gap-3 p-3 rounded-lg hover:bg-vesta-mist/40 transition-colors cursor-pointer"
                       >
-                        <Zap className="w-5 h-5 text-[#1a237e] flex-shrink-0 mt-0.5" />
+                        <Zap className="w-5 h-5 text-vesta-navy flex-shrink-0 mt-0.5" />
                         <div>
-                          <p className="font-medium text-gray-900 text-sm">Integrations</p>
-                          <p className="text-gray-500 text-xs leading-relaxed">PMS, CSV imports, and hotel metrics</p>
+                          <p className="font-medium text-vesta-navy text-sm">Integrations</p>
+                          <p className="text-vesta-navy/65 text-xs leading-relaxed">PMS, CSV imports, and hotel metrics</p>
                         </div>
                       </Link>
                       
                       <Link 
                         to="/docs/reports"
                         onClick={() => setIsProductDropdownOpen(false)}
-                        className="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer"
+                        className="flex items-start gap-3 p-3 rounded-lg hover:bg-vesta-mist/40 transition-colors cursor-pointer"
                       >
-                        <FileText className="w-5 h-5 text-[#1a237e] flex-shrink-0 mt-0.5" />
+                        <FileText className="w-5 h-5 text-vesta-navy flex-shrink-0 mt-0.5" />
                         <div>
-                          <p className="font-medium text-gray-900 text-sm">Reports</p>
-                          <p className="text-gray-500 text-xs leading-relaxed">Automated financial reports</p>
+                          <p className="font-medium text-vesta-navy text-sm">Reports</p>
+                          <p className="text-vesta-navy/65 text-xs leading-relaxed">Automated financial reports</p>
                         </div>
                       </Link>
                       
                       <Link 
                         to="/docs/features/cash-flow"
                         onClick={() => setIsProductDropdownOpen(false)}
-                        className="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer"
+                        className="flex items-start gap-3 p-3 rounded-lg hover:bg-vesta-mist/40 transition-colors cursor-pointer"
                       >
-                        <TrendingUp className="w-5 h-5 text-[#1a237e] flex-shrink-0 mt-0.5" />
+                        <TrendingUp className="w-5 h-5 text-vesta-navy flex-shrink-0 mt-0.5" />
                         <div>
-                          <p className="font-medium text-gray-900 text-sm">Forecasting</p>
-                          <p className="text-gray-500 text-xs leading-relaxed">Predict cash flow and revenue</p>
+                          <p className="font-medium text-vesta-navy text-sm">Forecasting</p>
+                          <p className="text-vesta-navy/65 text-xs leading-relaxed">Predict cash flow and revenue</p>
                         </div>
                       </Link>
                       
                       <Link 
                         to="/auth"
                         onClick={() => setIsProductDropdownOpen(false)}
-                        className="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer"
+                        className="flex items-start gap-3 p-3 rounded-lg hover:bg-vesta-mist/40 transition-colors cursor-pointer"
                       >
-                        <MessageSquare className="w-5 h-5 text-[#1a237e] flex-shrink-0 mt-0.5" />
+                        <MessageSquare className="w-5 h-5 text-vesta-navy flex-shrink-0 mt-0.5" />
                         <div>
-                          <p className="font-medium text-gray-900 text-sm">Chat</p>
-                          <p className="text-gray-500 text-xs leading-relaxed">Natural language queries</p>
+                          <p className="font-medium text-vesta-navy text-sm">Chat</p>
+                          <p className="text-vesta-navy/65 text-xs leading-relaxed">Natural language queries</p>
                         </div>
                       </Link>
                     </div>
@@ -309,27 +309,27 @@ const Header = ({ variant = 'light' }: HeaderProps) => {
                   <img 
                     src={avatarUrl} 
                     alt="Profile" 
-                    className="w-8 h-8 rounded-full object-cover border-2 border-gray-200"
+                    className="w-8 h-8 rounded-full object-cover border-2 border-vesta-navy/10"
                   />
                 ) : (
                   <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-sm font-medium">
                     {getUserInitials()}
                   </div>
                 )}
-                <span className={`${isDark ? 'text-slate-300' : 'text-gray-700'}`}>My Account</span>
-                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isDark ? 'text-slate-400' : 'text-gray-500'} ${isUserDropdownOpen ? 'rotate-180' : ''}`} />
+                <span className={`${isDark ? 'text-vesta-navy/60' : 'text-vesta-navy/90'}`}>My Account</span>
+                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isDark ? 'text-vesta-navy-muted' : 'text-vesta-navy/65'} ${isUserDropdownOpen ? 'rotate-180' : ''}`} />
               </button>
 
               {/* User Dropdown - Styled like mega menu */}
               {isUserDropdownOpen && (
                 <div className="absolute top-full right-0 pt-3 z-50">
-                  <div className="bg-white rounded-xl shadow-xl border border-gray-100 py-2 w-56 animate-in fade-in-0 zoom-in-95 duration-200">
+                  <div className="bg-white rounded-xl shadow-xl border border-vesta-navy/8 py-2 w-56 animate-in fade-in-0 zoom-in-95 duration-200">
                     {/* User Info Header */}
-                    <div className="px-4 py-3 border-b border-gray-100">
-                      <p className="text-sm font-medium text-gray-900 truncate">
+                    <div className="px-4 py-3 border-b border-vesta-navy/8">
+                      <p className="text-sm font-medium text-vesta-navy truncate">
                         {user.user_metadata?.full_name || 'Welcome'}
                       </p>
-                      <p className="text-xs text-gray-500 truncate">{user.email}</p>
+                      <p className="text-xs text-vesta-navy/65 truncate">{user.email}</p>
                     </div>
 
                     {/* Menu Items */}
@@ -337,35 +337,35 @@ const Header = ({ variant = 'light' }: HeaderProps) => {
                       <Link
                         to="/dashboard"
                         onClick={() => setIsUserDropdownOpen(false)}
-                        className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                        className="flex items-center gap-3 px-4 py-2.5 text-sm text-vesta-navy/90 hover:bg-vesta-mist/25 transition-colors"
                       >
-                        <LayoutDashboard className="w-4 h-4 text-gray-400" />
+                        <LayoutDashboard className="w-4 h-4 text-vesta-navy-muted" />
                         Dashboard
                       </Link>
                       <Link
                         to="/chat"
                         onClick={() => setIsUserDropdownOpen(false)}
-                        className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                        className="flex items-center gap-3 px-4 py-2.5 text-sm text-vesta-navy/90 hover:bg-vesta-mist/25 transition-colors"
                       >
-                        <MessageSquare className="w-4 h-4 text-gray-400" />
+                        <MessageSquare className="w-4 h-4 text-vesta-navy-muted" />
                         AI Chat
                       </Link>
                       <button
                         onClick={() => openSettingsToTab('plan-credits')}
-                        className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                        className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-vesta-navy/90 hover:bg-vesta-mist/25 transition-colors"
                       >
-                        <CreditCard className="w-4 h-4 text-gray-400" />
+                        <CreditCard className="w-4 h-4 text-vesta-navy-muted" />
                         Subscription
                       </button>
                     </div>
 
                     {/* Sign Out */}
-                    <div className="border-t border-gray-100 pt-1">
+                    <div className="border-t border-vesta-navy/8 pt-1">
                       <button
                         onClick={handleSignOut}
-                        className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                        className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-vesta-navy/90 hover:bg-vesta-mist/25 transition-colors"
                       >
-                        <LogOut className="w-4 h-4 text-gray-400" />
+                        <LogOut className="w-4 h-4 text-vesta-navy-muted" />
                         Sign out
                       </button>
                     </div>
@@ -383,7 +383,7 @@ const Header = ({ variant = 'light' }: HeaderProps) => {
                 Log in
               </button>
               <Button 
-                className="hidden sm:flex items-center justify-center bg-gray-900 hover:bg-gray-800 text-white rounded-lg px-4 md:px-5 py-2 md:py-2.5 text-[13px] md:text-[15px] font-medium" 
+                className="hidden sm:flex items-center justify-center bg-vesta-navy hover:bg-vesta-navy-muted/30 text-white rounded-lg px-4 md:px-5 py-2 md:py-2.5 text-[13px] md:text-[15px] font-medium" 
                 onClick={() => navigate('/auth')}
               >
                 Try Vesta
@@ -393,7 +393,7 @@ const Header = ({ variant = 'light' }: HeaderProps) => {
           
           {/* Mobile Menu Button */}
           <button 
-            className={`md:hidden p-2 ${isDark ? 'text-slate-300 hover:text-white' : 'text-gray-700 hover:text-gray-900'}`}
+            className={`md:hidden p-2 ${isDark ? 'text-vesta-navy/60 hover:text-white' : 'text-vesta-navy/90 hover:text-vesta-navy'}`}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -404,12 +404,12 @@ const Header = ({ variant = 'light' }: HeaderProps) => {
       {/* Mobile Menu Drawer */}
       {isMobileMenuOpen && (
         <div className="md:hidden fixed inset-0 z-50 bg-white">
-          <div className="flex items-center justify-between px-4 py-4 border-b border-gray-100">
+          <div className="flex items-center justify-between px-4 py-4 border-b border-vesta-navy/8">
             <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>
               <VestaBrand size="sm" variant="light" />
             </Link>
             <button 
-              className="p-2 text-gray-700 hover:text-gray-900"
+              className="p-2 text-vesta-navy/90 hover:text-vesta-navy"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               <X className="w-6 h-6" />
@@ -418,56 +418,56 @@ const Header = ({ variant = 'light' }: HeaderProps) => {
           <div className="px-6 py-6 space-y-4">
             <Link 
               to="/features" 
-              className="block text-lg font-medium text-gray-900 py-3 border-b border-gray-100"
+              className="block text-lg font-medium text-vesta-navy py-3 border-b border-vesta-navy/8"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Features
             </Link>
             <Link 
               to="/partners" 
-              className="block text-lg font-medium text-gray-900 py-3 border-b border-gray-100"
+              className="block text-lg font-medium text-vesta-navy py-3 border-b border-vesta-navy/8"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Partners
             </Link>
             <Link 
               to="/pricing" 
-              className="block text-lg font-medium text-gray-900 py-3 border-b border-gray-100"
+              className="block text-lg font-medium text-vesta-navy py-3 border-b border-vesta-navy/8"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Pricing
             </Link>
             <Link 
               to="/company" 
-              className="block text-lg font-medium text-gray-900 py-3 border-b border-gray-100"
+              className="block text-lg font-medium text-vesta-navy py-3 border-b border-vesta-navy/8"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Company
             </Link>
             <Link 
               to="/about" 
-              className="block text-lg font-medium text-gray-900 py-3 border-b border-gray-100"
+              className="block text-lg font-medium text-vesta-navy py-3 border-b border-vesta-navy/8"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Team
             </Link>
             <Link 
               to="/docs/connect" 
-              className="block text-lg font-medium text-gray-900 py-3 border-b border-gray-100"
+              className="block text-lg font-medium text-vesta-navy py-3 border-b border-vesta-navy/8"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Integrations
             </Link>
             <Link 
               to="/docs" 
-              className="block text-lg font-medium text-gray-900 py-3 border-b border-gray-100"
+              className="block text-lg font-medium text-vesta-navy py-3 border-b border-vesta-navy/8"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Docs
             </Link>
             <Link 
               to="/contact" 
-              className="block text-lg font-medium text-gray-900 py-3 border-b border-gray-100"
+              className="block text-lg font-medium text-vesta-navy py-3 border-b border-vesta-navy/8"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Contact
@@ -475,7 +475,7 @@ const Header = ({ variant = 'light' }: HeaderProps) => {
             
             {user ? (
               <div className="pt-4 space-y-3">
-                <div className="flex items-center gap-3 py-3 border-b border-gray-100">
+                <div className="flex items-center gap-3 py-3 border-b border-vesta-navy/8">
                   {avatarUrl ? (
                     <img src={avatarUrl} alt="Profile" className="w-10 h-10 rounded-full object-cover" />
                   ) : (
@@ -484,33 +484,33 @@ const Header = ({ variant = 'light' }: HeaderProps) => {
                     </div>
                   )}
                   <div>
-                    <p className="font-medium text-gray-900">{user.user_metadata?.full_name || 'Welcome'}</p>
-                    <p className="text-sm text-gray-500">{user.email}</p>
+                    <p className="font-medium text-vesta-navy">{user.user_metadata?.full_name || 'Welcome'}</p>
+                    <p className="text-sm text-vesta-navy/65">{user.email}</p>
                   </div>
                 </div>
                 <Link 
                   to="/dashboard"
-                  className="block text-base font-medium text-gray-700 py-2"
+                  className="block text-base font-medium text-vesta-navy/90 py-2"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Dashboard
                 </Link>
                 <Link 
                   to="/chat"
-                  className="block text-base font-medium text-gray-700 py-2"
+                  className="block text-base font-medium text-vesta-navy/90 py-2"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   AI Chat
                 </Link>
                 <button 
-                  className="block text-base font-medium text-gray-700 py-2 text-left w-full"
+                  className="block text-base font-medium text-vesta-navy/90 py-2 text-left w-full"
                   onClick={() => openSettingsToTab('plan-credits')}
                 >
                   Subscription & Settings
                 </button>
                 <Button 
                   variant="outline"
-                  className="w-full border border-gray-300 text-gray-700 rounded-lg py-3 text-base font-medium mt-2"
+                  className="w-full border border-vesta-navy/15 text-vesta-navy/90 rounded-lg py-3 text-base font-medium mt-2"
                   onClick={() => { handleSignOut(); setIsMobileMenuOpen(false); }}
                 >
                   Sign out
@@ -519,14 +519,14 @@ const Header = ({ variant = 'light' }: HeaderProps) => {
             ) : (
               <div className="pt-4 space-y-3">
                 <Button 
-                  className="w-full bg-gray-900 hover:bg-gray-800 text-white rounded-lg py-3 text-base font-medium"
+                  className="w-full bg-vesta-navy hover:bg-vesta-navy-muted/30 text-white rounded-lg py-3 text-base font-medium"
                   onClick={() => { navigate('/auth'); setIsMobileMenuOpen(false); }}
                 >
                   Try Vesta free
                 </Button>
                 <Button 
                   variant="outline"
-                  className="w-full border border-gray-300 text-gray-700 rounded-lg py-3 text-base font-medium"
+                  className="w-full border border-vesta-navy/15 text-vesta-navy/90 rounded-lg py-3 text-base font-medium"
                   onClick={() => { navigate('/auth'); setIsMobileMenuOpen(false); }}
                 >
                   Log in

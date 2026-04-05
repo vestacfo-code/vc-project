@@ -231,7 +231,7 @@ const Welcome = () => {
     return (
       <Dialog>
         <DialogTrigger asChild>
-          <button className="px-6 py-3 bg-black text-white rounded-full hover:bg-gray-800 transition-colors font-medium">
+          <button className="px-6 py-3 bg-black text-white rounded-full hover:bg-vesta-navy-muted/30 transition-colors font-medium">
             {isEdit ? 'Edit' : 'Start'}
           </button>
         </DialogTrigger>
@@ -316,7 +316,7 @@ const Welcome = () => {
     return (
       <Dialog>
         <DialogTrigger asChild>
-          <button className="px-6 py-3 bg-black text-white rounded-full hover:bg-gray-800 transition-colors font-medium">
+          <button className="px-6 py-3 bg-black text-white rounded-full hover:bg-vesta-navy-muted/30 transition-colors font-medium">
             {isEdit ? 'Edit' : 'Start'}
           </button>
         </DialogTrigger>
@@ -371,7 +371,7 @@ const Welcome = () => {
     return (
       <Dialog>
         <DialogTrigger asChild>
-          <button className="px-6 py-3 bg-black text-white rounded-full hover:bg-gray-800 transition-colors font-medium">
+          <button className="px-6 py-3 bg-black text-white rounded-full hover:bg-vesta-navy-muted/30 transition-colors font-medium">
             {isEdit ? 'Edit' : 'Start'}
           </button>
         </DialogTrigger>
@@ -446,7 +446,7 @@ const Welcome = () => {
     return (
       <button 
         onClick={() => completeStep(step.id, stepType, {})}
-        className="px-6 py-3 bg-black text-white rounded-full hover:bg-gray-800 transition-colors font-medium"
+        className="px-6 py-3 bg-black text-white rounded-full hover:bg-vesta-navy-muted/30 transition-colors font-medium"
       >
         {isEdit ? 'Edit' : 'Start'}
       </button>
@@ -625,7 +625,7 @@ const Welcome = () => {
                   <div className="relative">
                     <button
                       onClick={() => setRoleExpanded(!roleExpanded)}
-                      className="flex items-center justify-between w-full py-4 px-6 text-left bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-50 transition-colors group"
+                      className="flex items-center justify-between w-full py-4 px-6 text-left bg-white border border-vesta-navy/10 rounded-lg shadow-sm hover:bg-vesta-mist/25 transition-colors group"
                     >
                       <span className="text-lg font-medium text-black">
                         View Role Description
@@ -636,7 +636,7 @@ const Welcome = () => {
                     </button>
                     
                     {roleExpanded && (
-                      <div className="absolute top-full left-0 right-0 z-50 bg-white border border-gray-200 rounded-lg shadow-lg mt-1">
+                      <div className="absolute top-full left-0 right-0 z-50 bg-white border border-vesta-navy/10 rounded-lg shadow-lg mt-1">
                       <div className="p-6 max-h-96 overflow-y-auto">
                           <div className="text-lg leading-relaxed text-black whitespace-pre-line">
                             {jobApplication.job_roles.description}
@@ -696,7 +696,7 @@ const Welcome = () => {
                             href={supervisor.linkedin_url} 
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 text-gray-700 hover:text-gray-900 transition-colors bg-gray-50 hover:bg-gray-100 px-3 py-2 rounded-md"
+                            className="inline-flex items-center gap-2 text-vesta-navy/90 hover:text-vesta-navy transition-colors bg-vesta-mist/25 hover:bg-vesta-mist/40 px-3 py-2 rounded-md"
                             title="View LinkedIn Profile"
                           >
                             <img 

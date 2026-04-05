@@ -41,7 +41,7 @@ const roleColors = {
   admin: 'bg-blue-500/10 text-blue-700 border-blue-200',
   collaborator: 'bg-green-500/10 text-green-700 border-green-200',
   member: 'bg-green-500/10 text-green-700 border-green-200',
-  viewer: 'bg-gray-500/10 text-gray-700 border-gray-200',
+  viewer: 'bg-vesta-navy-muted/10 text-vesta-navy/90 border-vesta-navy/10',
 };
 
 export const TeamManagement = () => {
@@ -160,36 +160,36 @@ export const TeamManagement = () => {
           </div>
           
           <div className="space-y-2">
-            <h2 className="text-2xl font-bold text-gray-900">
+            <h2 className="text-2xl font-bold text-vesta-navy">
               Unlock Team Collaboration
             </h2>
-            <p className="text-gray-500 text-sm leading-relaxed">
+            <p className="text-vesta-navy/65 text-sm leading-relaxed">
               Invite up to 6 team members to collaborate on your financial intelligence. 
               Each member gets their own login and personalized access.
             </p>
           </div>
 
           {/* Features */}
-          <div className="bg-gray-50 rounded-xl p-4 text-left space-y-3">
-            <div className="flex items-center gap-3 text-sm text-gray-700">
+          <div className="bg-vesta-mist/25 rounded-xl p-4 text-left space-y-3">
+            <div className="flex items-center gap-3 text-sm text-vesta-navy/90">
               <div className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
                 <span className="text-green-600 text-xs">✓</span>
               </div>
               <span>Add up to 6 collaborators</span>
             </div>
-            <div className="flex items-center gap-3 text-sm text-gray-700">
+            <div className="flex items-center gap-3 text-sm text-vesta-navy/90">
               <div className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
                 <span className="text-green-600 text-xs">✓</span>
               </div>
               <span>Assign roles: Member, Administrator, Super Administrator</span>
             </div>
-            <div className="flex items-center gap-3 text-sm text-gray-700">
+            <div className="flex items-center gap-3 text-sm text-vesta-navy/90">
               <div className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
                 <span className="text-green-600 text-xs">✓</span>
               </div>
               <span>SSO and email invitations</span>
             </div>
-            <div className="flex items-center gap-3 text-sm text-gray-700">
+            <div className="flex items-center gap-3 text-sm text-vesta-navy/90">
               <div className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
                 <span className="text-green-600 text-xs">✓</span>
               </div>
@@ -210,7 +210,7 @@ export const TeamManagement = () => {
             Upgrade to CFO Plan
           </Button>
           
-          <p className="text-xs text-gray-400">
+          <p className="text-xs text-vesta-navy-muted">
             Available on CFO plan ($49/month) or Custom Solutions
           </p>
         </div>

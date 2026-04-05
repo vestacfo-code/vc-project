@@ -188,7 +188,7 @@ export const StaffDirectory: React.FC<StaffDirectoryProps> = ({
       case 'pending':
         return <Clock className="h-4 w-4 text-yellow-600" />;
       default:
-        return <AlertCircle className="h-4 w-4 text-gray-400" />;
+        return <AlertCircle className="h-4 w-4 text-vesta-navy-muted" />;
     }
   };
 

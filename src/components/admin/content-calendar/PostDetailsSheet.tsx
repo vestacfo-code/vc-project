@@ -24,7 +24,7 @@ interface PostDetailsSheetProps {
 }
 
 const STATUS_COLORS = {
-  draft: 'bg-gray-500',
+  draft: 'bg-vesta-navy-muted/15',
   scheduled: 'bg-yellow-500',
   published: 'bg-green-500',
   failed: 'bg-red-500',

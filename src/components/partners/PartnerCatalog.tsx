@@ -44,7 +44,7 @@ export function PartnerCatalog({
     return (
       <div className={cn('flex flex-col items-center justify-center py-24 gap-3', className)}>
         <Loader2 className="h-8 w-8 animate-spin text-vesta-gold" />
-        <p className="text-sm text-slate-500">Loading partner catalog…</p>
+        <p className="text-sm text-vesta-navy/65">Loading partner catalog…</p>
       </div>
     );
   }
@@ -67,11 +67,11 @@ export function PartnerCatalog({
           <li key={partner.id} className="min-w-0">
             <article
               className={cn(
-                'group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-shadow',
+                'group flex h-full flex-col overflow-hidden rounded-2xl border border-vesta-navy/10 bg-white shadow-sm transition-shadow',
                 'hover:shadow-md focus-within:ring-2 focus-within:ring-violet-500/40 focus-within:ring-offset-2 focus-within:ring-offset-white'
               )}
             >
-              <div className="flex flex-1 flex-col gap-3 bg-slate-50/50 p-5">
+              <div className="flex flex-1 flex-col gap-3 bg-vesta-mist/50 p-5">
                 <div className="flex items-start justify-between gap-2">
                   <div className="flex flex-wrap items-center gap-2 min-w-0">
                     <span className="rounded-md bg-violet-100 px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-violet-800">
@@ -85,30 +85,30 @@ export function PartnerCatalog({
                     )}
                   </div>
                   <Package
-                    className="h-5 w-5 shrink-0 text-slate-500 opacity-40 transition-opacity group-hover:opacity-60"
+                    className="h-5 w-5 shrink-0 text-vesta-navy/65 opacity-40 transition-opacity group-hover:opacity-60"
                     aria-hidden
                   />
                 </div>
 
                 <div className="min-w-0">
-                  <h2 className="font-serif text-xl leading-snug sm:text-[1.35rem] text-slate-900">
+                  <h2 className="font-serif text-xl leading-snug sm:text-[1.35rem] text-vesta-navy">
                     {partner.name}
                   </h2>
                   {partner.tagline && (
-                    <p className="mt-1.5 line-clamp-2 text-sm text-slate-600">
+                    <p className="mt-1.5 line-clamp-2 text-sm text-vesta-navy/80">
                       {partner.tagline}
                     </p>
                   )}
                 </div>
 
-                <p className="mt-auto text-xs text-slate-500">
+                <p className="mt-auto text-xs text-vesta-navy/65">
                   {partner.products.length === 0
                     ? 'Offerings coming soon'
                     : `${partner.products.length} product line${partner.products.length === 1 ? '' : 's'}`}
                 </p>
               </div>
 
-              <div className="mt-auto flex flex-wrap gap-2 border-t border-slate-100 bg-white p-4">
+              <div className="mt-auto flex flex-wrap gap-2 border-t border-vesta-navy/8 bg-white p-4">
                 <button
                   type="button"
                   onClick={() => setDetailPartnerId(partner.id)}
@@ -134,10 +134,10 @@ export function PartnerCatalog({
       </ul>
 
       <Dialog open={detailPartner !== null} onOpenChange={(open) => !open && setDetailPartnerId(null)}>
-        <DialogContent className="flex max-h-[min(85vh,720px)] max-w-2xl flex-col gap-0 overflow-hidden border-slate-200 bg-white p-0">
+        <DialogContent className="flex max-h-[min(85vh,720px)] max-w-2xl flex-col gap-0 overflow-hidden border-vesta-navy/10 bg-white p-0">
           {detailPartner && (
             <>
-              <DialogHeader className="shrink-0 space-y-3 border-b border-slate-100 p-6 pb-4 text-left">
+              <DialogHeader className="shrink-0 space-y-3 border-b border-vesta-navy/8 p-6 pb-4 text-left">
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="font-mono text-[10px] uppercase tracking-wider text-violet-700">
                     {formatCategory(detailPartner.category)}
@@ -148,14 +148,14 @@ export function PartnerCatalog({
                     </span>
                   )}
                 </div>
-                <DialogTitle className="pr-8 font-serif text-2xl text-slate-900 sm:text-3xl">
+                <DialogTitle className="pr-8 font-serif text-2xl text-vesta-navy sm:text-3xl">
                   {detailPartner.name}
                 </DialogTitle>
-                  <DialogDescription className="!mt-2 text-base text-slate-600">
+                  <DialogDescription className="!mt-2 text-base text-vesta-navy/80">
                   {detailPartner.tagline ?? "Browse product lines; outbound links open the partner's site in a new tab."}
                 </DialogDescription>
                 {detailPartner.description && (
-                  <p className="!mt-3 text-sm leading-relaxed text-slate-600">
+                  <p className="!mt-3 text-sm leading-relaxed text-vesta-navy/80">
                     {detailPartner.description}
                   </p>
                 )}
@@ -173,24 +173,24 @@ export function PartnerCatalog({
               </DialogHeader>
 
               <div className="min-h-0 flex-1 overflow-y-auto px-6 py-4">
-                <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-500">
+                <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-vesta-navy/65">
                   Product lines
                 </h3>
-                <ul className="divide-y divide-slate-100 overflow-hidden rounded-xl border border-slate-200">
+                <ul className="divide-y divide-vesta-navy/8 overflow-hidden rounded-xl border border-vesta-navy/10">
                   {detailPartner.products.length === 0 ? (
-                    <li className="px-4 py-8 text-sm text-slate-500">
+                    <li className="px-4 py-8 text-sm text-vesta-navy/65">
                       No product lines listed yet.
                     </li>
                   ) : (
                     detailPartner.products.map((p) => (
                       <li
                         key={p.id}
-                        className="flex flex-col gap-2 bg-slate-50/30 px-4 py-3.5 sm:flex-row sm:items-center sm:justify-between"
+                        className="flex flex-col gap-2 bg-vesta-mist/30 px-4 py-3.5 sm:flex-row sm:items-center sm:justify-between"
                       >
                         <div className="min-w-0">
-                          <h4 className="font-medium text-slate-900">{p.name}</h4>
+                          <h4 className="font-medium text-vesta-navy">{p.name}</h4>
                           {p.description && (
-                            <p className="mt-1 text-sm text-slate-600">
+                            <p className="mt-1 text-sm text-vesta-navy/80">
                               {p.description}
                             </p>
                           )}
@@ -242,7 +242,7 @@ function OutboundControl({
       ? cn('inline-flex items-center gap-1.5 text-sm font-medium text-violet-700 hover:text-violet-900')
       : variant === 'cardSecondary'
         ? cn(
-            'inline-flex items-center justify-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-800 transition-colors hover:bg-slate-50'
+            'inline-flex items-center justify-center gap-2 rounded-lg border border-vesta-navy/10 bg-white px-3 py-2 text-sm font-semibold text-vesta-navy transition-colors hover:bg-vesta-mist/25'
           )
         : cn(
             'inline-flex items-center gap-2 rounded-lg border border-violet-200 bg-violet-50 px-4 py-2 text-sm font-semibold text-violet-900 transition-colors hover:bg-violet-100'

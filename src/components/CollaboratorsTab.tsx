@@ -378,19 +378,19 @@ export const CollaboratorsTab = () => {
   // Show loading while checking access, credits, or loading data
   if (isCheckingAccess || loading) {
     return <div className="flex-1 flex items-center justify-center py-16">
-        <Loader2 className="w-6 h-6 animate-spin text-slate-500" />
+        <Loader2 className="w-6 h-6 animate-spin text-vesta-navy/65" />
       </div>;
   }
   return <div className="flex-1 p-6 overflow-y-auto">
       {/* Header */}
       <div className="flex items-center justify-between mb-8 pr-8">
         <div>
-          <h2 className="font-serif text-2xl text-slate-900 mb-1">Collaborators</h2>
-        <p className="text-slate-400 text-sm">
+          <h2 className="font-serif text-2xl text-vesta-navy mb-1">Collaborators</h2>
+        <p className="text-vesta-navy-muted text-sm">
           {Math.max(0, members.length - 1 + pendingInvites.length)} of {MAX_COLLABORATORS} members added
         </p>
       </div>
-        <Button onClick={handleAddMemberClick} disabled={!canAddMore && hasAccess} className="bg-white text-black hover:bg-slate-200">
+        <Button onClick={handleAddMemberClick} disabled={!canAddMore && hasAccess} className="bg-white text-black hover:bg-vesta-mist/50">
           <Plus className="w-4 h-4 mr-2" />
           Add Member
         </Button>
@@ -398,7 +398,7 @@ export const CollaboratorsTab = () => {
 
       {/* Progress bar */}
       <div className="mb-8">
-        <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
+        <div className="h-2 bg-vesta-mist/40 rounded-full overflow-hidden">
           <div className="h-full bg-gradient-to-r from-emerald-500 to-emerald-400 transition-all duration-300" style={{
           width: `${totalUsed / MAX_COLLABORATORS * 100}%`
         }} />
@@ -407,10 +407,10 @@ export const CollaboratorsTab = () => {
 
       {/* Tabs */}
       <div className="flex gap-2 mb-6">
-        <button onClick={() => setActiveView('members')} className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${activeView === 'members' ? 'bg-slate-100 text-slate-900' : 'text-slate-400 hover:text-slate-900 hover:bg-slate-50'}`}>
+        <button onClick={() => setActiveView('members')} className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${activeView === 'members' ? 'bg-vesta-mist/40 text-vesta-navy' : 'text-vesta-navy-muted hover:text-vesta-navy hover:bg-vesta-mist/25'}`}>
           Members ({members.length})
         </button>
-        <button onClick={() => setActiveView('pending')} className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${activeView === 'pending' ? 'bg-slate-100 text-slate-900' : 'text-slate-400 hover:text-slate-900 hover:bg-slate-50'}`}>
+        <button onClick={() => setActiveView('pending')} className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${activeView === 'pending' ? 'bg-vesta-mist/40 text-vesta-navy' : 'text-vesta-navy-muted hover:text-vesta-navy hover:bg-vesta-mist/25'}`}>
           Pending ({pendingInvites.length})
         </button>
       </div>
@@ -418,22 +418,22 @@ export const CollaboratorsTab = () => {
       {/* Members list */}
       {activeView === 'members' && <div className="space-y-3">
           {members.length === 0 ? <div className="text-center py-12">
-              <Users className="w-12 h-12 text-slate-600 mx-auto mb-4" />
-              <p className="text-slate-400">No members yet</p>
-              <p className="text-slate-500 text-sm mt-1">Add your first collaborator to get started</p>
+              <Users className="w-12 h-12 text-vesta-navy/80 mx-auto mb-4" />
+              <p className="text-vesta-navy-muted">No members yet</p>
+              <p className="text-vesta-navy/65 text-sm mt-1">Add your first collaborator to get started</p>
             </div> : members.map(member => {
         const RoleIcon = roleIcons[member.role] || User;
-        return <div key={member.id} className="flex items-center justify-between p-4 bg-slate-50 border border-slate-200 rounded-xl hover:bg-white/[0.07] transition-colors">
+        return <div key={member.id} className="flex items-center justify-between p-4 bg-vesta-mist/25 border border-vesta-navy/10 rounded-xl hover:bg-white/[0.07] transition-colors">
                   <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center">
-                      <User className="w-5 h-5 text-slate-400" />
+                    <div className="w-10 h-10 rounded-full bg-vesta-mist/40 flex items-center justify-center">
+                      <User className="w-5 h-5 text-vesta-navy-muted" />
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
-                        <p className="font-medium text-slate-900">{member.name}</p>
-                        {member.isOwner && <span className="text-xs text-slate-500">(You)</span>}
+                        <p className="font-medium text-vesta-navy">{member.name}</p>
+                        {member.isOwner && <span className="text-xs text-vesta-navy/65">(You)</span>}
                       </div>
-                      <p className="text-sm text-slate-500">{member.email}</p>
+                      <p className="text-sm text-vesta-navy/65">{member.email}</p>
                     </div>
                   </div>
                   
@@ -444,13 +444,13 @@ export const CollaboratorsTab = () => {
                     </Badge>
                     
                     {!member.isOwner && <div className="flex gap-1">
-                        <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-slate-400 hover:text-slate-900 hover:bg-slate-100" onClick={() => {
+                        <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-vesta-navy-muted hover:text-vesta-navy hover:bg-vesta-mist/40" onClick={() => {
                 setEditingMember(member);
                 setEditRole(member.role);
               }}>
                           <Edit2 className="w-4 h-4" />
                         </Button>
-                        <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-slate-400 hover:text-red-400 hover:bg-red-500/10" onClick={() => setDeletingMember(member)}>
+                        <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-vesta-navy-muted hover:text-red-400 hover:bg-red-500/10" onClick={() => setDeletingMember(member)}>
                           <Trash2 className="w-4 h-4" />
                         </Button>
                       </div>}
@@ -462,16 +462,16 @@ export const CollaboratorsTab = () => {
       {/* Pending invites */}
       {activeView === 'pending' && <div className="space-y-3">
           {pendingInvites.length === 0 ? <div className="text-center py-12">
-              <Mail className="w-12 h-12 text-slate-600 mx-auto mb-4" />
-              <p className="text-slate-400">No pending invitations</p>
-            </div> : pendingInvites.map(invite => <div key={invite.id} className="flex items-center justify-between p-4 bg-slate-50 border border-slate-200 rounded-xl">
+              <Mail className="w-12 h-12 text-vesta-navy/80 mx-auto mb-4" />
+              <p className="text-vesta-navy-muted">No pending invitations</p>
+            </div> : pendingInvites.map(invite => <div key={invite.id} className="flex items-center justify-between p-4 bg-vesta-mist/25 border border-vesta-navy/10 rounded-xl">
                 <div className="flex items-center gap-4">
                   <div className="w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center">
                     <Clock className="w-5 h-5 text-amber-400" />
                   </div>
                   <div>
-                    <p className="font-medium text-slate-900">{invite.email}</p>
-                    <p className="text-sm text-slate-500">
+                    <p className="font-medium text-vesta-navy">{invite.email}</p>
+                    <p className="text-sm text-vesta-navy/65">
                       Invited {new Date(invite.created_at).toLocaleDateString()}
                     </p>
                   </div>
@@ -481,7 +481,7 @@ export const CollaboratorsTab = () => {
                   <Badge className={`${roleColors[invite.role]} border text-xs`}>
                     {roleLabels[invite.role]}
                   </Badge>
-                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-slate-400 hover:text-red-400 hover:bg-red-500/10" onClick={() => setDeletingMember({
+                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-vesta-navy-muted hover:text-red-400 hover:bg-red-500/10" onClick={() => setDeletingMember({
             ...invite,
             isPending: true
           })}>
@@ -493,50 +493,50 @@ export const CollaboratorsTab = () => {
 
       {/* Add Member Dialog */}
       <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
-        <DialogContent className="bg-white border-slate-200 text-slate-900">
+        <DialogContent className="bg-white border-vesta-navy/10 text-vesta-navy">
           <DialogHeader>
-            <DialogTitle className="text-slate-900">Add Team Member</DialogTitle>
-            <DialogDescription className="text-slate-400">
+            <DialogTitle className="text-vesta-navy">Add Team Member</DialogTitle>
+            <DialogDescription className="text-vesta-navy-muted">
               Send an invitation to join your team
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4 mt-4">
             <div className="space-y-2">
-              <Label className="text-slate-300">Name (optional)</Label>
-              <Input value={newMemberName} onChange={e => setNewMemberName(e.target.value)} placeholder="John Doe" className="bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-500" />
+              <Label className="text-vesta-navy/60">Name (optional)</Label>
+              <Input value={newMemberName} onChange={e => setNewMemberName(e.target.value)} placeholder="John Doe" className="bg-vesta-mist/25 border-vesta-navy/10 text-vesta-navy placeholder:text-vesta-navy/65" />
             </div>
             <div className="space-y-2">
-              <Label className="text-slate-300">Email *</Label>
-              <Input type="email" value={newMemberEmail} onChange={e => setNewMemberEmail(e.target.value)} placeholder="john@company.com" className="bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-500" />
+              <Label className="text-vesta-navy/60">Email *</Label>
+              <Input type="email" value={newMemberEmail} onChange={e => setNewMemberEmail(e.target.value)} placeholder="john@company.com" className="bg-vesta-mist/25 border-vesta-navy/10 text-vesta-navy placeholder:text-vesta-navy/65" />
             </div>
             <div className="space-y-2">
-              <Label className="text-slate-300">Title (optional)</Label>
-              <Input value={newMemberTitle} onChange={e => setNewMemberTitle(e.target.value)} placeholder="CFO, Accountant, etc." className="bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-500" />
+              <Label className="text-vesta-navy/60">Title (optional)</Label>
+              <Input value={newMemberTitle} onChange={e => setNewMemberTitle(e.target.value)} placeholder="CFO, Accountant, etc." className="bg-vesta-mist/25 border-vesta-navy/10 text-vesta-navy placeholder:text-vesta-navy/65" />
             </div>
             <div className="space-y-2">
-              <Label className="text-slate-300">Role</Label>
+              <Label className="text-vesta-navy/60">Role</Label>
               <Select value={newMemberRole} onValueChange={(v: MemberRole) => setNewMemberRole(v)}>
-                <SelectTrigger className="bg-slate-50 border-slate-200 text-slate-900">
+                <SelectTrigger className="bg-vesta-mist/25 border-vesta-navy/10 text-vesta-navy">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent className="bg-white border-slate-200">
-                  <SelectItem value="member" className="text-slate-300 focus:bg-slate-100 focus:text-slate-900">
+                <SelectContent className="bg-white border-vesta-navy/10">
+                  <SelectItem value="member" className="text-vesta-navy/60 focus:bg-vesta-mist/40 focus:text-vesta-navy">
                     Member - Can view and interact with data
                   </SelectItem>
-                  <SelectItem value="admin" className="text-slate-300 focus:bg-slate-100 focus:text-slate-900">
+                  <SelectItem value="admin" className="text-vesta-navy/60 focus:bg-vesta-mist/40 focus:text-vesta-navy">
                     Administrator - Can manage members
                   </SelectItem>
-                  <SelectItem value="super_admin" className="text-slate-300 focus:bg-slate-100 focus:text-slate-900">
+                  <SelectItem value="super_admin" className="text-vesta-navy/60 focus:bg-vesta-mist/40 focus:text-vesta-navy">
                     Super Administrator - Full control including billing
                   </SelectItem>
                 </SelectContent>
               </Select>
             </div>
             <div className="flex justify-end gap-3 pt-4">
-              <Button variant="outline" onClick={() => setShowAddDialog(false)} className="border-slate-200 text-slate-300 hover:bg-slate-100 bg-transparent">
+              <Button variant="outline" onClick={() => setShowAddDialog(false)} className="border-vesta-navy/10 text-vesta-navy/60 hover:bg-vesta-mist/40 bg-transparent">
                 Cancel
               </Button>
-              <Button onClick={handleInvite} disabled={!newMemberEmail.trim() || isInviting} className="bg-white text-black hover:bg-slate-200">
+              <Button onClick={handleInvite} disabled={!newMemberEmail.trim() || isInviting} className="bg-white text-black hover:bg-vesta-mist/50">
                 {isInviting ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Mail className="w-4 h-4 mr-2" />}
                 Send Invitation
               </Button>
@@ -547,29 +547,29 @@ export const CollaboratorsTab = () => {
 
       {/* Edit Role Dialog */}
       <Dialog open={!!editingMember} onOpenChange={() => setEditingMember(null)}>
-        <DialogContent className="bg-white border-slate-200 text-slate-900">
+        <DialogContent className="bg-white border-vesta-navy/10 text-vesta-navy">
           <DialogHeader>
-            <DialogTitle className="text-slate-900">Edit Role</DialogTitle>
-            <DialogDescription className="text-slate-400">
+            <DialogTitle className="text-vesta-navy">Edit Role</DialogTitle>
+            <DialogDescription className="text-vesta-navy-muted">
               Change role for {editingMember?.name}
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4 mt-4">
             <Select value={editRole} onValueChange={(v: MemberRole) => setEditRole(v)}>
-              <SelectTrigger className="bg-slate-50 border-slate-200 text-slate-900">
+              <SelectTrigger className="bg-vesta-mist/25 border-vesta-navy/10 text-vesta-navy">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent className="bg-white border-slate-200">
-                <SelectItem value="member" className="text-slate-300 focus:bg-slate-100 focus:text-slate-900">Member</SelectItem>
-                <SelectItem value="admin" className="text-slate-300 focus:bg-slate-100 focus:text-slate-900">Administrator</SelectItem>
-                <SelectItem value="super_admin" className="text-slate-300 focus:bg-slate-100 focus:text-slate-900">Super Administrator</SelectItem>
+              <SelectContent className="bg-white border-vesta-navy/10">
+                <SelectItem value="member" className="text-vesta-navy/60 focus:bg-vesta-mist/40 focus:text-vesta-navy">Member</SelectItem>
+                <SelectItem value="admin" className="text-vesta-navy/60 focus:bg-vesta-mist/40 focus:text-vesta-navy">Administrator</SelectItem>
+                <SelectItem value="super_admin" className="text-vesta-navy/60 focus:bg-vesta-mist/40 focus:text-vesta-navy">Super Administrator</SelectItem>
               </SelectContent>
             </Select>
             <div className="flex justify-end gap-3">
-              <Button variant="outline" onClick={() => setEditingMember(null)} className="border-slate-200 text-slate-300 hover:bg-slate-100 bg-transparent">
+              <Button variant="outline" onClick={() => setEditingMember(null)} className="border-vesta-navy/10 text-vesta-navy/60 hover:bg-vesta-mist/40 bg-transparent">
                 Cancel
               </Button>
-              <Button onClick={handleUpdateRole} className="bg-white text-black hover:bg-slate-200">
+              <Button onClick={handleUpdateRole} className="bg-white text-black hover:bg-vesta-mist/50">
                 Save Changes
               </Button>
             </div>
@@ -579,20 +579,20 @@ export const CollaboratorsTab = () => {
 
       {/* Delete Confirmation */}
       <AlertDialog open={!!deletingMember} onOpenChange={() => setDeletingMember(null)}>
-        <AlertDialogContent className="bg-white border-slate-200">
+        <AlertDialogContent className="bg-white border-vesta-navy/10">
           <AlertDialogHeader>
-            <AlertDialogTitle className="text-slate-900">
+            <AlertDialogTitle className="text-vesta-navy">
               {'isPending' in (deletingMember || {}) ? 'Cancel Invitation?' : 'Remove Member?'}
             </AlertDialogTitle>
-            <AlertDialogDescription className="text-slate-400">
+            <AlertDialogDescription className="text-vesta-navy-muted">
               {'isPending' in (deletingMember || {}) ? `This will cancel the invitation to ${deletingMember?.email}.` : `This will remove ${'name' in (deletingMember || {}) ? (deletingMember as TeamMember)?.name : ''} from your team.`}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel className="border-slate-200 text-slate-300 hover:bg-slate-100 bg-transparent">
+            <AlertDialogCancel className="border-vesta-navy/10 text-vesta-navy/60 hover:bg-vesta-mist/40 bg-transparent">
               Cancel
             </AlertDialogCancel>
-            <AlertDialogAction onClick={handleRemoveMember} className="bg-red-600 hover:bg-red-700 text-slate-900">
+            <AlertDialogAction onClick={handleRemoveMember} className="bg-red-600 hover:bg-red-700 text-vesta-navy">
               {'isPending' in (deletingMember || {}) ? 'Cancel Invitation' : 'Remove'}
             </AlertDialogAction>
           </AlertDialogFooter>
@@ -601,39 +601,39 @@ export const CollaboratorsTab = () => {
 
       {/* Upgrade Dialog */}
       <Dialog open={showUpgradeDialog} onOpenChange={setShowUpgradeDialog}>
-        <DialogContent className="bg-white border-slate-200 text-slate-900 max-w-md">
+        <DialogContent className="bg-white border-vesta-navy/10 text-vesta-navy max-w-md">
           <DialogHeader className="text-center pb-2">
             <div className="relative mx-auto w-16 h-16 mb-4">
               <div className="absolute inset-0 bg-gradient-to-br from-purple-500 to-blue-600 rounded-2xl rotate-6 opacity-80" />
               <div className="relative flex items-center justify-center h-full bg-gradient-to-br from-purple-500 to-blue-600 rounded-2xl">
-                <Users className="w-8 h-8 text-slate-900" />
+                <Users className="w-8 h-8 text-vesta-navy" />
               </div>
               <div className="absolute -top-1 -right-1 w-5 h-5 bg-yellow-400 rounded-full flex items-center justify-center">
                 <Sparkles className="w-2.5 h-2.5 text-yellow-900" />
               </div>
             </div>
-            <DialogTitle className="text-xl font-semibold text-slate-900">
+            <DialogTitle className="text-xl font-semibold text-vesta-navy">
               Unlock Collaborators
             </DialogTitle>
-            <DialogDescription className="text-slate-400 text-sm mt-2">
+            <DialogDescription className="text-vesta-navy-muted text-sm mt-2">
               Invite up to 6 team members to collaborate on your financial intelligence.
             </DialogDescription>
           </DialogHeader>
           
-          <div className="bg-slate-50 rounded-xl p-4 space-y-3 border border-slate-200 my-4">
-            <div className="flex items-center gap-3 text-sm text-slate-300">
+          <div className="bg-vesta-mist/25 rounded-xl p-4 space-y-3 border border-vesta-navy/10 my-4">
+            <div className="flex items-center gap-3 text-sm text-vesta-navy/60">
               <div className="w-5 h-5 rounded-full bg-emerald-500/20 flex items-center justify-center flex-shrink-0">
                 <span className="text-emerald-400 text-xs">✓</span>
               </div>
               <span>Add up to 6 collaborators</span>
             </div>
-            <div className="flex items-center gap-3 text-sm text-slate-300">
+            <div className="flex items-center gap-3 text-sm text-vesta-navy/60">
               <div className="w-5 h-5 rounded-full bg-emerald-500/20 flex items-center justify-center flex-shrink-0">
                 <span className="text-emerald-400 text-xs">✓</span>
               </div>
               <span>Member, Administrator & Super Administrator roles</span>
             </div>
-            <div className="flex items-center gap-3 text-sm text-slate-300">
+            <div className="flex items-center gap-3 text-sm text-vesta-navy/60">
               <div className="w-5 h-5 rounded-full bg-emerald-500/20 flex items-center justify-center flex-shrink-0">
                 <span className="text-emerald-400 text-xs">✓</span>
               </div>
@@ -642,7 +642,7 @@ export const CollaboratorsTab = () => {
           </div>
 
           <div className="space-y-3">
-            <Button className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-slate-900" onClick={() => {
+            <Button className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-vesta-navy" onClick={() => {
             setShowUpgradeDialog(false);
             window.dispatchEvent(new CustomEvent('openSettings', {
               detail: {
@@ -654,7 +654,7 @@ export const CollaboratorsTab = () => {
               Upgrade to CFO Plan
             </Button>
             
-            <p className="text-xs text-slate-500 text-center">Available on the CFO plan or Custom Solutions</p>
+            <p className="text-xs text-vesta-navy/65 text-center">Available on the CFO plan or Custom Solutions</p>
           </div>
         </DialogContent>
       </Dialog>

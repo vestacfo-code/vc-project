@@ -127,7 +127,7 @@ const ThinkingAnimation = ({ userQuery }: ThinkingAnimationProps) => {
 
   return (
     <div className="flex gap-4 mb-8 animate-fade-in">
-      <div className="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center flex-shrink-0">
+      <div className="w-8 h-8 rounded-full bg-vesta-navy-muted/30 flex items-center justify-center flex-shrink-0">
         <VestaBrand size="sm" className="text-white" inline />
       </div>
       <div className="flex-1">
@@ -137,7 +137,7 @@ const ThinkingAnimation = ({ userQuery }: ThinkingAnimationProps) => {
           {/* Main thinking statement */}
           <div className="flex items-start gap-3 animate-fade-in">
             <ThinkingIcon className="w-4 h-4 text-primary mt-1 animate-pulse flex-shrink-0" />
-            <p className="text-gray-700 text-sm leading-relaxed">
+            <p className="text-vesta-navy/90 text-sm leading-relaxed">
               {thought}
             </p>
           </div>
@@ -165,16 +165,16 @@ const ThinkingAnimation = ({ userQuery }: ThinkingAnimationProps) => {
                       : 'opacity-0 translate-y-4 scale-95'
                   }`}
                 >
-                  <div className={`flex items-center gap-3 bg-gray-50 rounded-lg px-3 py-2.5 border transition-all duration-300 ${
+                  <div className={`flex items-center gap-3 bg-vesta-mist/25 rounded-lg px-3 py-2.5 border transition-all duration-300 ${
                     currentSearchIndex === index 
                       ? 'border-primary/30 bg-primary/5 shadow-sm' 
-                      : 'border-gray-200'
+                      : 'border-vesta-navy/10'
                   }`}>
                     <img src={quickbooksLogo} alt="QuickBooks" className={`w-3 h-3 flex-shrink-0 transition-opacity duration-300 ${
                       currentSearchIndex === index ? 'opacity-100' : 'opacity-60'
                     }`} />
                     <span className={`text-sm font-mono transition-colors duration-300 ${
-                      currentSearchIndex === index ? 'text-primary/90' : 'text-gray-600'
+                      currentSearchIndex === index ? 'text-primary/90' : 'text-vesta-navy/80'
                     }`}>
                       {search}
                     </span>

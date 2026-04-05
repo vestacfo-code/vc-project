@@ -30,15 +30,15 @@ export default function HotelPartnerMarketplace() {
   );
 
   return (
-    <div className="min-h-full text-slate-900">
+    <div className="min-h-full text-vesta-navy">
       <div className="mx-auto max-w-6xl space-y-6 px-4 py-8 sm:px-6 lg:px-8">
         <header className="flex items-start gap-3">
           <div className="rounded-xl border border-vesta-gold/30 bg-vesta-gold/15 p-2.5">
             <Handshake className="h-6 w-6 text-vesta-gold" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold tracking-tight text-slate-900">Partner marketplace</h1>
-            <p className="mt-1 max-w-xl text-sm text-slate-600">
+            <h1 className="text-2xl font-bold tracking-tight text-vesta-navy">Partner marketplace</h1>
+            <p className="mt-1 max-w-xl text-sm text-vesta-navy/80">
               Browse vetted vendors. When you open a partner link from here, we record a marketplace lead for attribution — your
               team still completes purchases on the partner&apos;s site.
             </p>

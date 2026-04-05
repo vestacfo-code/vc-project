@@ -37,18 +37,18 @@ export function TellUsMoreSection({ className = '' }: { className?: string }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-40px' }}
           transition={morphSpringSoft}
-          className="rounded-3xl border-2 border-slate-200 bg-white shadow-lg shadow-slate-200/50"
+          className="rounded-3xl border-2 border-vesta-navy/10 bg-white shadow-lg shadow-vesta-navy/10"
         >
-          <div className="relative rounded-[22px] bg-slate-50 overflow-hidden p-8 sm:p-12 md:grid md:grid-cols-2 md:gap-12 md:items-center">
+          <div className="relative rounded-[22px] bg-vesta-mist/25 overflow-hidden p-8 sm:p-12 md:grid md:grid-cols-2 md:gap-12 md:items-center">
             <div>
               <div className="inline-flex items-center gap-2 rounded-full bg-vesta-mist text-vesta-navy text-xs font-semibold uppercase tracking-wide px-3 py-1 mb-4 border border-vesta-navy/10">
                 <ClipboardList className="w-3.5 h-3.5" />
                 We don’t know your story yet
               </div>
-              <h2 className="font-serif text-3xl sm:text-4xl text-slate-900 font-normal leading-tight mb-4">
+              <h2 className="font-serif text-3xl sm:text-4xl text-vesta-navy font-normal leading-tight mb-4">
                 Tell us about your property — it helps us help you.
               </h2>
-              <p className="text-slate-600 leading-relaxed mb-6">
+              <p className="text-vesta-navy/80 leading-relaxed mb-6">
                 Every hotel is different. When you reach out, include whatever you can from the list — no pressure to fill
                 everything. If something doesn’t apply, skip it. We’ll ask follow-ups only if we need them.
               </p>
@@ -59,7 +59,7 @@ export function TellUsMoreSection({ className = '' }: { className?: string }) {
                 <Mail className="w-4 h-4" />
                 Email us this info
               </a>
-              <p className="mt-4 text-xs text-slate-500">
+              <p className="mt-4 text-xs text-vesta-navy/65">
                 Prefer to talk live? Use the{' '}
                 <Link to="/contact" className="text-vesta-navy hover:text-vesta-gold hover:underline font-medium">
                   contact page
@@ -71,7 +71,7 @@ export function TellUsMoreSection({ className = '' }: { className?: string }) {
               {INFO_CHECKLIST.map((line, i) => (
                 <li
                   key={line}
-                  className="flex gap-3 text-sm text-slate-700 bg-white/90 backdrop-blur rounded-xl px-4 py-3 border border-slate-100 shadow-sm"
+                  className="flex gap-3 text-sm text-vesta-navy/90 bg-white/90 backdrop-blur rounded-xl px-4 py-3 border border-vesta-navy/8 shadow-sm"
                 >
                   <span
                     className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-bold text-white"

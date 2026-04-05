@@ -16,11 +16,11 @@ const ExpenseIntelligence = () => {
       nextPage={{ href: "/docs/features/customer-profitability", title: "Customer Profitability" }}
     >
       <section id="overview" className="mb-12">
-        <h2 className="text-2xl font-semibold text-slate-900 mb-4">Overview</h2>
-        <p className="text-slate-400 mb-4">
+        <h2 className="text-2xl font-semibold text-vesta-navy mb-4">Overview</h2>
+        <p className="text-vesta-navy-muted mb-4">
           Expense Intelligence automatically monitors your spending patterns to help you:
         </p>
-        <ul className="list-disc list-inside text-slate-400 space-y-2">
+        <ul className="list-disc list-inside text-vesta-navy-muted space-y-2">
           <li>Detect unusual spending patterns before they become problems</li>
           <li>Identify your top vendors and spending categories</li>
           <li>Discover cost-saving opportunities</li>
@@ -29,22 +29,22 @@ const ExpenseIntelligence = () => {
       </section>
 
       <section id="anomalies" className="mb-12">
-        <h2 className="text-2xl font-semibold text-slate-900 mb-4">Spending Anomalies</h2>
-        <p className="text-slate-400 mb-4">
+        <h2 className="text-2xl font-semibold text-vesta-navy mb-4">Spending Anomalies</h2>
+        <p className="text-vesta-navy-muted mb-4">
           Vesta uses AI to detect when expenses deviate significantly from expected patterns:
         </p>
         <div className="grid gap-4">
-          <div className="border border-slate-200 bg-white rounded-xl p-4">
-            <h4 className="text-slate-900 font-medium mb-2">Deviation Alerts</h4>
-            <p className="text-sm text-slate-400">Get notified when a category exceeds its typical range</p>
+          <div className="border border-vesta-navy/10 bg-white rounded-xl p-4">
+            <h4 className="text-vesta-navy font-medium mb-2">Deviation Alerts</h4>
+            <p className="text-sm text-vesta-navy-muted">Get notified when a category exceeds its typical range</p>
           </div>
-          <div className="border border-slate-200 bg-white rounded-xl p-4">
-            <h4 className="text-slate-900 font-medium mb-2">Expected vs Actual</h4>
-            <p className="text-sm text-slate-400">Compare what you typically spend versus actual expenditure</p>
+          <div className="border border-vesta-navy/10 bg-white rounded-xl p-4">
+            <h4 className="text-vesta-navy font-medium mb-2">Expected vs Actual</h4>
+            <p className="text-sm text-vesta-navy-muted">Compare what you typically spend versus actual expenditure</p>
           </div>
-          <div className="border border-slate-200 bg-white rounded-xl p-4">
-            <h4 className="text-slate-900 font-medium mb-2">Trend Detection</h4>
-            <p className="text-sm text-slate-400">Identify gradual increases that might go unnoticed</p>
+          <div className="border border-vesta-navy/10 bg-white rounded-xl p-4">
+            <h4 className="text-vesta-navy font-medium mb-2">Trend Detection</h4>
+            <p className="text-sm text-vesta-navy-muted">Identify gradual increases that might go unnoticed</p>
           </div>
         </div>
         <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-xl p-4 mt-4">
@@ -55,23 +55,23 @@ const ExpenseIntelligence = () => {
       </section>
 
       <section id="vendors" className="mb-12">
-        <h2 className="text-2xl font-semibold text-slate-900 mb-4">Top Vendors</h2>
-        <p className="text-slate-400 mb-4">
+        <h2 className="text-2xl font-semibold text-vesta-navy mb-4">Top Vendors</h2>
+        <p className="text-vesta-navy-muted mb-4">
           Track where your money is going with vendor-level insights:
         </p>
-        <ul className="list-disc list-inside text-slate-400 space-y-2">
-          <li><strong className="text-slate-900">Top 5 Vendors:</strong> Your largest expense relationships</li>
-          <li><strong className="text-slate-900">Spending Trends:</strong> Month-over-month changes per vendor</li>
-          <li><strong className="text-slate-900">Category Breakdown:</strong> How each vendor fits into your expense categories</li>
+        <ul className="list-disc list-inside text-vesta-navy-muted space-y-2">
+          <li><strong className="text-vesta-navy">Top 5 Vendors:</strong> Your largest expense relationships</li>
+          <li><strong className="text-vesta-navy">Spending Trends:</strong> Month-over-month changes per vendor</li>
+          <li><strong className="text-vesta-navy">Category Breakdown:</strong> How each vendor fits into your expense categories</li>
         </ul>
       </section>
 
       <section id="optimization" className="mb-12">
-        <h2 className="text-2xl font-semibold text-slate-900 mb-4">Optimization Insights</h2>
-        <p className="text-slate-400 mb-4">
+        <h2 className="text-2xl font-semibold text-vesta-navy mb-4">Optimization Insights</h2>
+        <p className="text-vesta-navy-muted mb-4">
           AI-generated recommendations to reduce costs:
         </p>
-        <ul className="list-disc list-inside text-slate-400 space-y-2">
+        <ul className="list-disc list-inside text-vesta-navy-muted space-y-2">
           <li>Identify redundant subscriptions or services</li>
           <li>Spot opportunities for vendor consolidation</li>
           <li>Highlight categories with potential for negotiation</li>

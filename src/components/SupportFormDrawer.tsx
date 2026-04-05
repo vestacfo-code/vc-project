@@ -53,8 +53,8 @@ const getStatusStyle = (status: string) => {
     case 'open': return 'bg-blue-500/20 text-blue-400 border-blue-500/30';
     case 'in_progress': return 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30';
     case 'resolved': return 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30';
-    case 'closed': return 'bg-slate-500/20 text-slate-400 border-slate-500/30';
-    default: return 'bg-slate-500/20 text-slate-400 border-slate-500/30';
+    case 'closed': return 'bg-vesta-navy-muted/20 text-vesta-navy-muted border-vesta-navy/30';
+    default: return 'bg-vesta-navy-muted/20 text-vesta-navy-muted border-vesta-navy/30';
   }
 };
 
@@ -62,9 +62,9 @@ const getPriorityStyle = (priority: string) => {
   switch (priority) {
     case 'urgent': return 'bg-red-500/20 text-red-400';
     case 'high': return 'bg-orange-500/20 text-orange-400';
-    case 'normal': return 'bg-slate-500/20 text-slate-400';
-    case 'low': return 'bg-slate-500/20 text-slate-500';
-    default: return 'bg-slate-500/20 text-slate-400';
+    case 'normal': return 'bg-vesta-navy-muted/20 text-vesta-navy-muted';
+    case 'low': return 'bg-vesta-navy-muted/20 text-vesta-navy/65';
+    default: return 'bg-vesta-navy-muted/20 text-vesta-navy-muted';
   }
 };
 
@@ -215,26 +215,26 @@ const SupportFormDrawer = ({ open, onOpenChange }: SupportFormDrawerProps) => {
         className="w-full sm:max-w-md p-0 border-0 bg-white flex flex-col"
       >
         {/* Header */}
-        <div className="px-6 py-6 border-b border-slate-200">
-          <h1 className="font-serif text-3xl text-slate-900">Support</h1>
-          <p className="text-sm text-slate-400 mt-1">We're here to help</p>
+        <div className="px-6 py-6 border-b border-vesta-navy/10">
+          <h1 className="font-serif text-3xl text-vesta-navy">Support</h1>
+          <p className="text-sm text-vesta-navy-muted mt-1">We're here to help</p>
         </div>
 
         {/* Content */}
        <div className="flex-1 overflow-y-auto">
           {selectedTicket ? (
            <div className="flex flex-col">
-              <div className="px-6 py-4 border-b border-slate-200">
+              <div className="px-6 py-4 border-b border-vesta-navy/10">
                 <button 
                   onClick={() => setSelectedTicket(null)}
-                  className="flex items-center gap-2 text-slate-400 hover:text-slate-900 transition-colors text-sm mb-4"
+                  className="flex items-center gap-2 text-vesta-navy-muted hover:text-vesta-navy transition-colors text-sm mb-4"
                 >
                   <ArrowLeft className="w-4 h-4" />
                   Back to tickets
                 </button>
-                <h3 className="font-medium text-slate-900 text-lg">{selectedTicket.subject}</h3>
+                <h3 className="font-medium text-vesta-navy text-lg">{selectedTicket.subject}</h3>
                 <div className="flex items-center gap-2 mt-3">
-                  <span className="font-mono text-xs text-slate-500">{selectedTicket.ticket_number}</span>
+                  <span className="font-mono text-xs text-vesta-navy/65">{selectedTicket.ticket_number}</span>
                   <Badge className={`${getStatusStyle(selectedTicket.status)} border text-xs`}>
                     {getStatusIcon(selectedTicket.status)}
                     <span className="ml-1 capitalize">{selectedTicket.status.replace('_', ' ')}</span>
@@ -247,12 +247,12 @@ const SupportFormDrawer = ({ open, onOpenChange }: SupportFormDrawerProps) => {
              <div className="px-6 py-5">
                 <div className="space-y-5">
                   <div>
-                    <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">Submitted</p>
-                    <p className="text-sm text-slate-600">{format(new Date(selectedTicket.created_at), 'PPp')}</p>
+                    <p className="text-xs text-vesta-navy/65 uppercase tracking-wider mb-1">Submitted</p>
+                    <p className="text-sm text-vesta-navy/80">{format(new Date(selectedTicket.created_at), 'PPp')}</p>
                   </div>
                   <div>
-                    <p className="text-xs text-slate-500 uppercase tracking-wider mb-2">Description</p>
-                    <p className="text-sm text-slate-600 whitespace-pre-wrap bg-slate-50 p-4 rounded-lg border border-slate-200">
+                    <p className="text-xs text-vesta-navy/65 uppercase tracking-wider mb-2">Description</p>
+                    <p className="text-sm text-vesta-navy/80 whitespace-pre-wrap bg-vesta-mist/25 p-4 rounded-lg border border-vesta-navy/10">
                       {selectedTicket.description}
                     </p>
                   </div>
@@ -264,11 +264,11 @@ const SupportFormDrawer = ({ open, onOpenChange }: SupportFormDrawerProps) => {
               <div className="w-16 h-16 rounded-full bg-emerald-500/20 flex items-center justify-center mb-5">
                 <CheckCircle className="w-8 h-8 text-emerald-400" />
               </div>
-              <h3 className="text-xl font-semibold text-slate-900 mb-2">Ticket Submitted!</h3>
-              <p className="text-slate-400 mb-2">
-                Your ticket <span className="font-mono font-medium text-slate-900">{ticketNumber}</span> has been created.
+              <h3 className="text-xl font-semibold text-vesta-navy mb-2">Ticket Submitted!</h3>
+              <p className="text-vesta-navy-muted mb-2">
+                Your ticket <span className="font-mono font-medium text-vesta-navy">{ticketNumber}</span> has been created.
               </p>
-              <p className="text-sm text-slate-500 mb-8">
+              <p className="text-sm text-vesta-navy/65 mb-8">
                 Our team will respond within 24-48 hours.
               </p>
               <Button 
@@ -277,7 +277,7 @@ const SupportFormDrawer = ({ open, onOpenChange }: SupportFormDrawerProps) => {
                   setActiveTab('tickets');
                 }} 
                 variant="outline"
-                className="border-slate-300 text-slate-900 hover:bg-slate-100 bg-transparent"
+                className="border-vesta-navy/15 text-vesta-navy hover:bg-vesta-mist/40 bg-transparent"
               >
                 View My Tickets
               </Button>
@@ -285,16 +285,16 @@ const SupportFormDrawer = ({ open, onOpenChange }: SupportFormDrawerProps) => {
           ) : (
            <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as 'tickets' | 'new')} className="flex flex-col">
              <div className="px-6 pt-4 pb-2">
-                <TabsList className="w-full bg-slate-50 p-1 rounded-lg border border-slate-200">
+                <TabsList className="w-full bg-vesta-mist/25 p-1 rounded-lg border border-vesta-navy/10">
                   <TabsTrigger 
                     value="tickets" 
-                    className="flex-1 data-[state=active]:bg-slate-100 data-[state=active]:text-slate-900 text-slate-400 rounded-md text-sm"
+                    className="flex-1 data-[state=active]:bg-vesta-mist/40 data-[state=active]:text-vesta-navy text-vesta-navy-muted rounded-md text-sm"
                   >
                     My Tickets
                   </TabsTrigger>
                   <TabsTrigger 
                     value="new" 
-                    className="flex-1 data-[state=active]:bg-slate-100 data-[state=active]:text-slate-900 text-slate-400 rounded-md text-sm"
+                    className="flex-1 data-[state=active]:bg-vesta-mist/40 data-[state=active]:text-vesta-navy text-vesta-navy-muted rounded-md text-sm"
                   >
                     New Request
                   </TabsTrigger>
@@ -304,18 +304,18 @@ const SupportFormDrawer = ({ open, onOpenChange }: SupportFormDrawerProps) => {
              <TabsContent value="tickets" className="flex-1 flex flex-col mt-0">
                 {loadingTickets ? (
                  <div className="flex items-center justify-center py-12">
-                    <Loader2 className="w-6 h-6 animate-spin text-slate-500" />
+                    <Loader2 className="w-6 h-6 animate-spin text-vesta-navy/65" />
                   </div>
                 ) : tickets.length === 0 ? (
                  <div className="flex flex-col items-center justify-center py-12 px-6 text-center">
-                    <div className="w-14 h-14 rounded-full bg-slate-50 flex items-center justify-center mb-5">
-                      <Send className="w-6 h-6 text-slate-500" />
+                    <div className="w-14 h-14 rounded-full bg-vesta-mist/25 flex items-center justify-center mb-5">
+                      <Send className="w-6 h-6 text-vesta-navy/65" />
                     </div>
-                    <h3 className="font-medium text-slate-900 mb-2 text-lg">No tickets yet</h3>
-                    <p className="text-sm text-slate-500 mb-6">Submit a request to get help from our team</p>
+                    <h3 className="font-medium text-vesta-navy mb-2 text-lg">No tickets yet</h3>
+                    <p className="text-sm text-vesta-navy/65 mb-6">Submit a request to get help from our team</p>
                     <Button 
                       onClick={() => setActiveTab('new')}
-                      className="bg-white text-black hover:bg-slate-200"
+                      className="bg-white text-black hover:bg-vesta-mist/50"
                     >
                       <Plus className="w-4 h-4 mr-2" />
                       New Request
@@ -327,22 +327,22 @@ const SupportFormDrawer = ({ open, onOpenChange }: SupportFormDrawerProps) => {
                         <button
                           key={ticket.id}
                           onClick={() => setSelectedTicket(ticket)}
-                          className="w-full text-left p-4 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 hover:border-slate-300 transition-all group"
+                          className="w-full text-left p-4 rounded-xl border border-vesta-navy/10 bg-vesta-mist/25 hover:bg-vesta-mist/40 hover:border-vesta-navy/15 transition-all group"
                         >
                           <div className="flex items-start justify-between gap-3">
                             <div className="min-w-0 flex-1">
-                              <p className="font-medium text-slate-900 truncate">{ticket.subject}</p>
-                              <p className="text-xs text-slate-500 mt-1 font-mono">{ticket.ticket_number}</p>
+                              <p className="font-medium text-vesta-navy truncate">{ticket.subject}</p>
+                              <p className="text-xs text-vesta-navy/65 mt-1 font-mono">{ticket.ticket_number}</p>
                             </div>
                             <div className="flex items-center gap-2">
                               <Badge className={`${getStatusStyle(ticket.status)} border text-xs shrink-0`}>
                                 {getStatusIcon(ticket.status)}
                                 <span className="ml-1 capitalize">{ticket.status.replace('_', ' ')}</span>
                               </Badge>
-                              <ChevronRight className="w-4 h-4 text-slate-600 group-hover:text-slate-900 transition-colors" />
+                              <ChevronRight className="w-4 h-4 text-vesta-navy/80 group-hover:text-vesta-navy transition-colors" />
                             </div>
                           </div>
-                          <p className="text-xs text-slate-500 mt-3">
+                          <p className="text-xs text-vesta-navy/65 mt-3">
                             {format(new Date(ticket.created_at), 'MMM d, yyyy')}
                           </p>
                         </button>
@@ -354,34 +354,34 @@ const SupportFormDrawer = ({ open, onOpenChange }: SupportFormDrawerProps) => {
              <TabsContent value="new" className="flex-1 mt-0">
                  <form onSubmit={handleSubmit} className="px-6 py-4 space-y-4">
                    <div className="space-y-1.5">
-                      <Label htmlFor="subject" className="text-slate-600 text-sm">Subject</Label>
+                      <Label htmlFor="subject" className="text-vesta-navy/80 text-sm">Subject</Label>
                       <Input
                         id="subject"
                         placeholder="Brief description of your issue"
                         value={subject}
                         onChange={(e) => setSubject(e.target.value)}
                         disabled={submitting}
-                        className="bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-500 focus:border-slate-400 focus:ring-0"
+                        className="bg-vesta-mist/25 border-vesta-navy/10 text-vesta-navy placeholder:text-vesta-navy/65 focus:border-vesta-navy/12 focus:ring-0"
                       />
                     </div>
 
                    <div className="space-y-1.5">
-                      <Label htmlFor="priority" className="text-slate-600 text-sm">Priority</Label>
+                      <Label htmlFor="priority" className="text-vesta-navy/80 text-sm">Priority</Label>
                       <Select value={priority} onValueChange={setPriority} disabled={submitting}>
-                        <SelectTrigger className="bg-slate-50 border-slate-200 text-slate-900">
+                        <SelectTrigger className="bg-vesta-mist/25 border-vesta-navy/10 text-vesta-navy">
                           <SelectValue />
                         </SelectTrigger>
-                        <SelectContent className="border border-slate-200 bg-white">
-                          <SelectItem value="low" className="text-slate-600 focus:bg-slate-100 focus:text-slate-900">Low - General question</SelectItem>
-                          <SelectItem value="normal" className="text-slate-600 focus:bg-slate-100 focus:text-slate-900">Normal - Standard issue</SelectItem>
-                          <SelectItem value="high" className="text-slate-600 focus:bg-slate-100 focus:text-slate-900">High - Impacting work</SelectItem>
-                          <SelectItem value="urgent" className="text-slate-600 focus:bg-slate-100 focus:text-slate-900">Urgent - Critical blocker</SelectItem>
+                        <SelectContent className="border border-vesta-navy/10 bg-white">
+                          <SelectItem value="low" className="text-vesta-navy/80 focus:bg-vesta-mist/40 focus:text-vesta-navy">Low - General question</SelectItem>
+                          <SelectItem value="normal" className="text-vesta-navy/80 focus:bg-vesta-mist/40 focus:text-vesta-navy">Normal - Standard issue</SelectItem>
+                          <SelectItem value="high" className="text-vesta-navy/80 focus:bg-vesta-mist/40 focus:text-vesta-navy">High - Impacting work</SelectItem>
+                          <SelectItem value="urgent" className="text-vesta-navy/80 focus:bg-vesta-mist/40 focus:text-vesta-navy">Urgent - Critical blocker</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
 
                    <div className="space-y-1.5">
-                      <Label htmlFor="description" className="text-slate-600 text-sm">Description</Label>
+                      <Label htmlFor="description" className="text-vesta-navy/80 text-sm">Description</Label>
                       <Textarea
                         id="description"
                         placeholder="Please describe your issue in detail..."
@@ -389,18 +389,18 @@ const SupportFormDrawer = ({ open, onOpenChange }: SupportFormDrawerProps) => {
                         onChange={(e) => setDescription(e.target.value)}
                         disabled={submitting}
                        rows={5}
-                        className="resize-none bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-500 focus:border-slate-400 focus:ring-0"
+                        className="resize-none bg-vesta-mist/25 border-vesta-navy/10 text-vesta-navy placeholder:text-vesta-navy/65 focus:border-vesta-navy/12 focus:ring-0"
                       />
                     </div>
 
                     {/* Activity Logs Section */}
-                   <Collapsible open={logsExpanded} onOpenChange={setLogsExpanded} className="border border-slate-200 rounded-lg">
-                     <CollapsibleTrigger className="flex items-center justify-between w-full p-3 text-sm text-slate-400 hover:text-slate-900 transition-colors">
+                   <Collapsible open={logsExpanded} onOpenChange={setLogsExpanded} className="border border-vesta-navy/10 rounded-lg">
+                     <CollapsibleTrigger className="flex items-center justify-between w-full p-3 text-sm text-vesta-navy-muted hover:text-vesta-navy transition-colors">
                         <div className="flex items-center gap-2">
                           <History className="w-4 h-4" />
                           <span>Attach activity logs (optional)</span>
                           {selectedLogs.length > 0 && (
-                            <Badge className="bg-slate-100 text-slate-900 text-xs border-0">
+                            <Badge className="bg-vesta-mist/40 text-vesta-navy text-xs border-0">
                               {selectedLogs.length} selected
                             </Badge>
                           )}
@@ -408,31 +408,31 @@ const SupportFormDrawer = ({ open, onOpenChange }: SupportFormDrawerProps) => {
                         <ChevronDown className={`w-4 h-4 transition-transform ${logsExpanded ? 'rotate-180' : ''}`} />
                       </CollapsibleTrigger>
                      <CollapsibleContent>
-                       <div className="border-t border-slate-200 max-h-40 overflow-y-auto">
+                       <div className="border-t border-vesta-navy/10 max-h-40 overflow-y-auto">
                           {loadingLogs ? (
                            <div className="flex items-center justify-center py-4">
-                              <Loader2 className="w-4 h-4 animate-spin text-slate-500" />
+                              <Loader2 className="w-4 h-4 animate-spin text-vesta-navy/65" />
                             </div>
                           ) : creditLogs.length === 0 ? (
-                           <p className="text-xs text-slate-500 text-center py-3">No recent activity</p>
+                           <p className="text-xs text-vesta-navy/65 text-center py-3">No recent activity</p>
                           ) : (
                             <div className="divide-y divide-white/5">
                               {creditLogs.map((log) => (
                                 <label
                                   key={log.id}
-                                 className="flex items-start gap-2 px-3 py-2 cursor-pointer hover:bg-slate-50 transition-colors"
+                                 className="flex items-start gap-2 px-3 py-2 cursor-pointer hover:bg-vesta-mist/25 transition-colors"
                                 >
                                   <Checkbox
                                     checked={selectedLogs.includes(log.id)}
                                     onCheckedChange={() => toggleLogSelection(log.id)}
-                                    className="mt-0.5 border-slate-300 data-[state=checked]:bg-white data-[state=checked]:text-black"
+                                    className="mt-0.5 border-vesta-navy/15 data-[state=checked]:bg-white data-[state=checked]:text-black"
                                   />
                                   <div className="flex-1 min-w-0">
                                     <div className="flex items-center gap-2">
-                                      <span className="text-xs font-medium text-slate-900">{log.action_type.replace(/_/g, ' ')}</span>
-                                      <span className="text-xs text-slate-500">-{log.credits_used} credits</span>
+                                      <span className="text-xs font-medium text-vesta-navy">{log.action_type.replace(/_/g, ' ')}</span>
+                                      <span className="text-xs text-vesta-navy/65">-{log.credits_used} credits</span>
                                     </div>
-                                    <p className="text-xs text-slate-500 mt-0.5">
+                                    <p className="text-xs text-vesta-navy/65 mt-0.5">
                                       {format(new Date(log.timestamp), 'MMM d, h:mm a')}
                                     </p>
                                   </div>
@@ -446,7 +446,7 @@ const SupportFormDrawer = ({ open, onOpenChange }: SupportFormDrawerProps) => {
 
                     <Button 
                       type="submit" 
-                     className="w-full bg-white text-black hover:bg-slate-200 h-11 rounded-lg font-medium mt-2" 
+                     className="w-full bg-white text-black hover:bg-vesta-mist/50 h-11 rounded-lg font-medium mt-2" 
                       disabled={submitting}
                     >
                       {submitting ? (

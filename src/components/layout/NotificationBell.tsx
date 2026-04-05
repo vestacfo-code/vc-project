@@ -41,7 +41,7 @@ function NotificationRow({
       onClick={handleClick}
       className={cn(
         'w-full text-left flex items-start gap-3 px-4 py-3 transition-colors',
-        'hover:bg-gray-50 border-b border-gray-100 last:border-0',
+        'hover:bg-vesta-mist/25 border-b border-vesta-navy/8 last:border-0',
         isUnread && 'bg-blue-50/40',
       )}
     >
@@ -56,14 +56,14 @@ function NotificationRow({
       {/* Content */}
       <div className="flex-1 min-w-0">
         <p
-          className={cn('text-sm leading-snug truncate', isUnread ? 'font-semibold text-gray-900' : 'font-medium text-gray-700')}
+          className={cn('text-sm leading-snug truncate', isUnread ? 'font-semibold text-vesta-navy' : 'font-medium text-vesta-navy/90')}
         >
           {notification.title}
         </p>
-        <p className="text-xs text-gray-500 mt-0.5 line-clamp-2 leading-relaxed">
+        <p className="text-xs text-vesta-navy/65 mt-0.5 line-clamp-2 leading-relaxed">
           {notification.body}
         </p>
-        <p className="text-[10px] text-gray-400 mt-1">
+        <p className="text-[10px] text-vesta-navy-muted mt-1">
           {formatDistanceToNow(new Date(notification.created_at), { addSuffix: true })}
         </p>
       </div>
@@ -108,11 +108,11 @@ export function NotificationBell({ hotelId }: NotificationBellProps) {
       <PopoverContent
         align="end"
         sideOffset={8}
-        className="w-80 p-0 rounded-xl shadow-xl border border-gray-200 overflow-hidden"
+        className="w-80 p-0 rounded-xl shadow-xl border border-vesta-navy/10 overflow-hidden"
         style={{ fontFamily: "'DM Sans', sans-serif" }}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100"
+        <div className="flex items-center justify-between px-4 py-3 border-b border-vesta-navy/8"
           style={{ backgroundColor: '#1B3A5C' }}>
           <div className="flex items-center gap-2">
             <Bell size={14} className="text-white/70" />
@@ -141,7 +141,7 @@ export function NotificationBell({ hotelId }: NotificationBellProps) {
         <div className="max-h-[380px] overflow-y-auto bg-white">
           {isLoading ? (
             <div className="flex items-center justify-center py-10">
-              <div className="w-5 h-5 border-2 border-gray-200 border-t-gray-500 rounded-full animate-spin" />
+              <div className="w-5 h-5 border-2 border-vesta-navy/10 border-t-vesta-navy-muted rounded-full animate-spin" />
             </div>
           ) : notifications.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-12 gap-2">
@@ -151,8 +151,8 @@ export function NotificationBell({ hotelId }: NotificationBellProps) {
               >
                 <Bell size={18} style={{ color: '#94a3b8' }} />
               </div>
-              <p className="text-sm text-gray-400 font-medium">All caught up</p>
-              <p className="text-xs text-gray-300">No new notifications</p>
+              <p className="text-sm text-vesta-navy-muted font-medium">All caught up</p>
+              <p className="text-xs text-vesta-navy/60">No new notifications</p>
             </div>
           ) : (
             notifications.map((n) => (
@@ -167,10 +167,10 @@ export function NotificationBell({ hotelId }: NotificationBellProps) {
 
         {/* Footer */}
         {notifications.length > 0 && (
-          <div className="px-4 py-2.5 border-t border-gray-100 bg-gray-50">
+          <div className="px-4 py-2.5 border-t border-vesta-navy/8 bg-vesta-mist/25">
             <button
               onClick={() => { setOpen(false); }}
-              className="text-xs text-gray-400 hover:text-gray-600 transition-colors w-full text-center"
+              className="text-xs text-vesta-navy-muted hover:text-vesta-navy/80 transition-colors w-full text-center"
             >
               {notifications.length} notification{notifications.length !== 1 ? 's' : ''} total
             </button>

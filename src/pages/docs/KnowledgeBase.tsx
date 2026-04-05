@@ -74,14 +74,14 @@ const KnowledgeBase = () => {
     >
       <div className="grid gap-6 md:grid-cols-2">
         {categories.map((category) => (
-          <div key={category.title} className="border border-slate-200 bg-white rounded-xl p-6">
+          <div key={category.title} className="border border-vesta-navy/10 bg-white rounded-xl p-6">
             <div className="flex items-start gap-4 mb-4">
-              <div className="bg-[#7ba3e8]/10 p-3 rounded-lg">
-                <category.icon className="h-6 w-6 text-[#7ba3e8]" />
+              <div className="bg-vesta-navy-muted/10 p-3 rounded-lg">
+                <category.icon className="h-6 w-6 text-vesta-navy-muted" />
               </div>
               <div>
-                <h3 className="text-slate-900 font-semibold">{category.title}</h3>
-                <p className="text-sm text-slate-400">{category.description}</p>
+                <h3 className="text-vesta-navy font-semibold">{category.title}</h3>
+                <p className="text-sm text-vesta-navy-muted">{category.description}</p>
               </div>
             </div>
             <ul className="space-y-2">
@@ -89,7 +89,7 @@ const KnowledgeBase = () => {
                 <li key={link.href}>
                   <Link 
                     to={link.href}
-                    className="text-sm text-slate-400 hover:text-[#7ba3e8] transition-colors"
+                    className="text-sm text-vesta-navy-muted hover:text-vesta-navy-muted transition-colors"
                   >
                     → {link.title}
                   </Link>
@@ -100,12 +100,12 @@ const KnowledgeBase = () => {
         ))}
       </div>
 
-      <div className="mt-12 bg-gradient-to-r from-[#7ba3e8]/20 to-[#7ba3e8]/5 border border-[#7ba3e8]/20 rounded-xl p-6 text-center">
-        <h3 className="text-slate-900 font-semibold mb-2">Can't find what you're looking for?</h3>
-        <p className="text-slate-400 mb-4">Our AI assistant can help answer your questions.</p>
+      <div className="mt-12 bg-gradient-to-r from-vesta-navy-muted/20 to-vesta-navy-muted/5 border border-vesta-navy-muted/20 rounded-xl p-6 text-center">
+        <h3 className="text-vesta-navy font-semibold mb-2">Can't find what you're looking for?</h3>
+        <p className="text-vesta-navy-muted mb-4">Our AI assistant can help answer your questions.</p>
         <Link 
           to="/chat"
-          className="inline-block bg-[#7ba3e8] text-white px-6 py-2 rounded-lg font-medium hover:bg-[#6a92d7] transition-colors"
+          className="inline-block bg-vesta-navy-muted text-white px-6 py-2 rounded-lg font-medium hover:bg-vesta-navy-muted transition-colors"
         >
           Ask AI Assistant
         </Link>

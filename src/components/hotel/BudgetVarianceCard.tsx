@@ -68,7 +68,7 @@ interface KpiRowProps {
 function KpiRow({ label, actual, target, variance }: KpiRowProps) {
   const hasVariance = variance !== null
 
-  let badgeClass = 'bg-slate-100 text-slate-600 border-slate-200'
+  let badgeClass = 'bg-vesta-mist/40 text-vesta-navy/80 border-vesta-navy/10'
   let VarianceIcon = Minus
   let varianceText = '—'
 
@@ -85,13 +85,13 @@ function KpiRow({ label, actual, target, variance }: KpiRowProps) {
   }
 
   return (
-    <div className="flex items-center justify-between border-b border-slate-200 py-2.5 last:border-0">
+    <div className="flex items-center justify-between border-b border-vesta-navy/10 py-2.5 last:border-0">
       <div className="min-w-0 flex-1">
-        <p className="text-xs font-medium text-slate-500">{label}</p>
+        <p className="text-xs font-medium text-vesta-navy/65">{label}</p>
         <div className="mt-0.5 flex items-baseline gap-1.5">
-          <span className="text-sm font-semibold text-slate-900">{actual}</span>
+          <span className="text-sm font-semibold text-vesta-navy">{actual}</span>
           {target !== '—' && (
-            <span className="text-xs text-slate-500">/ {target}</span>
+            <span className="text-xs text-vesta-navy/65">/ {target}</span>
           )}
         </div>
       </div>
@@ -177,7 +177,7 @@ export default function BudgetVarianceCard({ hotelId }: BudgetVarianceCardProps)
     <Card className="h-full border border-vesta-navy/10 bg-white shadow-sm">
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
-          <CardTitle className="flex items-center gap-2 text-base font-semibold text-slate-900">
+          <CardTitle className="flex items-center gap-2 text-base font-semibold text-vesta-navy">
             <Target className="h-4 w-4 text-vesta-gold" />
             Budget vs Actual
           </CardTitle>
@@ -189,7 +189,7 @@ export default function BudgetVarianceCard({ hotelId }: BudgetVarianceCardProps)
             <ArrowRight className="h-3 w-3" />
           </Link>
         </div>
-        <p className="text-xs text-slate-500">{format(now, 'MMMM yyyy')} — month to date</p>
+        <p className="text-xs text-vesta-navy/65">{format(now, 'MMMM yyyy')} — month to date</p>
       </CardHeader>
       <CardContent className="px-4 pb-4">
         {isLoading ? (
@@ -197,18 +197,18 @@ export default function BudgetVarianceCard({ hotelId }: BudgetVarianceCardProps)
             {[1, 2, 3].map((i) => (
               <div key={i} className="flex items-center justify-between py-2.5">
                 <div className="space-y-1.5">
-                  <Skeleton className="h-3 w-16 bg-slate-200" />
-                  <Skeleton className="h-4 w-20 bg-slate-200" />
+                  <Skeleton className="h-3 w-16 bg-vesta-mist/50" />
+                  <Skeleton className="h-4 w-20 bg-vesta-mist/50" />
                 </div>
-                <Skeleton className="h-5 w-16 rounded-full bg-slate-200" />
+                <Skeleton className="h-5 w-16 rounded-full bg-vesta-mist/50" />
               </div>
             ))}
           </div>
         ) : !hasBudget ? (
           <div className="flex flex-col items-center justify-center py-6 text-center">
-            <Target className="h-7 w-7 text-slate-600 mb-2" />
-            <p className="text-sm font-medium text-slate-600">No budget targets set</p>
-            <p className="text-xs text-slate-500 mt-1 mb-3">
+            <Target className="h-7 w-7 text-vesta-navy/80 mb-2" />
+            <p className="text-sm font-medium text-vesta-navy/80">No budget targets set</p>
+            <p className="text-xs text-vesta-navy/65 mt-1 mb-3">
               Set monthly targets to track performance
             </p>
             <Link

@@ -123,7 +123,7 @@ export default function SharedConversation() {
                     }`}
                   >
                     {message.role === 'assistant' ? (
-                      <div className="prose prose-sm prose-slate max-w-none">
+                      <div className="prose prose-sm prose-neutral max-w-none">
                         <ReactMarkdown>
                           {message.content}
                         </ReactMarkdown>

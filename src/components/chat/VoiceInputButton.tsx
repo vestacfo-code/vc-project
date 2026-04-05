@@ -156,7 +156,7 @@ export const VoiceInputButton = ({
         size="icon"
         onClick={handleToggleRecording}
         disabled={disabled || isTranscribing}
-        className={`h-8 w-8 ${isRecording ? 'text-red-500 animate-pulse' : 'text-zinc-400 hover:text-zinc-200 hover:bg-white/5'}`}
+        className={`h-8 w-8 ${isRecording ? 'text-red-500 animate-pulse' : 'text-vesta-navy-muted hover:text-vesta-navy/50 hover:bg-white/5'}`}
       >
         {isTranscribing ? (
           <Loader2 className="h-4 w-4 animate-spin" />

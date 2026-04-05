@@ -50,13 +50,13 @@ export const MentionDropdown = ({ query, references, onSelect, position, onKeyDo
 
   return (
     <div
-      className="fixed bg-white rounded-lg shadow-lg border border-gray-200 w-80 max-h-64 overflow-hidden z-50"
+      className="fixed bg-white rounded-lg shadow-lg border border-vesta-navy/10 w-80 max-h-64 overflow-hidden z-50"
       style={{ top: `${position.top}px`, left: `${position.left}px` }}
     >
       <Command className="bg-transparent">
         <CommandList>
           {filtered.length === 0 ? (
-            <CommandEmpty className="py-6 text-center text-sm text-gray-500">
+            <CommandEmpty className="py-6 text-center text-sm text-vesta-navy/65">
               No dashboard components found
             </CommandEmpty>
           ) : (
@@ -66,7 +66,7 @@ export const MentionDropdown = ({ query, references, onSelect, position, onKeyDo
                   key={ref.id}
                   value={ref.id}
                   onSelect={() => onSelect(ref)}
-                  className={`flex items-center gap-2 px-3 py-2 cursor-pointer hover:bg-gray-50 ${
+                  className={`flex items-center gap-2 px-3 py-2 cursor-pointer hover:bg-vesta-mist/25 ${
                     index === selectedIndex ? 'bg-blue-50' : ''
                   }`}
                 >
@@ -74,8 +74,8 @@ export const MentionDropdown = ({ query, references, onSelect, position, onKeyDo
                     {iconMap[ref.icon || 'bar-chart'] || <BarChart3 className="h-4 w-4" />}
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-sm font-medium text-gray-900">{ref.name}</span>
-                    <span className="text-xs text-gray-500">{ref.type}</span>
+                    <span className="text-sm font-medium text-vesta-navy">{ref.name}</span>
+                    <span className="text-xs text-vesta-navy/65">{ref.type}</span>
                   </div>
                 </CommandItem>
               ))}

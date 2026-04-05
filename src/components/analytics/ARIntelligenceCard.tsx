@@ -28,33 +28,33 @@ export const ARIntelligenceCard = ({ data }: ARIntelligenceCardProps) => {
   };
 
   return (
-    <Card className="bg-white border border-gray-200 group hover:shadow-md transition-all">
+    <Card className="bg-white border border-vesta-navy/10 group hover:shadow-md transition-all">
       <CardHeader className="flex-row items-start justify-between space-y-0 pb-4">
-        <CardTitle className="text-sm font-medium text-gray-700">AR Intelligence</CardTitle>
+        <CardTitle className="text-sm font-medium text-vesta-navy/90">AR Intelligence</CardTitle>
         <ChatIconButton reference={reference} />
       </CardHeader>
       <CardContent className="space-y-6">
         {/* Primary Metrics */}
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-xs text-gray-500 mb-1">At Risk</p>
+            <p className="text-xs text-vesta-navy/65 mb-1">At Risk</p>
             <p className="text-2xl font-medium text-red-700">{formatCurrency(data.atRiskAmount)}</p>
           </div>
           <div className="text-right">
-            <p className="text-xs text-gray-500 mb-1">Avg Days Late</p>
-            <p className="text-2xl font-medium text-gray-900">{avgDaysLate}</p>
+            <p className="text-xs text-vesta-navy/65 mb-1">Avg Days Late</p>
+            <p className="text-2xl font-medium text-vesta-navy">{avgDaysLate}</p>
           </div>
         </div>
 
         {/* Customer Risk Profiles - Simplified */}
         {data.customerProfiles.length > 0 && (
-          <div className="pt-4 border-t border-gray-100 space-y-2">
-            <p className="text-xs text-gray-500 mb-3">Payment Risk</p>
+          <div className="pt-4 border-t border-vesta-navy/8 space-y-2">
+            <p className="text-xs text-vesta-navy/65 mb-3">Payment Risk</p>
             {data.customerProfiles.slice(0, 4).map((profile, idx) => (
-              <div key={idx} className="flex items-center justify-between py-2 border-b border-gray-50 last:border-0">
+              <div key={idx} className="flex items-center justify-between py-2 border-b border-vesta-mist/50 last:border-0">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="text-sm text-gray-900 truncate">{profile.name}</span>
+                    <span className="text-sm text-vesta-navy truncate">{profile.name}</span>
                     <span className={`text-xs px-1.5 py-0.5 rounded ${
                       profile.riskLevel === 'high' ? 'bg-red-100 text-red-700' :
                       profile.riskLevel === 'medium' ? 'bg-amber-100 text-amber-700' :
@@ -63,7 +63,7 @@ export const ARIntelligenceCard = ({ data }: ARIntelligenceCardProps) => {
                       {profile.riskLevel}
                     </span>
                   </div>
-                  <div className="flex items-center gap-3 text-xs text-gray-500">
+                  <div className="flex items-center gap-3 text-xs text-vesta-navy/65">
                     <span>{formatCurrency(profile.totalRevenue)}</span>
                     <span>•</span>
                     <span>{profile.avgDaysLate}d avg late</span>
@@ -78,10 +78,10 @@ export const ARIntelligenceCard = ({ data }: ARIntelligenceCardProps) => {
 
         {/* Top Insight Only */}
         {data.insights && data.insights.length > 0 && (
-          <div className="pt-4 border-t border-gray-100">
+          <div className="pt-4 border-t border-vesta-navy/8">
             <div className="flex items-start gap-2">
               <AlertCircle className="h-4 w-4 text-amber-600 mt-0.5 flex-shrink-0" />
-              <p className="text-xs text-gray-700 leading-relaxed">{data.insights[0].action}</p>
+              <p className="text-xs text-vesta-navy/90 leading-relaxed">{data.insights[0].action}</p>
             </div>
           </div>
         )}

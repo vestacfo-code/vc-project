@@ -101,7 +101,7 @@ const AppleStyleScrolling = () => {
       <div className="sticky top-0 flex h-screen items-center justify-center overflow-hidden">
         <div className="container mx-auto grid items-center gap-12 px-4 lg:grid-cols-2">
           {/* Left side - Text content */}
-          <div className="space-y-8 text-slate-900">
+          <div className="space-y-8 text-vesta-navy">
             <div className="space-y-4">
               <div className={`inline-flex p-4 rounded-2xl bg-gradient-to-r ${currentSection.color} transform transition-all duration-1000 ease-out`}>
                 {currentSection.icon}
@@ -111,13 +111,13 @@ const AppleStyleScrolling = () => {
                 <h2 className="text-5xl md:text-6xl font-bold leading-tight">
                   {currentSection.title}
                 </h2>
-                <p className="text-2xl font-medium text-slate-600">
+                <p className="text-2xl font-medium text-vesta-navy/80">
                   {currentSection.subtitle}
                 </p>
               </div>
             </div>
 
-            <p className="max-w-lg text-xl leading-relaxed text-slate-600">
+            <p className="max-w-lg text-xl leading-relaxed text-vesta-navy/80">
               {currentSection.description}
             </p>
 
@@ -133,7 +133,7 @@ const AppleStyleScrolling = () => {
                   }}
                 >
                   <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${currentSection.color}`} />
-                  <span className="text-slate-700">{feature}</span>
+                  <span className="text-vesta-navy/90">{feature}</span>
                 </div>
               ))}
             </div>
@@ -142,13 +142,13 @@ const AppleStyleScrolling = () => {
           {/* Right side - Visual representation */}
           <div className="relative">
             <div className="relative transform transition-all duration-1000 ease-out hover:scale-105">
-              <Card className="border border-slate-200 bg-white p-8 shadow-xl">
+              <Card className="border border-vesta-navy/10 bg-white p-8 shadow-xl">
                 <div className="space-y-6">
                   {/* Mock interface elements that change based on active section */}
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
                       <div className={`w-3 h-3 rounded-full bg-gradient-to-r ${currentSection.color}`} />
-                      <span className="font-semibold text-slate-900">{currentSection.title}</span>
+                      <span className="font-semibold text-vesta-navy">{currentSection.title}</span>
                     </div>
                     <div className="flex space-x-1">
                       <div className="w-3 h-3 rounded-full bg-red-500" />
@@ -162,8 +162,8 @@ const AppleStyleScrolling = () => {
                     {activeSection === 0 && (
                       <div className="space-y-3">
                         <div className="h-2 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full animate-pulse" />
-                        <div className="h-2 w-3/4 rounded-full bg-slate-200" />
-                        <div className="h-2 w-1/2 rounded-full bg-slate-200" />
+                        <div className="h-2 w-3/4 rounded-full bg-vesta-mist/50" />
+                        <div className="h-2 w-1/2 rounded-full bg-vesta-mist/50" />
                       </div>
                     )}
                     
@@ -171,11 +171,11 @@ const AppleStyleScrolling = () => {
                       <div className="flex items-center justify-center">
                         <div className="relative w-24 h-24">
                           <svg className="w-24 h-24 transform -rotate-90">
-                            <circle cx="48" cy="48" r="40" stroke="currentColor" strokeWidth="8" fill="transparent" className="text-slate-200" />
+                            <circle cx="48" cy="48" r="40" stroke="currentColor" strokeWidth="8" fill="transparent" className="text-vesta-navy/50" />
                             <circle cx="48" cy="48" r="40" stroke="currentColor" strokeWidth="8" fill="transparent" strokeDasharray={`${2 * Math.PI * 40}`} strokeDashoffset={`${2 * Math.PI * 40 * (1 - 0.85)}`} className="text-green-500 transition-all duration-1000" />
                           </svg>
                           <div className="absolute inset-0 flex items-center justify-center">
-                            <span className="text-2xl font-bold text-slate-900">85</span>
+                            <span className="text-2xl font-bold text-vesta-navy">85</span>
                           </div>
                         </div>
                       </div>
@@ -185,11 +185,11 @@ const AppleStyleScrolling = () => {
                       <div className="space-y-2">
                         <div className="flex items-center space-x-2 p-2 bg-orange-500/20 rounded">
                           <AlertTriangle className="w-4 h-4 text-orange-500" />
-                          <span className="text-sm text-slate-900">Cash flow alert</span>
+                          <span className="text-sm text-vesta-navy">Cash flow alert</span>
                         </div>
                         <div className="flex items-center space-x-2 p-2 bg-green-500/20 rounded">
                           <TrendingUp className="w-4 h-4 text-green-500" />
-                          <span className="text-sm text-slate-900">Growth opportunity</span>
+                          <span className="text-sm text-vesta-navy">Growth opportunity</span>
                         </div>
                       </div>
                     )}
@@ -233,7 +233,7 @@ const AppleStyleScrolling = () => {
             <div
               key={index}
               className={`h-8 w-2 rounded-full transition-all duration-300 ${
-                index === activeSection ? 'bg-vesta-navy' : 'bg-slate-300'
+                index === activeSection ? 'bg-vesta-navy' : 'bg-vesta-mist'
               }`}
             />
           ))}

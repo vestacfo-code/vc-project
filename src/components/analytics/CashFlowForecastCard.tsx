@@ -20,9 +20,9 @@ export const CashFlowForecastCard = ({ data }: CashFlowForecastCardProps) => {
   };
 
   return (
-    <Card className="bg-white border border-gray-200 group hover:shadow-md transition-all">
+    <Card className="bg-white border border-vesta-navy/10 group hover:shadow-md transition-all">
       <CardHeader className="flex-row items-start justify-between space-y-0 pb-4">
-        <CardTitle className="text-sm font-medium text-gray-700">Cash Flow Forecast</CardTitle>
+        <CardTitle className="text-sm font-medium text-vesta-navy/90">Cash Flow Forecast</CardTitle>
         <ChatIconButton reference={reference} />
       </CardHeader>
       <CardContent className="space-y-6">
@@ -31,14 +31,14 @@ export const CashFlowForecastCard = ({ data }: CashFlowForecastCardProps) => {
           <div className="flex items-center justify-between">
             {data.currentCash != null && (
               <div>
-                <p className="text-xs text-gray-500 mb-1">Current Cash</p>
-                <p className="text-2xl font-medium text-gray-900">{formatCurrency(data.currentCash)}</p>
+                <p className="text-xs text-vesta-navy/65 mb-1">Current Cash</p>
+                <p className="text-2xl font-medium text-vesta-navy">{formatCurrency(data.currentCash)}</p>
               </div>
             )}
             {data.monthlyBurn != null && (
               <div className="text-right">
-                <p className="text-xs text-gray-500 mb-1">Monthly Burn</p>
-                <p className="text-2xl font-medium text-gray-900">{formatCurrency(data.monthlyBurn)}</p>
+                <p className="text-xs text-vesta-navy/65 mb-1">Monthly Burn</p>
+                <p className="text-2xl font-medium text-vesta-navy">{formatCurrency(data.monthlyBurn)}</p>
               </div>
             )}
           </div>
@@ -46,10 +46,10 @@ export const CashFlowForecastCard = ({ data }: CashFlowForecastCardProps) => {
 
         {/* Runway */}
         {data.runway != null && (
-          <div className="pt-4 border-t border-gray-100">
+          <div className="pt-4 border-t border-vesta-navy/8">
             <div className="flex items-baseline gap-2">
-              <span className="text-3xl font-medium text-gray-900">{data.runway.toFixed(1)}</span>
-              <span className="text-sm text-gray-600">months runway</span>
+              <span className="text-3xl font-medium text-vesta-navy">{data.runway.toFixed(1)}</span>
+              <span className="text-sm text-vesta-navy/80">months runway</span>
             </div>
           </div>
         )}
@@ -59,11 +59,11 @@ export const CashFlowForecastCard = ({ data }: CashFlowForecastCardProps) => {
           <div className="space-y-2 pt-2">
             {data.forecast.slice(0, 3).map((period) => (
               <div key={period.period} className="flex items-center justify-between text-xs py-1.5">
-                <span className="text-gray-600 w-16">{period.period}</span>
+                <span className="text-vesta-navy/80 w-16">{period.period}</span>
                 <div className="flex items-center gap-3 flex-1 justify-end">
-                  <span className="text-gray-400">In</span>
+                  <span className="text-vesta-navy-muted">In</span>
                   <span className="font-medium text-green-700 w-20 text-right">{formatCurrency(period.cashIn)}</span>
-                  <span className="text-gray-400">Out</span>
+                  <span className="text-vesta-navy-muted">Out</span>
                   <span className="font-medium text-red-700 w-20 text-right">{formatCurrency(period.cashOut)}</span>
                 </div>
               </div>
@@ -73,14 +73,14 @@ export const CashFlowForecastCard = ({ data }: CashFlowForecastCardProps) => {
 
         {/* Top Insight Only */}
         {data.insights && data.insights.length > 0 && data.insights[0].type !== 'info' && (
-          <div className="pt-4 border-t border-gray-100">
+          <div className="pt-4 border-t border-vesta-navy/8">
             <div className="flex items-start gap-2">
               {data.insights[0].type === 'critical' ? (
                 <TrendingDown className="h-4 w-4 text-red-600 mt-0.5 flex-shrink-0" />
               ) : (
                 <TrendingUp className="h-4 w-4 text-amber-600 mt-0.5 flex-shrink-0" />
               )}
-              <p className="text-xs text-gray-700 leading-relaxed">{data.insights[0].action}</p>
+              <p className="text-xs text-vesta-navy/90 leading-relaxed">{data.insights[0].action}</p>
             </div>
           </div>
         )}
