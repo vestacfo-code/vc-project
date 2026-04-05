@@ -9,6 +9,7 @@
  */
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.50.3';
+import { getResendFrom, getResendReplyTo } from "../_shared/resend.ts";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -215,15 +216,19 @@ serve(async (req) => {
             const emailBody = critical.map((a) => `<b>${a.title}</b><br>${a.description}`).join('<br><br>');
             for (const p of (profiles ?? [])) {
               if (!p.email) continue;
+              const intPayload: Record<string, unknown> = {
+                from: getResendFrom(),
+                to: [p.email],
+                subject: `🚨 Critical Alert — ${hotel.name}`,
+                html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto;"><div style="background:#1B3A5C;padding:20px;border-radius:8px 8px 0 0;"><h2 style="color:#fff;margin:0;">🚨 Critical Alert</h2><p style="color:#C8963E;margin:4px 0 0 0;">${hotel.name}</p></div><div style="background:#fff;border:1px solid #e0e0e0;padding:24px;border-radius:0 0 8px 8px;"><p>Hi ${p.full_name ?? 'there'},</p><div style="background:#fff5f5;border-left:4px solid #dc2626;padding:16px;border-radius:4px;">${emailBody}</div><a href="https://app.vesta.ai/app/alerts" style="display:inline-block;background:#1B3A5C;color:#fff;padding:12px 24px;border-radius:6px;text-decoration:none;margin-top:16px;">View Alerts →</a></div></div>`,
+              };
+              const irt = getResendReplyTo();
+              if (irt) intPayload.reply_to = irt;
+
               await fetch('https://api.resend.com/emails', {
                 method: 'POST',
                 headers: { 'Authorization': `Bearer ${resendApiKey}`, 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                  from: 'Vesta Alerts <alerts@vesta.ai>',
-                  to: [p.email],
-                  subject: `🚨 Critical Alert — ${hotel.name}`,
-                  html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto;"><div style="background:#1B3A5C;padding:20px;border-radius:8px 8px 0 0;"><h2 style="color:#fff;margin:0;">🚨 Critical Alert</h2><p style="color:#C8963E;margin:4px 0 0 0;">${hotel.name}</p></div><div style="background:#fff;border:1px solid #e0e0e0;padding:24px;border-radius:0 0 8px 8px;"><p>Hi ${p.full_name ?? 'there'},</p><div style="background:#fff5f5;border-left:4px solid #dc2626;padding:16px;border-radius:4px;">${emailBody}</div><a href="https://app.vesta.ai/app/alerts" style="display:inline-block;background:#1B3A5C;color:#fff;padding:12px 24px;border-radius:6px;text-decoration:none;margin-top:16px;">View Alerts →</a></div></div>`,
-                }),
+                body: JSON.stringify(intPayload),
               }).catch((e) => log('Email error (non-fatal)', String(e)));
             }
           }

@@ -1,14 +1,12 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
-import { Resend } from "npm:resend@2.0.0";
+import { createResend, resendBaseSendFields } from "../_shared/resend.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers":
     "authorization, x-client-info, apikey, content-type",
 };
-
-const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
 
 interface NotificationRequest {
   type: 'member_joined' | 'member_removed';
@@ -75,10 +73,18 @@ serve(async (req: Request): Promise<Response> => {
     const displayTeamName = teamName || team.name === 'My Team' ? `${ownerFirstName}'s Team` : (team.name || `${ownerFirstName}'s Team`);
     const displayMemberName = memberName || memberEmail.split('@')[0];
 
+    const resend = createResend();
+    if (!resend) {
+      return new Response(
+        JSON.stringify({ error: "Email not configured (RESEND_API_KEY)", success: false }),
+        { status: 503, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
     if (type === 'member_joined') {
       // Notify owner that someone joined
       await resend.emails.send({
-        from: "Vesta Team <support@vesta.ai>",
+        ...resendBaseSendFields(),
         to: [ownerEmail],
         subject: `${displayMemberName} has joined ${displayTeamName}`,
         html: `
@@ -134,7 +140,7 @@ serve(async (req: Request): Promise<Response> => {
     } else if (type === 'member_removed') {
       // Notify the removed member
       await resend.emails.send({
-        from: "Vesta Team <support@vesta.ai>",
+        ...resendBaseSendFields(),
         to: [memberEmail],
         subject: `You've been removed from ${displayTeamName}`,
         html: `

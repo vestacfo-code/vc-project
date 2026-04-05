@@ -1,10 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
-import { Resend } from "npm:resend@2.0.0";
 import { createClient } from "npm:@supabase/supabase-js@2";
-
-const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
-
-console.log('[create-support-ticket] Resend API key configured:', !!Deno.env.get("RESEND_API_KEY"));
+import { createResend, resendBaseSendFields } from "../_shared/resend.ts";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -93,11 +89,16 @@ serve(async (req: Request) => {
 
     console.log('[create-support-ticket] Ticket created:', ticket.ticket_number);
 
+    const resend = createResend();
+
     // Send email to support team
     try {
+      if (!resend) {
+        console.warn('[create-support-ticket] RESEND_API_KEY not set — skipping emails');
+      } else {
       console.log('[create-support-ticket] Sending support email to support@vesta.ai...');
       const supportEmailResult = await resend.emails.send({
-        from: 'Vesta Support <support@vesta.ai>',
+        ...resendBaseSendFields(),
         replyTo: 'support@vesta.ai',
         to: ['support@vesta.ai'],
         subject: `[Ticket ${ticket.ticket_number}] New Support Request from ${userName}`,
@@ -149,6 +150,7 @@ serve(async (req: Request) => {
         `,
       });
       console.log('[create-support-ticket] Support email result:', JSON.stringify(supportEmailResult));
+      }
     } catch (emailError) {
       console.error('[create-support-ticket] Failed to send support email:', JSON.stringify(emailError));
       // Don't fail the request if email fails
@@ -156,9 +158,12 @@ serve(async (req: Request) => {
 
     // Send confirmation email to user
     try {
+      if (!resend) {
+        // already logged above
+      } else {
       console.log('[create-support-ticket] Sending confirmation email to:', userEmail);
       const userEmailResult = await resend.emails.send({
-        from: 'Vesta Support <support@vesta.ai>',
+        ...resendBaseSendFields(),
         replyTo: 'support@vesta.ai',
         to: [userEmail],
         subject: `Your Support Ticket ${ticket.ticket_number} Has Been Created`,
@@ -206,6 +211,7 @@ serve(async (req: Request) => {
         `,
       });
       console.log('[create-support-ticket] User confirmation email result:', JSON.stringify(userEmailResult));
+      }
     } catch (emailError) {
       console.error('[create-support-ticket] Failed to send user email:', JSON.stringify(emailError));
       // Don't fail the request if email fails

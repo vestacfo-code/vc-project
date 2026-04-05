@@ -1,8 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
-import { Resend } from "npm:resend@2.0.0";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
-
-const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
+import { createResend, resendBaseSendFields } from "../_shared/resend.ts";
 
 // Production domain for password reset redirects
 const PRODUCTION_DOMAIN = "https://vesta.ai";
@@ -79,9 +77,17 @@ serve(async (req: Request) => {
 
     console.log('[send-password-reset] Reset link generated, sending email...');
 
-    // Send email via Resend
+    const resend = createResend();
+    if (!resend) {
+      console.error('[send-password-reset] RESEND_API_KEY not set');
+      return new Response(
+        JSON.stringify({ error: 'Email delivery is not configured. Please contact support.' }),
+        { status: 503, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
     const emailResult = await resend.emails.send({
-      from: 'Vesta <support@vesta.ai>',
+      ...resendBaseSendFields(),
       to: [email],
       subject: 'Reset Your Password',
       html: `

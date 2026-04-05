@@ -1,7 +1,5 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
-import { Resend } from "npm:resend@2.0.0";
-
-const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
+import { createResend, resendBaseSendFields } from "../_shared/resend.ts";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -33,8 +31,16 @@ serve(async (req: Request) => {
 
     console.log('[send-application-confirmation] Sending to:', email, 'for role:', jobTitle);
 
+    const resend = createResend();
+    if (!resend) {
+      return new Response(
+        JSON.stringify({ error: 'RESEND_API_KEY not configured' }),
+        { status: 503, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
     const emailResult = await resend.emails.send({
-      from: 'Vesta Careers <support@vesta.ai>',
+      ...resendBaseSendFields(),
       to: [email],
       subject: `Thank You for Applying to ${jobTitle} at Vesta`,
       html: `

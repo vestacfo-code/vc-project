@@ -1,7 +1,5 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
-import { Resend } from "npm:resend@2.0.0";
-
-const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
+import { createResend, resendBaseSendFields } from "../_shared/resend.ts";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -33,6 +31,14 @@ serve(async (req: Request) => {
     const firstName = userName?.split(' ')[0] || 'there';
     console.log('[send-subscription-email] Sending to:', email, 'type:', type, 'tier:', tier);
 
+    const resend = createResend();
+    if (!resend) {
+      return new Response(
+        JSON.stringify({ error: 'RESEND_API_KEY not configured' }),
+        { status: 503, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
     const tierDisplay = tier === 'ceo' ? 'CFO' : tier === 'scale' ? 'Scale' : 'Founder';
     const tierCredits = tier === 'ceo' ? 250 : tier === 'scale' ? 150 : 30;
 
@@ -60,7 +66,7 @@ serve(async (req: Request) => {
     }
 
     const emailResult = await resend.emails.send({
-      from: 'Vesta <support@vesta.ai>',
+      ...resendBaseSendFields(),
       to: [email],
       subject,
       html: `

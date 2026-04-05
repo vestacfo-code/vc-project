@@ -1,7 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
-import { Resend } from "npm:resend@2.0.0";
+import { createResend, resendBaseSendFields } from "../_shared/resend.ts";
 
-const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
 const audienceId = Deno.env.get("RESEND_AUDIENCE_ID");
 
 const corsHeaders = {
@@ -96,6 +95,15 @@ const handler = async (req: Request): Promise<Response> => {
 
     console.log("Processing new user:", { email, fullName, firstName });
 
+    const resend = createResend();
+    if (!resend) {
+      console.warn("RESEND_API_KEY not set — skipping welcome email");
+      return new Response(
+        JSON.stringify({ success: false, skipped: true, message: "RESEND_API_KEY not configured" }),
+        { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } },
+      );
+    }
+
     // Step 1: Add contact to Resend audience FIRST
     if (audienceId) {
       try {
@@ -148,7 +156,7 @@ const handler = async (req: Request): Promise<Response> => {
           htmlContent = htmlContent.replace(/\{\{?\s*full_name\s*\}?\}/gi, fullName || firstName);
           
           emailResponse = await resend.emails.send({
-            from: "Vesta <support@vesta.ai>",
+            ...resendBaseSendFields(),
             to: [email],
             subject: templateData.data.subject || "Welcome to Vesta - Your AI CFO Journey Begins",
             html: htmlContent,
@@ -165,7 +173,7 @@ const handler = async (req: Request): Promise<Response> => {
     if (!usedTemplate) {
       console.log("Using fallback HTML template");
       emailResponse = await resend.emails.send({
-        from: "Vesta <support@vesta.ai>",
+        ...resendBaseSendFields(),
         to: [email],
         subject: "Welcome to Vesta - Your AI CFO Journey Begins",
         html: getFallbackTemplate(firstName),

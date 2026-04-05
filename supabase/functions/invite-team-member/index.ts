@@ -1,6 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
-import { Resend } from "npm:resend@2.0.0";
+import { createResend, resendBaseSendFields } from "../_shared/resend.ts";
 import { z } from "npm:zod@3.22.4";
 
 const corsHeaders = {
@@ -83,11 +83,21 @@ const handler = async (req: Request): Promise<Response> => {
       // If user already exists Supabase returns an error — fall back to Resend
       console.warn("[INVITE-TEAM-MEMBER] inviteUserByEmail error (may be existing user):", inviteError.message);
 
-      const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
+      const resend = createResend();
+      if (!resend) {
+        console.error("[INVITE-TEAM-MEMBER] RESEND_API_KEY not set — cannot email existing user");
+        return new Response(
+          JSON.stringify({
+            success: false,
+            error: "Could not send invitation email. Set RESEND_API_KEY in Edge Function secrets.",
+          }),
+          { status: 503, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
       const loginUrl = `${Deno.env.get("SITE_URL") ?? "https://vesta.ai"}/auth`;
 
       await resend.emails.send({
-        from: "Vesta Team <support@vesta.ai>",
+        ...resendBaseSendFields(),
         to: [email],
         subject: `You've been invited to join ${hotelName} on Vesta`,
         html: `

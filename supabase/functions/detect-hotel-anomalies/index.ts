@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.50.3';
+import { getResendFrom, getResendReplyTo } from "../_shared/resend.ts";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -319,17 +320,11 @@ serve(async (req) => {
               const profile = profileMap.get(member.user_id);
               if (!profile?.email) continue;
 
-              await fetch('https://api.resend.com/emails', {
-                method: 'POST',
-                headers: {
-                  'Authorization': `Bearer ${resendApiKey}`,
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                  from: 'Vesta Alerts <alerts@vesta.ai>',
-                  to: [profile.email],
-                  subject: emailSubject,
-                  html: `
+              const alertPayload: Record<string, unknown> = {
+                from: getResendFrom(),
+                to: [profile.email],
+                subject: emailSubject,
+                html: `
                     <div style="font-family:sans-serif;max-width:600px;margin:0 auto;">
                       <div style="background:#1B3A5C;padding:20px;border-radius:8px 8px 0 0;">
                         <h2 style="color:#fff;margin:0;">🚨 Critical Alert</h2>
@@ -351,7 +346,17 @@ serve(async (req) => {
                       </div>
                     </div>
                   `,
-                }),
+              };
+              const art = getResendReplyTo();
+              if (art) alertPayload.reply_to = art;
+
+              await fetch('https://api.resend.com/emails', {
+                method: 'POST',
+                headers: {
+                  'Authorization': `Bearer ${resendApiKey}`,
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(alertPayload),
               }).catch((e) => log('Email send error (non-fatal)', String(e)));
             }
             log(`Sent critical alert emails to ${members.length} members`);

@@ -1,9 +1,7 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import Stripe from "https://esm.sh/stripe@14.21.0";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
-import { Resend } from "npm:resend@2.0.0";
-
-const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
+import { createResend, resendBaseSendFields } from "../_shared/resend.ts";
 
 const logStep = (step: string, details?: any) => {
   const detailsStr = details ? ` - ${JSON.stringify(details)}` : '';
@@ -173,9 +171,12 @@ serve(async (req) => {
                 const tierDisplay = tier === 'ceo' ? 'CFO' : tier === 'scale' ? 'Scale' : 'Founder';
                 const tierCredits = tier === 'ceo' ? 250 : tier === 'scale' ? 150 : 30;
                 const firstName = profile.full_name?.split(' ')[0] || 'there';
-                
+                const resend = createResend();
+                if (!resend) {
+                  logStep("SKIP: subscription welcome email (RESEND_API_KEY not set)");
+                } else {
                 await resend.emails.send({
-                  from: 'Vesta <support@vesta.ai>',
+                  ...resendBaseSendFields(),
                   to: [profile.email],
                   subject: `Welcome to Vesta ${tierDisplay}! 🚀`,
                   html: `
@@ -202,6 +203,7 @@ serve(async (req) => {
                   `,
                 });
                 logStep("Subscription welcome email sent", { email: profile.email, tier });
+                }
               }
             } catch (emailError) {
               logStep("WARNING: Failed to send subscription email", { error: emailError.message });

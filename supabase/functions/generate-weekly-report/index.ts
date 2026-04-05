@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.50.3';
+import { getResendFrom, getResendReplyTo } from "../_shared/resend.ts";
 
 const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
 const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
@@ -377,18 +378,22 @@ serve(async (req) => {
           try {
             const emailHtml = getEmailHtml(report, userName);
             
+            const weeklyPayload: Record<string, unknown> = {
+              from: getResendFrom(),
+              to: [userEmail],
+              subject: `📊 ${report.title}`,
+              html: emailHtml,
+            };
+            const wrt = getResendReplyTo();
+            if (wrt) weeklyPayload.reply_to = wrt;
+
             const response = await fetch('https://api.resend.com/emails', {
               method: 'POST',
               headers: {
                 'Authorization': `Bearer ${resendApiKey}`,
                 'Content-Type': 'application/json',
               },
-              body: JSON.stringify({
-                from: 'Vesta <support@vesta.ai>',
-                to: [userEmail],
-                subject: `📊 ${report.title}`,
-                html: emailHtml,
-              }),
+              body: JSON.stringify(weeklyPayload),
             });
 
             if (!response.ok) {
