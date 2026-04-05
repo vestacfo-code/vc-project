@@ -478,4 +478,4 @@ Format your response as JSON:
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   }
-});
+}));

@@ -302,4 +302,4 @@ Provide a comprehensive financial health analysis with specific insights for thi
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   }
-});
+}));

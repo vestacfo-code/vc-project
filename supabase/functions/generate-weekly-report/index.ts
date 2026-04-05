@@ -445,4 +445,4 @@ serve(sentryServe("generate-weekly-report", async (req) => {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   }
-});
+}));

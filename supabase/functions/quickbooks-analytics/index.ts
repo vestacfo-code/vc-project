@@ -58,7 +58,7 @@ serve(sentryServe("quickbooks-analytics", async (req) => {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   }
-});
+}));
 
 async function calculateAnalytics(records: QuickBooksRecord[]) {
   console.log('Total records:', records.length);

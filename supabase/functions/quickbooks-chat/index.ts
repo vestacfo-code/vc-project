@@ -283,4 +283,4 @@ IMPORTANT INSTRUCTIONS:
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   }
-});
+}));

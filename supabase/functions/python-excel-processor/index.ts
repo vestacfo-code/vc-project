@@ -73,7 +73,7 @@ serve(sentryServe("python-excel-processor", async (req) => {
       }
     )
   }
-})
+}));
 
 // Process Excel with proper ZIP decompression and XML parsing
 async function processExcelWithAI(fileBytes: Uint8Array, fileName: string) {

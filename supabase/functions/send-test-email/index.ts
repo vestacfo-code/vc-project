@@ -102,4 +102,4 @@ serve(sentryServe("send-test-email", async (req: Request) => {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   }
-});
+}));

@@ -122,4 +122,4 @@ serve(sentryServe("ai-cfo-speech-to-text", async (req) => {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   }
-});
+}));

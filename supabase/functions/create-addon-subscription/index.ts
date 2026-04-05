@@ -139,4 +139,4 @@ serve(sentryServe("create-addon-subscription", async (req) => {
       status: 500,
     });
   }
-});
+}));

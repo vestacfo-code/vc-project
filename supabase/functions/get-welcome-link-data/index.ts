@@ -120,4 +120,4 @@ serve(sentryServe("get-welcome-link-data", async (req) => {
       }
     )
   }
-})
+}));

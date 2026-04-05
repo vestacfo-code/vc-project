@@ -144,4 +144,4 @@ serve(sentryServe("mews-webhook", async (req) => {
     }),
     { headers: { ...corsHeaders, 'Content-Type': 'application/json' } },
   );
-});
+}));

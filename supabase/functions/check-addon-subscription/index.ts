@@ -174,4 +174,4 @@ serve(sentryServe("check-addon-subscription", async (req) => {
       status: 500,
     });
   }
-});
+}));

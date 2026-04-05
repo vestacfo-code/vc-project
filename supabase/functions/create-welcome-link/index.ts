@@ -78,4 +78,4 @@ serve(sentryServe("create-welcome-link", async (req) => {
       }
     )
   }
-})
+}));

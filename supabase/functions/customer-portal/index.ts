@@ -165,4 +165,4 @@ serve(sentryServe("customer-portal", async (req) => {
       status: 500,
     });
   }
-});
+}));

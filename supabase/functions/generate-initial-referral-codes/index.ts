@@ -69,4 +69,4 @@ serve(sentryServe("generate-initial-referral-codes", async (req) => {
       }
     );
   }
-});
+}));

@@ -223,4 +223,4 @@ Deno.serve(sentryServe("wave-oauth", async (req) => {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   }
-});
+}));

@@ -82,4 +82,4 @@ Deno.serve(sentryServe("crm-call-queue", async (req) => {
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 400 }
     );
   }
-});
+}));

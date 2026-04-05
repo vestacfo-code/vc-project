@@ -283,4 +283,4 @@ serve(sentryServe("manage-subscription-credits", async (req) => {
       status: 500,
     });
   }
-});
+}));

@@ -347,4 +347,4 @@ Use markdown formatting with headers, bullet points, tables, and bold text for e
       }
     );
   }
-});
+}));

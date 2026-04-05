@@ -139,4 +139,4 @@ serve(sentryServe("send-subscription-email", async (req: Request) => {
       { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   }
-});
+}));

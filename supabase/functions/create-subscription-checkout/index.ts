@@ -149,4 +149,4 @@ serve(sentryServe("create-subscription-checkout", async (req) => {
       status: 500,
     });
   }
-});
+}));

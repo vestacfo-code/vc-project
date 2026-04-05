@@ -36,7 +36,7 @@ serve(sentryServe("csv-financial-parser", async (req) => {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   }
-});
+}));
 
 function parseFinancialCSV(csvContent: string) {
   console.log('🔍 Parsing financial CSV content...');

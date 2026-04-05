@@ -300,7 +300,7 @@ serve(sentryServe("advanced-document-analysis", async (req) => {
       }
     );
   }
-});
+}));
 
 function detectDocumentType(filename: string, mimeType: string): string {
   const lower = filename.toLowerCase();

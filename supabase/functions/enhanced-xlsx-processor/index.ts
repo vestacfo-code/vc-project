@@ -43,7 +43,7 @@ serve(sentryServe("enhanced-xlsx-processor", async (req) => {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   }
-});
+}));
 
 async function chatGPTStyleXLSXProcessing(base64Content: string, fileName: string) {
   console.log('🎯 CHATGPT COMPLETE ANALYSIS: Full document understanding like ChatGPT Code Interpreter...');

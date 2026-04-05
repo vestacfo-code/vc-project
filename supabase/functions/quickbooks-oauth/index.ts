@@ -453,4 +453,4 @@ serve(sentryServe("quickbooks-oauth", async (req) => {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   }
-});
+}));

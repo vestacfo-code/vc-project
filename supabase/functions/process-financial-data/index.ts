@@ -337,7 +337,7 @@ serve(sentryServe("process-financial-data", async (req) => {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   }
-});
+}));
 
 // Enhanced CSV Parser with better data detection
 async function parseCSV(csvData: string, userId: string) {

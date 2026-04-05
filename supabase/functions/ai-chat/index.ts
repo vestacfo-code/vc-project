@@ -241,4 +241,4 @@ Please try your question again in a few minutes for a more personalized analysis
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   }
-});
+}));

@@ -114,4 +114,4 @@ serve(sentryServe("send-application-confirmation", async (req: Request) => {
       { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   }
-});
+}));

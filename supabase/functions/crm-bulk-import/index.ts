@@ -163,4 +163,4 @@ Deno.serve(sentryServe("crm-bulk-import", async (req) => {
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 400 }
     );
   }
-});
+}));

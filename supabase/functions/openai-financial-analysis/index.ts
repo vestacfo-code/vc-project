@@ -264,7 +264,7 @@ serve(sentryServe("openai-financial-analysis", async (req) => {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   }
-});
+}));
 
 // Enhanced PDF text extraction
 function extractTextFromPDF(pdfBase64: string): string {

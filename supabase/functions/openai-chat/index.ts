@@ -132,4 +132,4 @@ serve(sentryServe("openai-chat", async (req) => {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   }
-});
+}));

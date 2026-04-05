@@ -279,4 +279,4 @@ Rules for status:
       },
     );
   }
-});
+}));

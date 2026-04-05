@@ -438,4 +438,4 @@ serve(sentryServe("stripe-webhook", async (req) => {
       headers: { "Content-Type": "application/json" },
     });
   }
-});
+}));

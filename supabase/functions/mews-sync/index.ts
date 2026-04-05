@@ -328,4 +328,4 @@ serve(sentryServe("mews-sync", async (req) => {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   }
-});
+}));

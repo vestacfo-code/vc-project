@@ -249,4 +249,4 @@ Deno.serve(sentryServe("wave-sync", async (req) => {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   }
-});
+}));

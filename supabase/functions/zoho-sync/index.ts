@@ -160,7 +160,7 @@ serve(sentryServe("zoho-sync", async (req) => {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   }
-});
+}));
 
 async function refreshZohoToken(refreshToken: string) {
   const clientId = Deno.env.get('ZOHO_CLIENT_ID')!;

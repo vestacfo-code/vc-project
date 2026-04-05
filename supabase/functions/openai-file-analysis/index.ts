@@ -204,4 +204,4 @@ Please provide relevant analysis based on the content.` :
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   }
-});
+}));

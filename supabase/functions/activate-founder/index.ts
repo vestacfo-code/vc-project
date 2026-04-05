@@ -168,4 +168,4 @@ serve(sentryServe("activate-founder", async (req) => {
       }
     );
   }
-});
+}));

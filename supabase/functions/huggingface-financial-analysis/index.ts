@@ -359,4 +359,4 @@ serve(sentryServe("huggingface-financial-analysis", async (req) => {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   }
-});
+}));

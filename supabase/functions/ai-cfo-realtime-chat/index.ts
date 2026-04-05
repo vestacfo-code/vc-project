@@ -134,4 +134,4 @@ Valuation Approach (when asked):
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   }
-});
+}));

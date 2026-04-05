@@ -420,4 +420,4 @@ logStep("Alerts parsed", { alertCount: alerts.length });
       status: 500,
     });
   }
-});
+}));

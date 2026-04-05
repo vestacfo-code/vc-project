@@ -233,4 +233,4 @@ serve(sentryServe("hotel-forecasting", async (req) => {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   }
-});
+}));

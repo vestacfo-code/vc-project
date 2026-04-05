@@ -296,4 +296,4 @@ serve(sentryServe("quickbooks-sync", async (req) => {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   }
-});
+}));

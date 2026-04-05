@@ -216,7 +216,7 @@ serve(sentryServe("zoho-oauth", async (req) => {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   }
-});
+}));
 
 function extractDataCenter(apiDomain: string): string {
   if (apiDomain.includes('.eu')) return 'EU';

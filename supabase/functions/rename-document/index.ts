@@ -115,4 +115,4 @@ Suggest a professional, descriptive filename:`
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   }
-});
+}));

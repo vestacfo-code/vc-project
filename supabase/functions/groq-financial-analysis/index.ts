@@ -264,4 +264,4 @@ Return analysis as JSON only.`
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   }
-});
+}));

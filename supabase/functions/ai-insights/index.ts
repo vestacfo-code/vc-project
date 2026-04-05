@@ -331,4 +331,4 @@ serve(sentryServe("ai-insights", async (req) => {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   }
-});
+}));

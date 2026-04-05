@@ -282,4 +282,4 @@ Return a JSON array with optimal prices for each product. Follow the strategy se
       status: 500,
     });
   }
-});
+}));

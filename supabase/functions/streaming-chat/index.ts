@@ -1002,4 +1002,4 @@ serve(sentryServe("streaming-chat", async (req) => {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   }
-});
+}));

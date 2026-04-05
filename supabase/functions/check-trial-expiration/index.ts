@@ -89,4 +89,4 @@ serve(sentryServe("check-trial-expiration", async (req) => {
       }
     );
   }
-});
+}));

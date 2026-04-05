@@ -188,4 +188,4 @@ serve(sentryServe("careers-admin-auth", async (req) => {
       }
     )
   }
-})
+}));

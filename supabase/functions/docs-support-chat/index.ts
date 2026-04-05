@@ -178,4 +178,4 @@ serve(sentryServe("docs-support-chat", async (req) => {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   }
-});
+}));

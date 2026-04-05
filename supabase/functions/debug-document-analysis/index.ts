@@ -97,7 +97,7 @@ serve(sentryServe("debug-document-analysis", async (req) => {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   }
-});
+}));
 
 async function debugDocumentRetrieval(supabase: any, documentId: string) {
   console.log('📋 DEBUGGING DOCUMENT RETRIEVAL...');

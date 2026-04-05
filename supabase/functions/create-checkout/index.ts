@@ -126,4 +126,4 @@ serve(sentryServe("create-checkout", async (req) => {
       status: 500,
     });
   }
-});
+}));
