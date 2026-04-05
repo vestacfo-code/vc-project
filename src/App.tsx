@@ -16,7 +16,6 @@ import { DashboardReferenceProvider } from "@/contexts/DashboardReferenceContext
 import { PortalAnimationProvider, usePortalAnimation } from "@/contexts/PortalAnimationContext";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import { FloatingChatbot } from "@/components/FloatingChatbot";
-import { VestaSiteBadge } from "@/components/VestaSiteBadge";
 import { SignInPortalAnimation } from "@/components/SignInPortalAnimation";
 import Dashboard from "./pages/Dashboard";
 import Landing from "./pages/Landing";
@@ -256,8 +255,7 @@ const AppContent = () => {
         <Route path="*" element={<NotFound />} />
       </Routes>
       <FloatingChatbot />
-      <VestaSiteBadge />
-      
+
       {/* Portal animation rendered OUTSIDE routes - persists across navigation */}
       <SignInPortalAnimation 
         isActive={isActive}
