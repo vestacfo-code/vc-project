@@ -909,11 +909,11 @@ export default function Integrations() {
                         </>
                       )}
                     </Button>
-                    <p className="max-w-xs text-xs text-vesta-navy-muted md:text-right">
-                      {hotelId
-                        ? 'Redirect URL in Intuit must match `QUICKBOOKS_REDIRECT_URI` (e.g. …/integrations/qb-callback).'
-                        : 'Finish hotel onboarding first, then connect QuickBooks.'}
-                    </p>
+                    {hotelId ? null : (
+                      <p className="max-w-xs text-xs text-vesta-navy-muted md:text-right">
+                        Finish hotel onboarding first, then connect QuickBooks.
+                      </p>
+                    )}
                   </>
                 )}
               </div>
@@ -922,7 +922,7 @@ export default function Integrations() {
         )}
       </section>
 
-      {/* Workspace services — Stripe + Resend */}
+      {/* Workspace services — billing + email */}
       <section aria-label="Billing and email" className="space-y-4">
         <h2 className={SECTION_LABEL}>Workspace services</h2>
         <div className="grid gap-4 md:grid-cols-2">
@@ -1004,7 +1004,7 @@ export default function Integrations() {
                 <div>
                   <p className="font-semibold text-vesta-navy">Transactional email</p>
                   <p className="mt-1 text-sm text-vesta-navy/70">
-                    Password resets and notices use Resend. Configure <code className="rounded bg-vesta-mist/50 px-1 text-xs">RESEND_API_KEY</code> in Supabase.
+                    Password resets and account notifications are sent to your team from Vesta.
                   </p>
                 </div>
               </div>
