@@ -34,6 +34,11 @@ describe('isQuickBooksOAuthReturnInUrl', () => {
     expect(isQuickBooksOAuthReturnInUrl()).toBe(true);
   });
 
+  it('is true on /integrations/qb-callback with code+state (preferred Intuit redirect)', () => {
+    mockLocation('?code=intuit-code&state=opaque-string', '/integrations/qb-callback');
+    expect(isQuickBooksOAuthReturnInUrl()).toBe(true);
+  });
+
   it('is false when only code+state look unrelated and path is not /integrations', () => {
     mockLocation('?code=supabase-pkce&state=opaque-string', '/auth');
     expect(isQuickBooksOAuthReturnInUrl()).toBe(false);

@@ -52,6 +52,7 @@ import TermsOfService from "./pages/TermsOfService";
 import Press from "./pages/Press";
 import NotFound from "./pages/NotFound";
 import Integrations from "./pages/Integrations";
+import IntegrationsQbCallback from "./pages/IntegrationsQbCallback";
 import BudgetPage from "./pages/Budget";
 import AnomaliesPage from "./pages/Anomalies";
 import ReportsPage from "./pages/Reports";
@@ -136,6 +137,11 @@ const AppContent = () => {
         <Route path="/dashboard" element={
           <ProtectedRoute>
             <HotelLayout><Dashboard /></HotelLayout>
+          </ProtectedRoute>
+        } />
+        <Route path="/integrations/qb-callback" element={
+          <ProtectedRoute>
+            <HotelLayout><IntegrationsQbCallback /></HotelLayout>
           </ProtectedRoute>
         } />
         <Route path="/integrations" element={

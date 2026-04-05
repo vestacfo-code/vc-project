@@ -25,7 +25,7 @@ const siteBase = (envTrim('SITE_URL') ?? envTrim('PUBLIC_SITE_URL') ?? 'https://
   /\/$/,
   '',
 );
-const QB_REDIRECT_URI = envTrim('QUICKBOOKS_REDIRECT_URI') ?? `${siteBase}/integrations`;
+const QB_REDIRECT_URI = envTrim('QUICKBOOKS_REDIRECT_URI') ?? `${siteBase}/integrations/qb-callback`;
 
 /** Intuit *development* keys + sandbox companies require the sandbox data host (OAuth URLs are unchanged). */
 function quickBooksApiBase(): string {

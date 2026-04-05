@@ -28,7 +28,8 @@ const siteBase = (envTrim('SITE_URL') ?? envTrim('PUBLIC_SITE_URL') ?? 'https://
   /\/$/,
   '',
 );
-const QB_REDIRECT_URI = envTrim('QUICKBOOKS_REDIRECT_URI') ?? `${siteBase}/integrations`;
+/** Dedicated path so browser Supabase client never treats Intuit's ?code= as PKCE on /integrations. */
+const QB_REDIRECT_URI = envTrim('QUICKBOOKS_REDIRECT_URI') ?? `${siteBase}/integrations/qb-callback`;
 
 const log = (step: string, details?: any) => {
   const suffix = details ? ` - ${JSON.stringify(details)}` : '';

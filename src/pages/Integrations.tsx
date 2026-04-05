@@ -917,7 +917,7 @@ export default function Integrations() {
                     </Button>
                     <p className="max-w-xs text-xs text-vesta-navy-muted md:text-right">
                       {hotelId
-                        ? 'Redirect URL in Intuit must match your Supabase `QUICKBOOKS_REDIRECT_URI` (usually …/integrations).'
+                        ? 'Redirect URL in Intuit must match `QUICKBOOKS_REDIRECT_URI` (e.g. …/integrations/qb-callback).'
                         : 'Finish hotel onboarding first, then connect QuickBooks.'}
                     </p>
                   </>
