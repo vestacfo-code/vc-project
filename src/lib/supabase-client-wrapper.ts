@@ -6,8 +6,13 @@ import type { Database } from '@/integrations/supabase/types';
 import { isRecoveryMode } from './auth-recovery-interceptor';
 import { isQuickBooksOAuthReturnInUrl } from './supabase-third-party-oauth';
 
-const SUPABASE_URL = "https://qjgnbvrxpmspzfqlomjc.supabase.co";
-const SUPABASE_PUBLISHABLE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFqZ25idnJ4cG1zcHpmcWxvbWpjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ2Nzg1NzksImV4cCI6MjA5MDI1NDU3OX0.vxMwGVhQEAlgLx-ujWpBZ1bR9kSdB3CUSnD0y018ZN8";
+/** Default production project; override with VITE_SUPABASE_* for other deployments. */
+export const SUPABASE_URL =
+  (typeof import.meta !== 'undefined' && import.meta.env?.VITE_SUPABASE_URL) ||
+  'https://qjgnbvrxpmspzfqlomjc.supabase.co';
+export const SUPABASE_PUBLISHABLE_KEY =
+  (typeof import.meta !== 'undefined' && import.meta.env?.VITE_SUPABASE_PUBLISHABLE_KEY) ||
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFqZ25idnJ4cG1zcHpmcWxvbWpjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ2Nzg1NzksImV4cCI6MjA5MDI1NDU3OX0.vxMwGVhQEAlgLx-ujWpBZ1bR9kSdB3CUSnD0y018ZN8';
 
 // Check if we're in recovery mode BEFORE creating the client
 const inRecoveryMode = isRecoveryMode();

@@ -32,6 +32,9 @@ export default {
 			'display': ['Cormorant Garamond', 'Georgia', 'serif'],
 			'mono': ['DM Mono', 'monospace'],
 			'serif': ['Cormorant Garamond', 'Georgia', 'serif'],
+			/** Google Stitch “Vesta Onyx” / Financial Architect pairing */
+			'stitch': ['Manrope', 'system-ui', 'sans-serif'],
+			'stitch-body': ['Inter', 'DM Sans', 'system-ui', 'sans-serif'],
 		},
 			colors: {
 				border: 'hsl(var(--border))',

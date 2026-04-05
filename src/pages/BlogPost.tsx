@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Header from '@/components/shared/Header';
 import Footer from '@/components/shared/Footer';
+import { StitchAmbientBackground } from '@/components/layout/StitchRefinedPageLayout';
 import { ArrowLeft, Calendar, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -96,9 +97,10 @@ const BlogPost = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-vesta-cream via-vesta-mist/30 to-vesta-mist/50">
+      <div className="relative min-h-screen overflow-hidden bg-vesta-cream font-stitch-body">
+        <StitchAmbientBackground />
         <Header />
-        <div className="container mx-auto px-4 py-16 max-w-4xl">
+        <div className="relative z-10 container mx-auto px-4 py-16 max-w-4xl">
           <div className="animate-pulse">
             <div className="h-8 bg-white/50 rounded w-32 mb-8"></div>
             <div className="h-12 bg-white/50 rounded w-3/4 mb-4"></div>
@@ -117,9 +119,10 @@ const BlogPost = () => {
 
   if (notFound || !post) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-vesta-cream via-vesta-mist/30 to-vesta-mist/50">
+      <div className="relative min-h-screen overflow-hidden bg-vesta-cream font-stitch-body">
+        <StitchAmbientBackground />
         <Header />
-        <div className="container mx-auto px-4 py-16 max-w-4xl">
+        <div className="relative z-10 container mx-auto px-4 py-16 max-w-4xl">
           <Link 
             to="/blog" 
             className="inline-flex items-center text-vesta-navy/80 hover:text-vesta-navy transition-colors mb-8"
@@ -144,13 +147,11 @@ const BlogPost = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-vesta-cream via-vesta-mist/30 to-vesta-mist/50 relative overflow-hidden">
-      {/* Decorative blobs */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-300/30 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-blue-300/25 rounded-full blur-3xl pointer-events-none" />
-      
+    <div className="relative min-h-screen overflow-hidden bg-vesta-cream font-stitch-body">
+      <StitchAmbientBackground />
+
       <Header />
-      
+
       <article className="relative z-10 container mx-auto px-4 py-8 sm:py-16 max-w-4xl">
         <div className="mb-8">
           <Link 

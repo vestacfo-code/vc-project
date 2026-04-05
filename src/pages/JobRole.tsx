@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import Header from '@/components/shared/Header';
 import Footer from '@/components/shared/Footer';
+import { StitchAmbientBackground } from '@/components/layout/StitchRefinedPageLayout';
 import { ArrowLeft, MapPin, Clock, Briefcase, Share2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -113,9 +114,10 @@ const JobRole = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-vesta-cream via-vesta-mist/30 to-vesta-mist/50">
+      <div className="relative min-h-screen overflow-hidden bg-vesta-cream font-stitch-body">
+        <StitchAmbientBackground />
         <Header />
-        <div className="max-w-4xl mx-auto px-6 py-16">
+        <div className="relative z-10 max-w-4xl mx-auto px-6 py-16">
           <div className="text-center py-16">
             <div className="text-lg text-vesta-navy/80">Loading job details...</div>
           </div>
@@ -130,14 +132,11 @@ const JobRole = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-vesta-cream via-vesta-mist/30 to-vesta-mist/50 relative overflow-hidden">
-      {/* Decorative blobs */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-300/30 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-blue-300/25 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute top-1/2 right-1/3 w-64 h-64 bg-indigo-300/20 rounded-full blur-3xl pointer-events-none" />
-      
+    <div className="relative min-h-screen overflow-hidden bg-vesta-cream font-stitch-body">
+      <StitchAmbientBackground />
+
       <Header />
-      
+
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 pt-8 sm:pt-16 pb-16 sm:pb-24">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 sm:mb-8">
           <Link 

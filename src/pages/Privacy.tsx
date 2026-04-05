@@ -1,123 +1,102 @@
-import { Link } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import Header from '@/components/shared/Header';
-import Footer from '@/components/shared/Footer';
+import { Link } from 'react-router-dom'
+import {
+  StitchRefinedPageLayout,
+  stitchLead,
+  stitchPageTitleLg,
+  stitchTonalCard,
+} from '@/components/layout/StitchRefinedPageLayout'
 
 const Privacy = () => {
   return (
-    <div className="min-h-screen bg-white flex flex-col">
-      {/* Gradient section wrapper */}
-      <div className="relative flex-1">
-        {/* Purple gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-b from-vesta-cream via-vesta-mist/30 to-vesta-mist/50" />
-        {/* Decorative gradient blobs */}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-300/30 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-blue-300/25 rounded-full blur-3xl" />
-        <div className="absolute top-1/2 right-1/3 w-64 h-64 bg-indigo-300/20 rounded-full blur-3xl" />
-      
-        <div className="relative z-10">
-          <Header />
-          
-          <div className="container mx-auto px-4 py-16 max-w-4xl">
-            {/* Hero Section */}
-            <div className="text-center mb-12 md:mb-16">
-              <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-normal text-vesta-navy leading-tight mb-4 md:mb-6 tracking-tight">
-                Privacy Policy
-              </h1>
-              <p className="text-vesta-navy/80 text-lg">
-                Last updated: April 2026
-              </p>
-            </div>
-            
-            <div className="bg-white/70 backdrop-blur-xl border border-white/60 rounded-2xl p-6 md:p-10 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
-              <div className="prose prose-gray max-w-none">
-                <section className="mb-8">
-                  <h2 className="text-2xl font-semibold text-vesta-navy mb-4">Data Collection</h2>
-                  <p className="text-vesta-navy/80 leading-relaxed">
-                    We collect only the information necessary to provide our financial analysis services. 
-                    This includes financial data you upload, account information (email, name), and usage data 
-                    to improve our service. We never collect more data than we need.
-                  </p>
-                </section>
+    <StitchRefinedPageLayout contentMax="4xl">
+      <div className="mb-12 text-center md:mb-16">
+        <h1 className={`${stitchPageTitleLg} mb-4 md:mb-6`}>Privacy Policy</h1>
+        <p className={`${stitchLead} text-lg`}>Last updated: April 2026</p>
+      </div>
 
-                <section className="mb-8">
-                  <h2 className="text-2xl font-semibold text-vesta-navy mb-4">Data Security</h2>
-                  <p className="text-vesta-navy/80 leading-relaxed">
-                    Your financial data is encrypted using AES-256 encryption at rest and TLS 1.3 in transit. 
-                    We use industry-standard security measures to protect your information, including regular 
-                    security audits and secure cloud infrastructure.
-                  </p>
-                </section>
+      <div className={`${stitchTonalCard} p-6 md:p-10`}>
+        <div className="prose prose-gray max-w-none font-stitch-body">
+          <section className="mb-8">
+            <h2 className="mb-4 font-stitch text-2xl font-semibold text-vesta-navy">Data Collection</h2>
+            <p className="leading-relaxed text-vesta-navy/80">
+              We collect only the information necessary to provide our financial analysis services. This includes financial
+              data you upload, account information (email, name), and usage data to improve our service. We never collect
+              more data than we need.
+            </p>
+          </section>
 
-                <section className="mb-8">
-                  <h2 className="text-2xl font-semibold text-vesta-navy mb-4">Data Usage</h2>
-                  <p className="text-vesta-navy/80 leading-relaxed">
-                    We use your data solely to provide financial analysis and insights. 
-                    We do not sell or share your personal data with third parties for marketing purposes.
-                    Your financial data is never used to train our AI models.
-                  </p>
-                </section>
+          <section className="mb-8">
+            <h2 className="mb-4 font-stitch text-2xl font-semibold text-vesta-navy">Data Security</h2>
+            <p className="leading-relaxed text-vesta-navy/80">
+              Your financial data is encrypted using AES-256 encryption at rest and TLS 1.3 in transit. We use
+              industry-standard security measures to protect your information, including regular security audits and secure
+              cloud infrastructure.
+            </p>
+          </section>
 
-                <section className="mb-8">
-                  <h2 className="text-2xl font-semibold text-vesta-navy mb-4">Your Rights</h2>
-                  <p className="text-vesta-navy/80 leading-relaxed">
-                    You have the right to access, correct, or delete your personal data at any time.
-                    You can export your data or request complete account deletion through your settings 
-                    or by contacting our support team.
-                  </p>
-                </section>
+          <section className="mb-8">
+            <h2 className="mb-4 font-stitch text-2xl font-semibold text-vesta-navy">Data Usage</h2>
+            <p className="leading-relaxed text-vesta-navy/80">
+              We use your data solely to provide financial analysis and insights. We do not sell or share your personal data
+              with third parties for marketing purposes. Your financial data is never used to train our AI models.
+            </p>
+          </section>
 
-                <section className="mb-8">
-                  <h2 className="text-2xl font-semibold text-vesta-navy mb-4">Cookies</h2>
-                  <p className="text-vesta-navy/80 leading-relaxed">
-                    We use essential cookies to maintain your session and preferences. 
-                    We may use analytics cookies to understand how our service is used, 
-                    but these can be disabled in your browser settings.
-                  </p>
-                </section>
+          <section className="mb-8">
+            <h2 className="mb-4 font-stitch text-2xl font-semibold text-vesta-navy">Your Rights</h2>
+            <p className="leading-relaxed text-vesta-navy/80">
+              You have the right to access, correct, or delete your personal data at any time. You can export your data or
+              request complete account deletion through your settings or by contacting our support team.
+            </p>
+          </section>
 
-                <section className="mb-8">
-                  <h2 className="text-2xl font-semibold text-vesta-navy mb-4">Subprocessors</h2>
-                  <p className="text-vesta-navy/80 leading-relaxed">
-                    We engage service providers (for example hosting, database, payments, and email) to operate Vesta. A
-                    current list, DPA contact path, and related links are on our{' '}
-                    <Link to="/trust" className="font-medium text-vesta-navy underline-offset-2 hover:text-vesta-gold hover:underline">
-                      Trust &amp; data partners
-                    </Link>{' '}
-                    page.
-                  </p>
-                </section>
+          <section className="mb-8">
+            <h2 className="mb-4 font-stitch text-2xl font-semibold text-vesta-navy">Cookies</h2>
+            <p className="leading-relaxed text-vesta-navy/80">
+              We use essential cookies to maintain your session and preferences. We may use analytics cookies to understand
+              how our service is used, but these can be disabled in your browser settings.
+            </p>
+          </section>
 
-                <section>
-                  <h2 className="text-2xl font-semibold text-vesta-navy mb-4">Contact Us</h2>
-                  <p className="text-vesta-navy/80 leading-relaxed">
-                    If you have any questions about our privacy practices, please contact us at{' '}
-                    <a href="mailto:privacy@vesta.ai" className="text-vesta-navy font-medium hover:underline">
-                      privacy@vesta.ai
-                    </a>
-                  </p>
-                </section>
-              </div>
-            </div>
+          <section className="mb-8">
+            <h2 className="mb-4 font-stitch text-2xl font-semibold text-vesta-navy">Subprocessors</h2>
+            <p className="leading-relaxed text-vesta-navy/80">
+              We engage service providers (for example hosting, database, payments, and email) to operate Vesta. A current
+              list, DPA contact path, and related links are on our{' '}
+              <Link
+                to="/trust"
+                className="font-medium text-vesta-navy underline-offset-2 hover:text-vesta-gold hover:underline"
+              >
+                Trust &amp; data partners
+              </Link>{' '}
+              page.
+            </p>
+          </section>
 
-            {/* Note */}
-            <div className="mt-8 bg-amber-50/80 backdrop-blur-sm border border-amber-200/50 rounded-xl p-6 text-center">
-              <p className="text-amber-800 text-sm">
-                <strong>Note:</strong> This policy is updated as the product and regulatory landscape evolve. For vendor
-                details and DPA requests, see{' '}
-                <Link to="/trust" className="font-semibold underline-offset-2 hover:underline">
-                  Trust &amp; data partners
-                </Link>
-                .
-              </p>
-            </div>
-          </div>
+          <section>
+            <h2 className="mb-4 font-stitch text-2xl font-semibold text-vesta-navy">Contact Us</h2>
+            <p className="leading-relaxed text-vesta-navy/80">
+              If you have any questions about our privacy practices, please contact us at{' '}
+              <a href="mailto:privacy@vesta.ai" className="font-medium text-vesta-navy hover:text-vesta-gold hover:underline">
+                privacy@vesta.ai
+              </a>
+            </p>
+          </section>
         </div>
       </div>
-      
-      <Footer />
-    </div>
-  );
-};
 
-export default Privacy;
+      <div className="mt-8 rounded-2xl bg-amber-50/90 p-6 text-center ring-1 ring-amber-200/70 shadow-[0_8px_32px_-12px_rgba(217,119,6,0.12)]">
+        <p className="text-sm text-amber-900">
+          <strong>Note:</strong> This policy is updated as the product and regulatory landscape evolve. For vendor details
+          and DPA requests, see{' '}
+          <Link to="/trust" className="font-semibold underline-offset-2 hover:text-vesta-navy hover:underline">
+            Trust &amp; data partners
+          </Link>
+          .
+        </p>
+      </div>
+    </StitchRefinedPageLayout>
+  )
+}
+
+export default Privacy

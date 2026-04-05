@@ -8,6 +8,8 @@ import { parseHotelIdFromQuickBooksState } from '@/lib/supabase-third-party-oaut
 import { useHotelDashboard } from '@/hooks/useHotelDashboard'
 import { toast } from 'sonner'
 import { Loader2 } from 'lucide-react'
+import { cn } from '@/lib/utils'
+import { stitchTonalCard } from '@/components/layout/StitchRefinedPageLayout'
 
 /**
  * Intuit redirects here (not /integrations) so Supabase Auth never sees ?code=&state= on the main integrations URL.
@@ -119,9 +121,11 @@ export default function IntegrationsQbCallback() {
   }, [dashboardLoading, goIntegrations, hotelId, runCallback])
 
   return (
-    <div className="flex min-h-[40vh] flex-col items-center justify-center gap-3 px-4 text-vesta-navy">
-      <Loader2 className="h-8 w-8 animate-spin text-vesta-gold" aria-hidden />
-      <p className="text-sm text-vesta-navy/80">Finishing QuickBooks connection…</p>
+    <div className="flex min-h-[48vh] flex-col items-center justify-center px-4 py-10 font-stitch-body">
+      <div className={cn(stitchTonalCard, 'flex max-w-sm flex-col items-center gap-4 px-8 py-10 text-center')}>
+        <Loader2 className="h-9 w-9 animate-spin text-vesta-gold" aria-hidden />
+        <p className="text-sm font-medium text-vesta-navy">Finishing QuickBooks connection…</p>
+      </div>
     </div>
   )
 }

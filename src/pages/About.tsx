@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import Header from '@/components/shared/Header';
 import Footer from '@/components/shared/Footer';
+import { StitchAmbientBackground } from '@/components/layout/StitchRefinedPageLayout';
 import teamCollaboration from '@/assets/team-collaboration.jpg';
 
 const About = () => {
@@ -83,11 +84,9 @@ const About = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-vesta-cream via-vesta-mist/30 to-vesta-mist/50 flex flex-col relative overflow-hidden">
-      {/* Decorative blobs */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-300/30 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-blue-300/25 rounded-full blur-3xl pointer-events-none" />
-      
+    <div className="relative flex min-h-screen flex-col overflow-hidden bg-vesta-cream font-stitch-body">
+      <StitchAmbientBackground />
+
       <Header />
       
       <div className="relative z-10 flex-1">
@@ -95,7 +94,7 @@ const About = () => {
         <section className="pt-8 sm:pt-16 pb-8 md:pb-12">
           <div className="container mx-auto px-4 md:px-6 max-w-6xl">
             <div className="text-center mb-8 md:mb-12 animate-fade-in">
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-vesta-navy tracking-tight">
+              <h1 className="font-stitch text-3xl font-semibold tracking-tight text-vesta-navy md:text-4xl lg:text-5xl">
                 Governance
               </h1>
             </div>
@@ -114,9 +113,9 @@ const About = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12 mb-8 md:mb-12">
                 {executiveLeadership.slice(0, 3).map((member, index) => (
                   <div key={index} className="text-center group animate-fade-in" style={{animationDelay: `${index * 0.1}s`}}>
-                    <Avatar className="w-32 h-32 md:w-40 md:h-40 mx-auto mb-4 md:mb-6 ring-4 ring-white/50 group-hover:ring-purple-300/50 transition-all duration-300 group-hover:scale-105">
+                    <Avatar className="w-32 h-32 md:w-40 md:h-40 mx-auto mb-4 md:mb-6 ring-4 ring-white/50 group-hover:ring-vesta-gold/40 transition-all duration-300 group-hover:scale-105">
                       <AvatarImage src={member.image} alt={member.name} className="object-cover" />
-                      <AvatarFallback className="bg-white/50 text-purple-600 text-xl md:text-2xl">{member.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                      <AvatarFallback className="bg-white/50 text-vesta-navy text-xl md:text-2xl">{member.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
                     </Avatar>
                     <h3 className="font-bold text-vesta-navy text-lg md:text-xl mb-1 md:mb-2">{member.name}</h3>
                     <p className="text-base md:text-lg text-vesta-navy/80 font-medium">{member.role}</p>
@@ -126,9 +125,9 @@ const About = () => {
               <div className="flex justify-center gap-8 md:gap-12 flex-wrap">
                 {executiveLeadership.slice(3).map((member, index) => (
                   <div key={index + 3} className="text-center group animate-fade-in w-full md:w-auto" style={{animationDelay: `${(index + 3) * 0.1}s`}}>
-                    <Avatar className="w-32 h-32 md:w-40 md:h-40 mx-auto mb-4 md:mb-6 ring-4 ring-white/50 group-hover:ring-purple-300/50 transition-all duration-300 group-hover:scale-105">
+                    <Avatar className="w-32 h-32 md:w-40 md:h-40 mx-auto mb-4 md:mb-6 ring-4 ring-white/50 group-hover:ring-vesta-gold/40 transition-all duration-300 group-hover:scale-105">
                       <AvatarImage src={member.image} alt={member.name} className="object-cover" />
-                      <AvatarFallback className="bg-white/50 text-purple-600 text-xl md:text-2xl">{member.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                      <AvatarFallback className="bg-white/50 text-vesta-navy text-xl md:text-2xl">{member.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
                     </Avatar>
                     <h3 className="font-bold text-vesta-navy text-lg md:text-xl mb-1 md:mb-2">{member.name}</h3>
                     <p className="text-base md:text-lg text-vesta-navy/80 font-medium">{member.role}</p>

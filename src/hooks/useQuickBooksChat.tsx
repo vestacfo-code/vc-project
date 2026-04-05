@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useLayoutEffect } from 'react';
-import { supabase } from '@/lib/supabase-client-wrapper';
+import { supabase, SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY } from '@/lib/supabase-client-wrapper';
 import { useToast } from '@/hooks/use-toast';
 import { useQuickBooksIntegration } from '@/hooks/useQuickBooksIntegration';
 import { useTeamRole } from '@/hooks/useTeamRole';
@@ -696,20 +696,23 @@ export const useQuickBooksChat = (conversationId?: string) => {
     onDone: () => void;
     onSources?: (sources: MessageSource[]) => void;
   }) => {
-    const CHAT_URL = `https://qjgnbvrxpmspzfqlomjc.supabase.co/functions/v1/streaming-chat`;
-    
-    // Get the user's actual session token for server-side auth
+    const CHAT_URL = `${SUPABASE_URL.replace(/\/$/, '')}/functions/v1/streaming-chat`;
+
     const { data: { session } } = await supabase.auth.getSession();
     const accessToken = session?.access_token;
-    console.log('[useQuickBooksChat] Session token available:', !!accessToken);
-    
+    if (!accessToken) {
+      throw new Error('Not signed in. Refresh the page and try again.');
+    }
+
+    const invokeHeaders: Record<string, string> = {
+      'Content-Type': 'application/json',
+      apikey: SUPABASE_PUBLISHABLE_KEY,
+      Authorization: `Bearer ${accessToken}`,
+    };
+
     const response = await fetch(CHAT_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdvZG5vbWZpY3poamFjbG12b21oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE3MDQwMjYsImV4cCI6MjA2NzI4MDAyNn0.zQ2F8TrhkgCtgyApwt0aIuUexXJWyFsRvU8Wx6wRdtU",
-        Authorization: `Bearer ${accessToken}`,
-      },
+      method: 'POST',
+      headers: invokeHeaders,
       body: JSON.stringify({ 
         messages: messages.map(msg => ({
           role: msg.role,
@@ -788,14 +791,11 @@ export const useQuickBooksChat = (conversationId?: string) => {
           });
           
           const pollRes = await fetch(CHAT_URL, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdvZG5vbWZpY3poamFjbG12b21oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE3MDQwMjYsImV4cCI6MjA2NzI4MDAyNn0.zQ2F8TrhkgCtgyApwt0aIuUexXJWyFsRvU8Wx6wRdtU`,
-            },
-            body: JSON.stringify({ 
-              action: 'poll-deep-research', 
-              responseId: jsonData.responseId 
+            method: 'POST',
+            headers: invokeHeaders,
+            body: JSON.stringify({
+              action: 'poll-deep-research',
+              responseId: jsonData.responseId,
             }),
           });
           

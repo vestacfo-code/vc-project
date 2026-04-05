@@ -22,7 +22,7 @@ import { FileUploadButton } from '@/components/chat/FileUploadButton';
 import { VoiceInputButton } from '@/components/chat/VoiceInputButton';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useAuth } from '@/hooks/useAuth';
-import { supabase } from '@/lib/supabase-client-wrapper';
+import { supabase, SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY } from '@/lib/supabase-client-wrapper';
 import { useDashboardReference } from '@/contexts/DashboardReferenceContext';
 import { MentionDropdown } from '@/components/chat/MentionDropdown';
 import { ReferenceTag } from '@/components/chat/ReferenceTag';
@@ -447,13 +447,17 @@ const IntegrationChat = ({ conversationId, variant = 'default' }: IntegrationCha
 
 
   const generateAiFollowUps = async (userQuestion: string, assistantAnswer: string): Promise<string[]> => {
-    const CHAT_URL = `https://qjgnbvrxpmspzfqlomjc.supabase.co/functions/v1/streaming-chat`;
+    const CHAT_URL = `${SUPABASE_URL.replace(/\/$/, '')}/functions/v1/streaming-chat`;
+    const { data: { session } } = await supabase.auth.getSession();
+    const accessToken = session?.access_token;
+    if (!accessToken) return [];
 
     const response = await fetch(CHAT_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdvZG5vbWZpY3poamFjbG12b21oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE3MDQwMjYsImV4cCI6MjA2NzI4MDAyNn0.zQ2F8TrhkgCtgyApwt0aIuUexXJWyFsRvU8Wx6wRdtU`,
+        apikey: SUPABASE_PUBLISHABLE_KEY,
+        Authorization: `Bearer ${accessToken}`,
       },
       body: JSON.stringify({
         messages: [

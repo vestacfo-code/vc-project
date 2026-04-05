@@ -570,7 +570,7 @@ export function PricingUploadDialog({ open, onOpenChange, onSuccess }: PricingUp
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-900/40 via-blue-800/20 to-transparent" />
                 <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl group-hover:bg-blue-500/20 transition-all" />
                 <div className="absolute top-2 right-2 w-16 h-16 bg-blue-400/5 rounded-lg rotate-12 group-hover:rotate-6 transition-all" />
-                <div className="absolute bottom-2 right-8 w-12 h-12 bg-blue-300/5 rounded-lg -rotate-6 group-hover:rotate-0 transition-all" />
+                <div className="absolute bottom-2 right-8 w-12 h-12 bg-vesta-mist/40 rounded-lg -rotate-6 group-hover:rotate-0 transition-all" />
                 
                 <div className="relative">
                   <div className="w-10 h-10 rounded-lg bg-blue-500/20 border border-blue-500/30 flex items-center justify-center mb-4 group-hover:bg-blue-500/30 transition-all">
@@ -591,7 +591,7 @@ export function PricingUploadDialog({ open, onOpenChange, onSuccess }: PricingUp
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-900/40 via-purple-800/20 to-transparent" />
                 <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-purple-500/10 rounded-full blur-2xl group-hover:bg-purple-500/20 transition-all" />
                 <div className="absolute top-2 right-2 w-16 h-16 bg-purple-400/5 rounded-lg rotate-12 group-hover:rotate-6 transition-all" />
-                <div className="absolute bottom-2 right-8 w-12 h-12 bg-purple-300/5 rounded-lg -rotate-6 group-hover:rotate-0 transition-all" />
+                <div className="absolute bottom-2 right-8 w-12 h-12 bg-vesta-gold/10 rounded-lg -rotate-6 group-hover:rotate-0 transition-all" />
                 
                 <div className="relative">
                   <div className="w-10 h-10 rounded-lg bg-purple-500/20 border border-purple-500/30 flex items-center justify-center mb-4 group-hover:bg-purple-500/30 transition-all">

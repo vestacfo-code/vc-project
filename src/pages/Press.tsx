@@ -6,6 +6,7 @@ import { useIsAdmin } from '@/utils/adminUtils';
 import { useToast } from '@/hooks/use-toast';
 import Header from '@/components/shared/Header';
 import Footer from '@/components/shared/Footer';
+import { StitchAmbientBackground } from '@/components/layout/StitchRefinedPageLayout';
 
 interface PressRelease {
   id: string;
@@ -64,20 +65,15 @@ const Press = () => {
     <div className="min-h-screen bg-white flex flex-col">
       {/* Gradient section wrapper */}
       <div className="relative flex-1">
-        {/* Purple gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-b from-vesta-cream via-vesta-mist/30 to-vesta-mist/50" />
-        {/* Decorative gradient blobs */}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-300/30 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-blue-300/25 rounded-full blur-3xl" />
-        <div className="absolute top-1/2 right-1/3 w-64 h-64 bg-indigo-300/20 rounded-full blur-3xl" />
-      
-        <div className="relative z-10">
+        <StitchAmbientBackground />
+
+        <div className="relative z-10 font-stitch-body">
           <Header />
           
           <div className="container mx-auto px-4 py-16 max-w-6xl">
             {/* Hero Section */}
             <div className="text-center mb-12 md:mb-16">
-              <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-normal text-vesta-navy leading-tight mb-4 md:mb-6 tracking-tight">
+              <h1 className="mb-4 font-stitch text-4xl font-semibold leading-tight tracking-tight text-vesta-navy sm:text-5xl md:mb-6 md:text-6xl">
                 Press & Media
               </h1>
               <p className="text-vesta-navy/80 text-lg md:text-xl max-w-2xl mx-auto">
