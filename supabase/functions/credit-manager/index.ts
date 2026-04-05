@@ -295,4 +295,4 @@ serve(sentryServe("credit-manager", async (req) => {
       status: 500,
     });
   }
-});
+}));

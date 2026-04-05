@@ -181,4 +181,4 @@ serve(sentryServe("check-subscription", async (req) => {
       status: 500,
     });
   }
-});
+}));
