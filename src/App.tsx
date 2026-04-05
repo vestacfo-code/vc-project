@@ -269,7 +269,7 @@ const AppContent = () => {
 };
 
 const App = () => (
-  <Sentry.ErrorBoundary fallback={<div className="flex min-h-screen items-center justify-center bg-vesta-cream px-4 text-center text-sm text-slate-700">Something went wrong. Please refresh.</div>}>
+  <Sentry.ErrorBoundary fallback={<div className="flex min-h-screen items-center justify-center bg-vesta-cream px-4 text-center font-sans text-sm text-vesta-navy/85">Something went wrong. Please refresh.</div>}>
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <TooltipProvider>

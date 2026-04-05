@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { VESTA_PRODUCT_NAME } from '@/brand/vesta-cfo-brand';
 import { getBrowserSentryDsn, Sentry } from '@/lib/sentry';
 
 function ThrowOnRender() {
@@ -8,7 +9,7 @@ function ThrowOnRender() {
 
 /**
  * Dev-only smoke tests for Sentry (messages, handled errors, boundary).
- * Open /__debug/sentry with VITE_SENTRY_DSN set and confirm events in Sentry.
+ * Styling follows BRAND_KIT.md (vesta-navy, cream, mist, gold, display/sans/mono).
  */
 export default function SentryDebug() {
   const [throwing, setThrowing] = useState(false);
@@ -18,35 +19,40 @@ export default function SentryDebug() {
     return null;
   }
 
+  const codeCls =
+    'rounded px-1 py-0.5 font-mono text-xs text-vesta-navy bg-vesta-mist/60';
+
   return (
-    <div className="mx-auto flex min-h-screen max-w-lg flex-col gap-6 bg-vesta-cream px-6 py-12 text-slate-800">
+    <div className="mx-auto flex min-h-screen max-w-lg flex-col gap-8 bg-vesta-cream px-6 py-12 font-sans text-vesta-navy">
       <div>
-        <h1 className="text-xl font-semibold text-vesta-navy">Sentry debug</h1>
-        <p className="mt-2 text-sm text-slate-600">
+        <p className="text-xs font-medium uppercase tracking-wide text-vesta-navy-muted">
+          {VESTA_PRODUCT_NAME} · developer tools
+        </p>
+        <h1 className="font-display text-3xl font-semibold tracking-tight text-vesta-navy md:text-4xl">
+          Sentry debug
+        </h1>
+        <p className="mt-3 text-sm leading-relaxed text-vesta-navy/80">
           {hasDsn
             ? 'Send test events and confirm they appear in your Sentry project (Issues and Performance).'
             : 'Sentry is disabled (set VITE_SENTRY_DSN=false). Restart dev after changing .env.'}
         </p>
       </div>
 
-      <div className="rounded-lg border border-slate-200 bg-white p-4 text-sm text-slate-600">
-        <p className="font-medium text-vesta-navy">Full-stack checklist</p>
-        <ul className="mt-2 list-inside list-disc space-y-1">
+      <div className="rounded-xl border border-vesta-navy/10 bg-vesta-mist/35 p-5 text-sm text-vesta-navy/90 shadow-sm">
+        <p className="font-sans font-semibold text-vesta-navy">Full-stack checklist</p>
+        <ul className="mt-3 list-inside list-disc space-y-2 marker:text-vesta-gold">
           <li>
             Browser: use the buttons below; sign in to confirm{' '}
-            <code className="text-xs text-slate-800">setUser</code> on issues.
+            <code className={codeCls}>setUser</code> on issues.
           </li>
           <li>
             Supabase Edge: filter Sentry by tag{' '}
-            <code className="text-xs text-slate-800">edge_function</code> after
-            deploying functions with{' '}
-            <code className="text-xs text-slate-800">npm run deploy:edge-functions</code>
-            .
+            <code className={codeCls}>edge_function</code> after deploying functions with{' '}
+            <code className={codeCls}>npm run deploy:edge-functions</code>.
           </li>
           <li>
-            Secrets: <code className="text-xs text-slate-800">SENTRY_DSN</code> on
-            Supabase; <code className="text-xs text-slate-800">VITE_SENTRY_DSN</code>{' '}
-            on Vercel/local.
+            Secrets: <code className={codeCls}>SENTRY_DSN</code> on Supabase;{' '}
+            <code className={codeCls}>VITE_SENTRY_DSN</code> on Vercel/local.
           </li>
         </ul>
       </div>
@@ -54,7 +60,7 @@ export default function SentryDebug() {
       <div className="flex flex-col gap-3">
         <button
           type="button"
-          className="rounded-lg bg-vesta-navy px-4 py-2 text-sm font-medium text-white hover:opacity-90"
+          className="rounded-lg bg-vesta-navy px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-vesta-navy/90"
           onClick={() =>
             Sentry.captureMessage('Sentry debug: manual test message', 'info')
           }
@@ -63,7 +69,7 @@ export default function SentryDebug() {
         </button>
         <button
           type="button"
-          className="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium hover:bg-slate-50"
+          className="rounded-lg border-2 border-vesta-navy-muted/40 bg-white px-4 py-2.5 text-sm font-medium text-vesta-navy transition hover:border-vesta-navy-muted hover:bg-vesta-mist/40"
           onClick={() => {
             try {
               throw new Error('Sentry debug: captured exception');
@@ -76,7 +82,7 @@ export default function SentryDebug() {
         </button>
         <button
           type="button"
-          className="rounded-lg border border-amber-600 bg-amber-50 px-4 py-2 text-sm font-medium text-amber-900 hover:bg-amber-100"
+          className="rounded-lg border-2 border-vesta-gold bg-vesta-gold/15 px-4 py-2.5 text-sm font-semibold text-vesta-navy transition hover:bg-vesta-gold/25"
           onClick={() => setThrowing(true)}
         >
           Trigger error boundary (uncaught)
@@ -85,7 +91,10 @@ export default function SentryDebug() {
 
       {throwing ? <ThrowOnRender /> : null}
 
-      <Link to="/" className="text-sm text-[#7ba3e8] hover:underline">
+      <Link
+        to="/"
+        className="text-sm font-medium text-vesta-navy-muted underline-offset-4 transition hover:text-vesta-navy hover:underline"
+      >
         ← Back home
       </Link>
     </div>
