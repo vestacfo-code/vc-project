@@ -1,3 +1,4 @@
+import { sentryServe } from "../_shared/sentry-edge.ts";
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createResend, resendBaseSendFields } from "../_shared/resend.ts";
 
@@ -14,7 +15,7 @@ interface ApplicationConfirmationRequest {
   department: string;
 }
 
-serve(async (req: Request) => {
+serve(sentryServe("send-application-confirmation", async (req: Request) => {
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: corsHeaders });
   }

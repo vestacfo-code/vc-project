@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { sentryServe } from "../_shared/sentry-edge.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
 import { unzip } from "https://deno.land/x/zip@v1.2.5/mod.ts"
 import { z } from "https://deno.land/x/zod@v3.22.4/mod.ts"
@@ -18,7 +19,7 @@ const requestSchema = z.object({
 const GROQ_API_KEY = Deno.env.get('GROQ_API_KEY')
 const OPENAI_API_KEY = Deno.env.get('OPENAI_API_KEY')
 
-serve(async (req) => {
+serve(sentryServe("python-excel-processor", async (req) => {
   // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });

@@ -1,5 +1,6 @@
 // @ts-nocheck
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
+import { sentryServe } from "../_shared/sentry-edge.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.50.3';
 import * as XLSX from 'https://deno.land/x/sheetjs@v0.18.3/xlsx.mjs';
@@ -13,7 +14,7 @@ const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
 const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
 
 // Multi-format document processor using OpenAI GPT-5
-serve(async (req) => {
+serve(sentryServe("openai-financial-analysis", async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
   }

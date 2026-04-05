@@ -1,3 +1,4 @@
+import { sentryServe } from "../_shared/sentry-edge.ts";
 
 // @ts-nocheck
 
@@ -9,7 +10,7 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 }
 
-serve(async (req) => {
+serve(sentryServe("create-welcome-link", async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: corsHeaders })
   }

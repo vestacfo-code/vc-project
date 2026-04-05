@@ -1,3 +1,4 @@
+import { sentryServe } from "../_shared/sentry-edge.ts";
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { createResend, resendBaseSendFields } from "../_shared/resend.ts";
@@ -15,7 +16,7 @@ interface PasswordResetRequest {
   redirectUrl?: string;
 }
 
-serve(async (req: Request) => {
+serve(sentryServe("send-password-reset", async (req: Request) => {
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: corsHeaders });
   }

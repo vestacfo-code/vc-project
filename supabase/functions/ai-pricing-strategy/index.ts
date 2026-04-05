@@ -1,3 +1,4 @@
+import { sentryServe } from "../_shared/sentry-edge.ts";
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
 
@@ -29,7 +30,7 @@ interface ProductData {
   supplier_prices: { supplier_name: string; price: number }[];
 }
 
-serve(async (req) => {
+serve(sentryServe("ai-pricing-strategy", async (req) => {
   if (req.method === "OPTIONS") {
     return new Response("ok", { headers: corsHeaders });
   }

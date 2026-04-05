@@ -1,3 +1,4 @@
+import { sentryServe } from "../_shared/sentry-edge.ts";
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { createResend, resendBaseSendFields } from "../_shared/resend.ts";
@@ -16,7 +17,7 @@ interface NotificationRequest {
   teamName?: string;
 }
 
-serve(async (req: Request): Promise<Response> => {
+serve(sentryServe("team-notifications", async (req: Request): Promise<Response> => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }

@@ -1,9 +1,10 @@
 // MUST be first import - runs before Supabase client initializes
 // This intercepts recovery URLs and sets a flag before Supabase processes them
 import '@/lib/auth-recovery-interceptor';
+import { supabase } from '@/lib/supabase-client-wrapper';
 import { initSentry } from '@/lib/sentry';
 
-initSentry();
+initSentry(supabase);
 
 import { createRoot } from 'react-dom/client'
 import App from './App.tsx'

@@ -1,3 +1,4 @@
+import { sentryServe } from "../_shared/sentry-edge.ts";
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
 
@@ -12,7 +13,7 @@ const logStep = (step: string, details?: any) => {
   console.log(`[ACTIVATE-FOUNDER] ${step}${detailsStr}`);
 };
 
-serve(async (req) => {
+serve(sentryServe("activate-founder", async (req) => {
   // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });

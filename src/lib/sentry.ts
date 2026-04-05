@@ -1,4 +1,7 @@
 import * as Sentry from '@sentry/react';
+import { supabaseIntegration } from '@sentry/browser';
+import type { SupabaseClient } from '@supabase/supabase-js';
+import type { Database } from '@/integrations/supabase/types';
 import type { DefaultOptions } from '@tanstack/react-query';
 import { MutationCache } from '@tanstack/react-query';
 import { useEffect } from 'react';
@@ -18,27 +21,33 @@ const release =
 const sendDefaultPii =
   import.meta.env.VITE_SENTRY_SEND_DEFAULT_PII === 'true';
 
-export function initSentry() {
+export function initSentry(supabaseClient?: SupabaseClient<Database>) {
   if (!dsn) return;
+
+  const integrations = [
+    Sentry.reactRouterV6BrowserTracingIntegration({
+      useEffect,
+      useLocation,
+      useNavigationType,
+      createRoutesFromChildren,
+      matchRoutes,
+    }),
+    Sentry.replayIntegration({
+      maskAllText: false,
+      blockAllMedia: false,
+    }),
+  ];
+
+  if (supabaseClient) {
+    integrations.splice(1, 0, supabaseIntegration({ supabaseClient }));
+  }
 
   Sentry.init({
     dsn,
     sendDefaultPii,
     environment: import.meta.env.MODE,
     release,
-    integrations: [
-      Sentry.reactRouterV6BrowserTracingIntegration({
-        useEffect,
-        useLocation,
-        useNavigationType,
-        createRoutesFromChildren,
-        matchRoutes,
-      }),
-      Sentry.replayIntegration({
-        maskAllText: false,
-        blockAllMedia: false,
-      }),
-    ],
+    integrations,
     tracesSampleRate: import.meta.env.PROD ? 0.1 : 1,
     replaysSessionSampleRate: import.meta.env.PROD ? 0.1 : 1,
     replaysOnErrorSampleRate: 1,

@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { sentryServe } from "../_shared/sentry-edge.ts";
 /**
  * hotel-ai-chat — Vesta AI Chat Edge Function
  *
@@ -189,7 +190,7 @@ async function getRecentMessages(supabase: any, sessionId: string, limit = 10): 
 
 // ── Main handler ────────────────────────────────────────────────────────────
 
-serve(async (req) => {
+serve(sentryServe("hotel-ai-chat", async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
   }

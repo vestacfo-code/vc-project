@@ -1,3 +1,4 @@
+import { sentryServe } from "../_shared/sentry-edge.ts";
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.45.0';
 
@@ -25,7 +26,7 @@ function checkRateLimit(ip: string, maxRequests = 15, windowMs = 60000): { allow
   return { allowed: true };
 }
 
-serve(async (req) => {
+serve(sentryServe("quickbooks-oauth", async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
   }

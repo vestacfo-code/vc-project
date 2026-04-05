@@ -1,5 +1,6 @@
 // @ts-nocheck
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
+import { sentryServe } from "../_shared/sentry-edge.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
 const corsHeaders = {
@@ -31,7 +32,7 @@ Please let me know what specific insights you're looking for from this Excel fil
   }
 };
 
-serve(async (req) => {
+serve(sentryServe("openai-file-analysis", async (req) => {
   console.log(`🔍 Request method: ${req.method}`);
   
   // Handle CORS preflight requests

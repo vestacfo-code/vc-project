@@ -1,3 +1,4 @@
+import { sentryServe } from "../_shared/sentry-edge.ts";
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.50.3';
 
 const corsHeaders = {
@@ -24,7 +25,7 @@ function checkRateLimit(ip: string, maxRequests = 15, windowMs = 60000): { allow
   return { allowed: true };
 }
 
-Deno.serve(async (req) => {
+Deno.serve(sentryServe("wave-oauth", async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
   }

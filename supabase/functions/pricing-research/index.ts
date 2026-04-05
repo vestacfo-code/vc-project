@@ -1,3 +1,4 @@
+import { sentryServe } from "../_shared/sentry-edge.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
 
 const corsHeaders = {
@@ -67,7 +68,7 @@ Focus on:
   return prompts[type] || prompts.market_overview;
 }
 
-Deno.serve(async (req) => {
+Deno.serve(sentryServe("pricing-research", async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: corsHeaders });
   }

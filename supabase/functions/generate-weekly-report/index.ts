@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { sentryServe } from "../_shared/sentry-edge.ts";
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.50.3';
 import { getResendFrom, getResendReplyTo } from "../_shared/resend.ts";
@@ -305,7 +306,7 @@ const getEmailHtml = (report: any, userName: string) => {
   `;
 };
 
-serve(async (req) => {
+serve(sentryServe("generate-weekly-report", async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }

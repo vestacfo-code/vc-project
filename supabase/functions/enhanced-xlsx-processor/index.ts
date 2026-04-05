@@ -1,5 +1,6 @@
 // @ts-nocheck
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
+import { sentryServe } from "../_shared/sentry-edge.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import * as XLSX from 'https://deno.land/x/sheetjs@v0.18.3/xlsx.mjs';
 
@@ -8,7 +9,7 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
-serve(async (req) => {
+serve(sentryServe("enhanced-xlsx-processor", async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
   }

@@ -1,5 +1,6 @@
 // @ts-nocheck
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
+import { sentryServe } from "../_shared/sentry-edge.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.7.1';
 import { z } from "https://deno.land/x/zod@v3.22.4/mod.ts";
@@ -22,7 +23,7 @@ const requestSchema = z.object({
   authoritativeContext: z.string().optional(),
 });
 
-serve(async (req) => {
+serve(sentryServe("ai-chat", async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
   }

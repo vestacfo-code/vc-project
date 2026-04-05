@@ -1,4 +1,5 @@
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
+import { sentryServe } from "../_shared/sentry-edge.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
 const openAIApiKey = Deno.env.get('OPENAI_API_KEY');
@@ -103,7 +104,7 @@ Vesta helps business owners understand their financial data through AI-powered a
 - Email support: support@vesta.ai
 - Website: vesta.ai`;
 
-serve(async (req) => {
+serve(sentryServe("docs-support-chat", async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
   }

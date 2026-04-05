@@ -1,3 +1,4 @@
+import { sentryServe } from "../_shared/sentry-edge.ts";
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.50.3';
 
 const corsHeaders = {
@@ -20,7 +21,7 @@ interface ContactImportData {
   notes?: string;
 }
 
-Deno.serve(async (req) => {
+Deno.serve(sentryServe("crm-bulk-import", async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
   }

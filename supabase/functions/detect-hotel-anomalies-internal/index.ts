@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { sentryServe } from "../_shared/sentry-edge.ts";
 /**
  * detect-hotel-anomalies-internal
  *
@@ -98,7 +99,7 @@ function detectAnomalies(hotelId: string, targetDate: string, todayRow: any, rol
   return anomalies;
 }
 
-serve(async (req) => {
+serve(sentryServe("detect-hotel-anomalies-internal", async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
   }

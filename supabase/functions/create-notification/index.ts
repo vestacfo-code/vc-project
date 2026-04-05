@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { sentryServe } from "../_shared/sentry-edge.ts";
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.50.3';
 
@@ -61,7 +62,7 @@ const generateEnhancedContent = async (baseContent: string, type: string) => {
   return baseContent;
 };
 
-serve(async (req) => {
+serve(sentryServe("create-notification", async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }

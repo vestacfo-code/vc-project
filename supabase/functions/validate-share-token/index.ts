@@ -1,3 +1,4 @@
+import { sentryServe } from "../_shared/sentry-edge.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { z } from "npm:zod@3.22.4";
 
@@ -10,7 +11,7 @@ const requestSchema = z.object({
   token: z.string().uuid({ message: "Invalid token format" }),
 });
 
-Deno.serve(async (req) => {
+Deno.serve(sentryServe("validate-share-token", async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
   }

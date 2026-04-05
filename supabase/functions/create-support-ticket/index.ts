@@ -1,3 +1,4 @@
+import { sentryServe } from "../_shared/sentry-edge.ts";
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { createResend, resendBaseSendFields } from "../_shared/resend.ts";
@@ -13,7 +14,7 @@ interface SupportTicketRequest {
   priority: string;
 }
 
-serve(async (req: Request) => {
+serve(sentryServe("create-support-ticket", async (req: Request) => {
   // Handle CORS preflight
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: corsHeaders });
