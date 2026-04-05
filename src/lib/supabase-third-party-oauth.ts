@@ -3,17 +3,31 @@
  * Supabase Auth also uses ?code=&state= for PKCE. If detectSessionInUrl is on, Supabase
  * tries to exchange Intuit's code, fails, and clears the session — user lands on /auth.
  *
- * Detect QuickBooks returns via realmId, or via our edge-function state shape:
- * `<userUuid>:<nonce>:<encodeURIComponent(appOrigin)>`
+ * Detect QuickBooks returns via:
+ * - realmId / realm_id (Intuit)
+ * - State from quickbooks-hotel-oauth: `<hotel_uuid>:<random_uuid>` (no trailing colon)
+ * - Legacy state: `<uuid>:<uuid>:<origin...>` (older QB flows)
  */
+const UUID =
+  '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}';
+
+/** Hotel QuickBooks (quickbooks-hotel-oauth): state = `${hotel_id}:${crypto.randomUUID()}`. */
+const HOTEL_QB_STATE = new RegExp(`^${UUID}:${UUID}$`, 'i');
+
+/** Legacy shape documented in older code paths. */
+const LEGACY_QB_STATE_PREFIX = new RegExp(`^${UUID}:${UUID}:`, 'i');
+
 export function isQuickBooksOAuthReturnInUrl(): boolean {
   if (typeof window === 'undefined') return false;
   const params = new URLSearchParams(window.location.search);
-  if (params.has('realmId')) return true;
+  if (params.has('realmId') || params.has('realm_id')) return true;
+
   const state = params.get('state');
   const code = params.get('code');
   if (!code || !state) return false;
-  return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}:/i.test(
-    state
-  );
+
+  if (HOTEL_QB_STATE.test(state)) return true;
+  if (LEGACY_QB_STATE_PREFIX.test(state)) return true;
+
+  return false;
 }
