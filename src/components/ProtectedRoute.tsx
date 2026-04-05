@@ -1,4 +1,4 @@
-import { Navigate, useNavigate, useLocation } from 'react-router-dom';
+import { Navigate, useNavigate, useLocation, type Location } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { Loader2 } from 'lucide-react';
 import { useState, useEffect } from 'react';
@@ -36,7 +36,12 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
 
         if (!hasHotel) {
           // No hotel yet — send to onboarding unless already there
-          if (currentPath !== '/onboarding') {
+          const oauthParamBlob =
+            `${location.search}${location.hash.startsWith('#') ? location.hash.slice(1) : ''}`;
+          const qbCallbackWithOAuth =
+            currentPath === '/integrations/qb-callback' &&
+            (oauthParamBlob.includes('code=') || oauthParamBlob.includes('state='));
+          if (currentPath !== '/onboarding' && !qbCallbackWithOAuth) {
             navigate('/onboarding', { replace: true });
           }
           setCheckingStatus(false);
@@ -61,7 +66,7 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
     } else {
       setCheckingStatus(false);
     }
-  }, [user, navigate, location.pathname]);
+  }, [user, navigate, location.pathname, location.search, location.hash]);
 
   if (loading || checkingStatus) {
     return (
@@ -72,7 +77,25 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   }
 
   if (!user) {
-    return <Navigate to="/auth" replace />;
+    // Preserve QuickBooks OAuth query string: <Navigate to="/auth" /> drops ?code=&state= otherwise.
+    const oauthBlob =
+      `${location.search}${location.hash.startsWith('#') ? location.hash.slice(1) : ''}`;
+    if (
+      location.pathname === '/integrations/qb-callback' &&
+      (oauthBlob.includes('code=') || oauthBlob.includes('state='))
+    ) {
+      try {
+        const payload: Pick<Location, 'pathname' | 'search' | 'hash'> = {
+          pathname: location.pathname,
+          search: location.search,
+          hash: location.hash,
+        };
+        sessionStorage.setItem('vesta_oauth_return_path', JSON.stringify(payload));
+      } catch {
+        /* ignore quota / private mode */
+      }
+    }
+    return <Navigate to="/auth" replace state={{ from: location }} />;
   }
 
   return <>{children}</>;

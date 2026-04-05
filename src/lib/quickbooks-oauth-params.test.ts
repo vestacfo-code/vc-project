@@ -1,7 +1,8 @@
-import { describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import {
   isHotelQuickBooksOAuthRedirect,
   parseQuickBooksOAuthCallbackParams,
+  parseQuickBooksOAuthParamsFromLocation,
 } from './quickbooks-oauth-params'
 
 describe('parseQuickBooksOAuthCallbackParams', () => {
@@ -51,5 +52,25 @@ describe('isHotelQuickBooksOAuthRedirect', () => {
 
   it('is false for unrelated code+state (no realm, not our state shape)', () => {
     expect(isHotelQuickBooksOAuthRedirect('?code=pkce&state=random')).toBe(false)
+  })
+})
+
+describe('parseQuickBooksOAuthParamsFromLocation', () => {
+  afterEach(() => {
+    vi.unstubAllGlobals()
+  })
+
+  it('merges search and hash', () => {
+    vi.stubGlobal('window', {
+      location: {
+        search: '?code=from-search',
+        hash: '#realmId=999&state=s2',
+      },
+    })
+    expect(parseQuickBooksOAuthParamsFromLocation()).toMatchObject({
+      code: 'from-search',
+      state: 's2',
+      realmId: '999',
+    })
   })
 })

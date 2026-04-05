@@ -4,6 +4,23 @@ import { parseHotelIdFromQuickBooksState } from '@/lib/supabase-third-party-oaut
  * Intuit usually redirects with ?code=&state=&realmId= (sometimes realm_id / realmid).
  * Normalize so we do not fail on harmless casing/alias differences.
  */
+/** Merge `?query` and `#hash` fragments (some environments put params in the hash). */
+export function getQuickBooksOAuthRawQueryString(): string {
+  if (typeof window === 'undefined') return ''
+  const search = window.location.search.replace(/^\?/, '')
+  const hash = window.location.hash.startsWith('#') ? window.location.hash.slice(1) : ''
+  return [search, hash].filter(Boolean).join('&')
+}
+
+export function parseQuickBooksOAuthParamsFromLocation(): {
+  code: string | null
+  realmId: string | null
+  state: string | null
+} {
+  const raw = getQuickBooksOAuthRawQueryString()
+  return parseQuickBooksOAuthCallbackParams(raw ? `?${raw}` : '')
+}
+
 export function parseQuickBooksOAuthCallbackParams(search: string): {
   code: string | null
   realmId: string | null

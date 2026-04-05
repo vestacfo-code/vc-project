@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useQueryClient } from '@tanstack/react-query'
 import { supabase } from '@/integrations/supabase/client'
 import { refreshQuickBooksIntegrationQueries } from '@/lib/hotel-integrations-queries'
-import { parseQuickBooksOAuthCallbackParams } from '@/lib/quickbooks-oauth-params'
+import { parseQuickBooksOAuthParamsFromLocation } from '@/lib/quickbooks-oauth-params'
 import { parseHotelIdFromQuickBooksState } from '@/lib/supabase-third-party-oauth'
 import { useHotelDashboard } from '@/hooks/useHotelDashboard'
 import { toast } from 'sonner'
@@ -78,7 +78,7 @@ export default function IntegrationsQbCallback() {
       return
     }
 
-    const { code, realmId, state } = parseQuickBooksOAuthCallbackParams(window.location.search)
+    const { code, realmId, state } = parseQuickBooksOAuthParamsFromLocation()
 
     if (code && state && window.opener) {
       window.opener.postMessage(
@@ -91,7 +91,7 @@ export default function IntegrationsQbCallback() {
 
     if (!code || !state) {
       toast.error(
-        'QuickBooks did not return authorization data (missing code or state). In the Intuit Developer app, set the Redirect URI to your site URL with path /integrations/qb-callback (must match this environment exactly, including https).',
+        'QuickBooks did not return authorization data (missing code or state). If you had to sign in first, try Connect QuickBooks again — the app now keeps the Intuit callback after login. Otherwise, in the Intuit Developer app add Redirect URI: your site URL plus path /integrations/qb-callback (exact match, including https).',
       )
       goIntegrations()
       return

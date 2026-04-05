@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { morphSpringSoft } from '@/lib/motion';
 import { useAuth } from '@/hooks/useAuth';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation, type Location } from 'react-router-dom';
 // Use the wrapper client that respects recovery mode
 import { supabase } from '@/lib/supabase-client-wrapper';
 import { clearRecoveryMode } from '@/lib/auth-recovery-interceptor';
@@ -98,6 +98,7 @@ const UnderlineInput = ({
 const Auth = () => {
   const { signIn, signUp, user, loading } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const { toast } = useToast();
   const { startAnimation, isActive: portalIsActive } = usePortalAnimation();
   
@@ -259,8 +260,62 @@ const Auth = () => {
       return;
     }
 
+    const fromState =
+      location.state && typeof location.state === 'object' && 'from' in location.state
+        ? (location.state as { from?: Location }).from
+        : undefined;
+    const hasQbOAuthParams = (search: string) =>
+      search.includes('code=') || search.includes('state=');
+
+    let returnTo: Pick<Location, 'pathname' | 'search' | 'hash'> | null = null;
+    if (
+      fromState?.pathname === '/integrations/qb-callback' &&
+      fromState.search &&
+      hasQbOAuthParams(fromState.search)
+    ) {
+      returnTo = {
+        pathname: fromState.pathname,
+        search: fromState.search,
+        hash: fromState.hash ?? '',
+      };
+    } else {
+      try {
+        const raw = sessionStorage.getItem('vesta_oauth_return_path');
+        if (raw) {
+          const parsed = JSON.parse(raw) as Pick<Location, 'pathname' | 'search' | 'hash'>;
+          if (
+            parsed.pathname === '/integrations/qb-callback' &&
+            parsed.search &&
+            hasQbOAuthParams(parsed.search)
+          ) {
+            returnTo = parsed;
+            sessionStorage.removeItem('vesta_oauth_return_path');
+          }
+        }
+      } catch {
+        /* ignore */
+      }
+    }
+
+    if (returnTo) {
+      try {
+        sessionStorage.removeItem('vesta_oauth_return_path');
+      } catch {
+        /* ignore */
+      }
+      navigate(
+        {
+          pathname: returnTo.pathname,
+          search: returnTo.search,
+          hash: returnTo.hash ?? '',
+        },
+        { replace: true },
+      );
+      return;
+    }
+
     navigate('/dashboard');
-  }, [user, loading, navigate, portalIsActive, showSetNewPassword]);
+  }, [user, loading, navigate, location.state, portalIsActive, showSetNewPassword]);
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();

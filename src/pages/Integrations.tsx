@@ -49,6 +49,7 @@ import {
   MEWS_DEMO_PLATFORM_URL,
 } from '@/lib/integrations/mews-demo'
 import {
+  getQuickBooksOAuthRawQueryString,
   isHotelQuickBooksOAuthRedirect,
   parseQuickBooksOAuthCallbackParams,
 } from '@/lib/quickbooks-oauth-params'
@@ -341,8 +342,9 @@ export default function Integrations() {
   // ---------------------------------------------------------------------------
 
   useEffect(() => {
-    const search = window.location.search
-    const topParams = new URLSearchParams(search.startsWith('?') ? search.slice(1) : search)
+    const rawQ = getQuickBooksOAuthRawQueryString()
+    const search = rawQ ? `?${rawQ}` : ''
+    const topParams = new URLSearchParams(rawQ)
     const intuitError = topParams.get('error')
     if (intuitError) {
       const desc = topParams.get('error_description') ?? intuitError
@@ -351,7 +353,7 @@ export default function Integrations() {
       return undefined
     }
 
-    const { code, realmId, state } = parseQuickBooksOAuthCallbackParams(search)
+    const { code, realmId, state } = parseQuickBooksOAuthCallbackParams(search || '')
 
     // Popup window: forward params to opener and close
     if (code && state && window.opener) {
