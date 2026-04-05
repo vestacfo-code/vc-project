@@ -39,6 +39,11 @@ describe('isQuickBooksOAuthReturnInUrl', () => {
     expect(isQuickBooksOAuthReturnInUrl()).toBe(true);
   });
 
+  it('is true on /integrations/qb-callback even without code (disable PKCE before params are parsed)', () => {
+    mockLocation('', '/integrations/qb-callback');
+    expect(isQuickBooksOAuthReturnInUrl()).toBe(true);
+  });
+
   it('is false when only code+state look unrelated and path is not /integrations', () => {
     mockLocation('?code=supabase-pkce&state=opaque-string', '/auth');
     expect(isQuickBooksOAuthReturnInUrl()).toBe(false);

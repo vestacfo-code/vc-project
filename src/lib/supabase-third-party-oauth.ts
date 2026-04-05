@@ -21,6 +21,15 @@ const LEGACY_QB_STATE_PREFIX = new RegExp(`^${UUID}:${UUID}:`, 'i');
 
 export function isQuickBooksOAuthReturnInUrl(): boolean {
   if (typeof window === 'undefined') return false;
+
+  const path = (window.location.pathname || '/').replace(/\/+$/, '') || '/';
+
+  // Dedicated Intuit redirect — Supabase must never run PKCE on this path, even if query
+  // params are missing, renamed, or error-only (otherwise GoTrue can wipe the session).
+  if (path.endsWith('/integrations/qb-callback')) {
+    return true;
+  }
+
   const params = new URLSearchParams(window.location.search);
   if (params.has('realmId') || params.has('realm_id')) return true;
 
@@ -31,9 +40,7 @@ export function isQuickBooksOAuthReturnInUrl(): boolean {
   if (HOTEL_QB_STATE.test(state)) return true;
   if (LEGACY_QB_STATE_PREFIX.test(state)) return true;
 
-  const path = (window.location.pathname || '/').replace(/\/+$/, '') || '/';
-  if (path.endsWith('/integrations/qb-callback')) return true;
-  // Legacy Intuit redirect URI
+  // Legacy Intuit redirect URI (still allow /integrations?code=&state=)
   if (path.endsWith('/integrations')) return true;
 
   return false;
