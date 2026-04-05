@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useQueryClient } from '@tanstack/react-query'
 import { supabase } from '@/integrations/supabase/client'
 import { refreshQuickBooksIntegrationQueries } from '@/lib/hotel-integrations-queries'
+import { parseQuickBooksOAuthCallbackParams } from '@/lib/quickbooks-oauth-params'
 import { parseHotelIdFromQuickBooksState } from '@/lib/supabase-third-party-oauth'
 import { useHotelDashboard } from '@/hooks/useHotelDashboard'
 import { toast } from 'sonner'
@@ -77,18 +78,21 @@ export default function IntegrationsQbCallback() {
       return
     }
 
-    const code = params.get('code')
-    const realmId = params.get('realmId') ?? params.get('realm_id')
-    const state = params.get('state')
+    const { code, realmId, state } = parseQuickBooksOAuthCallbackParams(window.location.search)
 
-    if (code && realmId && state && window.opener) {
-      window.opener.postMessage({ type: 'QB_CALLBACK', code, realmId, state }, window.location.origin)
+    if (code && state && window.opener) {
+      window.opener.postMessage(
+        { type: 'QB_CALLBACK', code, realmId: realmId ?? '', state },
+        window.location.origin,
+      )
       window.close()
       return
     }
 
-    if (!code || !realmId || !state) {
-      toast.error('QuickBooks returned an incomplete response. Try connecting again from Integrations.')
+    if (!code || !state) {
+      toast.error(
+        'QuickBooks did not return authorization data (missing code or state). In the Intuit Developer app, set the Redirect URI to your site URL with path /integrations/qb-callback (must match this environment exactly, including https).',
+      )
       goIntegrations()
       return
     }
@@ -111,7 +115,7 @@ export default function IntegrationsQbCallback() {
       return
     }
 
-    void runCallback(code, realmId, state, effectiveHotelId)
+    void runCallback(code, realmId ?? '', state, effectiveHotelId)
   }, [dashboardLoading, goIntegrations, hotelId, runCallback])
 
   return (

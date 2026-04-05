@@ -48,6 +48,10 @@ import {
   MEWS_DEMO_GROSS_TOKENS,
   MEWS_DEMO_PLATFORM_URL,
 } from '@/lib/integrations/mews-demo'
+import {
+  isHotelQuickBooksOAuthRedirect,
+  parseQuickBooksOAuthCallbackParams,
+} from '@/lib/quickbooks-oauth-params'
 import { parseHotelIdFromQuickBooksState } from '@/lib/supabase-third-party-oauth'
 import quickbooksLogo from '@/assets/quickbooks-logo.png'
 
@@ -279,7 +283,13 @@ export default function Integrations() {
       setQbCallbackLoading(true)
       try {
         const { data, error } = await supabase.functions.invoke('quickbooks-hotel-oauth', {
-          body: { action: 'callback', hotel_id: targetHotelId, code, realm_id: realmId, state },
+          body: {
+            action: 'callback',
+            hotel_id: targetHotelId,
+            code,
+            realm_id: realmId.trim() ? realmId : '',
+            state,
+          },
         })
         if (error) {
           toast.error('Failed to connect QuickBooks: ' + error.message)
@@ -331,35 +341,37 @@ export default function Integrations() {
   // ---------------------------------------------------------------------------
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search)
-    const intuitError = params.get('error')
+    const search = window.location.search
+    const topParams = new URLSearchParams(search.startsWith('?') ? search.slice(1) : search)
+    const intuitError = topParams.get('error')
     if (intuitError) {
-      const desc = params.get('error_description') ?? intuitError
+      const desc = topParams.get('error_description') ?? intuitError
       toast.error(`QuickBooks: ${desc}`)
       void navigate('/integrations', { replace: true })
       return undefined
     }
 
-    const code = params.get('code')
-    const realmId = params.get('realmId') ?? params.get('realm_id')
-    const state = params.get('state')
+    const { code, realmId, state } = parseQuickBooksOAuthCallbackParams(search)
 
     // Popup window: forward params to opener and close
-    if (code && realmId && state && window.opener) {
-      window.opener.postMessage({ type: 'QB_CALLBACK', code, realmId, state }, window.location.origin)
+    if (code && state && window.opener) {
+      window.opener.postMessage(
+        { type: 'QB_CALLBACK', code, realmId: realmId ?? '', state },
+        window.location.origin,
+      )
       window.close()
       return undefined
     }
 
     let cancelled = false
 
-    // Same-tab return: complete OAuth before stripping query params (navigate could remount and drop the callback).
-    if ((code || state || params.get('realmId') || params.get('realm_id')) && !window.opener) {
-      if (code && realmId && state) {
+    // Same-tab return on /integrations (legacy redirect URI only): only treat as QB if it matches our flow.
+    if (isHotelQuickBooksOAuthRedirect(search) && !window.opener) {
+      if (code && state) {
         if (!qbOAuthReturnHandledRef.current) {
           qbOAuthReturnHandledRef.current = true
           const c = code
-          const r = realmId
+          const r = realmId ?? ''
           const s = state
           void (async () => {
             try {
@@ -373,7 +385,9 @@ export default function Integrations() {
           })()
         }
       } else {
-        toast.error('QuickBooks returned an incomplete response. Try connecting again from Integrations.')
+        toast.error(
+          'QuickBooks returned an unexpected URL. Use Connect again from Integrations, and in the Intuit Developer app set the Redirect URI to your site URL with path /integrations/qb-callback.',
+        )
         void navigate('/integrations', { replace: true })
       }
     }
@@ -387,8 +401,8 @@ export default function Integrations() {
         realm_id?: string
         state?: string
       }
-      const realm = r ?? r2
-      if (!c || !realm || !s) {
+      const realm = (r ?? r2 ?? '').trim()
+      if (!c || !s) {
         toast.error('QuickBooks popup returned incomplete data. Close the window and try Connect again.')
         return
       }

@@ -145,8 +145,8 @@ serve(sentryServe("quickbooks-hotel-oauth", async (req) => {
     if (action === 'callback') {
       const { code, realm_id, state } = body;
 
-      if (!code || !realm_id || !state) {
-        return new Response(JSON.stringify({ error: 'code, realm_id, and state are required' }), {
+      if (!code || !state) {
+        return new Response(JSON.stringify({ error: 'code and state are required' }), {
           status: 400,
           headers: { ...corsHeaders, 'Content-Type': 'application/json' },
         });
@@ -171,8 +171,11 @@ serve(sentryServe("quickbooks-hotel-oauth", async (req) => {
         });
       }
 
+      const realmFromBody =
+        typeof realm_id === 'string' && realm_id.trim().length > 0 ? realm_id.trim() : '';
+
       // Exchange code for tokens
-      log('Exchanging code for tokens', { hotel_id, realm_id });
+      log('Exchanging code for tokens', { hotel_id, realm_from_body: realmFromBody || '(none)' });
       const tokenResponse = await fetch(
         'https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer',
         {
@@ -199,6 +202,24 @@ serve(sentryServe("quickbooks-hotel-oauth", async (req) => {
         );
       }
 
+      const realmFromToken =
+        (typeof tokens.realmId === 'string' && tokens.realmId.trim()) ||
+        (typeof tokens.realm_id === 'string' && tokens.realm_id.trim()) ||
+        '';
+      const effectiveRealmId = realmFromBody || realmFromToken;
+
+      if (!effectiveRealmId) {
+        log('Missing realmId after token exchange', { hotel_id, keys: Object.keys(tokens) });
+        return new Response(
+          JSON.stringify({
+            error: 'Missing QuickBooks company ID (realmId)',
+            details:
+              'Intuit did not send realmId on the redirect URL and it was not in the token response. Check the Redirect URI in the Intuit Developer app matches this site exactly (including https and path /integrations/qb-callback), and that the app uses the QuickBooks Accounting scope.',
+          }),
+          { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } },
+        );
+      }
+
       const expiresAt = new Date(Date.now() + tokens.expires_in * 1000).toISOString();
 
       // Upsert integration record
@@ -212,7 +233,7 @@ serve(sentryServe("quickbooks-hotel-oauth", async (req) => {
             credentials: {
               access_token: tokens.access_token,
               refresh_token: tokens.refresh_token,
-              realm_id,
+              realm_id: effectiveRealmId,
               expires_at: expiresAt,
             },
             status: 'active',
@@ -231,7 +252,7 @@ serve(sentryServe("quickbooks-hotel-oauth", async (req) => {
         );
       }
 
-      log('Integration saved', { hotel_id, realm_id });
+      log('Integration saved', { hotel_id, realm_id: effectiveRealmId });
 
       return new Response(JSON.stringify({ success: true }), {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
