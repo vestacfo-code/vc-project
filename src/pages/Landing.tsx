@@ -101,31 +101,68 @@ const SCROLL_HEIGHT = '900vh';
 
 // ── Component ─────────────────────────────────────────────────────────────────
 
+type ScrollyVideoHandle = {
+  setVideoPercentage: (p: number) => void;
+};
+
 export default function Landing() {
   const navigate = useNavigate();
   const containerRef = useRef<HTMLDivElement>(null);
-  const [progress, setProgress] = useState(0);
-  const rafRef = useRef<number | undefined>(undefined);
-  const lastProgressRef = useRef(0);
+  const scrollyRef = useRef<ScrollyVideoHandle | null>(null);
+  const progressBarRef = useRef<HTMLDivElement>(null);
+  const lastChapterIdxRef = useRef<number | null>(0);
+  const showScrollCueRef = useRef(true);
+
+  /** Chapter + cue labels only — avoids re-rendering the whole page every scroll frame. */
+  const [chapterIndex, setChapterIndex] = useState<number | null>(0);
+  const [showScrollCue, setShowScrollCue] = useState(true);
+
+  const scrollSyncRef = useRef(() => {});
+
+  scrollSyncRef.current = () => {
+    const el = containerRef.current;
+    if (!el) return;
+    const denom = el.offsetHeight - window.innerHeight;
+    const p = denom > 0 ? Math.min(Math.max(window.scrollY / denom, 0), 1) : 0;
+
+    scrollyRef.current?.setVideoPercentage(p);
+
+    const bar = progressBarRef.current;
+    if (bar) bar.style.width = `${p * 100}%`;
+
+    const idx = CHAPTERS.findIndex((c) => p >= c.range[0] && p <= c.range[1]);
+    const resolved = idx < 0 ? null : idx;
+    if (resolved !== lastChapterIdxRef.current) {
+      lastChapterIdxRef.current = resolved;
+      setChapterIndex(resolved);
+    }
+
+    if (p > 0.04 && showScrollCueRef.current) {
+      showScrollCueRef.current = false;
+      setShowScrollCue(false);
+    } else if (p <= 0.04 && !showScrollCueRef.current) {
+      showScrollCueRef.current = true;
+      setShowScrollCue(true);
+    }
+  };
 
   useEffect(() => {
+    let rafId: number | undefined;
+    let scheduled = false;
+    const flush = () => {
+      scheduled = false;
+      scrollSyncRef.current();
+    };
     const onScroll = () => {
-      if (rafRef.current !== undefined) return;
-      rafRef.current = requestAnimationFrame(() => {
-        rafRef.current = undefined;
-        const el = containerRef.current;
-        if (!el) return;
-        const p = Math.min(Math.max(window.scrollY / (el.offsetHeight - window.innerHeight), 0), 1);
-        if (Math.abs(p - lastProgressRef.current) > 0.0001) {
-          lastProgressRef.current = p;
-          setProgress(p);
-        }
-      });
+      if (scheduled) return;
+      scheduled = true;
+      rafId = requestAnimationFrame(flush);
     };
     window.addEventListener('scroll', onScroll, { passive: true });
+    scrollSyncRef.current();
     return () => {
       window.removeEventListener('scroll', onScroll);
-      if (rafRef.current !== undefined) cancelAnimationFrame(rafRef.current);
+      if (rafId !== undefined) cancelAnimationFrame(rafId);
     };
   }, []);
 
@@ -133,7 +170,7 @@ export default function Landing() {
     document.title = 'Vesta CFO — AI financial intelligence for hotels';
   }, []);
 
-  const activeChapter = CHAPTERS.find(c => progress >= c.range[0] && progress <= c.range[1]) ?? null;
+  const activeChapter = chapterIndex !== null ? CHAPTERS[chapterIndex] ?? null : null;
 
   const alignClass =
     activeChapter?.align === 'left'
@@ -150,15 +187,16 @@ export default function Landing() {
 
       {/* ── Scroll-scrubbed video section ── */}
       <div ref={containerRef} style={{ height: SCROLL_HEIGHT }} className="relative bg-vesta-cream">
-        <div className="sticky top-0 h-screen w-full overflow-hidden bg-vesta-cream" style={{ willChange: 'transform', transform: 'translateZ(0)' }}>
+        <div className="sticky top-0 h-screen w-full overflow-hidden bg-vesta-cream">
           <ScrollyVideo
+            ref={scrollyRef}
             src="/hotel.mp4"
             transitionSpeed={30}
             frameThreshold={0.01}
             cover
             sticky={false}
             trackScroll={false}
-            videoPercentage={progress}
+            onReady={() => scrollSyncRef.current()}
           />
 
           <div
@@ -211,11 +249,15 @@ export default function Landing() {
           </div>
 
           <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-px bg-vesta-mist/80">
-            <div className="h-full bg-vesta-gold/80 transition-all duration-100" style={{ width: `${progress * 100}%` }} />
+            <div
+              ref={progressBarRef}
+              className="h-full bg-vesta-gold/80"
+              style={{ width: '0%' }}
+            />
           </div>
 
           <div
-            className={`pointer-events-none absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-vesta-navy/65 transition-opacity duration-700 ${progress > 0.04 ? 'opacity-0' : 'opacity-100'}`}
+            className={`pointer-events-none absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-vesta-navy/65 transition-opacity duration-700 ${showScrollCue ? 'opacity-100' : 'opacity-0'}`}
           >
             <span className="text-xs uppercase tracking-widest">Scroll</span>
             <div className="h-6 w-px animate-pulse bg-vesta-navy-muted/50" />
