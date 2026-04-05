@@ -27,6 +27,16 @@ const siteBase = (envTrim('SITE_URL') ?? envTrim('PUBLIC_SITE_URL') ?? 'https://
 );
 const QB_REDIRECT_URI = envTrim('QUICKBOOKS_REDIRECT_URI') ?? `${siteBase}/integrations`;
 
+/** Intuit *development* keys + sandbox companies require the sandbox data host (OAuth URLs are unchanged). */
+function quickBooksApiBase(): string {
+  const flag = (envTrim('QUICKBOOKS_USE_SANDBOX') ?? '').toLowerCase();
+  const env = (envTrim('QUICKBOOKS_ENVIRONMENT') ?? '').toLowerCase();
+  if (flag === 'true' || flag === '1' || env === 'sandbox' || env === 'development') {
+    return 'https://sandbox-quickbooks.api.intuit.com';
+  }
+  return 'https://quickbooks.api.intuit.com';
+}
+
 const log = (step: string, details?: any) => {
   const suffix = details ? ` - ${JSON.stringify(details)}` : '';
   console.log(`[QB-HOTEL-SYNC] ${step}${suffix}`);
@@ -234,11 +244,11 @@ serve(sentryServe("quickbooks-hotel-sync", async (req) => {
       .slice(0, 10); // YYYY-MM-DD
 
     const qbQuery = `SELECT * FROM Purchase WHERE TxnDate >= '${ninetyDaysAgo}' MAXRESULTS 200`;
+    const apiBase = quickBooksApiBase();
     const qbUrl =
-      `https://quickbooks.api.intuit.com/v3/company/${realm_id}/query` +
-      `?query=${encodeURIComponent(qbQuery)}`;
+      `${apiBase}/v3/company/${realm_id}/query` + `?query=${encodeURIComponent(qbQuery)}`;
 
-    log('Fetching QB purchases', { realm_id, since: ninetyDaysAgo });
+    log('Fetching QB purchases', { realm_id, since: ninetyDaysAgo, apiBase });
 
     const qbResponse = await fetch(qbUrl, {
       headers: {
