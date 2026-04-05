@@ -16,4 +16,7 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run test
+      # Vite production build peaks above Node's default ~2GB heap on ubuntu-latest (OOM during chunk render).
       - run: npm run build
+        env:
+          NODE_OPTIONS: --max-old-space-size=6144
