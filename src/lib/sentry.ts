@@ -15,11 +15,15 @@ const release =
   import.meta.env.VITE_VERCEL_GIT_COMMIT_SHA?.trim() ||
   undefined;
 
+const sendDefaultPii =
+  import.meta.env.VITE_SENTRY_SEND_DEFAULT_PII === 'true';
+
 export function initSentry() {
   if (!dsn) return;
 
   Sentry.init({
     dsn,
+    sendDefaultPii,
     environment: import.meta.env.MODE,
     release,
     integrations: [
