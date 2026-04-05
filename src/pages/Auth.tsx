@@ -238,22 +238,28 @@ const Auth = () => {
     return "Good to see you.";
   };
 
-  // Redirect if already logged in (but NOT if portal animation is active or setting new password)
+  // After Google OAuth: return to /auth (same origin) so PKCE ?code= is not stripped.
+  // /onboarding is behind ProtectedRoute; unauthenticated first paint redirected to /auth without the query → broken session → lands like logged out (often /).
   useEffect(() => {
-    // Check BOTH URL hash AND sessionStorage for recovery mode
     const hash = window.location.hash;
     const isRecoveryFromHash = hash && hash.includes('type=recovery');
     const isRecoveryFromStorage = sessionStorage.getItem('passwordRecoveryMode') === 'true';
-    
+
     if (isRecoveryFromHash || isRecoveryFromStorage) {
       console.log('[Auth] Recovery mode active, blocking redirect');
       setShowSetNewPassword(true);
-      return; // Block redirect
+      return;
     }
-    
-    if (user && !loading && !portalIsActive && !showSetNewPassword) {
-      navigate('/dashboard');
+
+    if (!user || loading || portalIsActive || showSetNewPassword) return;
+
+    if (localStorage.getItem('vesta_pending_google_signup') === '1') {
+      localStorage.removeItem('vesta_pending_google_signup');
+      navigate('/onboarding', { replace: true });
+      return;
     }
+
+    navigate('/dashboard');
   }, [user, loading, navigate, portalIsActive, showSetNewPassword]);
 
   const handleSignIn = async (e: React.FormEvent) => {
@@ -573,7 +579,10 @@ const Auth = () => {
       }
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
-        options: { redirectTo: getRedirectUrl('/onboarding') }
+        options: {
+          // Same tab origin (required for Vercel previews); finish OAuth on /auth, then route below.
+          redirectTo: getRedirectUrl('/auth', true),
+        },
       });
       if (error) {
         localStorage.removeItem('vesta_pending_google_signup');
