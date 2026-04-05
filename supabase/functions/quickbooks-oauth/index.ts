@@ -7,6 +7,17 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
+function envTrim(key: string): string | undefined {
+  const v = Deno.env.get(key);
+  if (v == null) return undefined;
+  const t = v.trim();
+  return t.length ? t : undefined;
+}
+
+/** Match quickbooks-hotel-oauth; override with QUICKBOOKS_OAUTH_SCOPE secret. */
+const DEFAULT_QB_OAUTH_SCOPE = 'com.intuit.quickbooks.accounting openid profile email';
+const QB_OAUTH_SCOPE = (envTrim('QUICKBOOKS_OAUTH_SCOPE') ?? DEFAULT_QB_OAUTH_SCOPE).replace(/\s+/g, ' ').trim();
+
 // Simple in-memory rate limiter
 const rateLimiter = new Map<string, number[]>();
 
@@ -144,19 +155,20 @@ serve(sentryServe("quickbooks-oauth", async (req) => {
       console.log('Final appOrigin for OAuth flow:', appOrigin);
       
       const redirectUri = `${Deno.env.get('SUPABASE_URL')}/functions/v1/quickbooks-oauth`;
-      const scope = 'com.intuit.quickbooks.accounting';
       // Store user ID and app origin in state to retrieve during callback
       const state = `${user.id}:${crypto.randomUUID()}:${encodeURIComponent(appOrigin)}`;
 
-      const authUrl = `https://appcenter.intuit.com/connect/oauth2?` +
-        `client_id=${clientId}&` +
-        `scope=${scope}&` +
-        `redirect_uri=${encodeURIComponent(redirectUri)}&` +
-        `response_type=code&` +
-        `access_type=offline&` +
-        `state=${state}`;
+      const authParams = new URLSearchParams({
+        client_id: clientId,
+        response_type: 'code',
+        scope: QB_OAUTH_SCOPE,
+        redirect_uri: redirectUri,
+        access_type: 'offline',
+        state,
+      });
+      const authUrl = `https://appcenter.intuit.com/connect/oauth2?${authParams.toString()}`;
 
-      console.log('Generated auth URL:', { redirectUri, scope, userId: user.id, appOrigin });
+      console.log('Generated auth URL:', { redirectUri, scope: QB_OAUTH_SCOPE, userId: user.id, appOrigin });
 
       return new Response(JSON.stringify({ authUrl }), {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },

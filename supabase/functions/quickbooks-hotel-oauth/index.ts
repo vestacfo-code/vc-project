@@ -31,6 +31,13 @@ const siteBase = (envTrim('SITE_URL') ?? envTrim('PUBLIC_SITE_URL') ?? 'https://
 /** Dedicated path so browser Supabase client never treats Intuit's ?code= as PKCE on /integrations. */
 const QB_REDIRECT_URI = envTrim('QUICKBOOKS_REDIRECT_URI') ?? `${siteBase}/integrations/qb-callback`;
 
+/**
+ * Intuit authorize URL expects space-delimited scopes. Official samples use Accounting + OpenID scopes together.
+ * Set Supabase secret QUICKBOOKS_OAUTH_SCOPE to override (must match what your app enables in developer.intuit.com).
+ */
+const DEFAULT_QB_OAUTH_SCOPE = 'com.intuit.quickbooks.accounting openid profile email';
+const QB_OAUTH_SCOPE = (envTrim('QUICKBOOKS_OAUTH_SCOPE') ?? DEFAULT_QB_OAUTH_SCOPE).replace(/\s+/g, ' ').trim();
+
 const log = (step: string, details?: any) => {
   const suffix = details ? ` - ${JSON.stringify(details)}` : '';
   console.log(`[QB-HOTEL-OAUTH] ${step}${suffix}`);
@@ -125,16 +132,16 @@ serve(sentryServe("quickbooks-hotel-oauth", async (req) => {
       const params = new URLSearchParams({
         client_id: QB_CLIENT_ID,
         response_type: 'code',
-        scope: 'com.intuit.quickbooks.accounting',
+        scope: QB_OAUTH_SCOPE,
         redirect_uri: QB_REDIRECT_URI,
         state,
       });
 
       const authUrl = `https://appcenter.intuit.com/connect/oauth2?${params.toString()}`;
 
-      log('Generated auth URL', { hotel_id, state });
+      log('Generated auth URL', { hotel_id, state, scope: QB_OAUTH_SCOPE });
 
-      return new Response(JSON.stringify({ authUrl, state }), {
+      return new Response(JSON.stringify({ authUrl, state, oauth_scope: QB_OAUTH_SCOPE }), {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       });
     }
