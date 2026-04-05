@@ -1,10 +1,20 @@
 import { describe, expect, it } from 'vitest';
-import { getSentryReactQueryOptions } from './sentry';
+import {
+  createSentryMutationCache,
+  getSentryReactQueryOptions,
+} from './sentry';
 
 describe('getSentryReactQueryOptions', () => {
-  it('provides query and mutation onError handlers', () => {
+  it('provides query onError handler', () => {
     const opts = getSentryReactQueryOptions();
     expect(opts.queries?.onError).toBeTypeOf('function');
-    expect(opts.mutations?.onError).toBeTypeOf('function');
+  });
+});
+
+describe('createSentryMutationCache', () => {
+  it('returns a MutationCache', () => {
+    const cache = createSentryMutationCache();
+    expect(cache).toBeDefined();
+    expect(typeof cache.clear).toBe('function');
   });
 });

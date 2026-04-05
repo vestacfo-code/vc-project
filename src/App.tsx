@@ -4,7 +4,10 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { getSentryReactQueryOptions } from "@/lib/sentry";
+import {
+  createSentryMutationCache,
+  getSentryReactQueryOptions,
+} from "@/lib/sentry";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import ScrollToTop from "@/components/ScrollToTop";
 import { AuthProvider } from "@/hooks/useAuth";
@@ -92,6 +95,7 @@ const SentryDebugLazy = import.meta.env.DEV
   : null;
 
 const queryClient = new QueryClient({
+  mutationCache: createSentryMutationCache(),
   defaultOptions: getSentryReactQueryOptions(),
 });
 

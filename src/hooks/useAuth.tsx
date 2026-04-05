@@ -3,6 +3,7 @@ import { User, Session } from '@supabase/supabase-js';
 // Use the wrapper client that respects recovery mode
 import { supabase } from '@/lib/supabase-client-wrapper';
 import { getRedirectUrl } from '@/lib/constants';
+import { Sentry } from '@/lib/sentry';
 
 interface AuthContextType {
   user: User | null;
@@ -39,6 +40,22 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     return () => subscription.unsubscribe();
   }, []);
+
+  useEffect(() => {
+    if (!import.meta.env.VITE_SENTRY_DSN?.trim()) return;
+    if (user) {
+      Sentry.setUser({
+        id: user.id,
+        email: user.email ?? undefined,
+        username:
+          (typeof user.user_metadata?.full_name === 'string'
+            ? user.user_metadata.full_name
+            : undefined) ?? user.email ?? undefined,
+      });
+    } else {
+      Sentry.setUser(null);
+    }
+  }, [user]);
 
   const signIn = async (email: string, password: string) => {
     const { error } = await supabase.auth.signInWithPassword({

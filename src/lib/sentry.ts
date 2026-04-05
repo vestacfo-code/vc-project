@@ -1,5 +1,6 @@
 import * as Sentry from '@sentry/react';
 import type { DefaultOptions } from '@tanstack/react-query';
+import { MutationCache } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import {
   createRoutesFromChildren,
@@ -40,22 +41,28 @@ export function initSentry() {
   });
 }
 
-/** Default TanStack Query handlers so failed queries/mutations show up in Sentry. */
+/** Default TanStack Query handlers so failed queries show up in Sentry. */
 export function getSentryReactQueryOptions(): DefaultOptions {
   return {
     queries: {
-      onError: (error) => {
+      onError: (error, query) => {
+        if (query.meta?.skipSentry === true) return;
         Sentry.captureException(error, { tags: { source: 'react-query' } });
       },
     },
-    mutations: {
-      onError: (error) => {
-        Sentry.captureException(error, {
-          tags: { source: 'react-query-mutation' },
-        });
-      },
-    },
   };
+}
+
+/** Mutation failures use MutationCache so we can read `meta.skipSentry`. */
+export function createSentryMutationCache() {
+  return new MutationCache({
+    onError: (error, _variables, _context, mutation) => {
+      if (mutation.options.meta?.skipSentry === true) return;
+      Sentry.captureException(error, {
+        tags: { source: 'react-query-mutation' },
+      });
+    },
+  });
 }
 
 export { Sentry };
