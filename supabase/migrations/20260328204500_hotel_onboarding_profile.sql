@@ -2,8 +2,24 @@
 
 ALTER TABLE public.hotels DROP CONSTRAINT IF EXISTS hotels_property_type_check;
 
+-- Existing rows may use legacy labels; map anything outside the allowed set to a safe default.
+UPDATE public.hotels
+SET property_type = 'independent'
+WHERE property_type IS NOT NULL
+  AND btrim(property_type) <> ''
+  AND lower(btrim(property_type)) NOT IN (
+    'independent',
+    'boutique',
+    'chain',
+    'resort',
+    'extended_stay',
+    'hostel',
+    'serviced_apartment'
+  );
+
 ALTER TABLE public.hotels ADD CONSTRAINT hotels_property_type_check CHECK (
-  property_type IN (
+  property_type IS NULL
+  OR property_type IN (
     'independent',
     'boutique',
     'chain',
