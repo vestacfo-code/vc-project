@@ -16,6 +16,8 @@ export default defineConfig(({ mode }) => ({
   },
   build: {
     sourcemap: true, // required for Sentry source maps
+    // Main app chunk is multi‑MB until route-level code splitting; default 500 kB is noisy in CI
+    chunkSizeWarningLimit: 5000,
   },
   plugins: [
     react(),
