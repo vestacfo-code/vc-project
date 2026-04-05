@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useQueryClient } from '@tanstack/react-query'
 import { supabase } from '@/integrations/supabase/client'
 import { refreshQuickBooksIntegrationQueries } from '@/lib/hotel-integrations-queries'
+import { parseHotelIdFromQuickBooksState } from '@/lib/supabase-third-party-oauth'
 import { useHotelDashboard } from '@/hooks/useHotelDashboard'
 import { toast } from 'sonner'
 import { Loader2 } from 'lucide-react'
@@ -17,13 +18,24 @@ export default function IntegrationsQbCallback() {
   const { hotelId, loading: dashboardLoading } = useHotelDashboard()
   const handledRef = useRef(false)
 
+  const goIntegrations = useCallback(
+    (opts?: { qbOAuthHandled?: boolean }) => {
+      navigate('/integrations', {
+        replace: true,
+        ...(opts?.qbOAuthHandled ? { state: { qbOAuthHandled: true } } : {}),
+      })
+    },
+    [navigate],
+  )
+
   const runCallback = useCallback(
-    async (code: string, realmId: string, state: string) => {
-      if (!hotelId || handledRef.current) return
+    async (code: string, realmId: string, state: string, hotelForBody: string) => {
+      if (handledRef.current) return
       handledRef.current = true
+      let connected = false
       try {
         const { data, error } = await supabase.functions.invoke('quickbooks-hotel-oauth', {
-          body: { action: 'callback', hotel_id: hotelId, code, realm_id: realmId, state },
+          body: { action: 'callback', hotel_id: hotelForBody, code, realm_id: realmId, state },
         })
         if (error) {
           toast.error('Failed to connect QuickBooks: ' + error.message)
@@ -38,18 +50,33 @@ export default function IntegrationsQbCallback() {
           return
         }
         toast.success('QuickBooks connected!')
-        await refreshQuickBooksIntegrationQueries(queryClient, hotelId)
+        try {
+          await refreshQuickBooksIntegrationQueries(queryClient, hotelForBody)
+        } catch (e) {
+          toast.error(
+            e instanceof Error ? e.message : 'Connected, but could not refresh status — refresh the page.',
+          )
+        }
+        connected = true
       } catch (e) {
         toast.error(e instanceof Error ? e.message : 'QuickBooks connection failed')
       } finally {
-        navigate('/integrations', { replace: true })
+        goIntegrations(connected ? { qbOAuthHandled: true } : undefined)
       }
     },
-    [hotelId, navigate, queryClient],
+    [goIntegrations, queryClient],
   )
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
+    const intuitError = params.get('error')
+    if (intuitError) {
+      const desc = params.get('error_description') ?? intuitError
+      toast.error(`QuickBooks: ${desc}`)
+      goIntegrations()
+      return
+    }
+
     const code = params.get('code')
     const realmId = params.get('realmId') ?? params.get('realm_id')
     const state = params.get('state')
@@ -61,20 +88,31 @@ export default function IntegrationsQbCallback() {
     }
 
     if (!code || !realmId || !state) {
-      navigate('/integrations', { replace: true })
+      toast.error('QuickBooks returned an incomplete response. Try connecting again from Integrations.')
+      goIntegrations()
       return
     }
 
     if (dashboardLoading) return
 
-    if (!hotelId) {
-      toast.error('No hotel workspace found. Finish onboarding, then connect QuickBooks from Integrations.')
-      navigate('/integrations', { replace: true })
+    const stateHotelId = parseHotelIdFromQuickBooksState(state)
+    if (hotelId && stateHotelId && hotelId !== stateHotelId) {
+      toast.error(
+        'This QuickBooks sign-in does not match your current hotel workspace. Open Integrations and connect again.',
+      )
+      goIntegrations()
       return
     }
 
-    void runCallback(code, realmId, state)
-  }, [dashboardLoading, hotelId, navigate, runCallback])
+    const effectiveHotelId = hotelId ?? stateHotelId
+    if (!effectiveHotelId) {
+      toast.error('No hotel workspace found. Finish onboarding, then connect QuickBooks from Integrations.')
+      goIntegrations()
+      return
+    }
+
+    void runCallback(code, realmId, state, effectiveHotelId)
+  }, [dashboardLoading, goIntegrations, hotelId, runCallback])
 
   return (
     <div className="flex min-h-[40vh] flex-col items-center justify-center gap-3 px-4 text-vesta-navy">

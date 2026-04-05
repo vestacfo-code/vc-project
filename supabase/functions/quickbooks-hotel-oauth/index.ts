@@ -161,6 +161,9 @@ serve(sentryServe("quickbooks-hotel-oauth", async (req) => {
         });
       }
 
+      const forbiddenCallback = await verifyMembership();
+      if (forbiddenCallback) return forbiddenCallback;
+
       if (!QB_CLIENT_ID || !QB_CLIENT_SECRET) {
         return new Response(JSON.stringify({ error: 'QuickBooks credentials not configured' }), {
           status: 500,

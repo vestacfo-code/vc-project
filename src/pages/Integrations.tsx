@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useCallback, useMemo } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { supabase } from '@/integrations/supabase/client'
 import type { Database } from '@/integrations/supabase/types'
@@ -48,6 +48,7 @@ import {
   MEWS_DEMO_GROSS_TOKENS,
   MEWS_DEMO_PLATFORM_URL,
 } from '@/lib/integrations/mews-demo'
+import { parseHotelIdFromQuickBooksState } from '@/lib/supabase-third-party-oauth'
 import quickbooksLogo from '@/assets/quickbooks-logo.png'
 
 // ---------------------------------------------------------------------------
@@ -219,6 +220,7 @@ type StripeBillingStatus = {
 
 export default function Integrations() {
   const navigate = useNavigate()
+  const location = useLocation()
   const { hotelId } = useHotelDashboard()
   const { sync, isSyncing } = useSyncIntegration()
   const queryClient = useQueryClient()
@@ -254,16 +256,30 @@ export default function Integrations() {
 
   const runQuickBooksCallback = useCallback(
     async (code: string, realmId: string, state: string) => {
-      if (!hotelId) {
+      const stateHotelId = parseHotelIdFromQuickBooksState(state)
+      let targetHotelId = hotelId
+
+      if (!targetHotelId && stateHotelId) {
+        targetHotelId = stateHotelId
+      }
+
+      if (!targetHotelId) {
         pendingQbOAuthRef.current = { code, realmId, state }
         toast.info('QuickBooks: connection will finish once your hotel workspace is ready.')
+        return
+      }
+
+      if (hotelId && stateHotelId && hotelId !== stateHotelId) {
+        toast.error(
+          'This QuickBooks sign-in does not match your current hotel workspace. Connect again from Integrations.',
+        )
         return
       }
 
       setQbCallbackLoading(true)
       try {
         const { data, error } = await supabase.functions.invoke('quickbooks-hotel-oauth', {
-          body: { action: 'callback', hotel_id: hotelId, code, realm_id: realmId, state },
+          body: { action: 'callback', hotel_id: targetHotelId, code, realm_id: realmId, state },
         })
         if (error) {
           toast.error('Failed to connect QuickBooks: ' + error.message)
@@ -278,7 +294,13 @@ export default function Integrations() {
           return
         }
         toast.success('QuickBooks connected!')
-        await refreshQuickBooksIntegrationQueries(queryClient, hotelId)
+        try {
+          await refreshQuickBooksIntegrationQueries(queryClient, targetHotelId)
+        } catch (e) {
+          toast.error(
+            e instanceof Error ? e.message : 'Connected, but could not refresh status — refresh the page.',
+          )
+        }
       } finally {
         setQbCallbackLoading(false)
       }
@@ -294,12 +316,30 @@ export default function Integrations() {
     void runQuickBooksCallback(p.code, p.realmId, p.state)
   }, [hotelId, runQuickBooksCallback])
 
+  // Same-tab flow lands on /integrations/qb-callback then navigates here with state — refresh the QB card.
+  useEffect(() => {
+    const s = location.state as { qbOAuthHandled?: boolean } | null
+    if (!hotelId || !s?.qbOAuthHandled) return
+    void refreshQuickBooksIntegrationQueries(queryClient, hotelId).catch((e) =>
+      toast.error(e instanceof Error ? e.message : 'Could not refresh QuickBooks status'),
+    )
+    navigate(location.pathname, { replace: true, state: {} })
+  }, [hotelId, location.pathname, location.state, navigate, queryClient])
+
   // ---------------------------------------------------------------------------
   // QuickBooks OAuth: popup return, same-tab return (popup blocked), postMessage
   // ---------------------------------------------------------------------------
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
+    const intuitError = params.get('error')
+    if (intuitError) {
+      const desc = params.get('error_description') ?? intuitError
+      toast.error(`QuickBooks: ${desc}`)
+      void navigate('/integrations', { replace: true })
+      return undefined
+    }
+
     const code = params.get('code')
     const realmId = params.get('realmId') ?? params.get('realm_id')
     const state = params.get('state')
@@ -314,22 +354,27 @@ export default function Integrations() {
     let cancelled = false
 
     // Same-tab return: complete OAuth before stripping query params (navigate could remount and drop the callback).
-    if (code && realmId && state && !window.opener) {
-      if (!qbOAuthReturnHandledRef.current) {
-        qbOAuthReturnHandledRef.current = true
-        const c = code
-        const r = realmId
-        const s = state
-        void (async () => {
-          try {
-            await runQuickBooksCallback(c, r, s)
-          } finally {
-            if (!cancelled) {
-              navigate('/integrations', { replace: true })
-              qbOAuthReturnHandledRef.current = false
+    if ((code || state || params.get('realmId') || params.get('realm_id')) && !window.opener) {
+      if (code && realmId && state) {
+        if (!qbOAuthReturnHandledRef.current) {
+          qbOAuthReturnHandledRef.current = true
+          const c = code
+          const r = realmId
+          const s = state
+          void (async () => {
+            try {
+              await runQuickBooksCallback(c, r, s)
+            } finally {
+              if (!cancelled) {
+                navigate('/integrations', { replace: true })
+                qbOAuthReturnHandledRef.current = false
+              }
             }
-          }
-        })()
+          })()
+        }
+      } else {
+        toast.error('QuickBooks returned an incomplete response. Try connecting again from Integrations.')
+        void navigate('/integrations', { replace: true })
       }
     }
 
@@ -343,7 +388,10 @@ export default function Integrations() {
         state?: string
       }
       const realm = r ?? r2
-      if (!c || !realm || !s) return
+      if (!c || !realm || !s) {
+        toast.error('QuickBooks popup returned incomplete data. Close the window and try Connect again.')
+        return
+      }
       if (qbOAuthReturnHandledRef.current) return
       qbOAuthReturnHandledRef.current = true
       void (async () => {

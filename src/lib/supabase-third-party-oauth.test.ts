@@ -1,5 +1,5 @@
 import { describe, expect, it, vi, afterEach } from 'vitest';
-import { isQuickBooksOAuthReturnInUrl } from './supabase-third-party-oauth';
+import { isQuickBooksOAuthReturnInUrl, parseHotelIdFromQuickBooksState } from './supabase-third-party-oauth';
 
 function mockLocation(search: string, pathname = '/') {
   vi.stubGlobal('window', {
@@ -52,5 +52,18 @@ describe('isQuickBooksOAuthReturnInUrl', () => {
   it('is false when search is empty', () => {
     mockLocation('');
     expect(isQuickBooksOAuthReturnInUrl()).toBe(false);
+  });
+});
+
+describe('parseHotelIdFromQuickBooksState', () => {
+  it('returns hotel UUID prefix from hotel OAuth state', () => {
+    const hotel = 'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee';
+    const nonce = '11111111-2222-3333-4444-555555555555';
+    expect(parseHotelIdFromQuickBooksState(`${hotel}:${nonce}`)).toBe(hotel);
+  });
+
+  it('returns null for opaque state', () => {
+    expect(parseHotelIdFromQuickBooksState('opaque-string')).toBeNull();
+    expect(parseHotelIdFromQuickBooksState(null)).toBeNull();
   });
 });

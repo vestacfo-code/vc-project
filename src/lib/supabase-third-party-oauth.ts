@@ -13,6 +13,18 @@
 const UUID =
   '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}';
 
+const UUID_ONLY = new RegExp(`^${UUID}$`, 'i');
+
+/**
+ * OAuth `state` from quickbooks-hotel-oauth is `${hotel_id}:${random_uuid}`.
+ * Use when the dashboard hook has not resolved `hotelId` yet so the callback can still exchange the code.
+ */
+export function parseHotelIdFromQuickBooksState(state: string | null | undefined): string | null {
+  if (!state) return null
+  const prefix = state.split(':')[0] ?? ''
+  return UUID_ONLY.test(prefix) ? prefix : null
+}
+
 /** Hotel QuickBooks (quickbooks-hotel-oauth): state = `${hotel_id}:${crypto.randomUUID()}`. */
 const HOTEL_QB_STATE = new RegExp(`^${UUID}:${UUID}$`, 'i');
 
