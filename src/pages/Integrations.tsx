@@ -40,7 +40,6 @@ import {
   FileSpreadsheet,
   X,
   CreditCard,
-  Mail,
 } from 'lucide-react'
 import { format, formatDistanceToNow, subDays } from 'date-fns'
 import { toast } from 'sonner'
@@ -247,7 +246,6 @@ export default function Integrations() {
   const [pmsSyncingId, setPmsSyncingId] = useState<string | null>(null)
 
   const [stripePortalLoading, setStripePortalLoading] = useState(false)
-  const [resendTestLoading, setResendTestLoading] = useState(false)
 
   /** Intuit redirects here with query params; process once per return. */
   const qbOAuthReturnHandledRef = useRef(false)
@@ -505,26 +503,6 @@ export default function Integrations() {
       toast.error(msg)
     } finally {
       setQbSyncing(false)
-    }
-  }
-
-  const handleResendTestEmail = async () => {
-    setResendTestLoading(true)
-    try {
-      const { data, error } = await supabase.functions.invoke('send-test-email')
-      if (error) throw error
-      const body = data as { success?: boolean; error?: string; email?: string } | null
-      if (body?.error) throw new Error(body.error)
-      if (body?.success) {
-        toast.success(body.email ? `Test email sent to ${body.email}` : 'Test email sent')
-      } else {
-        throw new Error('Unexpected response from send-test-email')
-      }
-    } catch (err) {
-      const message = err instanceof Error ? err.message : 'Could not send test email'
-      toast.error(message)
-    } finally {
-      setResendTestLoading(false)
     }
   }
 
@@ -922,10 +900,10 @@ export default function Integrations() {
         )}
       </section>
 
-      {/* Workspace services — billing + email */}
-      <section aria-label="Billing and email" className="space-y-4">
+      {/* Workspace services — billing (transactional email is server-side via Resend; not a user integration) */}
+      <section aria-label="Billing" className="space-y-4">
         <h2 className={SECTION_LABEL}>Workspace services</h2>
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-4 md:max-w-2xl">
           <Card className={`${CARD} border-t-4 border-t-vesta-navy-muted`}>
             <CardContent className="space-y-4 p-6">
               <div className="flex gap-3">
@@ -992,31 +970,6 @@ export default function Integrations() {
                   </>
                 )}
               </div>
-            </CardContent>
-          </Card>
-
-          <Card className={`${CARD} border-t-4 border-t-vesta-gold/80`}>
-            <CardContent className="space-y-4 p-6">
-              <div className="flex gap-3">
-                <div className={`flex h-11 w-11 shrink-0 items-center justify-center ${ICON_TILE}`}>
-                  <Mail className="h-5 w-5 text-vesta-navy-muted" aria-hidden />
-                </div>
-                <div>
-                  <p className="font-semibold text-vesta-navy">Transactional email</p>
-                  <p className="mt-1 text-sm text-vesta-navy/70">
-                    Password resets and account notifications are sent to your team from Vesta.
-                  </p>
-                </div>
-              </div>
-              <Button size="sm" className={BTN_PRIMARY} disabled={resendTestLoading} onClick={handleResendTestEmail}>
-                {resendTestLoading ? (
-                  <RefreshCw className="mr-1.5 h-3.5 w-3.5 animate-spin" />
-                ) : (
-                  <Mail className="mr-1.5 h-3.5 w-3.5" />
-                )}
-                Send test email
-              </Button>
-              <p className="text-xs text-vesta-navy-muted">Sends to your signed-in account email.</p>
             </CardContent>
           </Card>
         </div>

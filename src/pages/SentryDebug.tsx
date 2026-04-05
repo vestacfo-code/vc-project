@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { VESTA_PRODUCT_NAME } from '@/brand/vesta-cfo-brand';
 import { getBrowserSentryDsn, Sentry } from '@/lib/sentry';
+import { supabase } from '@/integrations/supabase/client';
 
 function ThrowOnRender() {
   throw new Error('Sentry debug: intentional render error');
@@ -13,6 +14,8 @@ function ThrowOnRender() {
  */
 export default function SentryDebug() {
   const [throwing, setThrowing] = useState(false);
+  const [resendBusy, setResendBusy] = useState(false);
+  const [resendMsg, setResendMsg] = useState<string | null>(null);
   const hasDsn = Boolean(getBrowserSentryDsn());
 
   if (!import.meta.env.DEV) {
@@ -86,6 +89,44 @@ export default function SentryDebug() {
           onClick={() => setThrowing(true)}
         >
           Trigger error boundary (uncaught)
+        </button>
+      </div>
+
+      <div className="rounded-xl border border-vesta-navy/10 bg-white p-5 text-sm text-vesta-navy/90 shadow-sm">
+        <p className="font-sans font-semibold text-vesta-navy">Resend (transactional email)</p>
+        <p className="mt-2 leading-relaxed text-vesta-navy/75">
+          Production email (password reset, invites, etc.) is sent by Edge Functions using Resend — not an
+          end-user integration. Sign in, then send a test to your account email to verify{' '}
+          <code className={codeCls}>RESEND_API_KEY</code> on Supabase.
+        </p>
+        {resendMsg ? (
+          <p className="mt-2 text-xs text-vesta-navy-muted">{resendMsg}</p>
+        ) : null}
+        <button
+          type="button"
+          disabled={resendBusy}
+          className="mt-3 rounded-lg border-2 border-vesta-navy-muted/40 bg-vesta-mist/40 px-4 py-2.5 text-sm font-medium text-vesta-navy transition enabled:hover:border-vesta-navy-muted enabled:hover:bg-vesta-mist/70 disabled:opacity-50"
+          onClick={async () => {
+            setResendMsg(null);
+            setResendBusy(true);
+            try {
+              const { data, error } = await supabase.functions.invoke('send-test-email');
+              if (error) throw error;
+              const body = data as { success?: boolean; error?: string; email?: string } | null;
+              if (body?.error) throw new Error(body.error);
+              if (body?.success) {
+                setResendMsg(body.email ? `Sent to ${body.email}` : 'Sent.');
+              } else {
+                throw new Error('Unexpected response');
+              }
+            } catch (e) {
+              setResendMsg(e instanceof Error ? e.message : 'Request failed');
+            } finally {
+              setResendBusy(false);
+            }
+          }}
+        >
+          {resendBusy ? 'Sending…' : 'Send Resend test email'}
         </button>
       </div>
 
