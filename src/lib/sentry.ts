@@ -12,16 +12,30 @@ import {
   useNavigationType,
 } from 'react-router-dom';
 
-const dsn = import.meta.env.VITE_SENTRY_DSN?.trim();
+/** Built-in DSN when VITE_SENTRY_DSN is unset. Set VITE_SENTRY_DSN=false to disable browser Sentry. */
+const FALLBACK_SENTRY_DSN =
+  'https://70752a9bf8b83367e99bb3d031712797@o4511165929684992.ingest.us.sentry.io/4511165952229376';
+
 const release =
   import.meta.env.VITE_SENTRY_RELEASE?.trim() ||
   import.meta.env.VITE_VERCEL_GIT_COMMIT_SHA?.trim() ||
   undefined;
 
+/** Default true (matches Sentry quickstart). Set VITE_SENTRY_SEND_DEFAULT_PII=false to opt out. */
 const sendDefaultPii =
-  import.meta.env.VITE_SENTRY_SEND_DEFAULT_PII === 'true';
+  import.meta.env.VITE_SENTRY_SEND_DEFAULT_PII !== 'false';
+
+/** Resolved DSN for browser SDK, or undefined if Sentry is turned off. */
+export function getBrowserSentryDsn(): string | undefined {
+  const raw = import.meta.env.VITE_SENTRY_DSN;
+  if (raw === 'false' || raw === '0') return undefined;
+  const trimmed = typeof raw === 'string' ? raw.trim() : '';
+  if (trimmed.length > 0) return trimmed;
+  return FALLBACK_SENTRY_DSN;
+}
 
 export function initSentry(supabaseClient?: SupabaseClient<Database>) {
+  const dsn = getBrowserSentryDsn();
   if (!dsn) return;
 
   const integrations = [

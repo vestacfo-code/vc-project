@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Sentry } from '@/lib/sentry';
+import { getBrowserSentryDsn, Sentry } from '@/lib/sentry';
 
 function ThrowOnRender() {
   throw new Error('Sentry debug: intentional render error');
@@ -12,7 +12,7 @@ function ThrowOnRender() {
  */
 export default function SentryDebug() {
   const [throwing, setThrowing] = useState(false);
-  const hasDsn = Boolean(import.meta.env.VITE_SENTRY_DSN?.trim());
+  const hasDsn = Boolean(getBrowserSentryDsn());
 
   if (!import.meta.env.DEV) {
     return null;
@@ -25,7 +25,7 @@ export default function SentryDebug() {
         <p className="mt-2 text-sm text-slate-600">
           {hasDsn
             ? 'Send test events and confirm they appear in your Sentry project (Issues and Performance).'
-            : 'Set VITE_SENTRY_DSN in .env, restart the dev server, then try again.'}
+            : 'Sentry is disabled (set VITE_SENTRY_DSN=false). Restart dev after changing .env.'}
         </p>
       </div>
 

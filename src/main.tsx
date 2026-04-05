@@ -4,10 +4,11 @@ import '@/lib/auth-recovery-interceptor';
 import { supabase } from '@/lib/supabase-client-wrapper';
 import { initSentry } from '@/lib/sentry';
 
+// Sentry before React (same idea as Sentry quickstart); config lives in @/lib/sentry (DSN, sendDefaultPii, integrations).
 initSentry(supabase);
 
 import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
 
-createRoot(document.getElementById("root")!).render(<App />);
+createRoot(document.getElementById('root')!).render(<App />);

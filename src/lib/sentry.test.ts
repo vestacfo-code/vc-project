@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import {
   createSentryMutationCache,
   getSentryReactQueryOptions,
@@ -21,8 +21,10 @@ describe('createSentryMutationCache', () => {
 });
 
 describe('initSentry', () => {
-  it('does not throw when DSN is absent (typical in CI / unit tests)', () => {
+  it('does not throw when Sentry is disabled via VITE_SENTRY_DSN', () => {
+    vi.stubEnv('VITE_SENTRY_DSN', 'false');
     expect(() => initSentry()).not.toThrow();
     expect(() => initSentry(undefined)).not.toThrow();
+    vi.unstubAllEnvs();
   });
 });
