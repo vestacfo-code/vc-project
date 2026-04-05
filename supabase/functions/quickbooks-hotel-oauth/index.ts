@@ -11,18 +11,24 @@ const corsHeaders = {
   'Access-Control-Max-Age': '86400',
 };
 
+/** Secrets pasted into the dashboard sometimes include leading TAB/LF — Intuit matches redirect_uri exactly; %09 breaks OAuth. */
+function envTrim(key: string): string | undefined {
+  const v = Deno.env.get(key);
+  if (v == null) return undefined;
+  const t = v.trim();
+  return t.length ? t : undefined;
+}
+
 const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
 const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
 const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY')!;
-const QB_CLIENT_ID = Deno.env.get('QUICKBOOKS_CLIENT_ID')!;
-const QB_CLIENT_SECRET = Deno.env.get('QUICKBOOKS_CLIENT_SECRET')!;
-const siteBase = (
-  Deno.env.get('SITE_URL') ??
-  Deno.env.get('PUBLIC_SITE_URL') ??
-  'https://vesta.ai'
-).replace(/\/$/, '');
-const QB_REDIRECT_URI =
-  Deno.env.get('QUICKBOOKS_REDIRECT_URI') ?? `${siteBase}/integrations`;
+const QB_CLIENT_ID = envTrim('QUICKBOOKS_CLIENT_ID') ?? '';
+const QB_CLIENT_SECRET = envTrim('QUICKBOOKS_CLIENT_SECRET') ?? '';
+const siteBase = (envTrim('SITE_URL') ?? envTrim('PUBLIC_SITE_URL') ?? 'https://vesta.ai').replace(
+  /\/$/,
+  '',
+);
+const QB_REDIRECT_URI = envTrim('QUICKBOOKS_REDIRECT_URI') ?? `${siteBase}/integrations`;
 
 const log = (step: string, details?: any) => {
   const suffix = details ? ` - ${JSON.stringify(details)}` : '';
