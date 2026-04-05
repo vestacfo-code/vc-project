@@ -5,6 +5,11 @@ import { sentryVitePlugin } from "@sentry/vite-plugin";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
+  define: {
+    "import.meta.env.VITE_VERCEL_GIT_COMMIT_SHA": JSON.stringify(
+      process.env.VERCEL_GIT_COMMIT_SHA ?? process.env.GITHUB_SHA ?? "",
+    ),
+  },
   server: {
     host: "::",
     port: 8080,
@@ -15,12 +20,20 @@ export default defineConfig(({ mode }) => ({
   plugins: [
     react(),
     // Only upload source maps in production builds when auth token is present
-    mode === 'production' && process.env.SENTRY_AUTH_TOKEN
-      ? sentryVitePlugin({
-          org: process.env.SENTRY_ORG,
-          project: process.env.SENTRY_PROJECT,
-          authToken: process.env.SENTRY_AUTH_TOKEN,
-        })
+    mode === "production" && process.env.SENTRY_AUTH_TOKEN
+      ? (() => {
+          const releaseName =
+            process.env.SENTRY_RELEASE ??
+            process.env.VERCEL_GIT_COMMIT_SHA ??
+            process.env.GITHUB_SHA;
+          return sentryVitePlugin({
+            org: process.env.SENTRY_ORG,
+            project: process.env.SENTRY_PROJECT,
+            authToken: process.env.SENTRY_AUTH_TOKEN,
+            telemetry: false,
+            ...(releaseName ? { release: { name: releaseName } } : {}),
+          });
+        })()
       : null,
   ].filter(Boolean),
   resolve: {

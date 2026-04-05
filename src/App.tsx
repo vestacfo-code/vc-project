@@ -1,8 +1,10 @@
 import * as Sentry from '@sentry/react';
+import { lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { getSentryReactQueryOptions } from "@/lib/sentry";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import ScrollToTop from "@/components/ScrollToTop";
 import { AuthProvider } from "@/hooks/useAuth";
@@ -85,7 +87,13 @@ import APIReference from "./pages/docs/APIReference";
 import DocsWebhooks from "./pages/docs/Webhooks";
 import KnowledgeBase from "./pages/docs/KnowledgeBase";
 
-const queryClient = new QueryClient();
+const SentryDebugLazy = import.meta.env.DEV
+  ? lazy(() => import("./pages/SentryDebug"))
+  : null;
+
+const queryClient = new QueryClient({
+  defaultOptions: getSentryReactQueryOptions(),
+});
 
 // Inner component that uses portal animation context and navigation
 const AppContent = () => {
@@ -224,6 +232,22 @@ const AppContent = () => {
         <Route path="/docs/api" element={<APIReference />} />
         <Route path="/docs/webhooks" element={<DocsWebhooks />} />
         <Route path="/docs/knowledge" element={<KnowledgeBase />} />
+        {import.meta.env.DEV && SentryDebugLazy && (
+          <Route
+            path="/__debug/sentry"
+            element={
+              <Suspense
+                fallback={
+                  <div className="flex min-h-[40vh] items-center justify-center text-sm text-slate-500">
+                    Loading…
+                  </div>
+                }
+              >
+                <SentryDebugLazy />
+              </Suspense>
+            }
+          />
+        )}
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>
