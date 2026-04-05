@@ -18,6 +18,17 @@ const Support = () => {
             <p className="mx-auto max-w-2xl text-lg text-vesta-navy/80 md:text-xl">
               We're here to help you get the most out of Vesta.
             </p>
+            <p className="mx-auto mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm text-vesta-navy/70">
+              <Link to="/status" className="font-medium text-vesta-navy underline-offset-2 hover:text-vesta-gold hover:underline">
+                System status
+              </Link>
+              <span aria-hidden className="text-vesta-navy/30">
+                ·
+              </span>
+              <Link to="/trust" className="font-medium text-vesta-navy underline-offset-2 hover:text-vesta-gold hover:underline">
+                Trust &amp; vendors (DPA)
+              </Link>
+            </p>
           </div>
           
           {/* Support Options */}

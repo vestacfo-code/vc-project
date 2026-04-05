@@ -172,6 +172,16 @@ export function SiteFooter({
                   Security
                 </Link>
               </li>
+              <li>
+                <Link to="/trust" className="transition-colors">
+                  Trust &amp; subprocessors
+                </Link>
+              </li>
+              <li>
+                <Link to="/status" className="transition-colors">
+                  System status
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -227,6 +237,18 @@ export function SiteFooter({
               className={isLight ? 'transition-colors hover:text-vesta-navy' : 'transition-colors hover:text-white'}
             >
               Security
+            </Link>
+            <Link
+              to="/trust"
+              className={isLight ? 'transition-colors hover:text-vesta-navy' : 'transition-colors hover:text-white'}
+            >
+              Trust
+            </Link>
+            <Link
+              to="/status"
+              className={isLight ? 'transition-colors hover:text-vesta-navy' : 'transition-colors hover:text-white'}
+            >
+              Status
             </Link>
           </div>
         </div>

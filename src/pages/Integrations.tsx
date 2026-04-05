@@ -41,7 +41,7 @@ import {
   X,
   CreditCard,
 } from 'lucide-react'
-import { format, formatDistanceToNow, subDays } from 'date-fns'
+import { format, formatDistanceToNow, subDays, subHours } from 'date-fns'
 import { toast } from 'sonner'
 import {
   MEWS_DEMO_DOCS_URL,
@@ -435,6 +435,30 @@ export default function Integrations() {
     [connectedProviders],
   )
 
+  const integrationHealth = useMemo(() => {
+    const pmsAttention = pmsIntegrations.filter(
+      (i) =>
+        i.status === 'error' ||
+        (typeof i.error_message === 'string' && i.error_message.trim().length > 0),
+    )
+    const qbAttention =
+      !!qbIntegration &&
+      (qbIntegration.status === 'error' ||
+        (typeof qbIntegration.error_message === 'string' &&
+          qbIntegration.error_message.trim().length > 0))
+    const cutoff = subHours(new Date(), 48)
+    const recentFailedSyncs = syncLogs.filter(
+      (l) => l.status === 'failed' && new Date(l.started_at) >= cutoff,
+    )
+    return {
+      pmsAttention,
+      qbAttention,
+      recentFailedCount: recentFailedSyncs.length,
+      showBanner:
+        pmsAttention.length > 0 || qbAttention || recentFailedSyncs.length > 0,
+    }
+  }, [pmsIntegrations, qbIntegration, syncLogs])
+
   // ---------------------------------------------------------------------------
   // QuickBooks handlers
   // ---------------------------------------------------------------------------
@@ -808,6 +832,46 @@ export default function Integrations() {
         </p>
       </header>
 
+      {hotelId && integrationHealth.showBanner ? (
+        <div
+          role="alert"
+          className="rounded-2xl border border-amber-200/90 bg-amber-50/90 px-4 py-3 text-sm text-amber-950 shadow-sm"
+        >
+          <div className="flex gap-3">
+            <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-amber-800" aria-hidden />
+            <div className="min-w-0 space-y-2">
+              <p className="font-semibold text-amber-950">Something needs attention</p>
+              <ul className="list-disc space-y-1 pl-4 text-amber-900/90">
+                {integrationHealth.pmsAttention.length > 0 ? (
+                  <li>
+                    Property system
+                    {integrationHealth.pmsAttention.length > 1 ? 's' : ''}:{' '}
+                    {integrationHealth.pmsAttention
+                      .map((i) => PROVIDER_LABELS[i.provider] ?? i.provider)
+                      .join(', ')}
+                  </li>
+                ) : null}
+                {integrationHealth.qbAttention ? <li>QuickBooks Online</li> : null}
+                {integrationHealth.recentFailedCount > 0 ? (
+                  <li>
+                    {integrationHealth.recentFailedCount} failed sync
+                    {integrationHealth.recentFailedCount === 1 ? '' : 's'} in the last 48 hours
+                  </li>
+                ) : null}
+              </ul>
+              <p>
+                <a
+                  href="#connected-integrations"
+                  className="font-medium text-amber-950 underline underline-offset-2 hover:text-amber-800"
+                >
+                  Jump to connected systems
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+      ) : null}
+
       {/* Accounting — QuickBooks */}
       <section aria-label="QuickBooks Online" className="space-y-4">
         <h2 className={SECTION_LABEL}>Accounting</h2>
@@ -1090,7 +1154,11 @@ export default function Integrations() {
       </Dialog>
 
       {/* Connected PMS / manual */}
-      <section aria-label="Connected integrations" className="space-y-4">
+      <section
+        id="connected-integrations"
+        aria-label="Connected integrations"
+        className="scroll-mt-24 space-y-4"
+      >
         <div>
           <h2 className={SECTION_LABEL}>Connected property systems</h2>
           <p className="text-sm text-vesta-navy/65">Mews, manual entry, and other PMS connections. QuickBooks is under Accounting.</p>

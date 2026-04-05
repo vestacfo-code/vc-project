@@ -82,6 +82,35 @@ const Security = () => {
               </div>
             </div>
 
+            {/* Trust, vendors & uptime */}
+            <div className="bg-white/70 backdrop-blur-xl border border-white/60 rounded-2xl p-6 md:p-8 mb-8 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
+              <h2 className="text-2xl font-semibold text-vesta-navy mb-4">Trust, vendors & uptime</h2>
+              <p className="text-vesta-navy/80 mb-4 text-sm leading-relaxed">
+                For a list of infrastructure vendors (subprocessors), how to request a DPA, and links to privacy terms, see
+                our Trust page. For a high-level view of whether core services are up, see System status.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <Link
+                  to="/trust"
+                  className="inline-flex items-center rounded-lg border border-vesta-navy/15 bg-white px-4 py-2.5 text-sm font-medium text-vesta-navy transition-colors hover:border-vesta-gold/40 hover:bg-vesta-gold/10"
+                >
+                  Trust &amp; subprocessors
+                </Link>
+                <Link
+                  to="/status"
+                  className="inline-flex items-center rounded-lg border border-vesta-navy/15 bg-white px-4 py-2.5 text-sm font-medium text-vesta-navy transition-colors hover:border-vesta-gold/40 hover:bg-vesta-gold/10"
+                >
+                  System status
+                </Link>
+                <Link
+                  to="/privacy"
+                  className="inline-flex items-center rounded-lg border border-vesta-navy/15 bg-white px-4 py-2.5 text-sm font-medium text-vesta-navy transition-colors hover:border-vesta-gold/40 hover:bg-vesta-gold/10"
+                >
+                  Privacy Policy
+                </Link>
+              </div>
+            </div>
+
             {/* Report Security Issues */}
             <div className="bg-white/70 backdrop-blur-xl border border-white/60 rounded-2xl p-6 md:p-8 mb-8 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
               <h2 className="text-2xl font-semibold text-vesta-navy mb-4">Report Security Issues</h2>

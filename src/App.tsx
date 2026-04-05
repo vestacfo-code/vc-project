@@ -44,6 +44,8 @@ import HotelChatPage from "./pages/HotelChatPage";
 import Privacy from "./pages/Privacy";
 import Support from "./pages/Support";
 import Security from "./pages/Security";
+import Trust from "./pages/Trust";
+import Status from "./pages/Status";
 import Onboarding from "./pages/Onboarding";
 import HotelOnboarding from "./pages/HotelOnboarding";
 import PaymentSelection from "./pages/PaymentSelection";
@@ -133,6 +135,8 @@ const AppContent = () => {
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/support" element={<Support />} />
         <Route path="/security" element={<Security />} />
+        <Route path="/trust" element={<Trust />} />
+        <Route path="/status" element={<Status />} />
         {/* Hotel app pages — all wrapped with HotelLayout (sidebar + bottom nav) */}
         <Route path="/dashboard" element={
           <ProtectedRoute>

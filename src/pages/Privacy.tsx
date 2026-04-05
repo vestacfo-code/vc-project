@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Header from '@/components/shared/Header';
 import Footer from '@/components/shared/Footer';
 
@@ -24,7 +25,7 @@ const Privacy = () => {
                 Privacy Policy
               </h1>
               <p className="text-vesta-navy/80 text-lg">
-                Last updated: January 2025
+                Last updated: April 2026
               </p>
             </div>
             
@@ -75,6 +76,18 @@ const Privacy = () => {
                   </p>
                 </section>
 
+                <section className="mb-8">
+                  <h2 className="text-2xl font-semibold text-vesta-navy mb-4">Subprocessors</h2>
+                  <p className="text-vesta-navy/80 leading-relaxed">
+                    We engage service providers (for example hosting, database, payments, and email) to operate Vesta. A
+                    current list, DPA contact path, and related links are on our{' '}
+                    <Link to="/trust" className="font-medium text-vesta-navy underline-offset-2 hover:text-vesta-gold hover:underline">
+                      Trust &amp; data partners
+                    </Link>{' '}
+                    page.
+                  </p>
+                </section>
+
                 <section>
                   <h2 className="text-2xl font-semibold text-vesta-navy mb-4">Contact Us</h2>
                   <p className="text-vesta-navy/80 leading-relaxed">
@@ -90,8 +103,12 @@ const Privacy = () => {
             {/* Note */}
             <div className="mt-8 bg-amber-50/80 backdrop-blur-sm border border-amber-200/50 rounded-xl p-6 text-center">
               <p className="text-amber-800 text-sm">
-                <strong>Note:</strong> This is a simplified privacy policy. 
-                A complete privacy policy will be developed as the service evolves.
+                <strong>Note:</strong> This policy is updated as the product and regulatory landscape evolve. For vendor
+                details and DPA requests, see{' '}
+                <Link to="/trust" className="font-semibold underline-offset-2 hover:underline">
+                  Trust &amp; data partners
+                </Link>
+                .
               </p>
             </div>
           </div>

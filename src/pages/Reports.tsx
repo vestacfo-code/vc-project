@@ -5,7 +5,7 @@ import { useHotelDashboard } from '@/hooks/useHotelDashboard'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { ChevronLeft, ChevronRight, Download, UploadCloud, TrendingUp } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Download, Mail, UploadCloud, TrendingUp } from 'lucide-react'
 import { format, startOfMonth, endOfMonth, addMonths, subMonths } from 'date-fns'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -324,6 +324,27 @@ export default function Reports() {
           </Button>
         </div>
       </div>
+
+      <Card className="border border-vesta-navy/10 bg-vesta-mist/20 shadow-sm">
+        <CardContent className="flex gap-3 py-4">
+          <Mail className="mt-0.5 h-5 w-5 shrink-0 text-vesta-navy-muted" aria-hidden />
+          <div className="text-sm text-vesta-navy/85">
+            <p className="font-medium text-vesta-navy">Owner and board packs</p>
+            <p className="mt-1 leading-relaxed">
+              Scheduled PDF summaries and email delivery are on our roadmap. For a one-off investor-style pack or
+              custom export today, contact{' '}
+              <a
+                href="mailto:support@vesta.ai?subject=Vesta%20owner%20report%20request"
+                className="font-medium text-vesta-navy underline-offset-2 hover:text-vesta-gold hover:underline"
+              >
+                support@vesta.ai
+              </a>
+              . Use <span className="font-medium text-vesta-navy">Export CSV</span> above for month-level operational
+              drill-down.
+            </p>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* No hotel */}
       {!hotelId && !hotelLoading && (
