@@ -7,6 +7,7 @@
  * - realmId / realm_id (Intuit)
  * - State from quickbooks-hotel-oauth: `<hotel_uuid>:<random_uuid>` (no trailing colon)
  * - Legacy state: `<uuid>:<uuid>:<origin...>` (older QB flows)
+ * - Any `code` + `state` on path `/integrations` (hotel QB callback URL only in this app)
  */
 const UUID =
   '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}';
@@ -28,6 +29,10 @@ export function isQuickBooksOAuthReturnInUrl(): boolean {
 
   if (HOTEL_QB_STATE.test(state)) return true;
   if (LEGACY_QB_STATE_PREFIX.test(state)) return true;
+
+  // QB redirect URI is /integrations only; never treat that return as Supabase PKCE (would wipe the session).
+  const path = (window.location.pathname || '/').replace(/\/+$/, '') || '/';
+  if (path.endsWith('/integrations')) return true;
 
   return false;
 }

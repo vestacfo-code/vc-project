@@ -64,41 +64,65 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
   // Auto-logout based on session timeout
   useEffect(() => {
     if (!settings.sessionTimeout) return;
-    
+
     const timeout = parseInt(settings.sessionTimeout) * 60 * 1000; // Convert to milliseconds
-    let timeoutId: NodeJS.Timeout;
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
     let isMounted = true;
-    
+
     const handleSessionExpired = async () => {
-      if (!isMounted) return; // Don't execute if component unmounted
-      
+      if (!isMounted) return;
+
       try {
         await supabase.auth.signOut();
         navigate('/auth');
         toast({
-          title: "Session expired",
+          title: 'Session expired',
           description: "You've been logged out due to inactivity.",
         });
       } catch (error) {
         console.error('Error during auto-logout:', error);
       }
     };
-    
+
+    const clearTimer = () => {
+      if (timeoutId !== undefined) {
+        clearTimeout(timeoutId);
+        timeoutId = undefined;
+      }
+    };
+
     const resetTimer = () => {
       if (!isMounted) return;
-      clearTimeout(timeoutId);
+      clearTimer();
       timeoutId = setTimeout(handleSessionExpired, timeout);
     };
-    
-    // Reset timer on user activity
+
+    const pauseTimer = () => {
+      clearTimer();
+    };
+
+    const onVisibilityChange = () => {
+      if (document.hidden) pauseTimer();
+      else resetTimer();
+    };
+
+    const onFocus = () => resetTimer();
+    const onBlur = () => pauseTimer();
+
     const events = ['mousedown', 'keydown', 'scroll', 'touchstart'];
-    events.forEach(event => window.addEventListener(event, resetTimer));
+    events.forEach((event) => window.addEventListener(event, resetTimer));
+    window.addEventListener('focus', onFocus);
+    window.addEventListener('blur', onBlur);
+    document.addEventListener('visibilitychange', onVisibilityChange);
     resetTimer();
-    
+
     return () => {
       isMounted = false;
-      clearTimeout(timeoutId);
-      events.forEach(event => window.removeEventListener(event, resetTimer));
+      clearTimer();
+      events.forEach((event) => window.removeEventListener(event, resetTimer));
+      window.removeEventListener('focus', onFocus);
+      window.removeEventListener('blur', onBlur);
+      document.removeEventListener('visibilitychange', onVisibilityChange);
     };
   }, [settings.sessionTimeout, navigate]);
 
