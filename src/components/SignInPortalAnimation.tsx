@@ -147,7 +147,7 @@ export const SignInPortalAnimation = ({
 
   return (
     <div 
-      className="fixed inset-0 z-[9999] bg-gradient-to-b from-[#2563eb] to-[#1e40af]"
+      className="fixed inset-0 z-[9999] bg-gradient-to-b from-vesta-navy-muted to-vesta-navy"
       style={{
         opacity: opacity,
         transition: 'opacity 500ms ease-out',

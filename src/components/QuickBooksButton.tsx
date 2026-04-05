@@ -245,7 +245,7 @@ const QuickBooksButton = ({ onConnected, refreshIntegration }: QuickBooksButtonP
         type="button"
         onClick={handleConnect}
         disabled={isConnecting}
-        className="w-full h-12 bg-[#2CA01C] hover:bg-[#228516] text-white font-medium flex items-center justify-center gap-3 transition-all duration-200 shadow-sm hover:shadow-md"
+        className="w-full h-12 bg-integrate-quickbooks hover:bg-integrate-quickbooks-hover text-white font-medium flex items-center justify-center gap-3 transition-all duration-200 shadow-sm hover:shadow-md"
       >
         {isConnecting ? (
           <>

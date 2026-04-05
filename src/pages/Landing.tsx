@@ -166,7 +166,7 @@ export default function Landing() {
           >
             {activeChapter && (
               <div
-                className={`flex w-full max-w-2xl flex-col gap-4 rounded-3xl border border-white/15 bg-[#1B3A5C]/85 px-7 py-8 shadow-[0_24px_80px_-20px_rgba(0,0,0,0.65)] backdrop-blur-md md:px-10 md:py-10 ${
+                className={`flex w-full max-w-2xl flex-col gap-4 rounded-3xl border border-white/15 bg-vesta-navy/85 px-7 py-8 shadow-[0_24px_80px_-20px_rgba(0,0,0,0.65)] backdrop-blur-md md:px-10 md:py-10 ${
                   activeChapter.align === 'center' ? 'mx-auto text-center' : ''
                 }`}
               >

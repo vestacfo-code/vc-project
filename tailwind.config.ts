@@ -90,6 +90,27 @@ export default {
 					cream: '#F7F4EE',
 					mist: '#D6E8F2',
 				},
+				/** Partner OAuth / accounting CTAs — hex only in theme, not in className strings */
+				integrate: {
+					quickbooks: {
+						DEFAULT: '#2CA01C',
+						hover: '#228516',
+					},
+					xero: {
+						DEFAULT: '#13B5EA',
+						hover: '#0F9BC7',
+					},
+					wave: {
+						DEFAULT: '#266FE8',
+						hover: '#1E5BC0',
+					},
+					zoho: {
+						from: '#1F4E79',
+						to: '#4A90E2',
+						'from-hover': '#1A4268',
+						'to-hover': '#3A7BC8',
+					},
+				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',

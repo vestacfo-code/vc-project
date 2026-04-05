@@ -23,8 +23,8 @@ export const integrations: Record<string, IntegrationConfig> = {
     displayName: 'QuickBooks',
     logo: quickbooksLogo,
     colors: {
-      primary: 'bg-[#2CA01C]',
-      hover: 'hover:bg-[#228516]',
+      primary: 'bg-integrate-quickbooks',
+      hover: 'hover:bg-integrate-quickbooks-hover',
       text: 'text-white'
     },
     status: 'active'
@@ -35,8 +35,8 @@ export const integrations: Record<string, IntegrationConfig> = {
     displayName: 'Xero',
     logo: xeroLogo,
     colors: {
-      primary: 'bg-[#13B5EA]',
-      hover: 'hover:bg-[#0F9BC7]',
+      primary: 'bg-integrate-xero',
+      hover: 'hover:bg-integrate-xero-hover',
       text: 'text-white'
     },
     status: 'coming-soon'
@@ -47,8 +47,8 @@ export const integrations: Record<string, IntegrationConfig> = {
     displayName: 'Wave Accounting',
     logo: waveLogo,
     colors: {
-      primary: 'bg-[#266FE8]',
-      hover: 'hover:bg-[#1E5BC0]',
+      primary: 'bg-integrate-wave',
+      hover: 'hover:bg-integrate-wave-hover',
       text: 'text-white'
     },
     status: 'active'
@@ -59,8 +59,8 @@ export const integrations: Record<string, IntegrationConfig> = {
     displayName: 'Zoho Books',
     logo: zohoLogo,
     colors: {
-      primary: 'bg-gradient-to-r from-[#1F4E79] to-[#4A90E2]',
-      hover: 'hover:from-[#1A4268] hover:to-[#3A7BC8]',
+      primary: 'bg-gradient-to-r from-integrate-zoho-from to-integrate-zoho-to',
+      hover: 'hover:from-integrate-zoho-from-hover hover:to-integrate-zoho-to-hover',
       text: 'text-white'
     },
     status: 'active'

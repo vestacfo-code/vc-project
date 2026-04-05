@@ -11,7 +11,7 @@ const NextPageLink = ({ href, title }: NextPageLinkProps) => {
     <div className="mt-16 border-t border-vesta-navy/10 pt-8">
       <Link 
         to={href}
-        className="flex items-center justify-end gap-2 text-vesta-navy-muted hover:text-[#9dbcf0] transition-colors group"
+        className="flex items-center justify-end gap-2 text-vesta-navy-muted hover:text-vesta-mist transition-colors group"
       >
         <span className="text-sm font-medium">{title}</span>
         <ChevronRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />

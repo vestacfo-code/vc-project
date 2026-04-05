@@ -128,7 +128,7 @@ export const WaveButton = ({ onConnected, refreshIntegration, variant = 'default
       className={
         variant === 'small'
           ? 'bg-white text-vesta-navy border-vesta-navy/15 hover:bg-vesta-mist/25 hover:border-vesta-navy/12 font-medium'
-          : 'w-full h-12 flex items-center justify-center gap-3 font-medium text-base transition-all duration-200 shadow-sm hover:shadow-md bg-[#266FE8] hover:bg-[#1E5BC0] text-white'
+          : 'w-full h-12 flex items-center justify-center gap-3 font-medium text-base transition-all duration-200 shadow-sm hover:shadow-md bg-integrate-wave hover:bg-integrate-wave-hover text-white'
       }
     >
       {isConnecting ? (
