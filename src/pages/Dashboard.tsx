@@ -262,7 +262,7 @@ const Dashboard = () => {
     <div className="relative min-h-full text-slate-900">
       {/* Brand-aligned backdrop */}
       <div
-        className="pointer-events-none fixed inset-0 opacity-50"
+        className="pointer-events-none fixed inset-0 opacity-50 transform-gpu"
         aria-hidden
         style={{
           background:
@@ -274,7 +274,7 @@ const Dashboard = () => {
         {/* Hero */}
         <section className="relative overflow-hidden rounded-2xl border border-vesta-navy/15 bg-gradient-to-br from-white via-vesta-cream to-vesta-mist/40 p-6 shadow-md sm:p-8">
           <div
-            className="pointer-events-none absolute -top-24 right-0 h-56 w-56 rounded-full bg-vesta-gold/15 blur-3xl"
+            className="pointer-events-none absolute -top-24 right-0 h-56 w-56 rounded-full bg-vesta-gold/20 blur-2xl transform-gpu"
             aria-hidden
           />
           <div className="relative flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">

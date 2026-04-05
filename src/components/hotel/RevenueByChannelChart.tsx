@@ -212,6 +212,7 @@ const RevenueByChannelChart: React.FC<RevenueByChannelChartProps> = ({ hotelId }
                 fill={getChannelColor(channel)}
                 radius={channel === channels[channels.length - 1] ? [3, 3, 0, 0] : [0, 0, 0, 0]}
                 maxBarSize={40}
+                isAnimationActive={false}
               />
             ))}
           </BarChart>

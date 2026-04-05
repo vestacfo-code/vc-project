@@ -141,6 +141,7 @@ const RevParChart: React.FC<RevParChartProps> = ({ hotelId }) => {
                 stroke="#6366F1"
                 strokeWidth={2}
                 dot={false}
+                isAnimationActive={false}
                 activeDot={{ r: 4, fill: '#6366F1' }}
               />
               <Line
@@ -151,6 +152,7 @@ const RevParChart: React.FC<RevParChartProps> = ({ hotelId }) => {
                 stroke="#10B981"
                 strokeWidth={2}
                 dot={false}
+                isAnimationActive={false}
                 activeDot={{ r: 4, fill: '#10B981' }}
               />
             </LineChart>
