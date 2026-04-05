@@ -1,6 +1,11 @@
-// Production domain for all external links and redirects
-// This ensures emails, OAuth, and other redirects work correctly when published
-export const PRODUCTION_DOMAIN = "https://vc-project-pi.vercel.app";
+const trimTrailingSlash = (s: string) => s.replace(/\/$/, "");
+
+// Canonical production origin (matches Edge defaults: SITE_URL → https://vesta.ai).
+// Override per deploy with VITE_SITE_URL (e.g. preview: https://your-app.vercel.app).
+const envSite = import.meta.env.VITE_SITE_URL?.trim();
+export const PRODUCTION_DOMAIN = trimTrailingSlash(
+  envSite && envSite.length > 0 ? envSite : "https://vesta.ai",
+);
 
 /**
  * Get the appropriate URL for redirects

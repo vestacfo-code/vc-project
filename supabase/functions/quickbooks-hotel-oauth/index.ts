@@ -12,8 +12,13 @@ const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
 const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY')!;
 const QB_CLIENT_ID = Deno.env.get('QUICKBOOKS_CLIENT_ID')!;
 const QB_CLIENT_SECRET = Deno.env.get('QUICKBOOKS_CLIENT_SECRET')!;
+const siteBase = (
+  Deno.env.get('SITE_URL') ??
+  Deno.env.get('PUBLIC_SITE_URL') ??
+  'https://vesta.ai'
+).replace(/\/$/, '');
 const QB_REDIRECT_URI =
-  Deno.env.get('QUICKBOOKS_REDIRECT_URI') ?? 'https://vc-project-pi.vercel.app/integrations';
+  Deno.env.get('QUICKBOOKS_REDIRECT_URI') ?? `${siteBase}/integrations`;
 
 const log = (step: string, details?: any) => {
   const suffix = details ? ` - ${JSON.stringify(details)}` : '';
