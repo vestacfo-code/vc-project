@@ -42,6 +42,7 @@ import {
   MEWS_DEMO_GROSS_TOKENS,
   MEWS_DEMO_PLATFORM_URL,
 } from '@/lib/integrations/mews-demo'
+import quickbooksLogo from '@/assets/quickbooks-logo.png'
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -60,10 +61,10 @@ const PROVIDER_LABELS: Record<string, string> = {
 
 /** Status badge for PMS / manual rows (QuickBooks uses the dedicated card above, not this list). */
 const STATUS_CONFIG = {
-  active: { label: 'Active', icon: CheckCircle2, badge: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' },
-  pending: { label: 'Pending', icon: Clock, badge: 'bg-amber-500/10 text-amber-400 border-amber-500/20' },
-  error: { label: 'Error', icon: AlertCircle, badge: 'bg-red-500/10 text-red-400 border-red-500/20' },
-  disconnected: { label: 'Disconnected', icon: WifiOff, badge: 'bg-vesta-navy-muted/10 text-vesta-navy-muted border-vesta-navy/20' },
+  active: { label: 'Active', icon: CheckCircle2, badge: 'bg-emerald-50 text-emerald-900 border-emerald-200' },
+  pending: { label: 'Pending', icon: Clock, badge: 'bg-amber-50 text-amber-900 border-amber-200' },
+  error: { label: 'Error', icon: AlertCircle, badge: 'bg-red-50 text-red-800 border-red-200' },
+  disconnected: { label: 'Disconnected', icon: WifiOff, badge: 'bg-vesta-mist/60 text-vesta-navy-muted border-vesta-navy/15' },
 }
 
 const AVAILABLE_PROVIDERS = [
@@ -82,23 +83,14 @@ const CONNECT_GRID_PROVIDERS = AVAILABLE_PROVIDERS.filter(
   (p) => p.provider !== 'quickbooks' && p.provider !== 'cloudbeds',
 )
 
-/**
- * Stitch “Vesta Onyx” design system (Google Stitch MCP).
- * Project: projects/9952216724773843133 — Integrations & Billing Hub screen.
- */
-const stitch = {
-  page: 'min-h-screen bg-vesta-navy text-vesta-mist p-6 md:p-10 space-y-10 font-sans',
-  headline: "font-sans text-3xl font-semibold tracking-tight text-vesta-mist",
-  subtitle: 'mt-2 text-base text-vesta-gold max-w-2xl leading-relaxed',
-  eyebrow:
-    "text-[11px] font-semibold uppercase tracking-[0.18em] text-vesta-gold/80 font-sans",
-  sectionLabel: "text-[11px] font-semibold uppercase tracking-[0.18em] text-vesta-gold/80 mb-4 font-sans",
-  card: 'rounded-2xl border-0 bg-vesta-navy-muted/25 shadow-none ring-1 ring-vesta-mist/10',
-  cardMuted: 'rounded-2xl border-0 bg-vesta-navy-muted/20 shadow-none ring-1 ring-vesta-mist/8',
-  primaryBtn:
-    'rounded-xl bg-gradient-to-br from-vesta-gold/90 to-vesta-gold text-vesta-navy font-semibold hover:opacity-95 border-0 shadow-sm',
-  iconTile: 'rounded-xl bg-vesta-navy ring-1 ring-vesta-mist/12',
-} as const
+/** Layout tokens — cream canvas inside HotelLayout (matches dashboard). */
+const PAGE = 'mx-auto max-w-5xl px-4 py-8 pb-24 md:px-8 md:py-10 space-y-14'
+const CARD = 'rounded-2xl border border-vesta-navy/10 bg-white shadow-sm'
+const CARD_SUBTLE = 'rounded-2xl border border-vesta-navy/10 bg-vesta-mist/25 shadow-sm'
+const SECTION_LABEL = 'text-xs font-semibold uppercase tracking-widest text-vesta-navy-muted mb-3'
+const BTN_PRIMARY =
+  'rounded-xl bg-vesta-gold text-vesta-navy font-semibold hover:bg-vesta-gold/90 shadow-sm border-0'
+const ICON_TILE = 'rounded-xl bg-vesta-mist/70 border border-vesta-navy/10'
 
 type ImportType = 'daily_metrics' | 'expenses' | 'revenue_by_channel'
 
@@ -265,11 +257,19 @@ export default function Integrations() {
 
       setQbCallbackLoading(true)
       try {
-        const { error } = await supabase.functions.invoke('quickbooks-hotel-oauth', {
+        const { data, error } = await supabase.functions.invoke('quickbooks-hotel-oauth', {
           body: { action: 'callback', hotel_id: hotelId, code, realm_id: realmId, state },
         })
         if (error) {
           toast.error('Failed to connect QuickBooks: ' + error.message)
+          return
+        }
+        if (data && typeof data === 'object' && 'error' in data) {
+          const msg =
+            (data as { details?: string; error?: string }).details ??
+            (data as { error?: string }).error ??
+            'QuickBooks connection failed'
+          toast.error(msg)
           return
         }
         toast.success('QuickBooks connected!')
@@ -297,7 +297,7 @@ export default function Integrations() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
     const code = params.get('code')
-    const realmId = params.get('realmId')
+    const realmId = params.get('realmId') ?? params.get('realm_id')
     const state = params.get('state')
 
     // Popup window: forward params to opener and close
@@ -307,28 +307,55 @@ export default function Integrations() {
       return undefined
     }
 
-    // Same-tab return (e.g. popup blocked → full redirect)
+    let cancelled = false
+
+    // Same-tab return: complete OAuth before stripping query params (navigate could remount and drop the callback).
     if (code && realmId && state && !window.opener) {
       if (!qbOAuthReturnHandledRef.current) {
         qbOAuthReturnHandledRef.current = true
         const c = code
         const r = realmId
         const s = state
-        navigate('/integrations', { replace: true })
-        void runQuickBooksCallback(c, r, s)
+        void (async () => {
+          try {
+            await runQuickBooksCallback(c, r, s)
+          } finally {
+            if (!cancelled) {
+              navigate('/integrations', { replace: true })
+              qbOAuthReturnHandledRef.current = false
+            }
+          }
+        })()
       }
     }
 
     const handleMessage = (event: MessageEvent) => {
       if (event.origin !== window.location.origin) return
       if (event.data?.type !== 'QB_CALLBACK') return
-      const { code: c, realmId: r, state: s } = event.data
-      if (!c || !r || !s) return
-      void runQuickBooksCallback(c, r, s)
+      const { code: c, realmId: r, realm_id: r2, state: s } = event.data as {
+        code?: string
+        realmId?: string
+        realm_id?: string
+        state?: string
+      }
+      const realm = r ?? r2
+      if (!c || !realm || !s) return
+      if (qbOAuthReturnHandledRef.current) return
+      qbOAuthReturnHandledRef.current = true
+      void (async () => {
+        try {
+          await runQuickBooksCallback(c, realm, s)
+        } finally {
+          qbOAuthReturnHandledRef.current = false
+        }
+      })()
     }
 
     window.addEventListener('message', handleMessage)
-    return () => window.removeEventListener('message', handleMessage)
+    return () => {
+      cancelled = true
+      window.removeEventListener('message', handleMessage)
+    }
   }, [navigate, runQuickBooksCallback])
 
   // ---------------------------------------------------------------------------
@@ -800,258 +827,225 @@ export default function Integrations() {
   // ---------------------------------------------------------------------------
 
   return (
-    <div className={stitch.page}>
-      {/* Header — Stitch “Vesta Onyx” */}
-      <header className="space-y-1">
-        <p className={stitch.eyebrow}>Workspace</p>
-        <h1 className={stitch.headline}>Integrations</h1>
-        <p className={stitch.subtitle}>
-          Connect your property management system, accounting tools, and Vesta billing — one hub for sync and
-          subscription management.
+    <div className={PAGE}>
+      <header className="space-y-2 border-b border-vesta-navy/10 pb-10">
+        <p className="text-xs font-semibold uppercase tracking-widest text-vesta-navy-muted">Hotel workspace</p>
+        <h1 className="font-serif text-3xl font-light tracking-tight text-vesta-navy md:text-4xl">Integrations</h1>
+        <p className="max-w-2xl text-sm leading-relaxed text-vesta-navy/75 md:text-base">
+          Connect accounting and your PMS, manage your Vesta subscription, and import CSVs — all in one place.
         </p>
       </header>
 
-      <section aria-label="Accounting and billing" className="space-y-6">
-      {/* QuickBooks OAuth card */}
-      {qbCallbackLoading ? (
-        <div className="h-32 bg-vesta-navy-muted/20 rounded-2xl animate-pulse flex items-center justify-center ring-1 ring-vesta-mist/10">
-          <RefreshCw className="w-6 h-6 text-vesta-gold/80 animate-spin" />
-          <span className="ml-3 text-vesta-gold">Connecting QuickBooks...</span>
-        </div>
-      ) : (
-        <Card className={`${stitch.card} border-l-4 border-l-emerald-500`}>
-          <CardContent className="p-6 md:px-8">
-            <div className="flex items-start justify-between gap-4 flex-wrap">
-              {/* Logo + title area */}
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-green-900/40 border border-green-700/40 flex items-center justify-center shrink-0">
-                  <span className="text-green-400 font-bold text-sm">QB</span>
+      {/* Accounting — QuickBooks */}
+      <section aria-label="QuickBooks Online" className="space-y-4">
+        <h2 className={SECTION_LABEL}>Accounting</h2>
+        {qbCallbackLoading ? (
+          <div className="flex h-36 items-center justify-center rounded-2xl border border-vesta-navy/10 bg-white shadow-sm">
+            <RefreshCw className="h-6 w-6 animate-spin text-vesta-navy-muted" />
+            <span className="ml-3 text-sm font-medium text-vesta-navy">Finishing QuickBooks connection…</span>
+          </div>
+        ) : (
+          <Card className={`${CARD} overflow-hidden border-l-4 border-l-integrate-quickbooks`}>
+            <CardContent className="p-6 md:flex md:items-center md:justify-between md:gap-8 md:p-8">
+              <div className="flex gap-4">
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-vesta-navy/10 bg-vesta-cream p-2">
+                  <img src={quickbooksLogo} alt="" className="h-9 w-9 object-contain" width={36} height={36} />
                 </div>
                 <div>
-                  <p className="font-medium text-vesta-mist font-sans">QuickBooks Online</p>
-                  <p className="text-vesta-gold text-sm mt-0.5">Sync expenses &amp; P&amp;L data automatically</p>
-                </div>
-              </div>
-
-              {/* Action area */}
-              {qbLoading ? (
-                <div className="flex gap-2">
-                  <div className="h-9 w-28 bg-vesta-navy-muted/25 rounded-xl animate-pulse" />
-                </div>
-              ) : qbIntegration ? (
-                <div className="flex items-center gap-2 flex-wrap">
-                  <Badge className="bg-emerald-500/10 text-emerald-300 border border-emerald-500/25 text-xs">
-                    <CheckCircle2 className="w-3 h-3 mr-1" />
-                    Connected
-                  </Badge>
-                  <span className="text-vesta-gold/80 text-xs">
-                    {qbIntegration.last_sync_at
-                      ? `Synced ${formatDistanceToNow(new Date(qbIntegration.last_sync_at), { addSuffix: true })}`
-                      : 'Never synced'}
-                  </span>
-                  <Button
-                    size="sm"
-                    onClick={handleQBSync}
-                    disabled={qbSyncing}
-                    className={`${stitch.primaryBtn} disabled:opacity-50`}
-                  >
-                    <RefreshCw className={`w-3.5 h-3.5 mr-1.5 ${qbSyncing ? 'animate-spin' : ''}`} />
-                    {qbSyncing ? 'Syncing...' : 'Sync Now'}
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={handleQBDisconnect}
-                    className="rounded-xl border-red-400/30 text-red-300/90 hover:bg-red-500/10 bg-transparent"
-                  >
-                    Disconnect
-                  </Button>
-                </div>
-              ) : (
-                <div className="flex flex-col items-end gap-1.5 max-w-xs text-right">
-                  <Button
-                    size="sm"
-                    onClick={handleQBConnect}
-                    disabled={qbConnecting || !hotelId}
-                    className="rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold disabled:opacity-50"
-                  >
-                    {qbConnecting ? (
-                      <>
-                        <RefreshCw className="w-3.5 h-3.5 mr-1.5 animate-spin" />
-                        Connecting...
-                      </>
-                    ) : (
-                      <>
-                        <Plug className="w-3.5 h-3.5 mr-1.5" />
-                        Connect QuickBooks
-                      </>
-                    )}
-                  </Button>
-                  <p className="text-vesta-gold/80 text-xs">
-                    {hotelId
-                      ? 'Requires a QuickBooks Online company and Intuit app credentials in Supabase.'
-                      : 'Complete hotel onboarding first — then connect your QuickBooks company.'}
+                  <p className="font-semibold text-vesta-navy">QuickBooks Online</p>
+                  <p className="mt-1 max-w-md text-sm text-vesta-navy/70">
+                    Sync expenses and financial data into Vesta. You&apos;ll sign in with Intuit and pick a company.
                   </p>
                 </div>
-              )}
-            </div>
-          </CardContent>
-        </Card>
-      )}
+              </div>
 
-      {/* Stripe — Vesta subscription & billing portal */}
-      <Card className={`${stitch.card} border-l-4 border-l-violet-500`}>
-        <CardContent className="p-6 md:px-8">
-          <div className="flex items-start justify-between gap-4 flex-wrap">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-violet-900/40 border border-violet-700/40 flex items-center justify-center shrink-0">
-                <CreditCard className="w-5 h-5 text-violet-300" aria-hidden />
-              </div>
-              <div>
-                <p className="font-medium text-vesta-mist font-sans">Stripe billing</p>
-                <p className="text-vesta-gold text-sm mt-0.5">
-                  Your Vesta plan is processed by Stripe — update payment method, invoices, and subscription here.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex flex-col items-end gap-2">
-              {stripeBillingLoading ? (
-                <div className="h-9 w-40 bg-vesta-navy-muted/25 rounded-xl animate-pulse" />
-              ) : stripeBillingError ? (
-                <div className="text-right space-y-2">
-                  <p className="text-red-300/90 text-xs">Could not load subscription status.</p>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    className="rounded-xl border-white/10 bg-vesta-navy-muted/25 text-vesta-gold"
-                    onClick={() => refetchStripeBilling()}
-                  >
-                    Retry
-                  </Button>
-                </div>
-              ) : (
-                <>
-                  {stripeBilling?.subscribed && (
-                    <Badge className="bg-violet-500/10 text-violet-300 border border-violet-500/20 text-xs">
-                      <CheckCircle2 className="w-3 h-3 mr-1" />
-                      {stripeBilling.has_stripe_subscription ? 'Active Stripe subscription' : 'Subscribed'}
-                    </Badge>
-                  )}
-                  {stripeBilling?.subscription_tier && (
-                    <span className="text-vesta-gold/80 text-xs text-right max-w-[220px]">
-                      {stripeBilling.subscription_tier}
-                      {stripeBilling.subscription_end
-                        ? ` · Renews ${format(new Date(stripeBilling.subscription_end), 'MMM d, yyyy')}`
-                        : ''}
-                    </span>
-                  )}
-                  <div className="flex flex-wrap gap-2 justify-end">
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      className="rounded-xl border-vesta-navy-muted/30 text-vesta-mist hover:bg-vesta-navy-muted/15 bg-vesta-navy-muted/15"
-                      disabled={stripePortalLoading}
-                      onClick={handleStripeCustomerPortal}
-                    >
-                      {stripePortalLoading ? (
-                        <>
-                          <RefreshCw className="w-3.5 h-3.5 mr-1.5 animate-spin" />
-                          Opening…
-                        </>
-                      ) : (
-                        <>
-                          <CreditCard className="w-3.5 h-3.5 mr-1.5" />
-                          Manage billing
-                        </>
-                      )}
-                    </Button>
-                    <Button
-                      size="sm"
-                      className={`${stitch.primaryBtn}`}
-                      onClick={() => navigate('/pricing')}
-                    >
-                      View plans
-                    </Button>
-                  </div>
-                  {!stripeBilling?.subscribed && !stripeBillingLoading && (
-                    <p className="text-vesta-gold/80 text-xs text-right">
-                      No active subscription — use View plans to subscribe. Manage billing opens Stripe when you have a
-                      customer on file (may show an error otherwise).
-                    </p>
-                  )}
-                </>
-              )}
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Resend — transactional email (password reset, billing, alerts) */}
-      <Card className={`${stitch.card} border-l-4 border-l-sky-500`}>
-        <CardContent className="p-6 md:px-8">
-          <div className="flex items-start justify-between gap-4 flex-wrap">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-sky-900/40 border border-sky-700/40 flex items-center justify-center shrink-0">
-                <Mail className="w-5 h-5 text-sky-300" aria-hidden />
-              </div>
-              <div>
-                <p className="font-medium text-vesta-mist font-sans">Email (Resend)</p>
-                <p className="text-vesta-gold text-sm mt-0.5 max-w-xl">
-                  Password resets, subscription notices, and system alerts are sent through Resend. In Supabase, set{' '}
-                  <span className="text-vesta-mist font-mono text-xs">RESEND_API_KEY</span> and optionally{' '}
-                  <span className="text-vesta-mist font-mono text-xs">RESEND_FROM</span> (verified domain) for Edge
-                  Functions.
-                </p>
-              </div>
-            </div>
-            <div className="flex flex-col items-end gap-2">
-              <Button
-                size="sm"
-                className={`${stitch.primaryBtn}`}
-                disabled={resendTestLoading}
-                onClick={handleResendTestEmail}
-              >
-                {resendTestLoading ? (
+              <div className="mt-6 flex shrink-0 flex-col items-stretch gap-3 md:mt-0 md:items-end">
+                {qbLoading ? (
+                  <div className="h-10 w-32 animate-pulse rounded-xl bg-vesta-mist/80" />
+                ) : qbIntegration ? (
                   <>
-                    <RefreshCw className="w-3.5 h-3.5 mr-1.5 animate-spin" />
-                    Sending…
+                    <div className="flex flex-wrap items-center gap-2 md:justify-end">
+                      <Badge className="border border-emerald-200 bg-emerald-50 text-emerald-900 text-xs">
+                        <CheckCircle2 className="mr-1 h-3 w-3" />
+                        Connected
+                      </Badge>
+                      <span className="text-xs text-vesta-navy-muted">
+                        {qbIntegration.last_sync_at
+                          ? `Last sync ${formatDistanceToNow(new Date(qbIntegration.last_sync_at), { addSuffix: true })}`
+                          : 'Not synced yet'}
+                      </span>
+                    </div>
+                    <div className="flex flex-wrap gap-2 md:justify-end">
+                      <Button
+                        size="sm"
+                        onClick={handleQBSync}
+                        disabled={qbSyncing}
+                        className={`${BTN_PRIMARY} disabled:opacity-50`}
+                      >
+                        <RefreshCw className={`mr-1.5 h-3.5 w-3.5 ${qbSyncing ? 'animate-spin' : ''}`} />
+                        {qbSyncing ? 'Syncing…' : 'Sync now'}
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={handleQBDisconnect}
+                        className="rounded-xl border-vesta-navy/15 text-vesta-navy hover:bg-red-50 hover:text-red-800 hover:border-red-200"
+                      >
+                        Disconnect
+                      </Button>
+                    </div>
                   </>
                 ) : (
                   <>
-                    <Mail className="w-3.5 h-3.5 mr-1.5" />
-                    Send test email
+                    <Button
+                      size="default"
+                      onClick={handleQBConnect}
+                      disabled={qbConnecting || !hotelId}
+                      className="h-11 rounded-xl bg-integrate-quickbooks font-semibold text-white hover:bg-integrate-quickbooks-hover disabled:opacity-50"
+                    >
+                      {qbConnecting ? (
+                        <>
+                          <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
+                          Opening Intuit…
+                        </>
+                      ) : (
+                        <>
+                          <Plug className="mr-2 h-4 w-4" />
+                          Connect QuickBooks
+                        </>
+                      )}
+                    </Button>
+                    <p className="max-w-xs text-xs text-vesta-navy-muted md:text-right">
+                      {hotelId
+                        ? 'Redirect URL in Intuit must match your Supabase `QUICKBOOKS_REDIRECT_URI` (usually …/integrations).'
+                        : 'Finish hotel onboarding first, then connect QuickBooks.'}
+                    </p>
                   </>
                 )}
+              </div>
+            </CardContent>
+          </Card>
+        )}
+      </section>
+
+      {/* Workspace services — Stripe + Resend */}
+      <section aria-label="Billing and email" className="space-y-4">
+        <h2 className={SECTION_LABEL}>Workspace services</h2>
+        <div className="grid gap-4 md:grid-cols-2">
+          <Card className={`${CARD} border-t-4 border-t-vesta-navy-muted`}>
+            <CardContent className="space-y-4 p-6">
+              <div className="flex gap-3">
+                <div className={`flex h-11 w-11 shrink-0 items-center justify-center ${ICON_TILE}`}>
+                  <CreditCard className="h-5 w-5 text-vesta-navy-muted" aria-hidden />
+                </div>
+                <div>
+                  <p className="font-semibold text-vesta-navy">Stripe billing</p>
+                  <p className="mt-1 text-sm text-vesta-navy/70">
+                    Payment method, invoices, and subscription for your Vesta plan.
+                  </p>
+                </div>
+              </div>
+              <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center">
+                {stripeBillingLoading ? (
+                  <div className="h-9 w-40 animate-pulse rounded-lg bg-vesta-mist/80" />
+                ) : stripeBillingError ? (
+                  <>
+                    <p className="text-sm text-red-700">Could not load subscription.</p>
+                    <Button size="sm" variant="outline" className="rounded-xl" onClick={() => refetchStripeBilling()}>
+                      Retry
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    {stripeBilling?.subscribed && (
+                      <Badge variant="outline" className="border-vesta-navy/15 bg-vesta-mist/40 text-vesta-navy text-xs">
+                        <CheckCircle2 className="mr-1 h-3 w-3" />
+                        {stripeBilling.has_stripe_subscription ? 'Stripe active' : 'Subscribed'}
+                      </Badge>
+                    )}
+                    {stripeBilling?.subscription_tier && (
+                      <span className="text-xs text-vesta-navy-muted">
+                        {stripeBilling.subscription_tier}
+                        {stripeBilling.subscription_end
+                          ? ` · Renews ${format(new Date(stripeBilling.subscription_end), 'MMM d, yyyy')}`
+                          : ''}
+                      </span>
+                    )}
+                    <div className="flex w-full flex-wrap gap-2 sm:ml-auto sm:w-auto sm:justify-end">
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="rounded-xl border-vesta-navy/15"
+                        disabled={stripePortalLoading}
+                        onClick={handleStripeCustomerPortal}
+                      >
+                        {stripePortalLoading ? (
+                          <RefreshCw className="mr-1.5 h-3.5 w-3.5 animate-spin" />
+                        ) : (
+                          <CreditCard className="mr-1.5 h-3.5 w-3.5" />
+                        )}
+                        Manage billing
+                      </Button>
+                      <Button size="sm" className={BTN_PRIMARY} onClick={() => navigate('/pricing')}>
+                        View plans
+                      </Button>
+                    </div>
+                    {!stripeBilling?.subscribed && !stripeBillingLoading && (
+                      <p className="w-full text-xs text-vesta-navy-muted">
+                        No active subscription yet — open View plans to subscribe.
+                      </p>
+                    )}
+                  </>
+                )}
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className={`${CARD} border-t-4 border-t-vesta-gold/80`}>
+            <CardContent className="space-y-4 p-6">
+              <div className="flex gap-3">
+                <div className={`flex h-11 w-11 shrink-0 items-center justify-center ${ICON_TILE}`}>
+                  <Mail className="h-5 w-5 text-vesta-navy-muted" aria-hidden />
+                </div>
+                <div>
+                  <p className="font-semibold text-vesta-navy">Transactional email</p>
+                  <p className="mt-1 text-sm text-vesta-navy/70">
+                    Password resets and notices use Resend. Configure <code className="rounded bg-vesta-mist/50 px-1 text-xs">RESEND_API_KEY</code> in Supabase.
+                  </p>
+                </div>
+              </div>
+              <Button size="sm" className={BTN_PRIMARY} disabled={resendTestLoading} onClick={handleResendTestEmail}>
+                {resendTestLoading ? (
+                  <RefreshCw className="mr-1.5 h-3.5 w-3.5 animate-spin" />
+                ) : (
+                  <Mail className="mr-1.5 h-3.5 w-3.5" />
+                )}
+                Send test email
               </Button>
-              <p className="text-vesta-gold/80 text-xs text-right max-w-[240px]">
-                Delivers to your signed-in account email to confirm the integration.
-              </p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+              <p className="text-xs text-vesta-navy-muted">Sends to your signed-in account email.</p>
+            </CardContent>
+          </Card>
+        </div>
       </section>
 
       <Dialog open={mewsDialogOpen} onOpenChange={setMewsDialogOpen}>
-        <DialogContent className="bg-vesta-navy-muted/20 border-0 text-vesta-mist sm:max-w-md ring-1 ring-white/10 rounded-2xl">
+        <DialogContent className="sm:max-w-md rounded-2xl border border-vesta-navy/10 bg-white p-6 text-vesta-navy shadow-lg">
           <DialogHeader>
-            <DialogTitle>Connect Mews</DialogTitle>
-            <DialogDescription className="text-vesta-gold">
-              Fields default to Mews&apos;s <span className="text-vesta-mist">published Gross demo</span> tokens and{' '}
-              <span className="text-vesta-mist">{MEWS_DEMO_PLATFORM_URL}</span>. Replace with production{' '}
-              <span className="text-vesta-mist">https://api.mews.com</span> and your certified tokens when ready.
+            <DialogTitle className="font-serif text-xl font-light">Connect Mews</DialogTitle>
+            <DialogDescription className="text-vesta-navy/70">
+              Defaults use Mews&apos;s published <strong className="font-medium text-vesta-navy">Gross demo</strong> and{' '}
+              {MEWS_DEMO_PLATFORM_URL}. For production use <strong className="font-medium text-vesta-navy">https://api.mews.com</strong>{' '}
+              and your certified tokens.
             </DialogDescription>
           </DialogHeader>
-          <div className="rounded-xl border border-vesta-gold/20 bg-vesta-gold/5 px-3 py-3 space-y-2">
-            <p className="text-xs text-vesta-gold leading-relaxed">
-              <span className="text-vesta-mist font-medium">Integration testing:</span> Mews publishes public demo
-              credentials (Gross pricing environment). Do not put real guest or payment data in demo.{' '}
+          <div className="space-y-2 rounded-xl border border-vesta-gold/25 bg-vesta-gold/5 px-3 py-3">
+            <p className="text-xs leading-relaxed text-vesta-navy/80">
+              <span className="font-medium text-vesta-navy">Demo only:</span> no real guest or payment data.{' '}
               <a
                 href={MEWS_DEMO_DOCS_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-vesta-gold underline underline-offset-2 hover:text-vesta-mist"
+                className="font-medium text-vesta-navy-muted underline underline-offset-2 hover:text-vesta-navy"
               >
                 Mews environment docs
               </a>
@@ -1060,7 +1054,7 @@ export default function Integrations() {
               type="button"
               variant="secondary"
               size="sm"
-              className="w-full rounded-xl bg-vesta-navy-muted/25 text-vesta-mist border border-white/10 hover:bg-vesta-navy-muted/35"
+              className="w-full rounded-xl border border-vesta-navy/10 bg-vesta-cream text-vesta-navy hover:bg-vesta-mist/50"
               onClick={() => {
                 setMewsPlatformUrl(MEWS_DEMO_PLATFORM_URL)
                 setMewsClientToken(MEWS_DEMO_GROSS_TOKENS.clientToken)
@@ -1073,7 +1067,7 @@ export default function Integrations() {
           </div>
           <div className="grid gap-4 py-2">
             <div className="grid gap-2">
-              <Label htmlFor="mews-client-token" className="text-vesta-gold">
+              <Label htmlFor="mews-client-token" className="text-vesta-navy">
                 Client token
               </Label>
               <Input
@@ -1083,11 +1077,11 @@ export default function Integrations() {
                 placeholder="Client token"
                 value={mewsClientToken}
                 onChange={(e) => setMewsClientToken(e.target.value)}
-                className="rounded-xl bg-vesta-navy border-white/10 text-vesta-mist"
+                className="rounded-xl border-vesta-navy/15 bg-white"
               />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="mews-access-token" className="text-vesta-gold">
+              <Label htmlFor="mews-access-token" className="text-vesta-navy">
                 Access token
               </Label>
               <Input
@@ -1097,12 +1091,12 @@ export default function Integrations() {
                 placeholder="Access token"
                 value={mewsAccessToken}
                 onChange={(e) => setMewsAccessToken(e.target.value)}
-                className="rounded-xl bg-vesta-navy border-white/10 text-vesta-mist"
+                className="rounded-xl border-vesta-navy/15 bg-white"
               />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="mews-platform-url" className="text-vesta-gold">
-                Platform URL <span className="text-vesta-gold/80 font-normal">(optional)</span>
+              <Label htmlFor="mews-platform-url" className="text-vesta-navy">
+                Platform URL <span className="font-normal text-vesta-navy-muted">(optional)</span>
               </Label>
               <Input
                 id="mews-platform-url"
@@ -1110,7 +1104,7 @@ export default function Integrations() {
                 placeholder="https://api.mews.com"
                 value={mewsPlatformUrl}
                 onChange={(e) => setMewsPlatformUrl(e.target.value)}
-                className="rounded-xl bg-vesta-navy border-white/10 text-vesta-mist"
+                className="rounded-xl border-vesta-navy/15 bg-white"
               />
             </div>
           </div>
@@ -1118,21 +1112,16 @@ export default function Integrations() {
             <Button
               type="button"
               variant="outline"
-              className="rounded-xl border-white/10 text-vesta-gold bg-transparent"
+              className="rounded-xl border-vesta-navy/15"
               onClick={() => setMewsDialogOpen(false)}
               disabled={mewsConnecting}
             >
               Cancel
             </Button>
-            <Button
-              type="button"
-              className={stitch.primaryBtn}
-              disabled={mewsConnecting}
-              onClick={handleMewsSubmit}
-            >
+            <Button type="button" className={BTN_PRIMARY} disabled={mewsConnecting} onClick={handleMewsSubmit}>
               {mewsConnecting ? (
                 <>
-                  <RefreshCw className="w-3.5 h-3.5 mr-2 animate-spin" />
+                  <RefreshCw className="mr-2 h-3.5 w-3.5 animate-spin" />
                   Connecting…
                 </>
               ) : (
@@ -1143,23 +1132,25 @@ export default function Integrations() {
         </DialogContent>
       </Dialog>
 
-      {/* Connected integrations */}
-      <section aria-label="Connected integrations">
-        <h2 className={stitch.sectionLabel}>Connected</h2>
+      {/* Connected PMS / manual */}
+      <section aria-label="Connected integrations" className="space-y-4">
+        <div>
+          <h2 className={SECTION_LABEL}>Connected property systems</h2>
+          <p className="text-sm text-vesta-navy/65">Mews, manual entry, and other PMS connections. QuickBooks is under Accounting.</p>
+        </div>
         {isLoading ? (
           <div className="space-y-3">
             {[1, 2].map((i) => (
-              <div key={i} className="h-24 bg-vesta-navy-muted/20 rounded-2xl animate-pulse ring-1 ring-white/[0.05]" />
+              <div key={i} className="h-24 animate-pulse rounded-2xl border border-vesta-navy/10 bg-vesta-mist/30" />
             ))}
           </div>
         ) : pmsIntegrations.length === 0 ? (
-          <Card className={stitch.cardMuted}>
+          <Card className={CARD_SUBTLE}>
             <CardContent className="py-12 text-center">
-              <WifiOff className="w-8 h-8 text-vesta-gold/80 mx-auto mb-3" />
-              <p className="text-vesta-gold">No PMS or manual integration yet.</p>
-              <p className="text-vesta-gold/80 text-sm mt-1">
-                QuickBooks is managed in the card above. Connect Mews, Opera, or manual entry below to sync property
-                metrics.
+              <WifiOff className="mx-auto mb-3 h-8 w-8 text-vesta-navy-muted" />
+              <p className="font-medium text-vesta-navy">No PMS connected yet</p>
+              <p className="mt-1 text-sm text-vesta-navy/70">
+                Add Mews or enable manual entry below to feed daily metrics into Vesta.
               </p>
             </CardContent>
           </Card>
@@ -1171,69 +1162,72 @@ export default function Integrations() {
               const recentLogs = syncLogs.filter((l) => l.integration_id === integration.id).slice(0, 5)
 
               return (
-                <Card key={integration.id} className={stitch.card}>
+                <Card key={integration.id} className={CARD}>
                   <CardContent className="p-6">
-                    <div className="flex items-start justify-between gap-4">
-                      <div className="flex items-center gap-3">
-                        <div className={`w-11 h-11 ${stitch.iconTile} flex items-center justify-center`}>
-                          <Wifi className="w-5 h-5 text-vesta-gold" />
+                    <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                      <div className="flex gap-3">
+                        <div className={`flex h-11 w-11 shrink-0 items-center justify-center ${ICON_TILE}`}>
+                          <Wifi className="h-5 w-5 text-vesta-navy-muted" />
                         </div>
                         <div>
-                          <div className="flex items-center gap-2">
-                            <span className="font-medium text-vesta-mist font-sans">
+                          <div className="flex flex-wrap items-center gap-2">
+                            <span className="font-semibold text-vesta-navy">
                               {PROVIDER_LABELS[integration.provider] ?? integration.provider}
                             </span>
                             <Badge className={`text-xs border ${cfg.badge}`}>
-                              <StatusIcon className="w-3 h-3 mr-1" />
+                              <StatusIcon className="mr-1 h-3 w-3" />
                               {cfg.label}
                             </Badge>
                           </div>
-                          <p className="text-vesta-gold text-sm mt-0.5">
+                          <p className="mt-0.5 text-sm text-vesta-navy/65">
                             {integration.last_sync_at
                               ? `Last synced ${formatDistanceToNow(new Date(integration.last_sync_at), { addSuffix: true })}`
                               : 'Never synced'}
                           </p>
                           {integration.error_message && (
-                            <p className="text-red-300/90 text-xs mt-1">{integration.error_message}</p>
+                            <p className="mt-1 text-xs text-red-700">{integration.error_message}</p>
                           )}
                         </div>
                       </div>
                       <Button
                         size="sm"
                         variant="outline"
-                        className="rounded-xl border-white/10 text-vesta-mist bg-vesta-navy-muted/18 hover:bg-vesta-navy-muted/35 shrink-0"
+                        className="shrink-0 rounded-xl border-vesta-navy/15"
                         disabled={isSyncing || pmsSyncingId === integration.id}
                         onClick={() => handleIntegrationSync(integration)}
                       >
                         <RefreshCw
-                          className={`w-3.5 h-3.5 mr-1.5 ${
+                          className={`mr-1.5 h-3.5 w-3.5 ${
                             isSyncing || pmsSyncingId === integration.id ? 'animate-spin' : ''
                           }`}
                         />
-                        Sync Now
+                        Sync now
                       </Button>
                     </div>
 
-                    {/* Recent sync history */}
                     {recentLogs.length > 0 && (
-                      <div className="mt-5 pt-5 border-t border-white/[0.06]">
-                        <p className="text-xs text-vesta-gold/80 mb-2">Recent syncs</p>
+                      <div className="mt-5 border-t border-vesta-navy/10 pt-5">
+                        <p className="mb-2 text-xs font-medium text-vesta-navy-muted">Recent syncs</p>
                         <div className="space-y-1.5">
                           {recentLogs.map((log) => (
                             <div key={log.id} className="flex items-center justify-between text-xs">
                               <div className="flex items-center gap-2">
-                                <span className={
-                                  log.status === 'success' ? 'text-emerald-400' :
-                                  log.status === 'failed' ? 'text-red-400' :
-                                  log.status === 'partial' ? 'text-amber-300' : 'text-vesta-gold/80'
-                                }>
+                                <span
+                                  className={
+                                    log.status === 'success'
+                                      ? 'font-medium text-emerald-700'
+                                      : log.status === 'failed'
+                                        ? 'font-medium text-red-700'
+                                        : log.status === 'partial'
+                                          ? 'font-medium text-amber-800'
+                                          : 'text-vesta-navy-muted'
+                                  }
+                                >
                                   {log.status}
                                 </span>
-                                <span className="text-vesta-gold/80">
-                                  {log.records_synced} records
-                                </span>
+                                <span className="text-vesta-navy/65">{log.records_synced} records</span>
                               </div>
-                              <span className="text-vesta-gold/70">
+                              <span className="text-vesta-navy-muted">
                                 {format(new Date(log.started_at), 'MMM d, h:mm a')}
                               </span>
                             </div>
@@ -1249,47 +1243,46 @@ export default function Integrations() {
         )}
       </section>
 
-      {/* Available providers */}
-      <section aria-label="Connect new integrations">
-        <h2 className={stitch.sectionLabel}>Connect new</h2>
-        <p className="text-xs text-vesta-gold/80 -mt-2 mb-4 max-w-2xl">
-          Each card starts a connection flow: Mews opens a secure form, manual entry enables dashboard and CSV import,
-          Opera shows a coming-soon notice until the integration ships.
-        </p>
+      {/* Add integrations */}
+      <section aria-label="Connect new integrations" className="space-y-4">
+        <div>
+          <h2 className={SECTION_LABEL}>Add a connection</h2>
+          <p className="text-sm text-vesta-navy/65">
+            Mews opens a secure token form. Manual entry unlocks the dashboard and CSV import. Other PMS options show a
+            coming-soon message until live.
+          </p>
+        </div>
         {connectGridProviders.length === 0 ? (
-          <Card className={stitch.cardMuted}>
-            <CardContent className="py-8 text-center">
-              <CheckCircle2 className="w-8 h-8 text-emerald-400/80 mx-auto mb-2" />
-              <p className="text-vesta-gold text-sm">All listed connection types are already set up for this hotel.</p>
+          <Card className={CARD_SUBTLE}>
+            <CardContent className="py-10 text-center">
+              <CheckCircle2 className="mx-auto mb-2 h-8 w-8 text-emerald-600" />
+              <p className="text-sm text-vesta-navy">Every listed PMS option is already connected for this hotel.</p>
             </CardContent>
           </Card>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {connectGridProviders.map((p) => (
               <Card
                 key={p.provider}
-                className={`${stitch.cardMuted} hover:bg-vesta-navy-muted/90 transition-colors group`}
+                className={`${CARD} transition-shadow hover:shadow-md`}
               >
                 <CardHeader className="p-5 pb-2">
                   <div className="flex items-center justify-between gap-2">
-                    <CardTitle className="text-sm font-medium text-vesta-mist font-sans">
-                      {p.label}
-                    </CardTitle>
-                    <Badge variant="outline" className="text-xs border-white/10 text-vesta-gold/80 bg-transparent shrink-0">
+                    <CardTitle className="text-base font-semibold text-vesta-navy">{p.label}</CardTitle>
+                    <Badge variant="outline" className="shrink-0 border-vesta-navy/15 text-xs text-vesta-navy-muted">
                       {p.type === 'pms' ? 'PMS' : p.type === 'accounting' ? 'Accounting' : p.type}
                     </Badge>
                   </div>
                 </CardHeader>
                 <CardContent className="p-5 pt-0">
-                  <p className="text-vesta-gold text-xs leading-relaxed">{p.description}</p>
+                  <p className="text-sm leading-relaxed text-vesta-navy/70">{p.description}</p>
                   <Button
                     size="sm"
-                    variant="ghost"
-                    className="mt-4 w-full rounded-xl text-vesta-gold hover:text-vesta-mist hover:bg-vesta-gold/10 border border-vesta-gold/25"
+                    className={`mt-4 w-full ${BTN_PRIMARY}`}
                     disabled={!hotelId || (p.provider === 'mews' && mewsConnecting)}
                     onClick={() => handleConnectProvider(p.provider)}
                   >
-                    <Plug className="w-3.5 h-3.5 mr-1.5" />
+                    <Plug className="mr-1.5 h-3.5 w-3.5" />
                     Connect
                   </Button>
                 </CardContent>
@@ -1302,26 +1295,26 @@ export default function Integrations() {
       {/* ------------------------------------------------------------------ */}
       {/* Import Data section                                                 */}
       {/* ------------------------------------------------------------------ */}
-      <section aria-label="Import CSV data">
-        <h2 className={stitch.sectionLabel}>Import data</h2>
+      <section aria-label="Import CSV data" className="space-y-4">
+        <div>
+          <h2 className={SECTION_LABEL}>Import CSV</h2>
+          <p className="text-sm text-vesta-navy/65">Bulk load daily metrics, expenses, or channel revenue when you don&apos;t have an API connection yet.</p>
+        </div>
 
-        <Card className={stitch.card}>
-          <CardContent className="p-6 md:p-8 space-y-6">
-            {/* Drag-and-drop / file picker */}
+        <Card className={CARD}>
+          <CardContent className="space-y-6 p-6 md:p-8">
             <div
               onDragOver={handleDragOver}
               onDragLeave={handleDragLeave}
               onDrop={handleDrop}
               onClick={() => !selectedFile && fileInputRef.current?.click()}
               className={`
-                relative flex flex-col items-center justify-center gap-3
-                rounded-2xl border-2 border-dashed px-6 py-12
-                transition-colors
+                relative flex cursor-pointer flex-col items-center justify-center gap-3 rounded-2xl border-2 border-dashed px-6 py-12 transition-colors
                 ${selectedFile
-                  ? 'border-vesta-gold/45 bg-vesta-gold/10 cursor-default'
+                  ? 'cursor-default border-vesta-gold/50 bg-vesta-gold/10'
                   : dragActive
-                    ? 'border-vesta-gold/70 bg-vesta-gold/10 cursor-copy'
-                    : 'border-vesta-gold/35 hover:border-vesta-gold/55 bg-vesta-navy/50 hover:bg-vesta-navy-muted/20 cursor-pointer'
+                    ? 'cursor-copy border-vesta-gold bg-vesta-gold/15'
+                    : 'border-vesta-navy/20 bg-vesta-mist/20 hover:border-vesta-navy-muted hover:bg-vesta-mist/40'
                 }
               `}
             >
@@ -1335,33 +1328,33 @@ export default function Integrations() {
 
               {selectedFile ? (
                 <div className="flex items-center gap-3">
-                  <FileSpreadsheet className="w-8 h-8 text-amber-400 shrink-0" />
+                  <FileSpreadsheet className="h-8 w-8 shrink-0 text-vesta-gold" />
                   <div className="text-left">
-                    <p className="text-sm font-medium text-vesta-mist">{selectedFile.name}</p>
-                    <p className="text-xs text-vesta-gold/80 mt-0.5">
+                    <p className="text-sm font-medium text-vesta-navy">{selectedFile.name}</p>
+                    <p className="mt-0.5 text-xs text-vesta-navy-muted">
                       {(selectedFile.size / 1024).toFixed(1)} KB
                     </p>
                   </div>
                   <button
                     type="button"
                     onClick={(e) => { e.stopPropagation(); handleRemoveFile() }}
-                    className="ml-2 p-1 rounded-md text-vesta-gold/80 hover:text-vesta-mist hover:bg-vesta-navy-muted/25 transition-colors"
+                    className="ml-2 rounded-md p-1 text-vesta-navy-muted transition-colors hover:bg-vesta-navy/5 hover:text-vesta-navy"
                     aria-label="Remove file"
                   >
-                    <X className="w-4 h-4" />
+                    <X className="h-4 w-4" />
                   </button>
                 </div>
               ) : (
                 <>
-                  <div className={`w-12 h-12 rounded-xl ${stitch.iconTile} flex items-center justify-center`}>
-                    <Upload className="w-6 h-6 text-vesta-gold/80" />
+                  <div className={`flex h-12 w-12 items-center justify-center rounded-xl ${ICON_TILE}`}>
+                    <Upload className="h-6 w-6 text-vesta-navy-muted" />
                   </div>
                   <div className="text-center">
-                    <p className="text-sm font-medium text-vesta-mist">
-                      Drop a CSV file here, or{' '}
+                    <p className="text-sm font-medium text-vesta-navy">
+                      Drop a CSV here, or{' '}
                       <button
                         type="button"
-                        className="text-vesta-gold hover:text-vesta-mist underline underline-offset-2 font-medium"
+                        className="font-semibold text-vesta-navy-muted underline underline-offset-2 hover:text-vesta-navy"
                         onClick={(e) => {
                           e.stopPropagation()
                           fileInputRef.current?.click()
@@ -1370,30 +1363,25 @@ export default function Integrations() {
                         browse
                       </button>
                     </p>
-                    <p className="text-xs text-vesta-gold/80 mt-1">Only .csv files are accepted</p>
+                    <p className="mt-1 text-xs text-vesta-navy-muted">.csv only</p>
                   </div>
                 </>
               )}
             </div>
 
-            {/* Data type selector */}
-            <div className="flex flex-col sm:flex-row gap-3">
+            <div className="flex flex-col gap-3 sm:flex-row">
               <div className="flex-1">
-                <label className="block text-xs text-vesta-gold/80 mb-1.5">Data type</label>
+                <label className="mb-1.5 block text-xs font-medium text-vesta-navy-muted">Data type</label>
                 <Select
                   value={importType}
                   onValueChange={(val) => setImportType(val as ImportType)}
                 >
-                  <SelectTrigger className="rounded-xl bg-vesta-navy border-white/10 text-vesta-mist focus:ring-vesta-gold/25">
+                  <SelectTrigger className="rounded-xl border-vesta-navy/15 bg-white">
                     <SelectValue placeholder="Select data type..." />
                   </SelectTrigger>
-                  <SelectContent className="bg-vesta-navy-muted/25 border-white/10 text-vesta-mist">
+                  <SelectContent>
                     {(Object.keys(IMPORT_TYPE_LABELS) as ImportType[]).map((type) => (
-                      <SelectItem
-                        key={type}
-                        value={type}
-                        className="focus:bg-vesta-navy-muted/30 focus:text-vesta-mist"
-                      >
+                      <SelectItem key={type} value={type}>
                         {IMPORT_TYPE_LABELS[type]}
                       </SelectItem>
                     ))}
@@ -1406,7 +1394,7 @@ export default function Integrations() {
                 <Button
                   onClick={handleImport}
                   disabled={isImporting || !selectedFile || !importType || !hotelId}
-                  className={`${stitch.primaryBtn} disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto rounded-xl`}
+                  className={`${BTN_PRIMARY} disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto rounded-xl`}
                 >
                   {isImporting ? (
                     <>
@@ -1423,20 +1411,19 @@ export default function Integrations() {
               </div>
             </div>
 
-            {/* Sample CSV links */}
-            <div className="pt-2 border-t border-white/[0.06]">
-              <p className="text-xs text-vesta-gold/80">
-                Download sample CSVs:{' '}
+            <div className="border-t border-vesta-navy/10 pt-4">
+              <p className="text-xs text-vesta-navy-muted">
+                Sample files:{' '}
                 {(Object.keys(SAMPLE_CSV_PATHS) as ImportType[]).map((type, idx, arr) => (
                   <span key={type}>
                     <a
                       href={SAMPLE_CSV_PATHS[type]}
                       download
-                      className="text-vesta-gold/90 hover:text-vesta-mist underline underline-offset-2 transition-colors"
+                      className="font-medium text-vesta-navy-muted underline underline-offset-2 hover:text-vesta-navy"
                     >
                       {IMPORT_TYPE_LABELS[type]}
                     </a>
-                    {idx < arr.length - 1 && <span className="text-vesta-gold/50">{' · '}</span>}
+                    {idx < arr.length - 1 && <span className="text-vesta-navy-muted/50">{' · '}</span>}
                   </span>
                 ))}
               </p>

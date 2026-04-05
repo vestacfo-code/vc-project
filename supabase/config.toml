@@ -5,6 +5,14 @@ project_id = "qjgnbvrxpmspzfqlomjc"
 enabled = true
 sql_paths = ["./seed.sql"]
 
+# Browser invoke() sends JWT on POST but not on CORS OPTIONS preflight — gateway JWT
+# check must be off so preflight returns 2xx; handlers still validate Authorization.
+[functions.check-subscription]
+verify_jwt = false
+
+[functions.credit-manager]
+verify_jwt = false
+
 [functions.stripe-webhook]
 verify_jwt = false
 
