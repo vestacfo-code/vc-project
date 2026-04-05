@@ -39,6 +39,15 @@ function transform(content, slug) {
       `serve(sentryServe("${slug}", async (req${g1})${g2} => {`,
   );
   s = s.replace(/\bserve\(handler\)\s*;/g, `serve(sentryServe("${slug}", handler));`);
+  s = s.replace(
+    /Deno\.serve\(async \(req((?:: Request)?)\)((?:: Promise<Response>)?) => \{/g,
+    (_m, g1, g2) =>
+      `Deno.serve(sentryServe("${slug}", async (req${g1})${g2} => {`,
+  );
+  s = s.replace(
+    /\bDeno\.serve\(handler\)\s*;/g,
+    `Deno.serve(sentryServe("${slug}", handler));`,
+  );
   return s;
 }
 
@@ -48,7 +57,7 @@ for (const name of fs.readdirSync(root)) {
   const p = path.join(dir, "index.ts");
   if (!fs.existsSync(p)) continue;
   const raw = fs.readFileSync(p, "utf8");
-  if (!raw.includes("serve(")) continue;
+  if (!raw.includes("serve(") && !raw.includes("Deno.serve(")) continue;
   if (raw.includes("sentryServe(")) continue;
   const next = transform(raw, name);
   if (next === raw) {

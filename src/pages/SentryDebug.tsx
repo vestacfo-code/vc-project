@@ -24,9 +24,31 @@ export default function SentryDebug() {
         <h1 className="text-xl font-semibold text-vesta-navy">Sentry debug</h1>
         <p className="mt-2 text-sm text-slate-600">
           {hasDsn
-            ? 'Send test events and confirm they appear in your Sentry project.'
+            ? 'Send test events and confirm they appear in your Sentry project (Issues and Performance).'
             : 'Set VITE_SENTRY_DSN in .env, restart the dev server, then try again.'}
         </p>
+      </div>
+
+      <div className="rounded-lg border border-slate-200 bg-white p-4 text-sm text-slate-600">
+        <p className="font-medium text-vesta-navy">Full-stack checklist</p>
+        <ul className="mt-2 list-inside list-disc space-y-1">
+          <li>
+            Browser: use the buttons below; sign in to confirm{' '}
+            <code className="text-xs text-slate-800">setUser</code> on issues.
+          </li>
+          <li>
+            Supabase Edge: filter Sentry by tag{' '}
+            <code className="text-xs text-slate-800">edge_function</code> after
+            deploying functions with{' '}
+            <code className="text-xs text-slate-800">npm run deploy:edge-functions</code>
+            .
+          </li>
+          <li>
+            Secrets: <code className="text-xs text-slate-800">SENTRY_DSN</code> on
+            Supabase; <code className="text-xs text-slate-800">VITE_SENTRY_DSN</code>{' '}
+            on Vercel/local.
+          </li>
+        </ul>
       </div>
 
       <div className="flex flex-col gap-3">

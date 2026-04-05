@@ -12,6 +12,7 @@
     "test:watch": "vitest",
     "deploy:resend-functions": "bash scripts/deploy-resend-functions.sh",
     "wrap:sentry-edge": "node scripts/wrap-sentry-edge-functions.mjs",
+    "deploy:edge-functions": "bash scripts/deploy-all-edge-functions.sh",
     "preview": "vite preview"
   },
   "dependencies": {
