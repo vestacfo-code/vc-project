@@ -1,8 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { TrendingUp, TrendingDown, Minus } from 'lucide-react';
+import { TrendingUp, TrendingDown, Minus, Info } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { morphSpringSoft } from '@/lib/motion';
 import { AreaChart, Area, ResponsiveContainer } from 'recharts';
 
@@ -13,6 +14,8 @@ interface MetricCardProps {
   prefix?: string;
   suffix?: string;
   icon?: React.ReactNode;
+  /** Explains how the metric is defined; builds trust with owners comparing to PMS. */
+  definition?: string;
   loading?: boolean;
   sparklineData?: number[];
   accentColor?: string;
@@ -25,6 +28,7 @@ const MetricCard: React.FC<MetricCardProps> = ({
   prefix = '',
   suffix = '',
   icon,
+  definition,
   loading = false,
   sparklineData,
   accentColor = '#1B3A5C',
@@ -62,11 +66,27 @@ const MetricCard: React.FC<MetricCardProps> = ({
     >
     <Card className="h-full border border-vesta-navy/10 bg-white shadow-sm transition-all duration-300 hover:border-vesta-gold/35 hover:shadow-md">
       <CardContent className="p-5">
-        <div className="mb-2 flex items-start justify-between">
-          <p className="text-sm font-medium text-vesta-navy/80">{label}</p>
-          {icon && (
-            <span className="text-vesta-gold">{icon}</span>
-          )}
+        <div className="mb-2 flex items-start justify-between gap-2">
+          <div className="flex min-w-0 items-center gap-1">
+            <p className="text-sm font-medium text-vesta-navy/80">{label}</p>
+            {definition ? (
+              <Tooltip delayDuration={200}>
+                <TooltipTrigger asChild>
+                  <button
+                    type="button"
+                    className="shrink-0 rounded p-0.5 text-vesta-navy-muted hover:text-vesta-gold focus:outline-none focus-visible:ring-2 focus-visible:ring-vesta-gold/50"
+                    aria-label={`How we calculate ${label}`}
+                  >
+                    <Info className="h-3.5 w-3.5" aria-hidden />
+                  </button>
+                </TooltipTrigger>
+                <TooltipContent side="top" className="max-w-[min(20rem,calc(100vw-2rem))] text-xs leading-relaxed text-popover-foreground">
+                  {definition}
+                </TooltipContent>
+              </Tooltip>
+            ) : null}
+          </div>
+          {icon && <span className="shrink-0 text-vesta-gold">{icon}</span>}
         </div>
         <p className="text-2xl font-bold tracking-tight text-vesta-navy">
           {displayValue === '—' ? '—' : `${prefix}${displayValue}${suffix}`}

@@ -837,16 +837,26 @@ export default function Integrations() {
                 ) : qbIntegration ? (
                   <>
                     <div className="flex flex-wrap items-center gap-2 md:justify-end">
-                      <Badge className="border border-emerald-200 bg-emerald-50 text-emerald-900 text-xs">
-                        <CheckCircle2 className="mr-1 h-3 w-3" />
-                        Connected
-                      </Badge>
+                      {qbIntegration.status === 'error' ? (
+                        <Badge className="border border-red-200 bg-red-50 text-red-900 text-xs">
+                          <AlertCircle className="mr-1 h-3 w-3" />
+                          Needs attention
+                        </Badge>
+                      ) : (
+                        <Badge className="border border-emerald-200 bg-emerald-50 text-emerald-900 text-xs">
+                          <CheckCircle2 className="mr-1 h-3 w-3" />
+                          Connected
+                        </Badge>
+                      )}
                       <span className="text-xs text-vesta-navy-muted">
                         {qbIntegration.last_sync_at
                           ? `Last sync ${formatDistanceToNow(new Date(qbIntegration.last_sync_at), { addSuffix: true })}`
                           : 'Not synced yet'}
                       </span>
                     </div>
+                    {qbIntegration.error_message ? (
+                      <p className="max-w-sm text-right text-xs text-red-800 md:ml-auto">{qbIntegration.error_message}</p>
+                    ) : null}
                     <div className="flex flex-wrap gap-2 md:justify-end">
                       <Button
                         size="sm"
@@ -1242,7 +1252,7 @@ export default function Integrations() {
       {/* ------------------------------------------------------------------ */}
       {/* Import Data section                                                 */}
       {/* ------------------------------------------------------------------ */}
-      <section aria-label="Import CSV data" className="space-y-4">
+      <section id="import-csv" aria-label="Import CSV data" className="space-y-4 scroll-mt-24">
         <div>
           <h2 className={SECTION_LABEL}>Import CSV</h2>
           <p className="text-sm text-vesta-navy/65">Bulk load daily metrics, expenses, or channel revenue when you don&apos;t have an API connection yet.</p>

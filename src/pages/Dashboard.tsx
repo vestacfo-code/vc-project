@@ -23,6 +23,8 @@ import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { useHotelDashboard } from '@/hooks/useHotelDashboard';
+import { fetchHotelIntegrations, hotelIntegrationsQueryKey } from '@/lib/hotel-integrations-queries';
+import { HOTEL_KPI_DATA_SOURCE_NOTE, HOTEL_KPI_TOOLTIPS } from '@/lib/hotel-metric-definitions';
 import MetricCard from '@/components/hotel/MetricCard';
 import DailyBriefingCard from '@/components/hotel/DailyBriefingCard';
 import RevParChart from '@/components/hotel/RevParChart';
@@ -183,32 +185,57 @@ function PropertySnapshot({
   );
 }
 
-const NoDataBanner = () => {
+/** When today has no daily_metrics row: guide owners to data sources (faster time-to-value). */
+function DashboardEmptyKpiBanner({ hotelId }: { hotelId: string }) {
   const navigate = useNavigate();
+  const { data: integrations = [], isLoading } = useQuery({
+    queryKey: hotelIntegrationsQueryKey(hotelId),
+    queryFn: () => fetchHotelIntegrations(hotelId),
+  });
+
+  const hasActivePms = integrations.some((i) => i.type === 'pms' && i.status === 'active');
+
+  const title = hasActivePms ? 'No KPI row for today yet' : 'No KPI data for today yet';
+  const body = hasActivePms
+    ? 'Your property has an active PMS or manual connection, but there is no daily metrics record for today. Run Sync on Integrations, or import recent dates via CSV.'
+    : 'Connect Mews or enable manual entry, then sync or upload CSVs so RevPAR, ADR, and occupancy populate. Most owners see their first dashboard within one session.';
+
   return (
-    <div className="flex flex-col items-start justify-between gap-4 rounded-2xl border border-dashed border-vesta-gold/40 bg-gradient-to-r from-vesta-gold/10 to-transparent px-5 py-5 sm:flex-row sm:items-center">
+    <div className="flex flex-col items-stretch justify-between gap-4 rounded-2xl border border-dashed border-vesta-gold/40 bg-gradient-to-r from-vesta-gold/10 to-transparent px-5 py-5 sm:flex-row sm:items-center">
       <div className="flex items-start gap-3">
         <div className="rounded-lg bg-vesta-gold/15 p-2 ring-1 ring-vesta-gold/30">
           <UploadCloud className="h-5 w-5 text-vesta-gold" />
         </div>
         <div>
-          <p className="text-sm font-semibold text-vesta-navy">No KPI data for today yet</p>
-          <p className="mt-1 max-w-md text-xs text-vesta-navy/80">
-            Connect a PMS or upload sample CSVs so RevPAR, ADR, and occupancy populate automatically.
-          </p>
+          <p className="text-sm font-semibold text-vesta-navy">{isLoading ? 'Checking your data sources…' : title}</p>
+          {!isLoading ? (
+            <p className="mt-1 max-w-lg text-xs leading-relaxed text-vesta-navy/80">{body}</p>
+          ) : (
+            <p className="mt-1 max-w-md text-xs text-vesta-navy/70">One moment.</p>
+          )}
         </div>
       </div>
-      <Button
-        size="sm"
-        variant="outline"
-        onClick={() => navigate('/integrations')}
-        className="shrink-0 border-vesta-navy/25 text-vesta-navy hover:border-vesta-gold/50 hover:bg-vesta-gold/10"
-      >
-        Open integrations
-      </Button>
+      <div className="flex shrink-0 flex-col gap-2 sm:flex-row sm:items-center">
+        <Button
+          size="sm"
+          variant="outline"
+          onClick={() => navigate('/integrations')}
+          className="border-vesta-navy/25 text-vesta-navy hover:border-vesta-gold/50 hover:bg-vesta-gold/10"
+        >
+          Open integrations
+        </Button>
+        <Button
+          size="sm"
+          variant="outline"
+          onClick={() => navigate('/integrations#import-csv')}
+          className="border-vesta-navy/25 text-vesta-navy hover:border-vesta-gold/50 hover:bg-vesta-gold/10"
+        >
+          Import CSV
+        </Button>
+      </div>
     </div>
   );
-};
+}
 
 const Dashboard = () => {
   const { user } = useAuth();
@@ -327,7 +354,7 @@ const Dashboard = () => {
           </div>
         </section>
 
-        {!isMetricsLoading && hotelId && !hasRealData && <NoDataBanner />}
+        {!isMetricsLoading && hotelId && !hasRealData && <DashboardEmptyKpiBanner hotelId={hotelId} />}
 
         {/* KPIs */}
         <section>
@@ -339,6 +366,7 @@ const Dashboard = () => {
               change={revparChange}
               prefix="$"
               icon={<TrendingUp className="h-4 w-4" />}
+              definition={HOTEL_KPI_TOOLTIPS.revpar}
               loading={isMetricsLoading}
             />
             <MetricCard
@@ -347,6 +375,7 @@ const Dashboard = () => {
               change={adrChange}
               prefix="$"
               icon={<DollarSign className="h-4 w-4" />}
+              definition={HOTEL_KPI_TOOLTIPS.adr}
               loading={isMetricsLoading}
             />
             <MetricCard
@@ -355,6 +384,7 @@ const Dashboard = () => {
               change={occupancyChange}
               suffix="%"
               icon={<BedDouble className="h-4 w-4" />}
+              definition={HOTEL_KPI_TOOLTIPS.occupancy}
               loading={isMetricsLoading}
             />
             <MetricCard
@@ -363,9 +393,17 @@ const Dashboard = () => {
               change={gopparChange}
               prefix="$"
               icon={<TrendingUp className="h-4 w-4" />}
+              definition={HOTEL_KPI_TOOLTIPS.goppar}
               loading={isMetricsLoading}
             />
           </div>
+          <p className="mt-3 max-w-3xl text-xs leading-relaxed text-vesta-navy-muted">
+            {HOTEL_KPI_DATA_SOURCE_NOTE}{' '}
+            <Link to="/docs/learn/data" className="font-medium text-vesta-navy/80 underline-offset-2 hover:text-vesta-gold hover:underline">
+              How Vesta uses your data
+            </Link>
+            .
+          </p>
         </section>
 
         {/* Briefing + property snapshot */}
