@@ -1,6 +1,42 @@
 # Must match the project ref in src/integrations/supabase/client.ts (…/project-ref.supabase.co)
 project_id = "qjgnbvrxpmspzfqlomjc"
 
+# Pushed to hosted project via `supabase config push`. OAuth redirectTo must match site_url or a pattern here.
+[auth]
+enabled = true
+site_url = "https://vc-project-pi.vercel.app"
+additional_redirect_urls = [
+  "https://vesta.ai/**",
+  "https://www.vesta.ai/**",
+  "https://vc-project-pi.vercel.app/**",
+  "http://localhost:8080/**",
+  "http://127.0.0.1:8080/**",
+]
+
+# Restore hosted settings that a minimal [auth] push had reset to CLI defaults.
+[auth.email]
+enable_signup = true
+double_confirm_changes = true
+enable_confirmations = true
+secure_password_change = false
+max_frequency = "1m0s"
+otp_length = 8
+otp_expiry = 3600
+
+[auth.mfa]
+max_enrolled_factors = 10
+
+[auth.mfa.totp]
+enroll_enabled = true
+verify_enabled = true
+
+[auth.mfa.phone]
+enroll_enabled = false
+verify_enabled = false
+otp_length = 6
+template = "Your code is {{ `{{ .Code }}` }}"
+max_frequency = "5s"
+
 [db.seed]
 enabled = true
 sql_paths = ["./seed.sql"]
