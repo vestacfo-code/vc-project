@@ -6,6 +6,13 @@ import type { Database } from '@/integrations/supabase/types'
 
 type IntegrationRow = Database['public']['Tables']['integrations']['Row']
 import { useHotelDashboard } from '@/hooks/useHotelDashboard'
+import {
+  fetchHotelIntegrations,
+  fetchHotelQuickBooksIntegration,
+  hotelIntegrationsQueryKey,
+  qbIntegrationQueryKey,
+  refreshQuickBooksIntegrationQueries,
+} from '@/lib/hotel-integrations-queries'
 import { useSyncIntegration } from '@/hooks/useSyncIntegration'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -273,8 +280,7 @@ export default function Integrations() {
           return
         }
         toast.success('QuickBooks connected!')
-        queryClient.invalidateQueries({ queryKey: ['qb_integration', hotelId] })
-        queryClient.invalidateQueries({ queryKey: ['integrations', hotelId] })
+        await refreshQuickBooksIntegrationQueries(queryClient, hotelId)
       } finally {
         setQbCallbackLoading(false)
       }
@@ -363,16 +369,10 @@ export default function Integrations() {
   // ---------------------------------------------------------------------------
 
   const { data: integrations = [], isLoading } = useQuery({
-    queryKey: ['integrations', hotelId],
+    queryKey: hotelIntegrationsQueryKey(hotelId ?? '__no_hotel__'),
     queryFn: async () => {
       if (!hotelId) return []
-      const { data, error } = await supabase
-        .from('integrations')
-        .select('*')
-        .eq('hotel_id', hotelId)
-        .order('created_at', { ascending: false })
-      if (error) throw error
-      return data
+      return fetchHotelIntegrations(hotelId)
     },
     enabled: !!hotelId,
   })
@@ -394,17 +394,14 @@ export default function Integrations() {
   })
 
   const { data: qbIntegration, isLoading: qbLoading } = useQuery({
-    queryKey: ['qb_integration', hotelId],
+    queryKey: qbIntegrationQueryKey(hotelId ?? '__no_hotel__'),
     queryFn: async () => {
-      const { data } = await supabase
-        .from('integrations')
-        .select('*')
-        .eq('hotel_id', hotelId)
-        .eq('provider', 'quickbooks')
-        .maybeSingle()
-      return data
+      if (!hotelId) return null
+      return fetchHotelQuickBooksIntegration(hotelId)
     },
     enabled: !!hotelId,
+    refetchOnMount: 'always',
+    staleTime: 0,
   })
 
   const {
@@ -482,8 +479,7 @@ export default function Integrations() {
       toast.error(error.message ?? 'Could not disconnect QuickBooks')
       return
     }
-    queryClient.invalidateQueries({ queryKey: ['qb_integration', hotelId] })
-    queryClient.invalidateQueries({ queryKey: ['integrations', hotelId] })
+    await refreshQuickBooksIntegrationQueries(queryClient, hotelId)
     toast.success('QuickBooks disconnected')
   }
 
@@ -501,8 +497,7 @@ export default function Integrations() {
       }
       const count = (data as { synced_count?: number })?.synced_count ?? 0
       toast.success(`Synced ${count} expenses from QuickBooks`)
-      queryClient.invalidateQueries({ queryKey: ['qb_integration', hotelId] })
-      queryClient.invalidateQueries({ queryKey: ['integrations', hotelId] })
+      await refreshQuickBooksIntegrationQueries(queryClient, hotelId)
       queryClient.invalidateQueries({ queryKey: ['sync_logs', hotelId] })
       queryClient.invalidateQueries({ queryKey: ['expenses'] })
     } catch (err) {
@@ -583,7 +578,7 @@ export default function Integrations() {
         return
       }
       toast.success('Manual entry enabled — use the dashboard and CSV import for data.')
-      queryClient.invalidateQueries({ queryKey: ['integrations', hotelId] })
+      queryClient.invalidateQueries({ queryKey: hotelIntegrationsQueryKey(hotelId) })
       return
     }
     toast.info('Coming soon', {
@@ -636,7 +631,7 @@ export default function Integrations() {
       setMewsClientToken(MEWS_DEMO_GROSS_TOKENS.clientToken)
       setMewsAccessToken(MEWS_DEMO_GROSS_TOKENS.accessToken)
       setMewsPlatformUrl(MEWS_DEMO_PLATFORM_URL)
-      queryClient.invalidateQueries({ queryKey: ['integrations', hotelId] })
+      queryClient.invalidateQueries({ queryKey: hotelIntegrationsQueryKey(hotelId) })
       queryClient.invalidateQueries({ queryKey: ['sync_logs', hotelId] })
     } finally {
       setMewsConnecting(false)
@@ -669,7 +664,7 @@ export default function Integrations() {
         }
         const synced = (data as { records_synced?: number })?.records_synced ?? 0
         toast.success(`Synced ${synced} day(s) of metrics from Mews`)
-        queryClient.invalidateQueries({ queryKey: ['integrations', hotelId] })
+        queryClient.invalidateQueries({ queryKey: hotelIntegrationsQueryKey(hotelId) })
         queryClient.invalidateQueries({ queryKey: ['sync_logs', hotelId] })
         queryClient.invalidateQueries({ queryKey: ['daily_metrics'] })
       } finally {
@@ -693,8 +688,7 @@ export default function Integrations() {
           return
         }
         toast.success(`Synced ${(data as { synced_count?: number })?.synced_count ?? 0} expenses from QuickBooks`)
-        queryClient.invalidateQueries({ queryKey: ['qb_integration', hotelId] })
-        queryClient.invalidateQueries({ queryKey: ['integrations', hotelId] })
+        await refreshQuickBooksIntegrationQueries(queryClient, hotelId)
       } finally {
         setPmsSyncingId(null)
       }

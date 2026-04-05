@@ -2,6 +2,7 @@ import { useEffect, useRef, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useQueryClient } from '@tanstack/react-query'
 import { supabase } from '@/integrations/supabase/client'
+import { refreshQuickBooksIntegrationQueries } from '@/lib/hotel-integrations-queries'
 import { useHotelDashboard } from '@/hooks/useHotelDashboard'
 import { toast } from 'sonner'
 import { Loader2 } from 'lucide-react'
@@ -37,8 +38,7 @@ export default function IntegrationsQbCallback() {
           return
         }
         toast.success('QuickBooks connected!')
-        queryClient.invalidateQueries({ queryKey: ['qb_integration', hotelId] })
-        queryClient.invalidateQueries({ queryKey: ['integrations', hotelId] })
+        await refreshQuickBooksIntegrationQueries(queryClient, hotelId)
       } catch (e) {
         toast.error(e instanceof Error ? e.message : 'QuickBooks connection failed')
       } finally {
