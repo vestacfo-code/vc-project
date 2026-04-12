@@ -363,10 +363,11 @@ export const useQuickBooksIntegration = () => {
     setLoading(true);
     
     try {
+      const targetUserId = effectiveUserId || user?.id;
       const { data, error } = await supabase
         .from('quickbooks_integrations')
         .select('id, company_name, realm_id, is_active, created_at, updated_at')
-        .eq('user_id', user?.id)
+        .eq('user_id', targetUserId)
         .eq('is_active', true)
         .order('created_at', { ascending: false })
         .limit(1);

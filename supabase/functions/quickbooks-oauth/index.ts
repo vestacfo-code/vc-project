@@ -161,12 +161,12 @@ serve(sentryServe("quickbooks-oauth", async (req) => {
       const authParams = new URLSearchParams({
         client_id: clientId,
         response_type: 'code',
-        scope: QB_OAUTH_SCOPE,
         redirect_uri: redirectUri,
         access_type: 'offline',
         state,
       });
-      const authUrl = `https://appcenter.intuit.com/connect/oauth2?${authParams.toString()}`;
+      // Intuit rejects '+'-encoded spaces in scope; encodeURIComponent uses %20 which Intuit accepts.
+      const authUrl = `https://appcenter.intuit.com/connect/oauth2?${authParams.toString()}&scope=${encodeURIComponent(QB_OAUTH_SCOPE)}`;
 
       console.log('Generated auth URL:', { redirectUri, scope: QB_OAUTH_SCOPE, userId: user.id, appOrigin });
 

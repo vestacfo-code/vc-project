@@ -16,11 +16,11 @@ export const cloudbedsAdapter: IntegrationAdapter = {
 
   async fetchDailyMetrics(_credentials, _hotelId, _fromDate, _toDate) {
     // TODO Phase 6: GET /api/v1.2/getDailyReport
-    return []
+    throw new Error('Cloudbeds daily metrics sync is not yet available. Use CSV import instead.')
   },
 
   async fetchRevenueByChannel(_credentials, _hotelId, _fromDate, _toDate) {
     // TODO Phase 6: GET /api/v1.2/getRevenue with channel breakdown
-    return []
+    throw new Error('Cloudbeds revenue-by-channel sync is not yet available. Use CSV import instead.')
   },
 }

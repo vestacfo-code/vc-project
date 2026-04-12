@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from '@/hooks/useAuth';
+import { useTeamRole } from '@/hooks/useTeamRole';
 import { useToast } from '@/hooks/use-toast';
 
 interface WaveIntegration {
@@ -22,6 +24,8 @@ interface WaveData {
 }
 
 export const useWaveIntegration = () => {
+  const { user } = useAuth();
+  const { effectiveUserId, isMember, isLoading: teamLoading, canSyncData } = useTeamRole();
   const [integration, setIntegration] = useState<WaveIntegration | null>(null);
   const [data, setData] = useState<WaveData[]>([]);
   const [loading, setLoading] = useState(true);
@@ -29,18 +33,19 @@ export const useWaveIntegration = () => {
   const { toast } = useToast();
 
   const fetchIntegration = async () => {
-    try {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) return;
+    if (!user || teamLoading) return;
 
+    const targetUserId = effectiveUserId || user.id;
+
+    try {
       const { data: integrationData, error } = await supabase
         .from('wave_integrations')
         .select('*')
-        .eq('user_id', user.id)
+        .eq('user_id', targetUserId)
         .eq('is_active', true)
         .maybeSingle();
 
-      if (error && error.code !== 'PGRST116') {
+      if (error) {
         console.error('Error fetching Wave integration:', error);
         return;
       }
@@ -54,14 +59,15 @@ export const useWaveIntegration = () => {
   };
 
   const fetchWaveData = async () => {
-    try {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user || !integration) return;
+    if (!user || !integration) return;
 
+    const targetUserId = effectiveUserId || user.id;
+
+    try {
       const { data: waveData, error } = await supabase
         .from('wave_data')
         .select('*')
-        .eq('user_id', user.id)
+        .eq('user_id', targetUserId)
         .order('last_synced', { ascending: false });
 
       if (error) {
@@ -76,12 +82,19 @@ export const useWaveIntegration = () => {
   };
 
   const syncData = async () => {
+    if (isMember && !canSyncData) {
+      toast({
+        title: "Permission denied",
+        description: "You do not have permission to sync data. Contact your team owner.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     try {
       setSyncing(true);
-      
-      const { error } = await supabase.functions.invoke('wave-sync', {
-        method: 'POST',
-      });
+
+      const { error } = await supabase.functions.invoke('wave-sync');
 
       if (error) {
         toast({
@@ -182,14 +195,16 @@ export const useWaveIntegration = () => {
   };
 
   useEffect(() => {
-    fetchIntegration();
-  }, []);
+    if (user && !teamLoading) {
+      fetchIntegration();
+    }
+  }, [user, teamLoading, effectiveUserId]);
 
   useEffect(() => {
     if (integration) {
       fetchWaveData();
     }
-  }, [integration]);
+  }, [integration, effectiveUserId]);
 
   return {
     integration,
@@ -201,5 +216,7 @@ export const useWaveIntegration = () => {
     getStats,
     refreshAfterOAuth: fetchIntegration,
     disconnectIntegration,
+    isMember,
+    canSyncData,
   };
 };

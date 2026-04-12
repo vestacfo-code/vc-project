@@ -103,8 +103,10 @@ Deno.serve(sentryServe("wave-oauth", async (req) => {
       if (error) {
         const errorDescription = url.searchParams.get('error_description') || error;
         console.error('Wave OAuth error:', error, 'Description:', errorDescription);
+        const safeHtml = errorDescription.replace(/[&<>"']/g, (c: string) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]!));
+        const safeJson = JSON.stringify(errorDescription);
         return new Response(
-          `<html><body><h2>Authorization Failed</h2><p>${errorDescription}</p><script>window.opener.postMessage({ type: 'WAVE_AUTH_ERROR', error: '${errorDescription}' }, '*'); setTimeout(() => window.close(), 3000);</script></body></html>`,
+          `<html><body><h2>Authorization Failed</h2><p>${safeHtml}</p><script>window.opener.postMessage({ type: 'WAVE_AUTH_ERROR', error: ${safeJson} }, '*'); setTimeout(() => window.close(), 3000);</script></body></html>`,
           { headers: { ...corsHeaders, 'Content-Type': 'text/html' } }
         );
       }

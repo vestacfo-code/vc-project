@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from '@/hooks/useAuth';
+import { useTeamRole } from '@/hooks/useTeamRole';
 import { useToast } from '@/hooks/use-toast';
 
 interface ZohoIntegration {
@@ -21,6 +23,8 @@ interface ZohoData {
 }
 
 export const useZohoIntegration = () => {
+  const { user } = useAuth();
+  const { effectiveUserId, isMember, isLoading: teamLoading, canSyncData } = useTeamRole();
   const [integration, setIntegration] = useState<ZohoIntegration | null>(null);
   const [data, setData] = useState<ZohoData[]>([]);
   const [loading, setLoading] = useState(true);
@@ -28,18 +32,19 @@ export const useZohoIntegration = () => {
   const { toast } = useToast();
 
   const fetchIntegration = async () => {
-    try {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) return;
+    if (!user || teamLoading) return;
 
+    const targetUserId = effectiveUserId || user.id;
+
+    try {
       const { data: integrationData, error } = await supabase
         .from('zoho_integrations')
         .select('*')
-        .eq('user_id', user.id)
+        .eq('user_id', targetUserId)
         .eq('is_active', true)
-        .single();
+        .maybeSingle();
 
-      if (error && error.code !== 'PGRST116') {
+      if (error) {
         console.error('Error fetching Zoho integration:', error);
         return;
       }
@@ -74,9 +79,18 @@ export const useZohoIntegration = () => {
   };
 
   const syncData = async () => {
+    if (isMember && !canSyncData) {
+      toast({
+        title: "Permission denied",
+        description: "You do not have permission to sync data. Contact your team owner.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     try {
       setSyncing(true);
-      
+
       const { data: syncResult, error } = await supabase.functions.invoke('zoho-sync');
 
       if (error) {
@@ -176,8 +190,10 @@ export const useZohoIntegration = () => {
   };
 
   useEffect(() => {
-    fetchIntegration();
-  }, []);
+    if (user && !teamLoading) {
+      fetchIntegration();
+    }
+  }, [user, teamLoading, effectiveUserId]);
 
   useEffect(() => {
     if (integration) {
@@ -195,5 +211,7 @@ export const useZohoIntegration = () => {
     getStats,
     disconnectIntegration,
     refetch: fetchIntegration,
+    isMember,
+    canSyncData,
   };
 };

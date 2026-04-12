@@ -132,12 +132,11 @@ serve(sentryServe("quickbooks-hotel-oauth", async (req) => {
       const params = new URLSearchParams({
         client_id: QB_CLIENT_ID,
         response_type: 'code',
-        scope: QB_OAUTH_SCOPE,
         redirect_uri: QB_REDIRECT_URI,
         state,
       });
-
-      const authUrl = `https://appcenter.intuit.com/connect/oauth2?${params.toString()}`;
+      // Intuit rejects '+'-encoded spaces in scope; encodeURIComponent uses %20 which Intuit accepts.
+      const authUrl = `https://appcenter.intuit.com/connect/oauth2?${params.toString()}&scope=${encodeURIComponent(QB_OAUTH_SCOPE)}`;
 
       log('Generated auth URL', { hotel_id, state, scope: QB_OAUTH_SCOPE });
 

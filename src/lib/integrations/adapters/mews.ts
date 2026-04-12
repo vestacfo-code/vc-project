@@ -17,11 +17,11 @@ export const mewsAdapter: IntegrationAdapter = {
   async fetchDailyMetrics(_credentials, _hotelId, _fromDate, _toDate) {
     // TODO Phase 6: implement real Mews API call
     // POST /api/connector/v1/reservations/getAll for occupancy + revenue
-    return []
+    throw new Error('Mews daily metrics sync is not yet available. Use the server-side mews-sync edge function or CSV import instead.')
   },
 
   async fetchRevenueByChannel(_credentials, _hotelId, _fromDate, _toDate) {
     // TODO Phase 6: POST /api/connector/v1/orders/getRevenue broken down by source
-    return []
+    throw new Error('Mews revenue-by-channel sync is not yet available. Use the server-side mews-sync edge function or CSV import instead.')
   },
 }

@@ -292,6 +292,9 @@ function getSuccessHtml(): string {
 }
 
 function getErrorHtml(message: string): string {
+  // Sanitize message for safe HTML/JS embedding
+  const safeHtml = message.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]!));
+  const safeJson = JSON.stringify(message);
   return `
     <!DOCTYPE html>
     <html>
@@ -343,12 +346,12 @@ function getErrorHtml(message: string): string {
         <div class="container">
           <div class="error-icon">✕</div>
           <h1>Connection Failed</h1>
-          <p>${message}</p>
+          <p>${safeHtml}</p>
           <p>You can close this window and try again.</p>
         </div>
         <script>
           if (window.opener) {
-            window.opener.postMessage({ type: 'zoho-oauth-error', error: '${message}' }, '*');
+            window.opener.postMessage({ type: 'zoho-oauth-error', error: ${safeJson} }, '*');
           }
         </script>
       </body>

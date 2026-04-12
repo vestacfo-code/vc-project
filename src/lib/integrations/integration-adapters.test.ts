@@ -55,24 +55,26 @@ describe("integration adapters", () => {
       expect(r.success).toBe(true);
     });
 
-    it("fetchDailyMetrics returns an array", async () => {
-      const rows = await adapter.fetchDailyMetrics(
-        { accessToken: "x", clientToken: "y" },
-        hotelId,
-        range.from,
-        range.to
-      );
-      expect(Array.isArray(rows)).toBe(true);
+    it("fetchDailyMetrics throws not-yet-available error (Phase 6 stub)", async () => {
+      await expect(
+        adapter.fetchDailyMetrics(
+          { accessToken: "x", clientToken: "y" },
+          hotelId,
+          range.from,
+          range.to
+        )
+      ).rejects.toThrow(/not yet available/);
     });
 
-    it("fetchRevenueByChannel returns an array when defined", async () => {
-      const rows = await adapter.fetchRevenueByChannel!(
-        { accessToken: "x", clientToken: "y" },
-        hotelId,
-        range.from,
-        range.to
-      );
-      expect(Array.isArray(rows)).toBe(true);
+    it("fetchRevenueByChannel throws not-yet-available error (Phase 6 stub)", async () => {
+      await expect(
+        adapter.fetchRevenueByChannel!(
+          { accessToken: "x", clientToken: "y" },
+          hotelId,
+          range.from,
+          range.to
+        )
+      ).rejects.toThrow(/not yet available/);
     });
   });
 
@@ -96,12 +98,18 @@ describe("integration adapters", () => {
       expect(r.success).toBe(true);
     });
 
-    it("fetchDailyMetrics and fetchRevenueByChannel return arrays", async () => {
+    it("fetchDailyMetrics throws not-yet-available error (Phase 6 stub)", async () => {
       const creds = { apiKey: "k" };
-      const daily = await adapter.fetchDailyMetrics(creds, hotelId, range.from, range.to);
-      const ch = await adapter.fetchRevenueByChannel!(creds, hotelId, range.from, range.to);
-      expect(Array.isArray(daily)).toBe(true);
-      expect(Array.isArray(ch)).toBe(true);
+      await expect(
+        adapter.fetchDailyMetrics(creds, hotelId, range.from, range.to)
+      ).rejects.toThrow(/not yet available/);
+    });
+
+    it("fetchRevenueByChannel throws not-yet-available error (Phase 6 stub)", async () => {
+      const creds = { apiKey: "k" };
+      await expect(
+        adapter.fetchRevenueByChannel!(creds, hotelId, range.from, range.to)
+      ).rejects.toThrow(/not yet available/);
     });
   });
 
