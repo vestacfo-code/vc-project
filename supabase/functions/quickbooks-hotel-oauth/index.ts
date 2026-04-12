@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { resolveQuickBooksOAuthScope } from "../_shared/quickbooks-oauth-scope.ts";
 import { sentryServe } from "../_shared/sentry-edge.ts";
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.50.3';
@@ -31,13 +32,8 @@ const siteBase = (envTrim('SITE_URL') ?? envTrim('PUBLIC_SITE_URL') ?? 'https://
 /** Dedicated path so browser Supabase client never treats Intuit's ?code= as PKCE on /integrations. */
 const QB_REDIRECT_URI = envTrim('QUICKBOOKS_REDIRECT_URI') ?? `${siteBase}/integrations/qb-callback`;
 
-/**
- * Space-delimited scopes for https://appcenter.intuit.com/connect/oauth2
- * Default is Accounting only — enable "Sign in with Intuit" on the Intuit app before adding openid/profile/email or Intuit returns "Invalid param: scope".
- * Override with Supabase secret QUICKBOOKS_OAUTH_SCOPE (must match scopes checked under your app in developer.intuit.com).
- */
-const DEFAULT_QB_OAUTH_SCOPE = 'com.intuit.quickbooks.accounting';
-const QB_OAUTH_SCOPE = (envTrim('QUICKBOOKS_OAUTH_SCOPE') ?? DEFAULT_QB_OAUTH_SCOPE).replace(/\s+/g, ' ').trim();
+/** Space-delimited scopes for https://appcenter.intuit.com/connect/oauth2 — see _shared/quickbooks-oauth-scope.ts */
+const QB_OAUTH_SCOPE = resolveQuickBooksOAuthScope();
 
 const log = (step: string, details?: any) => {
   const suffix = details ? ` - ${JSON.stringify(details)}` : '';

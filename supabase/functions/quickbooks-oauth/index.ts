@@ -1,3 +1,4 @@
+import { resolveQuickBooksOAuthScope } from "../_shared/quickbooks-oauth-scope.ts";
 import { sentryServe } from "../_shared/sentry-edge.ts";
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.45.0';
@@ -14,13 +15,8 @@ function envTrim(key: string): string | undefined {
   return t.length ? t : undefined;
 }
 
-/**
- * Accounting only by default — matches apps that only enable "Accounting" in Intuit Developer.
- * Requesting openid/profile/email requires "Sign in with Intuit" enabled on the app; otherwise Intuit returns "Invalid param: scope".
- * Override via secret QUICKBOOKS_OAUTH_SCOPE (space-separated), e.g. "com.intuit.quickbooks.accounting openid profile email".
- */
-const DEFAULT_QB_OAUTH_SCOPE = 'com.intuit.quickbooks.accounting';
-const QB_OAUTH_SCOPE = (envTrim('QUICKBOOKS_OAUTH_SCOPE') ?? DEFAULT_QB_OAUTH_SCOPE).replace(/\s+/g, ' ').trim();
+/** See _shared/quickbooks-oauth-scope.ts */
+const QB_OAUTH_SCOPE = resolveQuickBooksOAuthScope();
 
 // Simple in-memory rate limiter
 const rateLimiter = new Map<string, number[]>();
