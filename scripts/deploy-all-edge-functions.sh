@@ -19,7 +19,7 @@ if [[ -z "$PROJECT_REF" ]]; then
 fi
 
 echo "Deploying Edge Functions to project: $PROJECT_REF"
-echo "Requires: supabase login && network. JWT verification follows config.toml per function."
+echo "Requires: npx supabase login && network. JWT verification follows config.toml per function."
 echo ""
 
 for dir in supabase/functions/*/; do
@@ -27,8 +27,8 @@ for dir in supabase/functions/*/; do
   [[ "$name" == "_shared" ]] && continue
   [[ -f "${dir}index.ts" ]] || continue
   echo ">>> $name"
-  supabase functions deploy "$name" --project-ref "$PROJECT_REF"
+  npx supabase functions deploy "$name" --project-ref "$PROJECT_REF"
 done
 
 echo ""
-echo "Done. Ensure SENTRY_DSN is set: supabase secrets list --project-ref $PROJECT_REF"
+echo "Done. Ensure SENTRY_DSN is set: npx supabase secrets list --project-ref $PROJECT_REF"

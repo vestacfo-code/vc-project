@@ -31,7 +31,7 @@ FUNCS=(
 
 for f in "${FUNCS[@]}"; do
   echo "==> Deploying $f"
-  supabase functions deploy "$f" "${ARGS[@]}"
+  npx supabase functions deploy "$f" "${ARGS[@]}"
 done
 
 echo "==> All Resend-related functions deployed."

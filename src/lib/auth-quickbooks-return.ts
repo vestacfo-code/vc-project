@@ -1,7 +1,12 @@
 import type { Location } from 'react-router-dom'
+import { combineRouterSearchAndHash } from '@/lib/quickbooks-oauth-params'
+import {
+  isQuickBooksIntegrationCallbackPath,
+  QUICKBOOKS_INTEGRATION_CALLBACK_PATH,
+} from '@/lib/quickbooks-callback-path'
 
-export function hasQuickBooksOAuthParamsInSearch(search: string): boolean {
-  return search.includes('code=') || search.includes('state=')
+function hasOAuthCodeOrState(blob: string): boolean {
+  return blob.includes('code=') || blob.includes('state=')
 }
 
 /**
@@ -16,15 +21,14 @@ export function getPendingQuickBooksReturnTo(
       ? (location.state as { from?: Location }).from
       : undefined
 
-  if (
-    fromState?.pathname === '/integrations/qb-callback' &&
-    fromState.search &&
-    hasQuickBooksOAuthParamsInSearch(fromState.search)
-  ) {
-    return {
-      pathname: fromState.pathname,
-      search: fromState.search,
-      hash: fromState.hash ?? '',
+  if (fromState?.pathname && isQuickBooksIntegrationCallbackPath(fromState.pathname)) {
+    const blob = combineRouterSearchAndHash(fromState)
+    if (blob && hasOAuthCodeOrState(blob)) {
+      return {
+        pathname: QUICKBOOKS_INTEGRATION_CALLBACK_PATH,
+        search: fromState.search || '',
+        hash: fromState.hash ?? '',
+      }
     }
   }
 
@@ -33,15 +37,14 @@ export function getPendingQuickBooksReturnTo(
       typeof sessionStorage !== 'undefined' ? sessionStorage.getItem('vesta_oauth_return_path') : null
     if (raw) {
       const parsed = JSON.parse(raw) as Pick<Location, 'pathname' | 'search' | 'hash'>
-      if (
-        parsed.pathname === '/integrations/qb-callback' &&
-        parsed.search &&
-        hasQuickBooksOAuthParamsInSearch(parsed.search)
-      ) {
-        return {
-          pathname: parsed.pathname,
-          search: parsed.search,
-          hash: parsed.hash ?? '',
+      if (parsed.pathname && isQuickBooksIntegrationCallbackPath(parsed.pathname)) {
+        const blob = combineRouterSearchAndHash(parsed)
+        if (blob && hasOAuthCodeOrState(blob)) {
+          return {
+            pathname: QUICKBOOKS_INTEGRATION_CALLBACK_PATH,
+            search: parsed.search || '',
+            hash: parsed.hash ?? '',
+          }
         }
       }
     }

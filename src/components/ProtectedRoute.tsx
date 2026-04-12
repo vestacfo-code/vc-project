@@ -3,6 +3,10 @@ import { useAuth } from '@/hooks/useAuth';
 import { Loader2 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
+import {
+  isQuickBooksIntegrationCallbackPath,
+  QUICKBOOKS_INTEGRATION_CALLBACK_PATH,
+} from '@/lib/quickbooks-callback-path';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -39,7 +43,7 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
           const oauthParamBlob =
             `${location.search}${location.hash.startsWith('#') ? location.hash.slice(1) : ''}`;
           const qbCallbackWithOAuth =
-            currentPath === '/integrations/qb-callback' &&
+            isQuickBooksIntegrationCallbackPath(currentPath) &&
             (oauthParamBlob.includes('code=') || oauthParamBlob.includes('state='));
           if (currentPath !== '/onboarding' && !qbCallbackWithOAuth) {
             navigate('/onboarding', { replace: true });
@@ -81,12 +85,12 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
     const oauthBlob =
       `${location.search}${location.hash.startsWith('#') ? location.hash.slice(1) : ''}`;
     if (
-      location.pathname === '/integrations/qb-callback' &&
+      isQuickBooksIntegrationCallbackPath(location.pathname) &&
       (oauthBlob.includes('code=') || oauthBlob.includes('state='))
     ) {
       try {
         const payload: Pick<Location, 'pathname' | 'search' | 'hash'> = {
-          pathname: location.pathname,
+          pathname: QUICKBOOKS_INTEGRATION_CALLBACK_PATH,
           search: location.search,
           hash: location.hash,
         };

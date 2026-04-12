@@ -1,3 +1,5 @@
+import { isQuickBooksIntegrationCallbackPath } from '@/lib/quickbooks-callback-path'
+
 /**
  * Intuit QuickBooks OAuth redirects with ?code=&state=&realmId= on the callback URL.
  * Supabase Auth also uses ?code=&state= for PKCE. If detectSessionInUrl is on, Supabase
@@ -34,11 +36,11 @@ const LEGACY_QB_STATE_PREFIX = new RegExp(`^${UUID}:${UUID}:`, 'i');
 export function isQuickBooksOAuthReturnInUrl(): boolean {
   if (typeof window === 'undefined') return false;
 
-  const path = (window.location.pathname || '/').replace(/\/+$/, '') || '/';
+  const path = window.location.pathname || '/';
 
   // Dedicated Intuit redirect — Supabase must never run PKCE on this path, even if query
   // params are missing, renamed, or error-only (otherwise GoTrue can wipe the session).
-  if (path.endsWith('/integrations/qb-callback')) {
+  if (isQuickBooksIntegrationCallbackPath(path)) {
     return true;
   }
 

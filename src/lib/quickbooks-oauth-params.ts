@@ -1,5 +1,10 @@
 import { parseHotelIdFromQuickBooksState } from '@/lib/supabase-third-party-oauth'
 
+export {
+  QUICKBOOKS_INTEGRATION_CALLBACK_PATH,
+  isQuickBooksIntegrationCallbackPath,
+} from '@/lib/quickbooks-callback-path'
+
 /**
  * Intuit usually redirects with ?code=&state=&realmId= (sometimes realm_id / realmid).
  * Normalize so we do not fail on harmless casing/alias differences.
@@ -12,13 +17,29 @@ export function getQuickBooksOAuthRawQueryString(): string {
   return [search, hash].filter(Boolean).join('&')
 }
 
-export function parseQuickBooksOAuthParamsFromLocation(): {
+/** Merge React Router `location.search` + `location.hash` the same way as the browser URL. */
+export function combineRouterSearchAndHash(loc: { search?: string; hash?: string }): string {
+  const search = (loc.search ?? '').replace(/^\?/, '')
+  const h = loc.hash ?? ''
+  const hash = h.startsWith('#') ? h.slice(1) : h.replace(/^#/, '')
+  return [search, hash].filter(Boolean).join('&')
+}
+
+/**
+ * Parse OAuth params from optional React Router `location` merged with `window.location`.
+ * Merging avoids stale RR state after `history.replaceState` and covers Intuit params in search or hash.
+ */
+export function parseQuickBooksOAuthParamsFromLocation(
+  loc?: { search?: string; hash?: string } | null,
+): {
   code: string | null
   realmId: string | null
   state: string | null
 } {
-  const raw = getQuickBooksOAuthRawQueryString()
-  return parseQuickBooksOAuthCallbackParams(raw ? `?${raw}` : '')
+  const routerRaw = loc ? combineRouterSearchAndHash(loc) : ''
+  const windowRaw = getQuickBooksOAuthRawQueryString()
+  const merged = [routerRaw, windowRaw].filter(Boolean).join('&')
+  return parseQuickBooksOAuthCallbackParams(merged ? `?${merged}` : '')
 }
 
 export function parseQuickBooksOAuthCallbackParams(search: string): {

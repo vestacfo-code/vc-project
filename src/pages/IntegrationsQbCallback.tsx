@@ -6,6 +6,7 @@ import { refreshQuickBooksIntegrationQueries } from '@/lib/hotel-integrations-qu
 import {
   parseQuickBooksOAuthParamsFromLocation,
   parseQuickBooksOAuthCallbackParams,
+  combineRouterSearchAndHash,
 } from '@/lib/quickbooks-oauth-params'
 import { getPendingQuickBooksReturnTo } from '@/lib/auth-quickbooks-return'
 import { parseHotelIdFromQuickBooksState } from '@/lib/supabase-third-party-oauth'
@@ -25,6 +26,8 @@ export default function IntegrationsQbCallback() {
   const queryClient = useQueryClient()
   const { hotelId, loading: dashboardLoading } = useHotelDashboard()
   const handledRef = useRef(false)
+  /** Effect deps change while still on empty qb-callback URL — avoid duplicate toasts. */
+  const missingOAuthToastShownRef = useRef(false)
 
   const goIntegrations = useCallback(
     (opts?: { qbOAuthHandled?: boolean }) => {
@@ -76,6 +79,8 @@ export default function IntegrationsQbCallback() {
   )
 
   useEffect(() => {
+    if (handledRef.current) return
+
     const params = new URLSearchParams(window.location.search)
     const intuitError = params.get('error')
     if (intuitError) {
@@ -85,26 +90,28 @@ export default function IntegrationsQbCallback() {
       return
     }
 
-    let { code, realmId, state } = parseQuickBooksOAuthParamsFromLocation()
+    let { code, realmId, state } = parseQuickBooksOAuthParamsFromLocation(location)
 
     if (!code || !state) {
       const stored = getPendingQuickBooksReturnTo(location)
-      if (stored?.search) {
-        const p = parseQuickBooksOAuthCallbackParams(stored.search)
+      if (stored) {
+        const blob = combineRouterSearchAndHash(stored)
+        const p = parseQuickBooksOAuthCallbackParams(blob ? `?${blob}` : '')
         if (p.code && p.state) {
-          code = p.code
-          realmId = p.realmId
-          state = p.state
           try {
             sessionStorage.removeItem('vesta_oauth_return_path')
           } catch {
             /* ignore */
           }
-          try {
-            window.history.replaceState(null, '', `${stored.pathname}${stored.search}${stored.hash ?? ''}`)
-          } catch {
-            /* ignore */
-          }
+          navigate(
+            {
+              pathname: stored.pathname,
+              search: stored.search || '',
+              hash: stored.hash ?? '',
+            },
+            { replace: true },
+          )
+          return
         }
       }
     }
@@ -119,9 +126,12 @@ export default function IntegrationsQbCallback() {
     }
 
     if (!code || !state) {
-      toast.error(
-        'QuickBooks did not return authorization data (missing code or state). If you had to sign in first, try Connect QuickBooks again — the app now keeps the Intuit callback after login. Otherwise, in the Intuit Developer app add Redirect URI: your site URL plus path /integrations/qb-callback (exact match, including https).',
-      )
+      if (!missingOAuthToastShownRef.current) {
+        missingOAuthToastShownRef.current = true
+        toast.error(
+          'QuickBooks did not return authorization data (missing code or state). If you had to sign in first, try Connect QuickBooks again — the app now keeps the Intuit callback after login. Otherwise, in the Intuit Developer app add Redirect URI: your site URL plus path /integrations/qb-callback (exact match, including https).',
+        )
+      }
       goIntegrations()
       return
     }
@@ -145,7 +155,7 @@ export default function IntegrationsQbCallback() {
     }
 
     void runCallback(code, realmId ?? '', state, effectiveHotelId)
-  }, [dashboardLoading, goIntegrations, hotelId, location, runCallback])
+  }, [dashboardLoading, goIntegrations, hotelId, location, navigate, runCallback])
 
   return (
     <div className="flex min-h-[48vh] flex-col items-center justify-center px-4 py-10 font-stitch-body">

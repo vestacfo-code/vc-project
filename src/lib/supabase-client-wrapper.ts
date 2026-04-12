@@ -30,7 +30,9 @@ if (inRecoveryMode) {
   console.log('[Supabase Client Wrapper] Recovery mode detected - disabling detectSessionInUrl');
 }
 if (isThirdPartyOAuthCallback) {
-  console.log('[Supabase Client Wrapper] QuickBooks OAuth params on URL - disabling detectSessionInUrl');
+  console.log(
+    '[Supabase Client Wrapper] QuickBooks callback path or Intuit OAuth params detected — detectSessionInUrl disabled (avoids PKCE clashing with Intuit ?code=)',
+  );
 }
 
 export const supabase = createClient<Database>(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
