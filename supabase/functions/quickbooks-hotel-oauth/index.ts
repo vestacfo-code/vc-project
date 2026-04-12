@@ -32,10 +32,11 @@ const siteBase = (envTrim('SITE_URL') ?? envTrim('PUBLIC_SITE_URL') ?? 'https://
 const QB_REDIRECT_URI = envTrim('QUICKBOOKS_REDIRECT_URI') ?? `${siteBase}/integrations/qb-callback`;
 
 /**
- * Intuit authorize URL expects space-delimited scopes. Official samples use Accounting + OpenID scopes together.
- * Set Supabase secret QUICKBOOKS_OAUTH_SCOPE to override (must match what your app enables in developer.intuit.com).
+ * Space-delimited scopes for https://appcenter.intuit.com/connect/oauth2
+ * Default is Accounting only — enable "Sign in with Intuit" on the Intuit app before adding openid/profile/email or Intuit returns "Invalid param: scope".
+ * Override with Supabase secret QUICKBOOKS_OAUTH_SCOPE (must match scopes checked under your app in developer.intuit.com).
  */
-const DEFAULT_QB_OAUTH_SCOPE = 'com.intuit.quickbooks.accounting openid profile email';
+const DEFAULT_QB_OAUTH_SCOPE = 'com.intuit.quickbooks.accounting';
 const QB_OAUTH_SCOPE = (envTrim('QUICKBOOKS_OAUTH_SCOPE') ?? DEFAULT_QB_OAUTH_SCOPE).replace(/\s+/g, ' ').trim();
 
 const log = (step: string, details?: any) => {

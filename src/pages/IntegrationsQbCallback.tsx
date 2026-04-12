@@ -1,9 +1,13 @@
 import { useEffect, useRef, useCallback } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { useQueryClient } from '@tanstack/react-query'
 import { supabase } from '@/integrations/supabase/client'
 import { refreshQuickBooksIntegrationQueries } from '@/lib/hotel-integrations-queries'
-import { parseQuickBooksOAuthParamsFromLocation } from '@/lib/quickbooks-oauth-params'
+import {
+  parseQuickBooksOAuthParamsFromLocation,
+  parseQuickBooksOAuthCallbackParams,
+} from '@/lib/quickbooks-oauth-params'
+import { getPendingQuickBooksReturnTo } from '@/lib/auth-quickbooks-return'
 import { parseHotelIdFromQuickBooksState } from '@/lib/supabase-third-party-oauth'
 import { useHotelDashboard } from '@/hooks/useHotelDashboard'
 import { toast } from 'sonner'
@@ -17,6 +21,7 @@ import { stitchTonalCard } from '@/components/layout/StitchRefinedPageLayout'
  */
 export default function IntegrationsQbCallback() {
   const navigate = useNavigate()
+  const location = useLocation()
   const queryClient = useQueryClient()
   const { hotelId, loading: dashboardLoading } = useHotelDashboard()
   const handledRef = useRef(false)
@@ -80,7 +85,29 @@ export default function IntegrationsQbCallback() {
       return
     }
 
-    const { code, realmId, state } = parseQuickBooksOAuthParamsFromLocation()
+    let { code, realmId, state } = parseQuickBooksOAuthParamsFromLocation()
+
+    if (!code || !state) {
+      const stored = getPendingQuickBooksReturnTo(location)
+      if (stored?.search) {
+        const p = parseQuickBooksOAuthCallbackParams(stored.search)
+        if (p.code && p.state) {
+          code = p.code
+          realmId = p.realmId
+          state = p.state
+          try {
+            sessionStorage.removeItem('vesta_oauth_return_path')
+          } catch {
+            /* ignore */
+          }
+          try {
+            window.history.replaceState(null, '', `${stored.pathname}${stored.search}${stored.hash ?? ''}`)
+          } catch {
+            /* ignore */
+          }
+        }
+      }
+    }
 
     if (code && state && window.opener) {
       window.opener.postMessage(
@@ -118,7 +145,7 @@ export default function IntegrationsQbCallback() {
     }
 
     void runCallback(code, realmId ?? '', state, effectiveHotelId)
-  }, [dashboardLoading, goIntegrations, hotelId, runCallback])
+  }, [dashboardLoading, goIntegrations, hotelId, location, runCallback])
 
   return (
     <div className="flex min-h-[48vh] flex-col items-center justify-center px-4 py-10 font-stitch-body">

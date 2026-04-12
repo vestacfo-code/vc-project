@@ -7,6 +7,7 @@ import { useNavigate, useLocation, type Location } from 'react-router-dom';
 import { supabase } from '@/lib/supabase-client-wrapper';
 import { clearRecoveryMode } from '@/lib/auth-recovery-interceptor';
 import { getRedirectUrl } from '@/lib/constants';
+import { getPendingQuickBooksReturnTo } from '@/lib/auth-quickbooks-return';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2, Gift, ArrowLeft, TrendingUp, Brain, ShieldCheck } from 'lucide-react';
@@ -260,42 +261,7 @@ const Auth = () => {
       return;
     }
 
-    const fromState =
-      location.state && typeof location.state === 'object' && 'from' in location.state
-        ? (location.state as { from?: Location }).from
-        : undefined;
-    const hasQbOAuthParams = (search: string) =>
-      search.includes('code=') || search.includes('state=');
-
-    let returnTo: Pick<Location, 'pathname' | 'search' | 'hash'> | null = null;
-    if (
-      fromState?.pathname === '/integrations/qb-callback' &&
-      fromState.search &&
-      hasQbOAuthParams(fromState.search)
-    ) {
-      returnTo = {
-        pathname: fromState.pathname,
-        search: fromState.search,
-        hash: fromState.hash ?? '',
-      };
-    } else {
-      try {
-        const raw = sessionStorage.getItem('vesta_oauth_return_path');
-        if (raw) {
-          const parsed = JSON.parse(raw) as Pick<Location, 'pathname' | 'search' | 'hash'>;
-          if (
-            parsed.pathname === '/integrations/qb-callback' &&
-            parsed.search &&
-            hasQbOAuthParams(parsed.search)
-          ) {
-            returnTo = parsed;
-            sessionStorage.removeItem('vesta_oauth_return_path');
-          }
-        }
-      } catch {
-        /* ignore */
-      }
-    }
+    const returnTo = getPendingQuickBooksReturnTo(location);
 
     if (returnTo) {
       try {
@@ -391,7 +357,26 @@ const Auth = () => {
         }
       }
       
-      // Start the portal animation (navigation happens after animation completes in App.tsx)
+      const qbResume = getPendingQuickBooksReturnTo(location);
+      if (qbResume) {
+        try {
+          sessionStorage.removeItem('vesta_oauth_return_path');
+        } catch {
+          /* ignore */
+        }
+        navigate(
+          {
+            pathname: qbResume.pathname,
+            search: qbResume.search,
+            hash: qbResume.hash ?? '',
+          },
+          { replace: true },
+        );
+        setIsLoading(false);
+        return;
+      }
+
+      // Start the portal animation (Auth effect navigates after animation completes)
       startAnimation(userFirstName);
       setIsLoading(false);
     }

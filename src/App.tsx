@@ -8,7 +8,7 @@ import {
   createSentryMutationCache,
   getSentryReactQueryOptions,
 } from "@/lib/sentry";
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ScrollToTop from "@/components/ScrollToTop";
 import { AuthProvider } from "@/hooks/useAuth";
 import { SettingsProvider } from "@/contexts/SettingsContext";
@@ -104,11 +104,10 @@ const queryClient = new QueryClient({
 // Inner component that uses portal animation context and navigation
 const AppContent = () => {
   const { isActive, userName, endAnimation } = usePortalAnimation();
-  const navigate = useNavigate();
 
+  /** Navigation after the portal is handled in Auth (QuickBooks resume or dashboard). */
   const handlePortalComplete = () => {
     endAnimation();
-    navigate('/dashboard');
   };
 
   return (

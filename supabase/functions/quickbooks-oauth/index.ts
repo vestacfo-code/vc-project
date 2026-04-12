@@ -14,8 +14,12 @@ function envTrim(key: string): string | undefined {
   return t.length ? t : undefined;
 }
 
-/** Match quickbooks-hotel-oauth; override with QUICKBOOKS_OAUTH_SCOPE secret. */
-const DEFAULT_QB_OAUTH_SCOPE = 'com.intuit.quickbooks.accounting openid profile email';
+/**
+ * Accounting only by default — matches apps that only enable "Accounting" in Intuit Developer.
+ * Requesting openid/profile/email requires "Sign in with Intuit" enabled on the app; otherwise Intuit returns "Invalid param: scope".
+ * Override via secret QUICKBOOKS_OAUTH_SCOPE (space-separated), e.g. "com.intuit.quickbooks.accounting openid profile email".
+ */
+const DEFAULT_QB_OAUTH_SCOPE = 'com.intuit.quickbooks.accounting';
 const QB_OAUTH_SCOPE = (envTrim('QUICKBOOKS_OAUTH_SCOPE') ?? DEFAULT_QB_OAUTH_SCOPE).replace(/\s+/g, ' ').trim();
 
 // Simple in-memory rate limiter
