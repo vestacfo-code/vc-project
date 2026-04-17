@@ -77,9 +77,9 @@ const QuickTour = () => {
         <h2 className="text-2xl font-semibold text-vesta-navy mb-4">Key Features</h2>
         <ol className="list-decimal list-inside text-vesta-navy-muted space-y-3">
           <li><strong className="text-vesta-navy">AI Chat:</strong> Get instant answers about your business finances</li>
-          <li><strong className="text-vesta-navy">Integrations:</strong> Connect QuickBooks, Xero, Wave, or Zoho</li>
-          <li><strong className="text-vesta-navy">File Upload:</strong> Import CSV, Excel, or PDF documents</li>
-          <li><strong className="text-vesta-navy">Forecasting:</strong> Predict future cash flow and revenue</li>
+          <li><strong className="text-vesta-navy">Integrations:</strong> Connect Mews PMS and QuickBooks Online for automatic daily sync</li>
+          <li><strong className="text-vesta-navy">CSV Import:</strong> Import daily metrics, expenses, and channel revenue from any PMS export</li>
+          <li><strong className="text-vesta-navy">Forecasting:</strong> Predict future RevPAR, cash flow, and GOP</li>
         </ol>
       </section>
 

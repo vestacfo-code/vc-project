@@ -17,13 +17,12 @@ const categories = [
   },
   {
     title: "Integrations",
-    description: "Connect your accounting software.",
+    description: "Connect your PMS and accounting software.",
     icon: Zap,
     links: [
+      { title: "Mews PMS", href: "/integrations" },
       { title: "QuickBooks", href: "/docs/connect/quickbooks" },
-      { title: "Xero", href: "/docs/connect/xero" },
-      { title: "Wave", href: "/docs/connect/wave" },
-      { title: "Zoho Books", href: "/docs/connect/zoho" },
+      { title: "CSV Import", href: "/docs/connect/csv" },
     ]
   },
   {

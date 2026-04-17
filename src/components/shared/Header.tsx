@@ -144,7 +144,7 @@ const Header = ({ variant = 'light' }: HeaderProps) => {
                         <span className="text-white font-semibold text-sm">AI Financial Assistant</span>
                       </div>
                       <p className="text-vesta-navy-muted text-xs leading-relaxed mb-4">
-                        Your intelligent CFO that understands your business data and delivers actionable insights.
+                        Your AI CFO that knows hotel metrics — RevPAR, ADR, GOPPAR — and delivers morning briefings your team actually reads.
                       </p>
                       <button 
                         className="mt-auto text-vesta-navy/60 hover:text-white text-xs flex items-center gap-2 py-2 transition-colors"
@@ -168,31 +168,31 @@ const Header = ({ variant = 'light' }: HeaderProps) => {
                           <p className="text-vesta-navy/65 text-xs leading-relaxed">Hotel KPIs, AI briefings, alerts &amp; more</p>
                         </div>
                       </Link>
-                      <Link 
+                      <Link
                         to="/docs/features/ai-chat"
                         onClick={() => setIsProductDropdownOpen(false)}
                         className="flex items-start gap-3 p-3 rounded-lg hover:bg-vesta-mist/40 transition-colors cursor-pointer"
                       >
                         <Sparkles className="w-5 h-5 text-vesta-navy flex-shrink-0 mt-0.5" />
                         <div>
-                          <p className="font-medium text-vesta-navy text-sm">AI Insights</p>
-                          <p className="text-vesta-navy/65 text-xs leading-relaxed">Instant answers about your financial data</p>
+                          <p className="font-medium text-vesta-navy text-sm">AI Daily Briefings</p>
+                          <p className="text-vesta-navy/65 text-xs leading-relaxed">Morning summary: RevPAR, ADR, anomalies</p>
                         </div>
                       </Link>
-                      
-                      <Link 
+
+                      <Link
                         to="/docs/features/analytics"
                         onClick={() => setIsProductDropdownOpen(false)}
                         className="flex items-start gap-3 p-3 rounded-lg hover:bg-vesta-mist/40 transition-colors cursor-pointer"
                       >
                         <BarChart3 className="w-5 h-5 text-vesta-navy flex-shrink-0 mt-0.5" />
                         <div>
-                          <p className="font-medium text-vesta-navy text-sm">Analytics</p>
-                          <p className="text-vesta-navy/65 text-xs leading-relaxed">Visual dashboards and trend analysis</p>
+                          <p className="font-medium text-vesta-navy text-sm">Hotel Dashboard</p>
+                          <p className="text-vesta-navy/65 text-xs leading-relaxed">RevPAR, GOPPAR, channel mix, budget vs actuals</p>
                         </div>
                       </Link>
-                      
-                      <Link 
+
+                      <Link
                         to="/docs/connect"
                         onClick={() => setIsProductDropdownOpen(false)}
                         className="flex items-start gap-3 p-3 rounded-lg hover:bg-vesta-mist/40 transition-colors cursor-pointer"
@@ -200,43 +200,43 @@ const Header = ({ variant = 'light' }: HeaderProps) => {
                         <Zap className="w-5 h-5 text-vesta-navy flex-shrink-0 mt-0.5" />
                         <div>
                           <p className="font-medium text-vesta-navy text-sm">Integrations</p>
-                          <p className="text-vesta-navy/65 text-xs leading-relaxed">PMS, CSV imports, and hotel metrics</p>
+                          <p className="text-vesta-navy/65 text-xs leading-relaxed">Mews PMS, QuickBooks, CSV import</p>
                         </div>
                       </Link>
-                      
-                      <Link 
-                        to="/docs/reports"
+
+                      <Link
+                        to="/docs/features/reports"
                         onClick={() => setIsProductDropdownOpen(false)}
                         className="flex items-start gap-3 p-3 rounded-lg hover:bg-vesta-mist/40 transition-colors cursor-pointer"
                       >
                         <FileText className="w-5 h-5 text-vesta-navy flex-shrink-0 mt-0.5" />
                         <div>
-                          <p className="font-medium text-vesta-navy text-sm">Reports</p>
-                          <p className="text-vesta-navy/65 text-xs leading-relaxed">Automated financial reports</p>
+                          <p className="font-medium text-vesta-navy text-sm">Weekly Reports</p>
+                          <p className="text-vesta-navy/65 text-xs leading-relaxed">Auto-generated P&amp;L and performance summaries</p>
                         </div>
                       </Link>
-                      
-                      <Link 
-                        to="/docs/features/cash-flow"
+
+                      <Link
+                        to="/docs/features/cashflow"
                         onClick={() => setIsProductDropdownOpen(false)}
                         className="flex items-start gap-3 p-3 rounded-lg hover:bg-vesta-mist/40 transition-colors cursor-pointer"
                       >
                         <TrendingUp className="w-5 h-5 text-vesta-navy flex-shrink-0 mt-0.5" />
                         <div>
                           <p className="font-medium text-vesta-navy text-sm">Forecasting</p>
-                          <p className="text-vesta-navy/65 text-xs leading-relaxed">Predict cash flow and revenue</p>
+                          <p className="text-vesta-navy/65 text-xs leading-relaxed">Predict RevPAR, cash flow, and GOP</p>
                         </div>
                       </Link>
-                      
-                      <Link 
-                        to="/auth"
+
+                      <Link
+                        to="/partners"
                         onClick={() => setIsProductDropdownOpen(false)}
                         className="flex items-start gap-3 p-3 rounded-lg hover:bg-vesta-mist/40 transition-colors cursor-pointer"
                       >
                         <MessageSquare className="w-5 h-5 text-vesta-navy flex-shrink-0 mt-0.5" />
                         <div>
-                          <p className="font-medium text-vesta-navy text-sm">Chat</p>
-                          <p className="text-vesta-navy/65 text-xs leading-relaxed">Natural language queries</p>
+                          <p className="font-medium text-vesta-navy text-sm">Cost Cutter</p>
+                          <p className="text-vesta-navy/65 text-xs leading-relaxed">Vendor marketplace &amp; savings recommendations</p>
                         </div>
                       </Link>
                     </div>
@@ -245,50 +245,44 @@ const Header = ({ variant = 'light' }: HeaderProps) => {
               </div>
             )}
           </div>
-          <Link 
-            to="/features" 
+          <Link
+            to="/features"
             className={`text-[15px] font-medium transition-colors ${isActive('/features') ? activeTextColor : textColor}`}
           >
             Features
           </Link>
-          <Link 
-            to="/partners" 
+          <Link
+            to="/partners"
             className={`text-[15px] font-medium transition-colors ${isActive('/partners') ? activeTextColor : textColor}`}
           >
             Partners
           </Link>
-          <Link 
-            to="/pricing" 
+          <Link
+            to="/pricing"
             className={`text-[15px] font-medium transition-colors ${isActive('/pricing') ? activeTextColor : textColor}`}
           >
             Pricing
           </Link>
-          <Link 
-            to="/company" 
+          <Link
+            to="/company"
             className={`text-[15px] font-medium transition-colors ${isActive('/company') ? activeTextColor : textColor}`}
           >
             Company
           </Link>
-          <Link 
-            to="/about" 
+          <Link
+            to="/about"
             className={`text-[15px] font-medium transition-colors ${isActive('/about') ? activeTextColor : textColor}`}
           >
             Team
           </Link>
-          <Link 
-            to="/docs/connect" 
-            className={`text-[15px] font-medium transition-colors ${isActive('/docs/connect') ? activeTextColor : textColor}`}
-          >
-            Integrations
-          </Link>
-          <Link 
-            to="/docs" 
+          <Link
+            to="/docs"
             className={`text-[15px] font-medium transition-colors ${isActive('/docs') ? activeTextColor : textColor}`}
           >
             Docs
           </Link>
-          <Link 
-            to="/contact" 
+          <Link
+            to="/contact"
             className={`text-[15px] font-medium transition-colors ${isActive('/contact') ? activeTextColor : textColor}`}
           >
             Contact
@@ -416,57 +410,50 @@ const Header = ({ variant = 'light' }: HeaderProps) => {
             </button>
           </div>
           <div className="px-6 py-6 space-y-4">
-            <Link 
-              to="/features" 
+            <Link
+              to="/features"
               className="block text-lg font-medium text-vesta-navy py-3 border-b border-vesta-navy/8"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Features
             </Link>
-            <Link 
-              to="/partners" 
+            <Link
+              to="/partners"
               className="block text-lg font-medium text-vesta-navy py-3 border-b border-vesta-navy/8"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Partners
             </Link>
-            <Link 
-              to="/pricing" 
+            <Link
+              to="/pricing"
               className="block text-lg font-medium text-vesta-navy py-3 border-b border-vesta-navy/8"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Pricing
             </Link>
-            <Link 
-              to="/company" 
+            <Link
+              to="/company"
               className="block text-lg font-medium text-vesta-navy py-3 border-b border-vesta-navy/8"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Company
             </Link>
-            <Link 
-              to="/about" 
+            <Link
+              to="/about"
               className="block text-lg font-medium text-vesta-navy py-3 border-b border-vesta-navy/8"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Team
             </Link>
-            <Link 
-              to="/docs/connect" 
-              className="block text-lg font-medium text-vesta-navy py-3 border-b border-vesta-navy/8"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Integrations
-            </Link>
-            <Link 
-              to="/docs" 
+            <Link
+              to="/docs"
               className="block text-lg font-medium text-vesta-navy py-3 border-b border-vesta-navy/8"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Docs
             </Link>
-            <Link 
-              to="/contact" 
+            <Link
+              to="/contact"
               className="block text-lg font-medium text-vesta-navy py-3 border-b border-vesta-navy/8"
               onClick={() => setIsMobileMenuOpen(false)}
             >

@@ -1,41 +1,30 @@
 import DocsLayout from "@/components/docs/DocsLayout";
 import { Link } from "react-router-dom";
 import quickbooksLogo from "@/assets/quickbooks-logo.png";
-import xeroLogo from "@/assets/xero-logo.png";
-import waveLogo from "@/assets/wave-logo.png";
-import zohoLogo from "@/assets/zoho-logo.png";
-import { FileSpreadsheet, Keyboard } from "lucide-react";
+import { FileSpreadsheet, Keyboard, Hotel } from "lucide-react";
 
 const tableOfContents = [
-  { id: "accounting-software", title: "Accounting Software", href: "#accounting-software" },
-  { id: "manual-options", title: "Manual Options", href: "#manual-options" },
+  { id: "pms", title: "Property Management System", href: "#pms" },
+  { id: "accounting", title: "Accounting", href: "#accounting" },
+  { id: "manual-options", title: "Manual / CSV", href: "#manual-options" },
 ];
 
 const Connect = () => {
-  const integrations = [
+  const pmsIntegrations = [
     {
-      name: "QuickBooks",
+      name: "Mews",
+      logoText: "Mews",
+      description: "Connect your Mews PMS to sync daily reservations, occupancy, ADR, and RevPAR automatically.",
+      link: "/integrations",
+    },
+  ];
+
+  const accountingIntegrations = [
+    {
+      name: "QuickBooks Online",
       logo: quickbooksLogo,
-      description: "Connect your QuickBooks Online account for automatic data sync",
+      description: "Sync your QuickBooks expenses and P&L data for a complete hotel financial picture.",
       link: "/docs/connect/quickbooks",
-    },
-    {
-      name: "Xero",
-      logo: xeroLogo,
-      description: "Integrate with Xero to import your financial data",
-      link: "/docs/connect/xero",
-    },
-    {
-      name: "Wave",
-      logo: waveLogo,
-      description: "Connect Wave accounting for seamless data import",
-      link: "/docs/connect/wave",
-    },
-    {
-      name: "Zoho Books",
-      logo: zohoLogo,
-      description: "Sync your Zoho Books data automatically",
-      link: "/docs/connect/zoho",
     },
   ];
 
@@ -43,13 +32,13 @@ const Connect = () => {
     {
       name: "Upload CSV",
       icon: FileSpreadsheet,
-      description: "Import financial data from spreadsheets and CSV files",
+      description: "Import daily metrics, expenses, or revenue-by-channel from any PMS export.",
       link: "/docs/connect/csv",
     },
     {
       name: "Manual Entry",
       icon: Keyboard,
-      description: "Enter your financial data directly into Vesta",
+      description: "Enter daily KPIs directly — useful when onboarding before your PMS is connected.",
       link: "/docs/connect/manual",
     },
   ];
@@ -57,17 +46,46 @@ const Connect = () => {
   return (
     <DocsLayout
       title="Integrations"
-      description="Connect your accounting software or import data manually to get started with Vesta."
+      description="Connect your PMS and accounting software, or import data manually."
       tableOfContents={tableOfContents}
       nextPage={{ title: "Connect QuickBooks", href: "/docs/connect/quickbooks" }}
     >
-      <section id="accounting-software" className="mb-12">
-        <h2 className="text-2xl font-semibold mb-6">Accounting Software</h2>
+      <section id="pms" className="mb-12">
+        <h2 className="text-2xl font-semibold mb-2">Property Management System</h2>
         <p className="text-muted-foreground mb-6">
-          Connect your existing accounting software to automatically sync your financial data with Vesta.
+          Your PMS is the primary data source for daily metrics — occupancy, ADR, RevPAR, and room revenue.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {integrations.map((integration) => (
+          {pmsIntegrations.map((integration) => (
+            <Link
+              key={integration.name}
+              to={integration.link}
+              className="flex items-center gap-4 p-4 border border-border rounded-xl hover:border-primary/50 hover:bg-muted/50 transition-all group"
+            >
+              <div className="w-12 h-12 rounded-lg bg-vesta-navy flex items-center justify-center shrink-0">
+                <Hotel className="w-6 h-6 text-white" />
+              </div>
+              <div className="flex-1">
+                <h3 className="font-medium text-foreground group-hover:text-primary transition-colors">
+                  {integration.name}
+                </h3>
+                <p className="text-sm text-muted-foreground">{integration.description}</p>
+              </div>
+            </Link>
+          ))}
+        </div>
+        <p className="text-sm text-muted-foreground mt-4">
+          More PMS integrations (Cloudbeds, Opera, Apaleo) are coming — contact us if yours isn't listed.
+        </p>
+      </section>
+
+      <section id="accounting" className="mb-12">
+        <h2 className="text-2xl font-semibold mb-2">Accounting</h2>
+        <p className="text-muted-foreground mb-6">
+          Connect your accounting software to pull in expenses and P&L alongside your PMS data.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {accountingIntegrations.map((integration) => (
             <Link
               key={integration.name}
               to={integration.link}
@@ -92,9 +110,9 @@ const Connect = () => {
       </section>
 
       <section id="manual-options">
-        <h2 className="text-2xl font-semibold mb-6">Manual Options</h2>
+        <h2 className="text-2xl font-semibold mb-2">Manual / CSV</h2>
         <p className="text-muted-foreground mb-6">
-          Don't use accounting software? You can still get started by uploading spreadsheets or entering data manually.
+          No PMS connection yet? Import from any export file or enter data directly.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {manualOptions.map((option) => (

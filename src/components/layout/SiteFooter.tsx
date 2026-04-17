@@ -138,7 +138,7 @@ export function SiteFooter({
               </li>
               <li>
                 <Link to="/about" className="transition-colors">
-                  Leadership
+                  Team
                 </Link>
               </li>
               <li>

@@ -319,9 +319,16 @@ BEGIN
     );
 
   -- ── Integration + sync history (Integrations page) ──
-  INSERT INTO public.integrations (hotel_id, type, provider, status, last_sync_at, settings)
+  -- Credentials use the publicly-documented Mews demo environment tokens.
+  -- platform_url points to https://api.mews-demo.com so "Sync" actually works.
+  INSERT INTO public.integrations (hotel_id, type, provider, status, last_sync_at, credentials, settings)
   VALUES (
     hotel_id, 'pms', 'mews', 'active', now() - interval '2 hours',
+    jsonb_build_object(
+      'client_token',   'E0D439EE522F44368DC78E1BFB03710C-D24FB11DBE31D4621C4817E028D9E1D',
+      'access_token',   'C66EF7B239D24632943D115EDE9CB810-EA00F8FD8294692C940F6B5A8F9453D',
+      'platform_url',   'https://api.mews-demo.com'
+    ),
     jsonb_build_object('demo', true, 'property_code', 'DEMO-WEST')
   )
   RETURNING id INTO integ_id;

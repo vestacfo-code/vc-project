@@ -68,10 +68,8 @@ const navigation: NavSection[] = [
     title: "Quickstart",
     defaultOpen: true,
     items: [
+      { title: "Connect Mews PMS", href: "/integrations", icon: <Zap className="w-4 h-4" /> },
       { title: "Connect QuickBooks", href: "/docs/connect/quickbooks", icon: <Zap className="w-4 h-4" /> },
-      { title: "Connect Xero", href: "/docs/connect/xero", icon: <Zap className="w-4 h-4" /> },
-      { title: "Connect Wave", href: "/docs/connect/wave", icon: <Zap className="w-4 h-4" /> },
-      { title: "Connect Zoho", href: "/docs/connect/zoho", icon: <Zap className="w-4 h-4" /> },
       { title: "Upload CSV Data", href: "/docs/connect/csv", icon: <Upload className="w-4 h-4" /> },
       { title: "Manual Data Entry", href: "/docs/connect/manual", icon: <FileText className="w-4 h-4" /> },
     ],
@@ -105,16 +103,16 @@ const navigation: NavSection[] = [
 
 const quickstartCards = [
   {
-    title: "Connect QuickBooks",
-    description: "Sync your QuickBooks data in 2 minutes",
+    title: "Connect Mews PMS",
+    description: "Sync daily hotel metrics automatically",
     icon: <Zap className="w-5 h-5" />,
-    href: "/docs/connect/quickbooks",
+    href: "/integrations",
   },
   {
-    title: "Connect Xero",
-    description: "Import your Xero accounting data",
+    title: "Connect QuickBooks",
+    description: "Sync expenses and P&L in 2 minutes",
     icon: <Zap className="w-5 h-5" />,
-    href: "/docs/connect/xero",
+    href: "/docs/connect/quickbooks",
   },
   {
     title: "Upload CSV Data",
@@ -328,8 +326,8 @@ const Docs = () => {
                     <div className="w-2 h-2 bg-emerald-500 rounded-full" />
                   </div>
                   <div>
-                    <h4 className="font-medium text-vesta-navy">Connect your accounting software</h4>
-                    <p className="text-sm text-vesta-navy/80">QuickBooks, Xero, Wave, or Zoho — sync in minutes</p>
+                    <h4 className="font-medium text-vesta-navy">Connect your PMS and accounting software</h4>
+                    <p className="text-sm text-vesta-navy/80">Mews PMS and QuickBooks Online — sync daily metrics and expenses automatically</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
@@ -337,8 +335,8 @@ const Docs = () => {
                     <div className="w-2 h-2 bg-emerald-500 rounded-full" />
                   </div>
                   <div>
-                    <h4 className="font-medium text-vesta-navy">Upload financial spreadsheets</h4>
-                    <p className="text-sm text-vesta-navy/80">CSV, Excel, and other common formats supported</p>
+                    <h4 className="font-medium text-vesta-navy">Upload CSV exports from any PMS</h4>
+                    <p className="text-sm text-vesta-navy/80">Daily metrics, expenses, and channel revenue from any system</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
@@ -346,8 +344,8 @@ const Docs = () => {
                     <div className="w-2 h-2 bg-emerald-500 rounded-full" />
                   </div>
                   <div>
-                    <h4 className="font-medium text-vesta-navy">Ask natural language questions</h4>
-                    <p className="text-sm text-vesta-navy/80">"What's my profit margin this quarter?" — get instant answers</p>
+                    <h4 className="font-medium text-vesta-navy">Ask hotel-specific questions</h4>
+                    <p className="text-sm text-vesta-navy/80">"Why did RevPAR drop this week?" — Vesta explains in plain English</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
@@ -355,8 +353,8 @@ const Docs = () => {
                     <div className="w-2 h-2 bg-emerald-500 rounded-full" />
                   </div>
                   <div>
-                    <h4 className="font-medium text-vesta-navy">Generate automated reports</h4>
-                    <p className="text-sm text-vesta-navy/80">Weekly summaries, cash flow forecasts, expense breakdowns</p>
+                    <h4 className="font-medium text-vesta-navy">Get daily AI briefings</h4>
+                    <p className="text-sm text-vesta-navy/80">Morning summaries with RevPAR, ADR, GOPPAR, and anomaly flags</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
@@ -364,8 +362,8 @@ const Docs = () => {
                     <div className="w-2 h-2 bg-emerald-500 rounded-full" />
                   </div>
                   <div>
-                    <h4 className="font-medium text-vesta-navy">Visualize trends and patterns</h4>
-                    <p className="text-sm text-vesta-navy/80">Interactive charts and dashboards that update in real-time</p>
+                    <h4 className="font-medium text-vesta-navy">Track budget vs actuals</h4>
+                    <p className="text-sm text-vesta-navy/80">Set monthly targets and see variance in real-time across all KPIs</p>
                   </div>
                 </div>
               </div>

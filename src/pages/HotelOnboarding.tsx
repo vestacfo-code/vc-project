@@ -112,7 +112,7 @@ const GOAL_OPTIONS = [
 const DATA_APPROACH_OPTIONS = [
   { value: 'pms_live', label: 'Live PMS API / integration' },
   { value: 'pms_export', label: 'PMS exports (CSV / Excel)' },
-  { value: 'accounting', label: 'Accounting system (QBO, Xero, …)' },
+  { value: 'accounting', label: 'Accounting system (QuickBooks, …)' },
   { value: 'mixed', label: 'Mix of PMS + accounting + spreadsheets' },
   { value: 'not_sure', label: 'Not sure yet — need guidance' },
 ] as const;

@@ -126,8 +126,7 @@ const Support = () => {
               What file formats do you support?
             </h3>
             <p className="text-vesta-navy/80">
-              We support Excel (.xlsx, .xls), CSV, PDF financial statements, and direct integrations with QuickBooks, Xero,
-              Wave, and Zoho Books.
+              We support CSV and Excel exports from any PMS. Direct integrations are available for Mews PMS and QuickBooks Online. More integrations are being added — contact us if you need a specific connector.
             </p>
           </div>
 

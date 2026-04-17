@@ -5,41 +5,41 @@ import { ChevronDown } from "lucide-react";
 const faqs = [
   {
     question: "How does Vesta keep my data secure?",
-    answer: "Your data is encrypted at rest using AES-256 and in transit using TLS 1.3. We use enterprise-grade infrastructure with SOC 2 Type II compliance. Access is controlled through role-based permissions with complete audit logging."
+    answer: "Your data is encrypted at rest and in transit using TLS 1.3. We use Supabase infrastructure with row-level security so your hotel's data is always isolated from other properties. Access is role-based — owners, managers, and viewers have different permission levels."
   },
   {
-    question: "Which accounting software does Vesta support?",
-    answer: "Vesta integrates with QuickBooks Online, Xero, Wave, and Zoho Books. We're constantly adding new integrations. You can also upload CSV files or enter data manually."
+    question: "Which integrations does Vesta support?",
+    answer: "Vesta connects to Mews PMS and QuickBooks Online today. CSV import is available for any PMS or accounting system. We're actively adding Cloudbeds, Opera, and OTA channel feeds. If your system isn't listed, use the CSV import or contact us — we prioritize integrations based on customer demand."
   },
   {
     question: "How accurate is the AI financial analysis?",
-    answer: "Accuracy depends on your data quality and volume. With 12+ months of historical data and properly categorized transactions, our AI provides highly accurate insights. Always review AI suggestions as a starting point for decisions."
+    answer: "Accuracy improves with data coverage. With 30+ days of daily metrics and connected PMS data, Vesta's briefings and anomaly detection are highly reliable. The AI uses your actual RevPAR, ADR, GOPPAR, and expense data — not industry benchmarks — so insights reflect your specific property."
   },
   {
-    question: "Can I export my data from Vesta?",
-    answer: "Yes! You can export all your data at any time in CSV, Excel, or PDF format. We believe you should always have full access to your own data."
+    question: "Can I export my data?",
+    answer: "Yes. You can download your daily metrics, expenses, and revenue data as CSV at any time from the dashboard. Your data is always yours."
   },
   {
-    question: "Is there a free plan?",
-    answer: "Yes, Vesta offers a free plan with basic features for individuals and small businesses. Professional and Enterprise plans unlock additional features like advanced forecasting and team collaboration."
+    question: "What's included in each plan?",
+    answer: "Starter ($299/mo) covers 1–2 properties with full dashboard, AI daily briefings, anomaly alerts, and one PMS connection. Growth ($799/mo per property) adds benchmarking, forecasting, multi-PMS support, and partner marketplace recommendations. Enterprise is custom for 15+ properties."
   },
   {
     question: "How do I cancel my subscription?",
-    answer: "You can cancel anytime from your account settings. Your data remains accessible until the end of your billing period, and you can export everything before the account closes."
+    answer: "You can cancel anytime from your account settings. Your data remains accessible until the end of your billing period and you can export everything before the account closes."
   },
   {
-    question: "Does Vesta support multiple businesses?",
-    answer: "Yes! Professional and Enterprise plans support multiple business entities. Each business has its own separate data and analytics."
+    question: "Does Vesta support multiple properties?",
+    answer: "Yes. Growth and Enterprise plans support multi-property portfolios. Each property has its own dashboard and data, with a portfolio-level view for owners and asset managers who oversee multiple hotels."
   },
   {
-    question: "How often is my data synced?",
-    answer: "Connected accounting software syncs automatically every few hours. You can also trigger a manual sync at any time from your dashboard."
+    question: "How often does Mews sync?",
+    answer: "Once connected, Mews syncs daily metrics automatically. You can also trigger a manual sync any time from the Integrations page. QuickBooks expense data syncs on demand via the Sync button."
   }
 ];
 
 const FAQItem = ({ question, answer }: { question: string; answer: string }) => {
   const [isOpen, setIsOpen] = useState(false);
-  
+
   return (
     <div className="overflow-hidden rounded-xl border border-vesta-navy/10">
       <button
@@ -60,9 +60,9 @@ const FAQItem = ({ question, answer }: { question: string; answer: string }) => 
 
 const FAQ = () => {
   return (
-    <DocsLayout 
-      title="Frequently Asked Questions" 
-      description="Common questions about using Vesta."
+    <DocsLayout
+      title="Frequently Asked Questions"
+      description="Common questions about using Vesta CFO."
     >
       <div className="space-y-4">
         {faqs.map((faq, index) => (
@@ -72,12 +72,12 @@ const FAQ = () => {
 
       <div className="mt-12 border border-vesta-navy/10 bg-white rounded-xl p-6 text-center">
         <h3 className="mb-2 font-semibold text-vesta-navy">Still have questions?</h3>
-        <p className="mb-4 text-vesta-navy/80">Our support team is here to help.</p>
-        <a 
-          href="mailto:support@vesta.ai" 
+        <p className="mb-4 text-vesta-navy/80">Reach out — we respond fast.</p>
+        <a
+          href="mailto:svar@vesta.ai"
           className="inline-block rounded-lg bg-vesta-gold px-6 py-2 font-medium text-vesta-navy transition-colors hover:bg-vesta-gold/90"
         >
-          Contact Support
+          Contact the team
         </a>
       </div>
     </DocsLayout>

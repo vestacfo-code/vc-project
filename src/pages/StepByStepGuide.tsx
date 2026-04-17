@@ -116,7 +116,7 @@ const StepByStepGuide = () => {
         <div className="text-center mt-16 pt-16 border-t border-white/20">
           <h2 className="text-3xl font-bold text-white mb-4">Ready to Get Started?</h2>
           <p className="text-vesta-navy/60 mb-8 max-w-2xl mx-auto">
-            Join hundreds of small businesses already using Vesta to gain AI-powered insights from their financial data.
+            Join independent hotels already using Vesta to get AI-powered financial intelligence — without enterprise cost or complexity.
           </p>
           <Button 
             size="lg" 

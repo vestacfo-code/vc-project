@@ -21,10 +21,10 @@ const UnderstandingData = () => {
           Vesta can ingest data from multiple sources:
         </p>
         <ul className="list-disc list-inside text-vesta-navy-muted space-y-2">
-          <li><strong className="text-vesta-navy">Integrations:</strong> QuickBooks, Xero, Wave, Zoho</li>
-          <li><strong className="text-vesta-navy">File Uploads:</strong> CSV, Excel, PDF bank statements</li>
-          <li><strong className="text-vesta-navy">Manual Entry:</strong> Direct data input</li>
-          <li><strong className="text-vesta-navy">Bank Feeds:</strong> Direct bank connections (coming soon)</li>
+          <li><strong className="text-vesta-navy">PMS Sync:</strong> Mews — daily reservations, occupancy, room revenue</li>
+          <li><strong className="text-vesta-navy">Accounting Sync:</strong> QuickBooks Online — expenses and P&L</li>
+          <li><strong className="text-vesta-navy">CSV Import:</strong> Daily metrics, expenses, or channel revenue from any PMS export</li>
+          <li><strong className="text-vesta-navy">Manual Entry:</strong> Direct KPI input for any date range</li>
         </ul>
       </section>
 

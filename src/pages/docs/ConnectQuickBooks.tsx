@@ -14,7 +14,7 @@ const ConnectQuickBooks = () => {
       title="Connect QuickBooks" 
       description="Sync your QuickBooks Online data with Vesta in just a few clicks."
       tableOfContents={tableOfContents}
-      nextPage={{ href: "/docs/connect/xero", title: "Connect Xero" }}
+      nextPage={{ href: "/docs/connect/csv", title: "Upload CSV Data" }}
     >
       <section id="prerequisites" className="mb-12">
         <h2 className="text-2xl font-semibold text-vesta-navy mb-4">Prerequisites</h2>

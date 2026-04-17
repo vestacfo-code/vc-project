@@ -1,78 +1,17 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import DocsLayout from "@/components/docs/DocsLayout";
 
-const tableOfContents = [
-  { title: "Prerequisites", href: "#prerequisites" },
-  { title: "Step 1: Authorize", href: "#authorize" },
-  { title: "Step 2: Select Organization", href: "#select-org" },
-  { title: "Step 3: Sync Data", href: "#sync" },
-  { title: "Troubleshooting", href: "#troubleshooting" },
-];
-
 const ConnectZoho = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    navigate("/integrations", { replace: true });
+  }, [navigate]);
+
   return (
-    <DocsLayout 
-      title="Connect Zoho Books" 
-      description="Integrate your Zoho Books data with Vesta for comprehensive financial analysis."
-      tableOfContents={tableOfContents}
-      nextPage={{ href: "/docs/connect/csv", title: "Upload CSV Data" }}
-    >
-      <section id="prerequisites" className="mb-12">
-        <h2 className="text-2xl font-semibold text-vesta-navy mb-4">Prerequisites</h2>
-        <p className="text-vesta-navy-muted mb-4">Before connecting Zoho Books, ensure you have:</p>
-        <ul className="list-disc list-inside text-vesta-navy-muted space-y-2">
-          <li>An active Zoho Books account</li>
-          <li>Admin access to your Zoho organization</li>
-          <li>A Vesta account (free or paid)</li>
-        </ul>
-      </section>
-
-      <section id="authorize" className="mb-12">
-        <h2 className="text-2xl font-semibold text-vesta-navy mb-4">Step 1: Authorize Vesta</h2>
-        <p className="text-vesta-navy-muted mb-4">
-          Click <strong className="text-vesta-navy">"Connect Zoho"</strong> in your Vesta dashboard. 
-          You'll be redirected to Zoho's secure OAuth page.
-        </p>
-        <div className="border border-vesta-navy/10 bg-white rounded-xl p-4 mb-4">
-          <p className="text-sm text-vesta-navy-muted">
-            💡 <strong className="text-vesta-navy">Tip:</strong> Zoho Books integrates with the entire Zoho ecosystem, giving you comprehensive business data.
-          </p>
-        </div>
-      </section>
-
-      <section id="select-org" className="mb-12">
-        <h2 className="text-2xl font-semibold text-vesta-navy mb-4">Step 2: Select Organization</h2>
-        <p className="text-vesta-navy-muted mb-4">
-          Select your Zoho Books organization from the list. Multi-organization support is available for enterprise users.
-        </p>
-      </section>
-
-      <section id="sync" className="mb-12">
-        <h2 className="text-2xl font-semibold text-vesta-navy mb-4">Step 3: Sync Data</h2>
-        <p className="text-vesta-navy-muted mb-4">
-          Vesta will begin importing your Zoho Books data. Initial sync time depends on your data volume.
-        </p>
-        <p className="text-vesta-navy-muted">
-          Data synced includes: chart of accounts, transactions, invoices, expenses, contacts, and reports.
-        </p>
-      </section>
-
-      <section id="troubleshooting" className="mb-12">
-        <h2 className="text-2xl font-semibold text-vesta-navy mb-4">Troubleshooting</h2>
-        <div className="space-y-4">
-          <div className="border border-vesta-navy/10 bg-white rounded-xl p-4">
-            <h4 className="text-vesta-navy font-medium mb-2">Regional Data Centers</h4>
-            <p className="text-sm text-vesta-navy-muted">
-              Ensure your Zoho account region matches. Some regions require separate authorization.
-            </p>
-          </div>
-          <div className="border border-vesta-navy/10 bg-white rounded-xl p-4">
-            <h4 className="text-vesta-navy font-medium mb-2">API Limits</h4>
-            <p className="text-sm text-vesta-navy-muted">
-              Free Zoho plans have API limits. Consider upgrading for uninterrupted sync.
-            </p>
-          </div>
-        </div>
-      </section>
+    <DocsLayout title="Integrations" description="Connect your PMS and accounting software.">
+      <p className="text-vesta-navy/70">Redirecting to Integrations…</p>
     </DocsLayout>
   );
 };
