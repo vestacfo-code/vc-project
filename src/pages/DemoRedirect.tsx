@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 const DemoRedirect = () => {
   useEffect(() => {
-    window.location.href = 'https://calendar.app.google/PWqhmizMxqUnRNpP9';
+    window.location.href = 'https://calendly.com/chandaksvar/30min';
   }, []);
 
   return (

@@ -26,7 +26,7 @@ Best phone (optional):
 Thanks!
 `;
 
-const mailHref = `mailto:support@vesta.ai?subject=${encodeURIComponent('Tell you about our property')}&body=${encodeURIComponent(mailBody)}`;
+const mailHref = `mailto:vestacfo@gmail.com?subject=${encodeURIComponent('Tell you about our property')}&body=${encodeURIComponent(mailBody)}`;
 
 export function TellUsMoreSection({ className = '' }: { className?: string }) {
   return (

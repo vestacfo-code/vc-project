@@ -12,8 +12,8 @@ const channels = [
     icon: Mail,
     title: 'Email',
     description: 'Best for product questions, billing, and partnership inquiries.',
-    action: 'support@vesta.ai',
-    href: 'mailto:support@vesta.ai',
+    action: 'vestacfo@gmail.com',
+    href: 'mailto:vestacfo@gmail.com',
     external: true,
     border: 'border-l-4 border-l-amber-500',
     iconBg: 'bg-amber-100 text-amber-700',
@@ -165,7 +165,7 @@ export default function Contact() {
             <p className="text-vesta-navy/90 text-sm max-w-lg mx-auto font-medium">
               Prefer a live walkthrough?{' '}
               <a
-                href="https://calendar.app.google/PWqhmizMxqUnRNpP9"
+                href="https://calendly.com/chandaksvar/30min"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-vesta-navy hover:text-vesta-gold underline underline-offset-4"

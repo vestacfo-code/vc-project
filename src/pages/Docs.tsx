@@ -409,11 +409,11 @@ const Docs = () => {
                   </div>
                   <div>
                     <h3 className="font-medium text-vesta-navy">Need help?</h3>
-                    <p className="text-sm text-vesta-navy/65">Email us at support@vesta.ai</p>
+                    <p className="text-sm text-vesta-navy/65">Email us at vestacfo@gmail.com</p>
                   </div>
                 </div>
                 <a
-                  href="mailto:support@vesta.ai"
+                  href="mailto:vestacfo@gmail.com"
                   className="flex items-center gap-2 rounded-lg border border-vesta-navy/10 px-4 py-2 text-sm text-vesta-navy/80 transition-all hover:bg-vesta-mist/25 hover:text-vesta-navy"
                 >
                   Contact Support

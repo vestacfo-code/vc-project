@@ -101,7 +101,7 @@ const Security = () => {
           will respond promptly.
         </p>
         <a
-          href="mailto:support@vesta.ai"
+          href="mailto:vestacfo@gmail.com"
           className="inline-flex items-center rounded-xl bg-gradient-to-r from-vesta-navy to-vesta-navy-muted px-6 py-3 font-stitch text-sm font-semibold text-white shadow-md transition-opacity hover:opacity-95"
         >
           Report Security Issue

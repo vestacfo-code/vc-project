@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import ScrollyVideo from 'scrolly-video/dist/ScrollyVideo.esm.jsx';
 import { SiteFooter } from '@/components/layout/SiteFooter';
-import { MarketingNav } from '@/components/marketing/MarketingNav';
+import Header from '@/components/shared/Header';
 import { BarChart3, Brain, Plug, Sparkles, ArrowRight, Quote } from 'lucide-react';
 
 // ── Chapters ──────────────────────────────────────────────────────────────────
@@ -183,7 +183,7 @@ export default function Landing() {
 
   return (
     <main className="min-h-screen bg-vesta-cream text-vesta-navy">
-      <MarketingNav variant="light" />
+      <Header variant="light" />
 
       {/* ── Scroll-scrubbed video section ── */}
       <div ref={containerRef} style={{ height: SCROLL_HEIGHT }} className="relative bg-vesta-cream">

@@ -306,7 +306,7 @@ const handleManageSubscription = async () => {
                     </Button>
                   )}
                   <Button 
-                    onClick={() => window.open('https://billing.stripe.com/p/login/test_123', '_blank')}
+                    onClick={() => window.open(import.meta.env.VITE_STRIPE_PORTAL_URL ?? 'https://billing.stripe.com', '_blank')}
                     variant="outline"
                   >
                     Manage Billing
@@ -316,7 +316,7 @@ const handleManageSubscription = async () => {
               <div className="text-sm text-muted-foreground bg-muted/50 rounded-lg p-3">
                 {subscription.subscription_tier === 'The Founder' 
                   ? 'You\'re on the free Founder tier. You can upgrade anytime to unlock more features and credits.'
-                  : 'Click "Manage Billing" to update payment methods, view invoices, or cancel your subscription. Click "Upgrade Plan" to see available upgrades. For support, contact support@vesta.ai'
+                  : 'Click "Manage Billing" to update payment methods, view invoices, or cancel your subscription. Click "Upgrade Plan" to see available upgrades. For support, contact vestacfo@gmail.com'
                 }
               </div>
             </div>

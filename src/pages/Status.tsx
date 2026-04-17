@@ -90,10 +90,10 @@ export default function Status() {
         <p className="text-sm text-vesta-navy/80">
           If you cannot sign in, sync data, or receive email, contact{' '}
           <a
-            href="mailto:support@vesta.ai"
+            href="mailto:vestacfo@gmail.com"
             className="font-medium text-vesta-navy underline-offset-2 hover:text-vesta-gold hover:underline"
           >
-            support@vesta.ai
+            vestacfo@gmail.com
           </a>
           . For security vulnerabilities, see our{' '}
           <Link to="/security" className="font-medium text-vesta-navy underline-offset-2 hover:text-vesta-gold hover:underline">
@@ -102,7 +102,7 @@ export default function Status() {
           page.
         </p>
         <a
-          href="mailto:support@vesta.ai?subject=Vesta%20status%20or%20outage"
+          href="mailto:vestacfo@gmail.com?subject=Vesta%20status%20or%20outage"
           className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-vesta-navy hover:text-vesta-gold"
         >
           <Mail className="h-4 w-4" aria-hidden />

@@ -91,7 +91,7 @@ const QuickTour = () => {
         <ul className="list-disc list-inside text-vesta-navy-muted space-y-2">
           <li>Click the chat bubble to ask AI for help</li>
           <li>Visit our documentation (you're here!)</li>
-          <li>Email support@vesta.ai for direct assistance</li>
+          <li>Email vestacfo@gmail.com for direct assistance</li>
         </ul>
       </section>
     </DocsLayout>

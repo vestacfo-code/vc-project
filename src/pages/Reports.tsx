@@ -334,10 +334,10 @@ export default function Reports() {
               Scheduled PDF summaries and email delivery are on our roadmap. For a one-off investor-style pack or
               custom export today, contact{' '}
               <a
-                href="mailto:support@vesta.ai?subject=Vesta%20owner%20report%20request"
+                href="mailto:vestacfo@gmail.com?subject=Vesta%20owner%20report%20request"
                 className="font-medium text-vesta-navy underline-offset-2 hover:text-vesta-gold hover:underline"
               >
-                support@vesta.ai
+                vestacfo@gmail.com
               </a>
               . Use <span className="font-medium text-vesta-navy">Export CSV</span> above for month-level operational
               drill-down.

@@ -12,7 +12,7 @@ import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { MarketingPageShell } from '@/components/marketing/MarketingPageShell';
 import { VESTA_SAAS_TIERS } from '@/brand/vesta-cfo-brand';
 
-const SALES_CALENDAR = 'https://calendar.app.google/PWqhmizMxqUnRNpP9';
+const SALES_CALENDAR = 'https://calendly.com/chandaksvar/30min';
 
 const Pricing = () => {
   const navigate = useNavigate();

@@ -115,8 +115,8 @@ const TermsOfService = () => {
             <h2 className="mb-3 font-stitch text-xl font-semibold text-vesta-navy">11. Contact Information</h2>
             <p className="leading-relaxed text-vesta-navy/80">
               If you have questions about these terms, please contact us at{' '}
-              <a href="mailto:support@vesta.ai" className="font-medium text-vesta-navy hover:text-vesta-gold hover:underline">
-                support@vesta.ai
+              <a href="mailto:vestacfo@gmail.com" className="font-medium text-vesta-navy hover:text-vesta-gold hover:underline">
+                vestacfo@gmail.com
               </a>
             </p>
           </section>

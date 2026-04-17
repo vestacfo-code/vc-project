@@ -53,7 +53,7 @@ export const DocsSupportChat = ({ isOpen: externalIsOpen, onOpenChange }: DocsSu
     {
       id: '1',
       type: 'assistant',
-      content: "Hi! I'm Ava from Vesta Support 👋\n\nI'm here to help you navigate Vesta's documentation and answer any questions about our platform. Ask me about features, setup, pricing, or troubleshooting!\n\nNeed human support? Email us at support@vesta.ai",
+      content: "Hi! I'm Ava from Vesta Support 👋\n\nI'm here to help you navigate Vesta's documentation and answer any questions about our platform. Ask me about features, setup, pricing, or troubleshooting!\n\nNeed human support? Email us at vestacfo@gmail.com",
       links: [
         { title: 'Quick Tour', href: '/docs/getting-started/tour' },
         { title: 'FAQ', href: '/docs/learn/faq' }
@@ -109,7 +109,7 @@ export const DocsSupportChat = ({ isOpen: externalIsOpen, onOpenChange }: DocsSu
       const assistantMessage: Message = {
         id: (Date.now() + 1).toString(),
         type: 'assistant',
-        content: data.response || "I'm sorry, I couldn't process that. Please try again or email support@vesta.ai.",
+        content: data.response || "I'm sorry, I couldn't process that. Please try again or email vestacfo@gmail.com.",
         links: data.links || [],
         timestamp: new Date()
       };
@@ -120,7 +120,7 @@ export const DocsSupportChat = ({ isOpen: externalIsOpen, onOpenChange }: DocsSu
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
         type: 'assistant',
-        content: "I'm having trouble connecting right now. Please try again or email support@vesta.ai for assistance.",
+        content: "I'm having trouble connecting right now. Please try again or email vestacfo@gmail.com for assistance.",
         links: [{ title: 'FAQ', href: '/docs/learn/faq' }],
         timestamp: new Date()
       };
@@ -246,11 +246,11 @@ export const DocsSupportChat = ({ isOpen: externalIsOpen, onOpenChange }: DocsSu
         {/* Email Support Banner */}
         <div className="border-t border-vesta-navy/10 bg-vesta-mist/25 px-5 py-2.5">
           <a 
-            href="mailto:support@vesta.ai"
+            href="mailto:vestacfo@gmail.com"
             className="flex items-center justify-center gap-2 text-xs text-vesta-navy/65 transition-colors hover:text-vesta-navy-muted"
           >
             <Mail className="h-3.5 w-3.5" />
-            Need human support? Email support@vesta.ai
+            Need human support? Email vestacfo@gmail.com
           </a>
         </div>
 

@@ -77,8 +77,8 @@ const Privacy = () => {
             <h2 className="mb-4 font-stitch text-2xl font-semibold text-vesta-navy">Contact Us</h2>
             <p className="leading-relaxed text-vesta-navy/80">
               If you have any questions about our privacy practices, please contact us at{' '}
-              <a href="mailto:privacy@vesta.ai" className="font-medium text-vesta-navy hover:text-vesta-gold hover:underline">
-                privacy@vesta.ai
+              <a href="mailto:vestacfo@gmail.com" className="font-medium text-vesta-navy hover:text-vesta-gold hover:underline">
+                vestacfo@gmail.com
               </a>
             </p>
           </section>

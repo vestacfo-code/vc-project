@@ -92,8 +92,8 @@ export default function Company() {
               className="mt-4 text-vesta-navy/80 leading-relaxed"
             >
               We don’t publish a public headcount or revenue — if you’re evaluating us for procurement or press, email{' '}
-              <a href="mailto:support@vesta.ai" className="text-vesta-navy font-medium hover:underline">
-                support@vesta.ai
+              <a href="mailto:vestacfo@gmail.com" className="text-vesta-navy font-medium hover:underline">
+                vestacfo@gmail.com
               </a>{' '}
               and we’ll route you to the right person.
             </motion.p>

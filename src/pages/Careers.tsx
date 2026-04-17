@@ -91,8 +91,8 @@ const Careers = () => {
                   </p>
                   <p className="text-vesta-navy/80">
                     Feel free to reach out to us directly at{' '}
-                    <a href="mailto:careers@vesta.ai" className="text-vesta-navy font-medium hover:underline">
-                      careers@vesta.ai
+                    <a href="mailto:vestacfo@gmail.com" className="text-vesta-navy font-medium hover:underline">
+                      vestacfo@gmail.com
                     </a>
                   </p>
                 </div>

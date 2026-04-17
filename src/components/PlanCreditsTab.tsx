@@ -444,7 +444,7 @@ export const PlanCreditsTab = () => {
                 <Button 
                   variant="outline"
                   className="w-full bg-transparent text-vesta-navy border-vesta-navy/15 hover:bg-vesta-mist/40"
-                  onClick={() => window.open('mailto:support@vesta.ai?subject=Custom Solution Support', '_blank')}
+                  onClick={() => window.open('mailto:vestacfo@gmail.com?subject=Custom Solution Support', '_blank')}
                 >
                   Contact Support
                 </Button>
@@ -711,7 +711,7 @@ export const PlanCreditsTab = () => {
             variant="outline"
             size="sm"
             className="border-vesta-navy/10 bg-white text-vesta-navy hover:bg-vesta-mist/25"
-            onClick={() => window.open('https://calendar.app.google/PWqhmizMxqUnRNpP9', '_blank')}
+            onClick={() => window.open('https://calendly.com/chandaksvar/30min', '_blank')}
           >
             Contact Sales
           </Button>

@@ -120,10 +120,10 @@ const Press = () => {
                 <h3 className="text-lg font-semibold text-vesta-navy mb-2">Press Inquiries</h3>
                 <p className="text-vesta-navy/80 mb-4">For media inquiries, please contact:</p>
                 <a 
-                  href="mailto:press@vesta.ai" 
+                  href="mailto:vestacfo@gmail.com" 
                   className="text-vesta-navy font-medium hover:underline"
                 >
-                  press@vesta.ai
+                  vestacfo@gmail.com
                 </a>
               </div>
             </div>

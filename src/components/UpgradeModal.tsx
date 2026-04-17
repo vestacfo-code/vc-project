@@ -83,7 +83,7 @@ export const UpgradeModal = ({ open, onOpenChange, currentTier = 'founder' }: Up
       return;
     }
 
-    if (discountCode.trim().toLowerCase() === 'founder@vesta.ai') {
+    if (discountCode.trim().toLowerCase() === 'vestacfo@gmail.com') {
       console.log('Valid discount code detected, calling activate-founder...');
       try {
         const { data, error } = await supabase.functions.invoke('activate-founder', {

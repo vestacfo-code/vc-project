@@ -114,7 +114,7 @@ const PaymentSelection = () => {
       return;
     }
 
-    if (discountCode.trim().toLowerCase() === 'founder@vesta.ai') {
+    if (discountCode.trim().toLowerCase() === 'vestacfo@gmail.com') {
       console.log('Valid discount code detected, calling activate-founder...');
       try {
         const { data, error } = await supabase.functions.invoke('activate-founder', {
@@ -401,7 +401,7 @@ const PaymentSelection = () => {
           
           <div className="bg-muted/50 rounded-lg p-4 max-w-2xl mx-auto">
             <p className="text-sm text-muted-foreground">
-              Questions about billing? Contact us at <a href="mailto:support@vesta.ai" className="text-primary hover:underline">support@vesta.ai</a>
+              Questions about billing? Contact us at <a href="mailto:vestacfo@gmail.com" className="text-primary hover:underline">vestacfo@gmail.com</a>
             </p>
           </div>
           

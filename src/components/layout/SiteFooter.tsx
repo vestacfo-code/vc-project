@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { VestaLogo } from '@/components/VestaLogo';
 import { cn } from '@/lib/utils';
 
-const BOOK_DEMO_HREF = 'https://calendar.app.google/PWqhmizMxqUnRNpP9';
+const BOOK_DEMO_HREF = 'https://calendly.com/chandaksvar/30min';
 
 export interface SiteFooterProps {
   /** Light (marketing / cream pages) or dark (content pages, docs). */

@@ -60,7 +60,7 @@ export const VESTA_SAAS_TIERS = [
       'Partner marketplace at scale',
     ],
     cta: 'Contact sales',
-    ctaHref: 'https://calendar.app.google/PWqhmizMxqUnRNpP9',
+    ctaHref: 'https://calendly.com/chandaksvar/30min',
     external: true,
     highlight: false,
   },

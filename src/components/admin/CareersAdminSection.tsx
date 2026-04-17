@@ -160,7 +160,7 @@ export const CareersAdminSection = ({
       // Use the careers-admin-auth edge function to update status with admin privileges
       const { data, error } = await supabase.functions.invoke('careers-admin-auth', {
         body: {
-          userId: 'admin@vesta.ai',
+          userId: 'vestacfo@gmail.com',
           password: 'bull.market19',
           action: 'updateStatus',
           applicationId: id,

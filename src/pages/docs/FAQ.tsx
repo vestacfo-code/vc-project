@@ -74,7 +74,7 @@ const FAQ = () => {
         <h3 className="mb-2 font-semibold text-vesta-navy">Still have questions?</h3>
         <p className="mb-4 text-vesta-navy/80">Reach out — we respond fast.</p>
         <a
-          href="mailto:svar@vesta.ai"
+          href="mailto:vestacfo@gmail.com"
           className="inline-block rounded-lg bg-vesta-gold px-6 py-2 font-medium text-vesta-navy transition-colors hover:bg-vesta-gold/90"
         >
           Contact the team

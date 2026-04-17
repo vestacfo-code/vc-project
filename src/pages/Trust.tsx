@@ -94,10 +94,10 @@ export default function Trust() {
           <p className="text-sm leading-relaxed text-vesta-navy/80">
             For GDPR or other regulatory needs, email{' '}
             <a
-              href="mailto:support@vesta.ai?subject=DPA%20request"
+              href="mailto:vestacfo@gmail.com?subject=DPA%20request"
               className="font-medium text-vesta-navy underline-offset-2 hover:text-vesta-gold hover:underline"
             >
-              support@vesta.ai
+              vestacfo@gmail.com
             </a>{' '}
             with your company name, property count, and jurisdiction. We will respond with next steps or a standard DPA
             where applicable.

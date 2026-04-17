@@ -48,10 +48,10 @@ const Support = () => {
             Get help with technical issues or general questions about Vesta. We typically respond within 24 hours.
           </p>
           <a
-            href="mailto:support@vesta.ai"
+            href="mailto:vestacfo@gmail.com"
             className="inline-flex items-center font-medium text-vesta-navy-muted transition-colors hover:text-vesta-gold"
           >
-            support@vesta.ai
+            vestacfo@gmail.com
           </a>
         </div>
 
@@ -148,7 +148,7 @@ const Support = () => {
         <h3 className="mb-2 font-stitch text-xl font-semibold text-vesta-navy">Still have questions?</h3>
         <p className="mb-6 text-vesta-navy/80">Our team is happy to help with anything not covered above.</p>
         <a
-          href="mailto:support@vesta.ai"
+          href="mailto:vestacfo@gmail.com"
           className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-vesta-navy to-vesta-navy-muted px-6 py-3 font-stitch text-sm font-semibold text-white shadow-md transition-opacity hover:opacity-95"
         >
           Contact Support

@@ -14,7 +14,7 @@ const TEAM = [
     focus: 'Architecture, backend, AI features, and full-stack development.',
     icon: Code2,
     initials: 'SC',
-    email: 'svar@vesta.ai',
+    email: 'vestacfo@gmail.com',
   },
   {
     name: 'Parth',
@@ -22,7 +22,7 @@ const TEAM = [
     focus: 'UI/UX, onboarding flows, and frontend systems.',
     icon: Code2,
     initials: 'P',
-    email: 'parth@vesta.ai',
+    email: 'vestacfo@gmail.com',
   },
   {
     name: 'Arjun',
@@ -30,7 +30,7 @@ const TEAM = [
     focus: 'Industry research, hotel partnerships, and vendor relationships.',
     icon: BarChart3,
     initials: 'A',
-    email: 'arjun@vesta.ai',
+    email: 'vestacfo@gmail.com',
   },
   {
     name: 'Aarush',
@@ -38,7 +38,7 @@ const TEAM = [
     focus: 'Brand identity, marketing, and growth operations.',
     icon: Palette,
     initials: 'AA',
-    email: 'aarush@vesta.ai',
+    email: 'vestacfo@gmail.com',
   },
 ];
 
@@ -131,7 +131,7 @@ const About = () => {
                 reach out directly.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="mailto:svar@vesta.ai">
+                <a href="mailto:vestacfo@gmail.com">
                   <Button
                     size="lg"
                     className="bg-vesta-gold text-vesta-navy font-semibold hover:bg-vesta-gold/90 border-none px-8"
