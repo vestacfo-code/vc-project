@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { resolveQuickBooksAccountingApiBase } from "../_shared/quickbooks-api-base.ts";
 import { sentryServe } from "../_shared/sentry-edge.ts";
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.50.3';
@@ -21,26 +22,44 @@ const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
 const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY')!;
 const QB_CLIENT_ID = envTrim('QUICKBOOKS_CLIENT_ID') ?? '';
 const QB_CLIENT_SECRET = envTrim('QUICKBOOKS_CLIENT_SECRET') ?? '';
-const siteBase = (envTrim('SITE_URL') ?? envTrim('PUBLIC_SITE_URL') ?? 'https://vesta.ai').replace(
-  /\/$/,
-  '',
-);
-const QB_REDIRECT_URI = envTrim('QUICKBOOKS_REDIRECT_URI') ?? `${siteBase}/integrations/qb-callback`;
-
-/** Intuit *development* keys + sandbox companies require the sandbox data host (OAuth URLs are unchanged). */
-function quickBooksApiBase(): string {
-  const flag = (envTrim('QUICKBOOKS_USE_SANDBOX') ?? '').toLowerCase();
-  const env = (envTrim('QUICKBOOKS_ENVIRONMENT') ?? '').toLowerCase();
-  if (flag === 'true' || flag === '1' || env === 'sandbox' || env === 'development') {
-    return 'https://sandbox-quickbooks.api.intuit.com';
-  }
-  return 'https://quickbooks.api.intuit.com';
-}
 
 const log = (step: string, details?: any) => {
   const suffix = details ? ` - ${JSON.stringify(details)}` : '';
   console.log(`[QB-HOTEL-SYNC] ${step}${suffix}`);
 };
+
+/** Maps QuickBooks account names to public.expenses.category CHECK values. */
+function mapQbAccountToExpenseCategory(accountName: string | undefined): string {
+  const raw = (accountName ?? "").trim();
+  const n = raw.toLowerCase();
+  if (!n) return "other";
+
+  if (/payroll|wage|salar|labor|staff|employee/.test(n)) return "labor";
+  if (/utilit|electric|gas|water|sewer/.test(n)) return "utilities";
+  if (/food|beverage|restaurant|bar|kitchen|f&b/.test(n)) return "food_beverage";
+  if (/repair|maintenance|engineer|facility|hvac|plumb/.test(n)) return "maintenance";
+  if (/market|advertis|ad spend|social media|seo|promotion/.test(n)) return "marketing";
+  if (/insur/.test(n)) return "insurance";
+  if (/property\s*tax|real estate tax/.test(n)) return "property_tax";
+  if (/supply|supplies|amenit/.test(n)) return "supplies";
+  if (/software|technology|\bit\b|saas|computer|telecom/.test(n)) return "technology";
+  if (/commission|ota|booking|expedia|distribution|travel agent/.test(n)) return "distribution";
+  if (/management fee|mgmt/.test(n)) return "management_fee";
+
+  return "other";
+}
+
+const EXPENSE_WRITABLE_KEYS = new Set([
+  'hotel_id',
+  'date',
+  'category',
+  'subcategory',
+  'amount',
+  'description',
+  'vendor',
+  'source',
+  'external_id',
+]);
 
 serve(sentryServe("quickbooks-hotel-sync", async (req) => {
   if (req.method === 'OPTIONS') {
@@ -130,6 +149,7 @@ serve(sentryServe("quickbooks-hotel-sync", async (req) => {
       refresh_token: string;
       realm_id: string;
       expires_at: string;
+      api_environment?: 'sandbox' | 'production' | string;
     };
 
     let { access_token, refresh_token, realm_id, expires_at } = creds;
@@ -161,7 +181,6 @@ serve(sentryServe("quickbooks-hotel-sync", async (req) => {
       if (!refreshResponse.ok || refreshTokens.error) {
         log('Token refresh failed', { status: refreshResponse.status, error: refreshTokens.error });
 
-        // Mark integration as errored
         await supabase
           .from('integrations')
           .update({
@@ -184,11 +203,17 @@ serve(sentryServe("quickbooks-hotel-sync", async (req) => {
       refresh_token = refreshTokens.refresh_token ?? refresh_token;
       expires_at = new Date(Date.now() + refreshTokens.expires_in * 1000).toISOString();
 
-      // Persist updated credentials
+      const prevCreds = (integration.credentials as Record<string, unknown>) ?? {};
       await supabase
         .from('integrations')
         .update({
-          credentials: { access_token, refresh_token, realm_id, expires_at },
+          credentials: {
+            ...prevCreds,
+            access_token,
+            refresh_token,
+            realm_id,
+            expires_at,
+          },
           updated_at: new Date().toISOString(),
         })
         .eq('id', integration.id);
@@ -196,47 +221,8 @@ serve(sentryServe("quickbooks-hotel-sync", async (req) => {
       log('Token refreshed successfully');
     }
 
-    // ── Determine which columns exist in the expenses table ────────────────────
-    const { data: columnRows } = await supabase.rpc
-      ? await supabase
-          .from('information_schema.columns')
-          .select('column_name')
-          .eq('table_name', 'expenses')
-          .eq('table_schema', 'public')
-      : { data: null };
-
-    // Fallback: query information_schema via raw SQL using the service role
-    let expenseColumns: Set<string> = new Set();
-    if (columnRows && Array.isArray(columnRows)) {
-      for (const row of columnRows) {
-        expenseColumns.add(row.column_name);
-      }
-    } else {
-      // Attempt via a known-safe query approach
-      try {
-        const { data: colData } = await supabase
-          .from('information_schema.columns' as any)
-          .select('column_name')
-          .eq('table_name', 'expenses')
-          .eq('table_schema', 'public');
-        if (colData) {
-          for (const row of colData as any[]) {
-            expenseColumns.add(row.column_name);
-          }
-        }
-      } catch (_e) {
-        // If introspection fails, assume all standard columns exist except source
-        expenseColumns = new Set(['id', 'hotel_id', 'date', 'category', 'amount', 'description', 'vendor']);
-      }
-    }
-
-    // If we got no columns back, assume a safe default set
-    if (expenseColumns.size === 0) {
-      expenseColumns = new Set(['id', 'hotel_id', 'date', 'category', 'amount', 'description', 'vendor']);
-    }
-
-    const hasSource = expenseColumns.has('source');
-    log('Expense table columns resolved', { hasSource, columns: [...expenseColumns] });
+    const apiBase = resolveQuickBooksAccountingApiBase(creds.api_environment);
+    log('Using QuickBooks Accounting API base', { apiBase, storedEnv: creds.api_environment ?? '(fallback to Edge secrets)' });
 
     // ── Fetch purchases from QuickBooks (last 90 days) ─────────────────────────
     const ninetyDaysAgo = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000)
@@ -244,11 +230,10 @@ serve(sentryServe("quickbooks-hotel-sync", async (req) => {
       .slice(0, 10); // YYYY-MM-DD
 
     const qbQuery = `SELECT * FROM Purchase WHERE TxnDate >= '${ninetyDaysAgo}' MAXRESULTS 200`;
-    const apiBase = quickBooksApiBase();
     const qbUrl =
       `${apiBase}/v3/company/${realm_id}/query` + `?query=${encodeURIComponent(qbQuery)}`;
 
-    log('Fetching QB purchases', { realm_id, since: ninetyDaysAgo, apiBase });
+    log('Fetching QB purchases', { realm_id, since: ninetyDaysAgo });
 
     const qbResponse = await fetch(qbUrl, {
       headers: {
@@ -263,7 +248,6 @@ serve(sentryServe("quickbooks-hotel-sync", async (req) => {
       log('QuickBooks API error', { status: statusCode, body: errBody });
 
       if (statusCode === 401) {
-        // Mark integration as errored
         await supabase
           .from('integrations')
           .update({
@@ -279,8 +263,15 @@ serve(sentryServe("quickbooks-hotel-sync", async (req) => {
         );
       }
 
+      const mismatchHint =
+        ' If you use a sandbox company, set QUICKBOOKS_USE_SANDBOX=true (or QUICKBOOKS_ENVIRONMENT=sandbox) on the Edge Function and reconnect; production companies need production API.';
+
       return new Response(
-        JSON.stringify({ error: 'QuickBooks API error', details: errBody }),
+        JSON.stringify({
+          error: 'QuickBooks API rejected the request',
+          details: errBody.slice(0, 4000),
+          hint: mismatchHint.trim(),
+        }),
         { status: 502, headers: { ...corsHeaders, 'Content-Type': 'application/json' } },
       );
     }
@@ -291,22 +282,21 @@ serve(sentryServe("quickbooks-hotel-sync", async (req) => {
 
     // ── Map purchases to expenses rows ─────────────────────────────────────────
     const expenseRows = purchases.map((purchase: any) => {
+      const accountLabel = purchase.AccountRef?.name;
       const row: Record<string, any> = {
         hotel_id,
         date: purchase.TxnDate,
-        category: purchase.AccountRef?.name ?? 'Uncategorized',
-        amount: purchase.TotalAmt,
-        description: purchase.PrivateNote ?? purchase.PaymentType ?? 'QuickBooks expense',
+        category: mapQbAccountToExpenseCategory(accountLabel),
+        subcategory: accountLabel ?? null,
+        amount: Number(purchase.TotalAmt ?? 0),
+        description: String(purchase.PrivateNote ?? purchase.PaymentType ?? 'QuickBooks expense').slice(0, 2000),
         vendor: purchase.EntityRef?.name ?? null,
+        source: 'quickbooks',
+        external_id: purchase.Id != null ? String(purchase.Id) : null,
       };
 
-      if (hasSource) {
-        row.source = 'quickbooks';
-      }
-
-      // Only include keys that exist as columns
       return Object.fromEntries(
-        Object.entries(row).filter(([key]) => expenseColumns.has(key)),
+        Object.entries(row).filter(([key]) => EXPENSE_WRITABLE_KEYS.has(key)),
       );
     });
 
@@ -314,17 +304,15 @@ serve(sentryServe("quickbooks-hotel-sync", async (req) => {
     let syncedCount = 0;
 
     if (expenseRows.length > 0) {
-      // Try upsert with conflict key; fall back to plain insert if constraint absent
       const { error: upsertError, count } = await supabase
         .from('expenses')
         .upsert(expenseRows, {
-          onConflict: 'hotel_id,date,category,vendor',
-          ignoreDuplicates: true,
+          onConflict: 'hotel_id,source,external_id',
+          ignoreDuplicates: false,
         })
         .select('id', { count: 'exact', head: true });
 
       if (upsertError) {
-        // If upsert fails (e.g., no unique constraint), try a plain insert ignoring duplicates
         log('Upsert failed, attempting plain insert', upsertError.message);
         const { error: insertError } = await supabase
           .from('expenses')
@@ -332,10 +320,15 @@ serve(sentryServe("quickbooks-hotel-sync", async (req) => {
 
         if (insertError) {
           log('Insert also failed', insertError.message);
-          // Non-fatal — continue to update last_sync_at
-        } else {
-          syncedCount = expenseRows.length;
+          return new Response(
+            JSON.stringify({
+              error: 'Could not save expenses to the database',
+              details: insertError.message,
+            }),
+            { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } },
+          );
         }
+        syncedCount = expenseRows.length;
       } else {
         syncedCount = count ?? expenseRows.length;
       }

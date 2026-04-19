@@ -54,6 +54,7 @@ import {
   parseQuickBooksOAuthCallbackParams,
 } from '@/lib/quickbooks-oauth-params'
 import { parseHotelIdFromQuickBooksState } from '@/lib/supabase-third-party-oauth'
+import { getSupabaseFunctionErrorMessage } from '@/lib/supabase-function-error'
 import quickbooksLogo from '@/assets/quickbooks-logo.png'
 
 // ---------------------------------------------------------------------------
@@ -576,7 +577,10 @@ export default function Integrations() {
       const { data, error } = await supabase.functions.invoke('quickbooks-hotel-sync', {
         body: { hotel_id: hotelId },
       })
-      if (error) throw error
+      if (error) {
+        toast.error(await getSupabaseFunctionErrorMessage(error, 'QuickBooks sync failed'))
+        return
+      }
       if (data && typeof data === 'object' && 'error' in data) {
         toast.error((data as { error?: string }).error ?? 'QuickBooks sync failed')
         return
@@ -587,8 +591,7 @@ export default function Integrations() {
       queryClient.invalidateQueries({ queryKey: ['sync_logs', hotelId] })
       queryClient.invalidateQueries({ queryKey: ['expenses'] })
     } catch (err) {
-      const msg = err instanceof Error ? err.message : 'QuickBooks sync failed'
-      toast.error(msg)
+      toast.error(await getSupabaseFunctionErrorMessage(err, 'QuickBooks sync failed'))
     } finally {
       setQbSyncing(false)
     }

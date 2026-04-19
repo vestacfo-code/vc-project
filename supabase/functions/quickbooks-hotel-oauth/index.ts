@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { quickBooksApiEnvironmentFromSecrets } from "../_shared/quickbooks-api-base.ts";
 import { resolveQuickBooksOAuthScope } from "../_shared/quickbooks-oauth-scope.ts";
 import { sentryServe } from "../_shared/sentry-edge.ts";
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
@@ -225,6 +226,7 @@ serve(sentryServe("quickbooks-hotel-oauth", async (req) => {
       }
 
       const expiresAt = new Date(Date.now() + tokens.expires_in * 1000).toISOString();
+      const api_environment = quickBooksApiEnvironmentFromSecrets();
 
       // Upsert integration record
       const { error: upsertError } = await supabase
@@ -239,6 +241,7 @@ serve(sentryServe("quickbooks-hotel-oauth", async (req) => {
               refresh_token: tokens.refresh_token,
               realm_id: effectiveRealmId,
               expires_at: expiresAt,
+              api_environment,
             },
             status: 'active',
             error_message: null,

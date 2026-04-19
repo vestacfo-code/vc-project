@@ -35,3 +35,6 @@ dist-ssr
 # Claude Code local worktrees (not for repo)
 .claude/worktrees/
 .vercel
+
+# Supabase CLI local cache (not source)
+supabase/.temp/
