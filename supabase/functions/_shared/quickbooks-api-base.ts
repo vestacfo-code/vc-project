@@ -40,3 +40,20 @@ export function resolveQuickBooksAccountingApiBase(
   }
   return quickBooksAccountingApiBaseForEnvironment(quickBooksApiEnvironmentFromSecrets());
 }
+
+const SANDBOX_URL = "https://sandbox-quickbooks.api.intuit.com";
+const PRODUCTION_URL = "https://quickbooks.api.intuit.com";
+
+/** Infer sandbox vs production from the accounting API base URL. */
+export function quickBooksApiEnvironmentFromBaseUrl(baseUrl: string): QuickBooksApiEnvironment {
+  const u = baseUrl.replace(/\/$/, "");
+  if (u.includes("sandbox-quickbooks")) return "sandbox";
+  return "production";
+}
+
+/** The other QuickBooks Accounting API host (sandbox ↔ production). */
+export function alternateQuickBooksAccountingApiBase(currentBase: string): string {
+  const u = currentBase.replace(/\/$/, "");
+  if (u === SANDBOX_URL || u.includes("sandbox-quickbooks")) return PRODUCTION_URL;
+  return SANDBOX_URL;
+}

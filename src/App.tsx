@@ -1,4 +1,5 @@
 import * as Sentry from '@sentry/react';
+import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 import { lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
@@ -9,7 +10,7 @@ import {
   createSentryMutationCache,
   getSentryReactQueryOptions,
 } from "@/lib/sentry";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import ScrollToTop from "@/components/ScrollToTop";
 import { AuthProvider } from "@/hooks/useAuth";
 import { SettingsProvider } from "@/contexts/SettingsContext";
@@ -101,6 +102,12 @@ const queryClient = new QueryClient({
   mutationCache: createSentryMutationCache(),
   defaultOptions: getSentryReactQueryOptions(),
 });
+
+/** Web Analytics needs route + path so SPA navigations fire pageviews (see @vercel/analytics/react). */
+const VercelWebAnalytics = () => {
+  const { pathname, search } = useLocation();
+  return <Analytics route={pathname} path={`${pathname}${search}`} />;
+};
 
 // Inner component that uses portal animation context and navigation
 const AppContent = () => {
@@ -285,6 +292,7 @@ const App = () => (
           <Sonner />
           <SpeedInsights />
           <BrowserRouter>
+            <VercelWebAnalytics />
             <PortalAnimationProvider>
               <ScrollToTop />
               <SettingsProvider>

@@ -1,5 +1,9 @@
 // @ts-nocheck
-import { resolveQuickBooksAccountingApiBase } from "../_shared/quickbooks-api-base.ts";
+import {
+  alternateQuickBooksAccountingApiBase,
+  quickBooksApiEnvironmentFromBaseUrl,
+  resolveQuickBooksAccountingApiBase,
+} from "../_shared/quickbooks-api-base.ts";
 import { sentryServe } from "../_shared/sentry-edge.ts";
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.50.3';
@@ -60,6 +64,27 @@ const EXPENSE_WRITABLE_KEYS = new Set([
   'source',
   'external_id',
 ]);
+
+/**
+ * Intuit 3100 / ApplicationAuthorizationFailed often means the Accounting API host
+ * (sandbox vs production) does not match the company/realm the token was issued for.
+ */
+function shouldRetryIntuitSandboxProdMismatch(httpStatus: number, body: string): boolean {
+  if (httpStatus !== 403 && httpStatus !== 400) return false;
+  if (body.includes('ApplicationAuthorizationFailed')) return true;
+  if (body.includes('003100')) return true;
+  if (body.includes('"code":"3100"') || body.includes('"code": "3100"')) return true;
+  try {
+    const j = JSON.parse(body);
+    const err0 = j?.fault?.error?.[0];
+    if (err0?.code === '3100') return true;
+    const m = String(err0?.message ?? '');
+    if (m.includes('ApplicationAuthorizationFailed') || m.includes('003100')) return true;
+  } catch {
+    /* ignore */
+  }
+  return false;
+}
 
 serve(sentryServe("quickbooks-hotel-sync", async (req) => {
   if (req.method === 'OPTIONS') {
@@ -221,7 +246,7 @@ serve(sentryServe("quickbooks-hotel-sync", async (req) => {
       log('Token refreshed successfully');
     }
 
-    const apiBase = resolveQuickBooksAccountingApiBase(creds.api_environment);
+    let apiBase = resolveQuickBooksAccountingApiBase(creds.api_environment);
     log('Using QuickBooks Accounting API base', { apiBase, storedEnv: creds.api_environment ?? '(fallback to Edge secrets)' });
 
     // ── Fetch purchases from QuickBooks (last 90 days) ─────────────────────────
@@ -230,17 +255,68 @@ serve(sentryServe("quickbooks-hotel-sync", async (req) => {
       .slice(0, 10); // YYYY-MM-DD
 
     const qbQuery = `SELECT * FROM Purchase WHERE TxnDate >= '${ninetyDaysAgo}' MAXRESULTS 200`;
-    const qbUrl =
-      `${apiBase}/v3/company/${realm_id}/query` + `?query=${encodeURIComponent(qbQuery)}`;
+
+    const fetchPurchaseQuery = (base: string) => {
+      const qbUrl =
+        `${base}/v3/company/${realm_id}/query` + `?query=${encodeURIComponent(qbQuery)}`;
+      return fetch(qbUrl, {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+          Accept: 'application/json',
+        },
+      });
+    };
 
     log('Fetching QB purchases', { realm_id, since: ninetyDaysAgo });
 
-    const qbResponse = await fetch(qbUrl, {
-      headers: {
-        Authorization: `Bearer ${access_token}`,
-        Accept: 'application/json',
-      },
-    });
+    let qbResponse = await fetchPurchaseQuery(apiBase);
+
+    if (!qbResponse.ok) {
+      const statusFirst = qbResponse.status;
+      const statusTextFirst = qbResponse.statusText;
+      const headersFirst = qbResponse.headers;
+      const errBodyFirst = await qbResponse.text();
+
+      if (shouldRetryIntuitSandboxProdMismatch(statusFirst, errBodyFirst)) {
+        const altBase = alternateQuickBooksAccountingApiBase(apiBase);
+        log('Intuit ApplicationAuthorizationFailed (3100); retrying alternate Accounting API host', {
+          firstBase: apiBase,
+          altBase,
+        });
+        const retryRes = await fetchPurchaseQuery(altBase);
+        if (retryRes.ok) {
+          const newEnv = quickBooksApiEnvironmentFromBaseUrl(altBase);
+          const prevCreds = (integration.credentials as Record<string, unknown>) ?? {};
+          await supabase
+            .from('integrations')
+            .update({
+              credentials: {
+                ...prevCreds,
+                api_environment: newEnv,
+              },
+              updated_at: new Date().toISOString(),
+            })
+            .eq('id', integration.id);
+          log('Saved corrected api_environment after successful retry', { api_environment: newEnv });
+          apiBase = altBase;
+          qbResponse = retryRes;
+        } else {
+          const errBodyRetry = await retryRes.text();
+          log('Alternate API host also failed', { status: retryRes.status, body: errBodyRetry.slice(0, 800) });
+          qbResponse = new Response(errBodyRetry, {
+            status: retryRes.status,
+            statusText: retryRes.statusText,
+            headers: retryRes.headers,
+          });
+        }
+      } else {
+        qbResponse = new Response(errBodyFirst, {
+          status: statusFirst,
+          statusText: statusTextFirst,
+          headers: headersFirst,
+        });
+      }
+    }
 
     if (!qbResponse.ok) {
       const statusCode = qbResponse.status;
@@ -264,7 +340,7 @@ serve(sentryServe("quickbooks-hotel-sync", async (req) => {
       }
 
       const mismatchHint =
-        ' If you use a sandbox company, set QUICKBOOKS_USE_SANDBOX=true (or QUICKBOOKS_ENVIRONMENT=sandbox) on the Edge Function and reconnect; production companies need production API.';
+        'Sandbox companies must use the sandbox Accounting API host; production companies use the production host. The integration now auto-retries the other host when Intuit returns 3100; if both fail, set QUICKBOOKS_USE_SANDBOX / QUICKBOOKS_ENVIRONMENT on Edge Functions to match your Intuit app, then disconnect and reconnect QuickBooks.';
 
       return new Response(
         JSON.stringify({
