@@ -1,5 +1,5 @@
 /**
- * Vesta CFO — brand & product copy aligned with AI_CFO_Dev_Plan_v2.pdf (March 2026).
+ * Vesta CFO — brand & product copy aligned with docs/AI_CFO_Dev_Plan_v2.pdf (March 2026).
  * Use these constants on marketing pages; keep Stripe/legacy tiers in app checkout only.
  */
 

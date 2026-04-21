@@ -1,6 +1,6 @@
 # Vesta CFO — Brand kit
 
-Aligned with **AI_CFO_Dev_Plan_v2.pdf** (product narrative, pricing, features). Code tokens live in `src/brand/vesta-cfo-brand.ts` and `src/index.css` (`:root`).
+Aligned with **`docs/AI_CFO_Dev_Plan_v2.pdf`** (product narrative, pricing, features). Code tokens live in `src/brand/vesta-cfo-brand.ts` and `src/index.css` (`:root`).
 
 ## Colors
 
@@ -53,7 +53,7 @@ From the dev plan **Stream 1: SaaS subscription**:
 
 ## App vs marketing
 
-Public pricing and feature copy follow **AI_CFO_Dev_Plan_v2.pdf**. Some in-app flows may still reference **legacy Stripe** assistant tiers (e.g. Scale / CFO at different price points) until billing is migrated; the **pricing page** is the source of truth for what you sell to hotels going forward.
+Public pricing and feature copy follow **`docs/AI_CFO_Dev_Plan_v2.pdf`**. Some in-app flows may still reference **legacy Stripe** assistant tiers (e.g. Scale / CFO at different price points) until billing is migrated; the **pricing page** is the source of truth for what you sell to hotels going forward.
 
 ---
 
